@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit,Output, ViewContainerRef, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RouterModule, Router }   from '@angular/router';
 import { ApiMethodService } from '../../../model/api-method.service';
@@ -8,6 +8,7 @@ import { Modal } from 'angular2-modal/plugins/bootstrap';
 import { Overlay } from 'angular2-modal';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { ProfileComponent } from '../../profile/profile.component';
 
 
 @Component({
@@ -17,53 +18,68 @@ import 'rxjs/add/operator/catch';
 	]
 })
 export class FooterComponent implements OnInit {
+	loginModalHidden:boolean = true;
+	// @Output() isUserLoggedIn = new EventEmitter();
+	tokenValueAuth:any;
 
 
-	constructor(private router:Router, public apiService:ApiMethodService,overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal) { 
+	constructor(private router: Router, public apiService:ApiMethodService,overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal) { 
 		overlay.defaultViewContainer = vcRef;
 	}
 
 	ngOnInit() {
+		// this.isUserLoggedIn.emit({
+			// 	value: this.tokenValueAuth
+			// })
+		}
+
+		resolved(captchaResponse: string) {
+			console.log(`Resolved captcha with response ${captchaResponse}:`);
+		}
+
+
+		userSignIn(value:any):void{
+
+			var ref = this;
+			this.apiService.userLoginApi(value,function(res){
+				console.log("this is api response"+ JSON.stringify(res));
+
+				// ref.loginModalHidden = false;
+				// var elem = document.getElementsByClassName('modal-backdrop');			
+				// for (var i = elem.length - 1; i >= 0; i--) {
+					// 	let element = <HTMLElement>elem[i];
+					// 	element.className += " hideModal";
+					// }
+
+					// if(res.data.token){
+						// 	ref.router.navigate(['/']);
+						// }
+						var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
+						closeBtn.click();
+					});
+		}
+
+
+
+		userSignUp(value:any):void{
+
+			var refreg = this;
+			this.apiService.userRegistrationApi(value,function(res){
+				console.log("this is api response"+ JSON.stringify(res));
+				window.location.reload();
+			});
+		}
+
+		signupClick(){
+			var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
+			closeBtn.click();
+		}
+
+		siginClick(){
+			var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
+			closeBtn.click();
+		}
+
+
 	}
-
-	resolved(captchaResponse: string) {
-		console.log(`Resolved captcha with response ${captchaResponse}:`);
-	}
-
-
-	userSignIn(value:any):void{
-
-		var ref = this;
-		this.apiService.userLoginApi(value,function(res){
-			console.log("this is api response"+ JSON.stringify(res));
-			if(res.data.token){
-
-				// window.location.reload();
-			}
-		});
-	}
-
-	onSubmitClicck(){
-		this.router.navigate(['/']);
-	}
-	
-
-	userSignUp(value:any):void{
-
-		var refreg = this;
-		this.apiService.userRegistrationApi(value,function(res){
-			console.log("this is api response"+ JSON.stringify(res));
-			window.location.reload();
-		});
-	}
-
-	onClickButton() {
-		this.modal.alert()
-		.title('Hello World')
-		.body(`#tmpl_login_frm`)
-		.open();
-	}
-
-
-}
 

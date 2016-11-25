@@ -5927,6 +5927,13 @@ button.close {
   filter: alpha(opacity=0);
   opacity: 0;
 }
+
+
+.hideModal {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
 .modal-backdrop.in {
   filter: alpha(opacity=50);
   opacity: .5;

@@ -16,10 +16,11 @@ export class HeaderComponent implements OnInit {
 	  @Output() notify: EventEmitter<any> = new EventEmitter<any>();
 
 
-  constructor(private router: Router, public apiService:ApiMethodService) { }
+  constructor(private router: Router, public apiService:ApiMethodService) {
+  this.getToken = this.apiService.getLoginToken(); }
 
   ngOnInit() {
-    this.getToken = this.apiService.getLoginToken();
+    
     console.log("this is token"+this.getToken);
   }
 
@@ -32,7 +33,7 @@ export class HeaderComponent implements OnInit {
     var ref = this;
     this.apiService.userLogoutApi(function(res){
       console.log("this is api response"+ JSON.stringify(res));
-      window.location.reload();
+      ref.router.navigate(['/']);
     });
   }
 }
