@@ -51,8 +51,8 @@
                             <abbr class="published" title="Saturday, August 27th, 2016, 3:39 pm">{{blog.create_date}}</abbr> 
                             <a class="comments-link" href="" title="Comment on Reservation and Booking System + Multilevel Category Selection">Leave a response</a> 
                         </div>			
-                        <div class="entry-summary">
-                            {{blog.blog_content}}
+                        <div class="entry-summary" [innerHTML]="blog.blog_content">
+                          
                                 <a class="moretag" href="">Read More</a>
                             <div class="single_custom_field"></div>					  
                         </div>
