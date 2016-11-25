@@ -92,28 +92,28 @@
                             <h3 class="widget-title">Social</h3>			
                             <ul class="social_media_list">
                                 <li> <a href="http://facebook.com/" target="_blank">
-                                        <i class="fa fa-facebook"></i>
-                                    </a> 
-                                </li>			
-                            </ul>
-                        </div>
-                    </div>				
-                </div>
+                                    <i class="fa fa-facebook"></i>
+                                </a> 
+                            </li>			
+                        </ul>
+                    </div>
+                </div>				
             </div>
         </div>
-    </section>
-    <section class="footer_bottom clearfix">
-        <div class="footer-wrap clearfix row">
-            <div class="columns">
-                <div class="footer-content "> 
-                    <p class="copyright">© 2016 All rights reserved.</p> 
-                    <p class="credit"> <a href="#" alt="" title=""></a></p> 
-                </div>
-                <!-- .footer-content -->
+    </div>
+</section>
+<section class="footer_bottom clearfix">
+    <div class="footer-wrap clearfix row">
+        <div class="columns">
+            <div class="footer-content "> 
+                <p class="copyright">© 2016 All rights reserved.</p> 
+                <p class="credit"> <a href="#" alt="" title=""></a></p> 
             </div>
+            <!-- .footer-content -->
         </div>
-        <!-- .wrap -->
-    </section>
+    </div>
+    <!-- .wrap -->
+</section>
 </div>
 
 
@@ -162,7 +162,7 @@
                     </div>  
                     <div class="form_row clearfix">
                         <label> Captcha <span class="indicates">*</span> </label>
-                       <recaptcha (resolved)="resolved($event)" siteKey="6Lf4vQwUAAAAAI2XQS2wn-loqlv_HGK9zQJ2Q-MO"></recaptcha>
+                        <recaptcha (resolved)="resolved($event)" siteKey="6Lf4vQwUAAAAAI2XQS2wn-loqlv_HGK9zQJ2Q-MO"></recaptcha>
                     </div>  
                     <div class="form_row rember clearfix">
                         <label>
@@ -179,33 +179,33 @@
         <p>Already have an account? <a href="javascript:void(0)" class="widgets-link" onclick="tmpl_login_frm();" id="tmpl-back-login">Sign in</a></p>
     </div>
 
-<!-- </div> -->
+    <!-- </div> -->
 
 
 
-<!-- this is login demo  modal squarespaceModal"-->
-<div style="background-color: transparent;" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="width: 500px;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h3 class="modal-title" id="lineModalLabel">Sign In</h3>
-        </div>
-        <div class="modal-body">
-            
-            <!-- content goes here -->
-             <form name="popup_login"  #form="ngForm" (ngSubmit)="userSignIn(form.value)">
+    <!-- this is login demo  modal squarespaceModal"-->
+    <div style="background-color: transparent;" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" *ngIf="loginModalHidden">
+      <div class="modal-dialog" style="width: 500px;" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="closeLoginModal" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="lineModalLabel">Sign In</h3>
+            </div>
+            <div class="modal-body">
+
+                <!-- content goes here -->
+                <form name="popup_login"  #form="ngForm" (ngSubmit)="userSignIn(form.value)">
                     <div class="form_row clearfix">
                         <label>Email <span class="indicates">*</span> </label>
                         <div class="form-group">
-                        <input type="text" name="username" id="user_login" size="20" class="textfield" ngModel required>
+                            <input type="text" name="username" id="user_login" size="20" class="textfield" ngModel required>
                         </div>
-                     <span id="user_loginInfo"></span>  
+                        <span id="user_loginInfo"></span>  
                     </div>
                     <div class="form_row clearfix">
                         <label> Password <span class="indicates">*</span> </label>
                         <input type="password" name="password" id="user_pass" class="textfield" size="20" ngModel required>
-                         <span id="user_passInfo"></span>  -
+                        <span id="user_passInfo"></span>  -
                     </div>
                     <div class="form_row rember clearfix">
                         <label>
@@ -215,17 +215,17 @@
                         <a onclick="showhide_forgetpw('popup_login');" href="javascript:void(0)" class="lw_fpw_lnk">Forgot your password?</a> 
                     </div>
 
-                    <div class="form_row ">
-                        <button id="login-submit" class="btn btn-info" type="submit" data-action="save"> Sign In</button>
-                        <p class="forgot_link">New User? <a href="javascript:void(0)" class="logreg-link" onclick="tmpl_registretion_frm();" id="tmpl-reg-link">Sign Up</a></p>
+                    <div class="form_row " >
+                        <button id="login-submit" class="btn btn-info" type="submit" aria-hidden="true"> Sign In</button>
+                        <p class="forgot_link">New User? <a data-toggle="modal" data-target="#signupModal" class="logreg-link" id="tmpl-reg-link" (click)="signupClick()">Sign Up</a></p>
                     </div> 
                     
                 </form>
 
+            </div>
+
         </div>
-        
     </div>
-  </div>
 </div>
 
 
@@ -235,81 +235,69 @@
 
 
 
-<div style="background-color: transparent;" class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="width: 500px;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+ <div style="background-color: transparent;" class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" *ngIf="loginModalHidden">
+      <div class="modal-dialog" style="width: 500px;" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="closeSignupModal" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
             <h3 class="modal-title" id="lineModalLabel">Sign Up</h3>
         </div>
         <div class="modal-body" style="max-height: 669px;">
-            
+
             <!-- content goes here -->
 
 
-                <ul class="social_login social_media_login">
-                    <li>Sign in with</li>
-                    <li><a rel="nofollow" class="facebook" href=""> Facebook</a></li>
-                    <li><a rel="nofollow" class="linkedin" href=""> LinkedIn</a></li>
-                </ul>
-                <p class="login_sep">OR</p>
-                <form name="popup_register" id="popup_register" enctype="multipart/form-data" #regForm="ngForm" (ngSubmit)="userSignUp(regForm.value)">
+            <ul class="social_login social_media_login">
+                <li>Sign in with</li>
+                <li><a rel="nofollow" class="facebook" href=""> Facebook</a></li>
+                <li><a rel="nofollow" class="linkedin" href=""> LinkedIn</a></li>
+            </ul>
+            <p class="login_sep">OR</p>
+            <form name="popup_register" id="popup_register" enctype="multipart/form-data" #regForm="ngForm" (ngSubmit)="userSignUp(regForm.value)">
 
-                    <div class="form_row clearfix">
-                        <label>Full Name <span class="indicates">*</span> </label>
-                        <input name="username" type="text" id="user_name" class="textfield" value="" ngModel>
-                        <span id="user_name_error"></span>
-                    </div>
-                    <div class="form_row clearfix">
-                        <label>Email <span class="indicates">*</span> </label>
-                        <input name="email" type="email" id="user_email" class="textfield" value="" ngModel>
-                        <span id="user_email_error"></span>
-                    </div>
-                    <div class="form_row clearfix">
-                        <label> Password <span class="indicates">*</span> </label>
-                        <input type="password" name="password" id="user_pass" class="textfield" value="" ngModel>
-                        <span id="user_passInfo"></span> 
-                    </div>   
-                    <div class="form_row clearfix">
-                        <label> Confirm Password <span class="indicates">*</span> </label>
-                        <input type="password" name="password_confirmation" id="user_cpass" class="textfield" value="" ngModel>
-                        <span id="user_passInfo"></span> 
-                    </div>  
-                    <div class="form_row clearfix">
-                        <label> Captcha <span class="indicates">*</span> </label>
-                       <recaptcha (resolved)="resolved($event)" siteKey="6Lf4vQwUAAAAAI2XQS2wn-loqlv_HGK9zQJ2Q-MO"></recaptcha>
-                    </div>  
-                    <div class="form_row rember clearfix">
-                        <label>
-                            <input name="rememberme" type="checkbox" id="rememberme" value="forever" class="fl">
-                            Accept<a href="" [routerLink]="['/term-condition']" class="terms"> Terms & Condition</a>
-                        </label>
-                    </div>
-                    <!-- <div id="popup_register_register_cap"></div> -->
-                    <button class="btn btn-warning" type="submit">Sign Up</button>
-                    <button class="btn btn-warning" type="reset" value="Save" name="submit">Cancel</button>
-                </form>
-            </div>
-
-        <p>Already have an account? <a href="javascript:void(0)" class="widgets-link" onclick="tmpl_login_frm();" id="tmpl-back-login">Sign in</a></p>
-
-
-
-        <div class="modal-footer">
-            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
-                <div class="btn-group" role="group">
-                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Close</button> -->
+                <div class="form_row clearfix">
+                    <label>Full Name <span class="indicates">*</span> </label>
+                    <input name="username" type="text" id="user_name" class="textfield" value="" ngModel>
+                    <span id="user_name_error"></span>
                 </div>
-                <div class="btn-group btn-delete hidden" role="group">
-                    <!-- <button type="button" id="delImage" class="btn btn-default btn-hover-red" data-dismiss="modal"  role="button">Delete</button> -->
+                <div class="form_row clearfix">
+                    <label>Email <span class="indicates">*</span> </label>
+                    <input name="email" type="email" id="user_email" class="textfield" value="" ngModel>
+                    <span id="user_email_error"></span>
                 </div>
-                <div class="btn-group" role="group">
-                    <!-- <button type="button" id="saveImage" class="btn btn-default btn-hover-green" data-action="save" role="button">Save</button> -->
+                <div class="form_row clearfix">
+                    <label> Password <span class="indicates">*</span> </label>
+                    <input type="password" name="password" id="user_pass" class="textfield" value="" ngModel>
+                    <span id="user_passInfo"></span> 
+                </div>   
+                <div class="form_row clearfix">
+                    <label> Confirm Password <span class="indicates">*</span> </label>
+                    <input type="password" name="password_confirmation" id="user_cpass" class="textfield" value="" ngModel>
+                    <span id="user_passInfo"></span> 
+                </div>  
+                <div class="form_row clearfix">
+                    <label> Captcha <span class="indicates">*</span> </label>
+                    <recaptcha (resolved)="resolved($event)" siteKey="6Lf4vQwUAAAAAI2XQS2wn-loqlv_HGK9zQJ2Q-MO"></recaptcha>
+                </div>  
+                <div class="form_row rember clearfix">
+                    <label>
+                        <input name="rememberme" type="checkbox" id="rememberme" value="forever" class="fl">
+                        Accept<a href="" [routerLink]="['/term-condition']" class="terms"> Terms & Condition</a>
+                    </label>
                 </div>
-            </div>
+                <!-- <div id="popup_register_register_cap"></div> -->
+                <button class="btn btn-warning" type="submit">Sign Up</button>
+                <button class="btn btn-warning" type="reset" value="Save" name="submit">Cancel</button>
+            </form>
         </div>
+
+        <p style="margin-left: 15px;">Already have an account? <a data-target="#loginModal" id="tmpl-back-login" class="widgets-link" (click)="siginClick()">Sign in</a></p>
+
+
+
+        
     </div>
-  </div>
+</div>
 </div>
 
 
@@ -365,6 +353,6 @@
                 </div>
             </div> -->
 
-<!--Scripts start -->
-<!-- </body> -->
+            <!--Scripts start -->
+            <!-- </body> -->
 <!-- </html> -->

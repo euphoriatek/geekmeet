@@ -34,6 +34,9 @@ export class ApiMethodService {
 		.subscribe((res) => {
 			localStorage.setItem('auth_token', res.data.token);
 			this.getTokenValue = localStorage.getItem('auth_token');
+			if(res.data.token){
+				this.loggedIn = true;
+			}
 			if(callBack)
 			{
 				callBack(res);
