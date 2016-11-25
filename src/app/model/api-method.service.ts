@@ -102,6 +102,30 @@ export class ApiMethodService {
 		}, (error) => console.log('There was an error', error));
 	}
 
+	//this is event category api
+
+	SecondMenuApi(callBack){
+		this.http.get('http://2016.geekmeet.com/admin/v1/event_category').map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => console.log('There was an error', error));
+	}
+
+	// get popular event api list
+
+	popularEventApi(callBack){
+		this.http.get('http://2016.geekmeet.com/admin/v1/popular_event').map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => console.log('There was an error', error));
+	}
+
 
 
 }
