@@ -41,7 +41,7 @@ export class ApiMethodService {
 			{
 				callBack(res);
 			}
-		}, (error) => alert("Invalid Credentials or Account is Deactive.!"));
+		}, (error) => console.log("Invalid Credentials or Account is Deactive.!"));
 	}
 
 
