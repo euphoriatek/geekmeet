@@ -51,12 +51,13 @@ export class FooterComponent implements OnInit {
 					// 	element.className += " hideModal";
 					// }
 
-					// if(res.data.token){
-						// 	ref.router.navigate(['/']);
-						// }
-						var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
-						closeBtn.click();
-					});
+					if(res.data.token){
+						ref.router.navigate(['/index']);
+						// ref.router.navigateByUrl('/link1');
+					}
+					var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
+					closeBtn.click();
+				});
 		}
 
 
@@ -66,7 +67,9 @@ export class FooterComponent implements OnInit {
 			var refreg = this;
 			this.apiService.userRegistrationApi(value,function(res){
 				console.log("this is api response"+ JSON.stringify(res));
-				window.location.reload();
+				refreg.router.navigate(['/']);
+				var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
+				closeBtn.click();
 			});
 		}
 

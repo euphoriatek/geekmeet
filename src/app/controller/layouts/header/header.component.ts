@@ -13,27 +13,34 @@ import 'rxjs/add/operator/catch';
 })
 export class HeaderComponent implements OnInit {
   getToken:any;
-	  @Output() notify: EventEmitter<any> = new EventEmitter<any>();
+  isUserLoggedIn:any = false;
+  @Output() notify: EventEmitter<any> = new EventEmitter<any>();
 
 
   constructor(private router: Router, public apiService:ApiMethodService) {
-  this.getToken = this.apiService.getLoginToken(); }
-
-  ngOnInit() {
+    this.getToken = this.apiService.getLoginToken();
+    if(this.getToken){
+      this.isUserLoggedIn = true;
+    }
     
-    console.log("this is token"+this.getToken);
   }
 
-  goToBlog(){
-  	this.router.navigate(['/blog']);
-  }
+    ngOnInit() {
 
-  userLogout(){
-    this.getToken="";
-    var ref = this;
-    this.apiService.userLogoutApi(function(res){
-      console.log("this is api response"+ JSON.stringify(res));
-      ref.router.navigate(['/']);
-    });
+      console.log("this is token"+this.getToken);
+    }
+
+    goToBlog(){
+      this.router.navigate(['/blog']);
+    }
+
+    userLogout(){
+      this.getToken="";
+      this.isUserLoggedIn = false;
+      var ref = this;
+      this.apiService.userLogoutApi(function(res){
+        console.log("this is api response"+ JSON.stringify(res));
+        ref.router.navigate(['/']);
+      });
+    }
   }
-}
