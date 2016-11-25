@@ -11,21 +11,28 @@ import 'rxjs/add/operator/catch';
 })
 export class IndexComponent implements OnInit {
 	getToken:any;
-    
-    popularArr:any;
+	
+	popularArr:any;
 	constructor(private router: Router,public apiService:ApiMethodService) { }
 
 	ngOnInit() {
 		this.getToken = this.apiService.getLoginToken();
-		  	this.popularEvent();
+
+		if(this.getToken){
+			this.router.navigate(['/header']);
+			this.router.navigate(['/']);
+		}
+
+		this.popularEvent();
 	}
 
-	 popularEvent(){
+	popularEvent(){
 		var ref = this;
 		this.apiService.popularEventApi(function(res){
-		ref.popularArr = res.data;
-		
+			ref.popularArr = res.data;
+			
 		});
+
 	}
 
 

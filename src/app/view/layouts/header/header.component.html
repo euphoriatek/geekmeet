@@ -33,7 +33,8 @@
                                     <div class="widget-wrap widget-inside">
                                         <nav id="nav_widget" class="sub_event">
                                             <ul id="menu-submit-event" class="nav-menu">
-                                                <li id="menu-item-9371" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9371"><a class="text-white" href=""[routerLink]="['/eventadd']">Submit Event <i class="fa fa-plus"></i></a></li>
+                                                <li *ngIf = "isUserLoggedIn" id="menu-item-9371" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9371"><a class="text-white" href=""[routerLink]="['/eventadd']">Submit Event <i class="fa fa-plus"></i></a></li>
+                                                 <li *ngIf = "!isUserLoggedIn" id="menu-item-9371" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9371"><a class="text-white" href="" data-toggle="modal" data-target="#loginModal">Submit Event <i class="fa fa-plus"></i></a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -91,7 +92,7 @@
                             <!-- #menu-primary-title -->
                             <div class="menu">
                                 <ul id="menu-primary-items" class="primary_menu clearfix">
-                                    <li class=""><a [routerLink]="['/event']">Events</a>
+                                    <li class=""><a>Events</a>
                                         <ul class="sub-menu">
                                             <li class=""><a href="" [routerLink] = "['/eventadd']">Cisco</a></li>
                                             <li class=""><a href="" [routerLink] = "['/eventadd']">Databases</a></li>

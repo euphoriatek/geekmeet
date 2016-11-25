@@ -39,7 +39,7 @@ export const routes: Routes = [
       {path:'blog' ,component: BlogComponent},
       {path:'sponsors' ,component: SponsorsComponent},
       {path:'contactus' ,component: ContactusComponent},
-      {path:'eventadd' ,component: EventaddComponent},
+      {path:'index' ,component: IndexComponent},
       {path:'event' ,component: EventComponent},
       {path:'profile' ,component: ProfileComponent},
       {path:'groups' ,component: GroupsComponent},

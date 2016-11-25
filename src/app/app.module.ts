@@ -73,7 +73,7 @@ import { BlogDetailComponent } from './controller/blog-detail/blog-detail.compon
       {path:'sponsors' ,component: SponsorsComponent},
       {path:'contactus' ,component: ContactusComponent},
       {path:'eventadd' ,component: EventaddComponent},
-      {path:'event' ,component: EventComponent},
+      {path:'index' ,component: IndexComponent},
       {path:'profile' ,component: ProfileComponent},
       {path:'groups' ,component: GroupsComponent},
       {path:'organization' ,component: ChangepasswordComponent},

@@ -31,6 +31,7 @@
     </div>
     <!-- .sidebar-wrap -->
 </aside>
+
 <!-- Footer Start-->
 <div id="footer" class="clearfix">
     <section class="footer_top clearfix">
@@ -183,8 +184,13 @@
 
 
     <!-- this is login demo  modal squarespaceModal"-->
+<<<<<<< HEAD
     <div style="background-color: transparent;" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" *ngIf="loginModalHidden">
       <div class="modal-dialog" style="width: 380px;" >
+=======
+    <div style="background-color: transparent;" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"  *ngIf="loginModalHidden">
+      <div class="modal-dialog" style="width: 500px;" >
+>>>>>>> 2838b54c6291efafc83e5e9a59a1c7825f06567d
         <div class="modal-content">
             <div class="modal-header">
                 <button id="closeLoginModal" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
@@ -226,7 +232,6 @@
         </div>
     </div>
 </div>
-
 
 
 
@@ -285,12 +290,12 @@
                     </label>
                 </div>
                 <!-- <div id="popup_register_register_cap"></div> -->
-                <button class="btn btn-warning" type="submit">Sign Up</button>
-                <button class="btn btn-warning" type="reset" value="Save" name="submit">Cancel</button>
+                <button class="btn btn-info" type="submit">Sign Up</button>
+                <button class="btn btn-info" type="reset" value="Save" name="submit">Cancel</button>
             </form>
         </div>
 
-        <p style="margin-left: 15px;">Already have an account? <a data-target="#loginModal" id="tmpl-back-login" class="widgets-link" (click)="siginClick()">Sign in</a></p>
+        <p style="margin-left: 15px;">Already have an account? <a data-toggle="modal" data-target="#loginModal" id="tmpl-back-login" class="widgets-link" (click)="siginClick()">Sign in</a></p>
 
 
 
