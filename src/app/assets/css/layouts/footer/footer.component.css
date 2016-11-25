@@ -25,3 +25,25 @@
 	opacity: 0.25!important;
 }
 
+.modal{
+position: absolute !important;
+
+}
+
+#signupModal .modal-body
+{
+	max-height:unset !important;
+	overflow: unset !important;
+}
+#signupModal.modal
+{
+	
+	overflow: unset !important;
+}
+
+#signupModal{
+	top:30% !important;
+}
+#signupModal .form_row{
+	padding: 0 0 10px;
+}
