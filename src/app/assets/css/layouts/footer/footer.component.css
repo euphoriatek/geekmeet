@@ -47,3 +47,7 @@ position: absolute !important;
 #signupModal .form_row{
 	padding: 0 0 10px;
 }
+#user_loginInfo, #user_passInfo{
+	color: red;
+	font-size: 13px;
+}

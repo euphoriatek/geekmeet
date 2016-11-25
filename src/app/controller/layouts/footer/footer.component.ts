@@ -19,8 +19,9 @@ import { ProfileComponent } from '../../profile/profile.component';
 })
 export class FooterComponent implements OnInit {
 	loginModalHidden:boolean = true;
-	// @Output() isUserLoggedIn = new EventEmitter();
 	tokenValueAuth:any;
+	usernameErr:any;
+	passwordErr:any;
 
 
 	constructor(private router: Router, public apiService:ApiMethodService,overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal) { 
@@ -28,61 +29,62 @@ export class FooterComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		// this.isUserLoggedIn.emit({
-			// 	value: this.tokenValueAuth
-			// })
+	}
+
+	resolved(captchaResponse: string) {
+		console.log(`Resolved captcha with response ${captchaResponse}:`);
+	}
+
+
+	userSignIn(value:any):void{
+		var ref = this;
+		if(value.username == "" && value.password == ""){
+			ref.usernameErr = "Please Enter Username.!";
+			ref.passwordErr = "Please Enter Password.!";
+
 		}
+		else if(value.username == ""){
+			ref.usernameErr = "Please Enter Username.!";
 
-		resolved(captchaResponse: string) {
-			console.log(`Resolved captcha with response ${captchaResponse}:`);
 		}
-
-
-		userSignIn(value:any):void{
-
-			var ref = this;
+		else if(value.password == ""){
+			ref.passwordErr = "Please Enter Password.!";
+		}
+		else{
 			this.apiService.userLoginApi(value,function(res){
 				console.log("this is api response"+ JSON.stringify(res));
-
-				// ref.loginModalHidden = false;
-				// var elem = document.getElementsByClassName('modal-backdrop');			
-				// for (var i = elem.length - 1; i >= 0; i--) {
-					// 	let element = <HTMLElement>elem[i];
-					// 	element.className += " hideModal";
-					// }
-
-					if(res.data.token){
-						ref.router.navigate(['/index']);
-						// ref.router.navigateByUrl('/link1');
-					}
-					var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
-					closeBtn.click();
-				});
-		}
-
-
-
-		userSignUp(value:any):void{
-
-			var refreg = this;
-			this.apiService.userRegistrationApi(value,function(res){
-				console.log("this is api response"+ JSON.stringify(res));
-				refreg.router.navigate(['/']);
+				if(res.data.token){
+					ref.router.navigate(['/index']);
+				}
 				var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
 				closeBtn.click();
 			});
 		}
 
-		signupClick(){
-			var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
-			closeBtn.click();
-		}
+	}
 
-		siginClick(){
+
+
+	userSignUp(value:any):void{
+		var refreg = this;
+		this.apiService.userRegistrationApi(value,function(res){
+			console.log("this is api response"+ JSON.stringify(res));
+			refreg.router.navigate(['/index']);
 			var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
 			closeBtn.click();
-		}
-
-
+		});
 	}
+
+	signupClick(){
+		var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
+		closeBtn.click();
+	}
+
+	siginClick(){
+		var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
+		closeBtn.click();
+	}
+
+
+}
 
