@@ -460,7 +460,7 @@ body .page-id-43 hr {
 
 /*-------header menu style------*/
 a,a:hover, div#menu-primary .menu li > a:hover{
-    color: #fff;
+    /*color: #fff;*/
 }
 ::-webkit-input-placeholder {
     color: #003a70;

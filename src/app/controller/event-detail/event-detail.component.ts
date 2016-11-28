@@ -12,6 +12,8 @@ import 'rxjs/add/operator/catch';
 export class EventDetailComponent implements OnInit {
    eventDetail:any
    selectedData:any;
+   popularArr:any;
+   popularTotal:any;
   constructor(private route: ActivatedRoute,private apiService: ApiMethodService) {
 
    }
@@ -20,6 +22,8 @@ export class EventDetailComponent implements OnInit {
   		this.selectedData = this.route.snapshot.params['id'];
   		// console.log(this.selectedData)
     	this.getEventDetail(this.selectedData);
+
+      this.popularEvent();
   
 
   }
@@ -28,7 +32,17 @@ export class EventDetailComponent implements OnInit {
             console.log(value);
 			var refreg = this;
 			this.apiService.EventDetail(value,function(res){
-				console.log("this is api response"+ JSON.stringify(res));
+        refreg.eventDetail = res.data;
+        console.log("SDA");
+        console.log(refreg.eventDetail.category_id);
 			});
 		}
+    popularEvent(){
+    var ref = this;
+    this.apiService.popularEventApi(function(res){
+     ref.popularArr = res.data.data;
+     ref.popularTotal = res.total;      
+    });
+
+  }
 }

@@ -29,7 +29,7 @@ export class ApiMethodService {
 
 	//this is user login api
 
-	userLoginApi(params, callBack){
+	userLoginApi(params,callBack,error){
 		this.http.post('http://2016.geekmeet.com/admin/v1/login', params).map(res =>res.json())
 		.subscribe((res) => {
 			localStorage.setItem('auth_token', res.data.token);

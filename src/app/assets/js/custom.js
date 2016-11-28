@@ -1,10 +1,10 @@
 jQuery(window).load(function () {
-    jQuery('.flexslider').flexslider({
+    jQuery(document).find('.flexslider').flexslider({
         animation: "slide",
         smoothHeight: true, /* for adjusting height for small images */
         animationLoop: false,
         start: function (slider) {
-            jQuery('body').removeClass('loading');
+            jQuery('.event_detail_module').removeClass('loading');
         }
     });
 
@@ -172,3 +172,5 @@ jQuery(window).load(function () {
 function invite_form() {
     jQuery(".invite-user #invite-popup").show();
 }
+
+ 

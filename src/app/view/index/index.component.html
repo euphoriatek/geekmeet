@@ -45,7 +45,7 @@
                                     <!-- inside loop div start -->
                                     <article id="event_27121" class="post large-4 medium-4 small-6 xsmall-12 columns post" *ngFor = "let events of popularArr">
                                         <div class="listing_img">
-                                            <a [routerLink]="['/event_detail']"> 
+                                            <a [routerLink]="['/event_detail',events.event_id]"> 
                                             <img src="{{events.featured_image}}" alt="image" title="{{events.title}}">
                                            </a>
                                         </div>
@@ -179,8 +179,8 @@
                                                         </p>
                                                         <p class="time">
                                                         <span>
-                                            <span itemprop="startDate" content="2014-07-08T22:00">{{upcomingevents.start_date}}</span>
-                                            To <span itemprop="endDate" content="2019-07-08T23:30">{{upcomingevents.end_date}}</span>
+                                            <span itemprop="startDate" content="2014-07-08T22:00">{{upcomingevents.start_time}}</span>
+                                            To <span itemprop="endDate" content="2019-07-08T23:30">{{upcomingevents.end_time}}</span>
                                         </span>
                                                            </p><!--googleoff: all-->
                                                                                                                                

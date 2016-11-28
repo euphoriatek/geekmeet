@@ -1,12 +1,11 @@
 <app-header></app-header>
 <app-second-menu></app-second-menu>
-
-<section id="main" class="clearfix">
+<section id="main" class="clearfix event_detail_module" *ngFor = "let event of eventDetail">
     <div class="wrap row">
         <div class="breadcrumb breadcrumbs columns">
             <div class="breadcrumb-trail">
                 <span class="trail-begin">
-                    <a href="#" title="GeekMeet" rel="home" class="trail-begin">Home</a></span> <span class="sep">»</span> <a href="http://demo.templatic.com/eventum/city/new-york" title="New York">New York</a> <span class="sep">»</span> <a href="http://demo.templatic.com/eventum/city/new-york/event" title="Event">Event</a> <span class="sep">»</span> <a href="http://demo.templatic.com/eventum/city/new-york/ecategory/events/" title="Events">Events</a> <span class="sep">»</span> <span class="trail-end">Disaster! A 70’s Movie…Musical!</span>
+                    <a href="#" title="GeekMeet" rel="home" class="trail-begin">Home</a></span> <span class="sep">»</span> <a href="http://demo.templatic.com/eventum/city/new-york" title="New York">New York</a> <span class="sep">»</span> <a href="http://demo.templatic.com/eventum/city/new-york/event" title="Event">Event</a> <span class="sep">»</span> <a href="http://demo.templatic.com/eventum/city/new-york/ecategory/events/" title="Events">Events</a> <span class="sep">»</span> <span class="trail-end">{{event.event_title}}</span>
             </div>
         </div>
 
@@ -18,7 +17,7 @@
                 <!--start post type title -->
                 <header class="entry-header clearfix">
                     <div class="entry-header-title">
-                        <h1 class="entry-title ">Disaster! A 70’s Movie…Musical!</h1>
+                        <h1 class="entry-title ">{{event.event_title}}</h1>
                         <div class="event_rating">
                             <div class="event_rating_row"> <span><a href="#comments">8 Reviews</a></span> <span class="single_rating"> <i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i></span></div>
                         </div>
@@ -27,8 +26,10 @@
                         <script type="text/javascript">
                             jQuery(function () {
                                 jQuery('#event_image_gallery .event_image a').lightBox();
+                            
                             });
                         </script>
+
 
                         <div id="slider" class="event_image flexslider p-tb-30"> 
                             <div class="flex-viewport" style="">
@@ -144,35 +145,35 @@
                         <div class="entry-header-custom-wrap p-tb-30">
                             <p class="date">
                                 <label>Start Date:</label>
-                                <span id="frontend_date_st_date" class="event_custom frontend_st_date">Jul 8, 2014</span></p>
+                                <span id="frontend_date_st_date" class="event_custom frontend_st_date">{{event.start_date}}</span></p>
 
                             <p class="date">
                                 <label>End Date:</label>
-                                <span id="frontend_date_end_date" class="frontend_end_date frontend_datepicker event_custom">Jul 8, 2019</span>
+                                <span id="frontend_date_end_date" class="frontend_end_date frontend_datepicker event_custom">{{event.end_date}}</span>
                             </p>
                             <p class="hosted">
                                 <label>Hosted By:</label>
-                                <span class="event_custom">Jone Doe </span>
+                                <span class="event_custom">{{event.organizer}}</span>
                             </p>
                             <p class="audience">
                                 <label>Intended Audience:</label>
-                                <span class="event_custom">Child, Youngest, Oldest </span>
+                                <span class="event_custom">{{event.audience}} </span>
                             </p>
                             <p class="time">
                                 <label>Time:</label>
-                                <span class="event_custom">10:00 pm To 11:30 pm</span>
+                                <span class="event_custom">{{event.start_time}} To {{event.end_time}}</span>
                             </p>
                             <p class="address">
                                 <label>Event Location:</label>
-                                <span id="frontend_address" class="event_custom frontend_address">308 West 46th Street New York, NY 10036</span>
+                                <span id="frontend_address" class="event_custom frontend_address">{{event.location}}</span>
                             </p>
                             <p class="website">
                                 <label>Website: </label>
-                                <span class="event_custom"><a id="website" class="frontend_website " href="http://geekmeet.com">http://geekmeet.com</a></span>
+                                <span class="event_custom"><a id="website" class="frontend_website " href="http://geekmeet.com">{{event.location}}</a></span>
                             </p>
                             <p class="phone ">
                                 <label>Contact Info: </label>
-                                <span id="phone" class="listing_custom frontend_phone">+86 10 6538 5537</span>
+                                <span id="phone" class="listing_custom frontend_phone">{{event.contact_info}}</span>
                             </p>
                             <p class="fees">
                                 <label>Ticket Info: </label>
@@ -185,7 +186,7 @@
                     <img alt="" src="http://0.gravatar.com/avatar/?s=60&amp;r=g" srcset="http://0.gravatar.com/avatar/?s=120&amp;r=g 2x" class="avatar avatar-60 photo avatar-default" height="60" width="60">	
                     <span id="attend_event_27121" class="fav">
                         <span class="span_msg">
-                            <a href="http://demo.templatic.com/eventum/author/"></a> are you going to attend <strong>Disaster! A 70's Movie...Musical!</strong>? <br>     	
+                            <a href="http://demo.templatic.com/eventum/author/"></a> are you going to attend <strong>{{event.event_title}}</strong>? <br>     	
                             <a href="javascript:void(0);" class="addtofav b_review attending" data-reveal-id="tmpl_reg_login_container" onclick="javascript:addTo_AttendEvent(27121, 'add');">Yes, I am&nbsp;</a>
                             <span id="attended_persons" class="attended_persons">No one is attending yet.</span>
                         </span>
@@ -248,6 +249,8 @@
                             jQuery("#addtocalendar").css('visibility', 'hidden');
                         });
                     });
+
+
                 </script>
                 <!--end post type title --> 
                 <div class="share_link">	 	
@@ -290,59 +293,41 @@
                     <section itemprop="description" class="entry-content event-description">
                         <h2>Event Description <small></small></h2>
                         <div class="entry-content frontend-entry-content ">
-                            <p>This is event description section where you can write in detail about your event. We have provided an editor for entering this information on Submit event page so your visitors will be able to format their description easily. They can highlight their content with <strong>Bold</strong>, <em>Italic</em>, <span style="text-decoration: underline;">Underline</span> options, they can also use ordered and un-ordered lists:</p>
-                            <p><strong>Ordered list:</strong></p>
-                            <ol>
-                                <li><span style="line-height: 13px;">Allow users to pay and publish their events on your site</span></li>
-                                <li>Create a unique submission form using custom fields</li>
-                                <li>Awesome Google map integration for showing real locations</li>
-                            </ol>
-                            <p><strong>Unordered list:</strong></p>
-                            <ul>
-                                <li><span style="line-height: 13px;">Allow users to pay and publish their events on your site</span></li>
-                                <li>Create a unique submission form using custom fields</li>
-                                <li>Awesome Google map integration for showing real locations</li>
-                            </ul>
-                            <p><a title="link" href="http://templatic.com" target="_blank">Hyperlinks</a>, images and basic HTML can also be added in the editor on Submit listing page in the front end.</p>
+                        <p [innerHTML]="event.event_description"></p>
                         </div>
                     </section><!-- end .entry-content -->
-                    <div class="event-organizer">
+                    <div *ngIf="event.org_name!=null">
+                    <div class="event-organizer" >
                         <h2>Organizers</h2>
 
                         <div class="event-organizer-left">
-                            <img src="http://demo.templatic.com/images/business_logo-250x250.jpg">
+                            <img src="{{event.organization_logo}}" title="{{event.organization_logo_title}}">
                         </div>
 
                         <div class="event-organizer-right">
                             <p class="org_name ">
                                 <label>Name:</label>
-                                <span class="label_data frontend_organizer_name">Barry Rolton</span>
+                                <span class="label_data frontend_organizer_name">{{event.org_name}}</span>
                             </p>
-                            <p class="address ">
+                            <p class="address" *ngIf="event.organization_location!=''">
                                 <label>Address:</label>
-                                <span class="label_data frontend_organizer_address">Rangiora New Zealand</span>
+                                <span class="label_data frontend_organizer_address">{{event.organization_location}}</span>
                             </p>
-                            <!--googleoff: all-->
-                            <p class="phone ">
-                                <label>Contact Info.:</label>
-                                <span class="label_data frontend_organizer_contact">4498562356</span>
-                            </p>
-                            <!--googleon: all-->
-                            <!--googleoff: all-->
-                            <p class="phone ">
+                            
+                            <p class="phone" *ngIf="event.organization_contact!=''">
                                 <label>Mobile:</label>
-                                <span class="label_data frontend_organizer_mobile">4489562356</span>
+                                <span class="label_data frontend_organizer_mobile">{{event.organization_contact}}</span>
                             </p>
                             <!--googleon: all-->
-                            <p class="email ">
+                            <p class="email" *ngIf="event.organization_email!=''">
                                 <label>Email:</label>
-                                <span class="label_data frontend_organizer_email">info@geekmeet.com</span>
+                                <span class="label_data frontend_organizer_email">{{event.organization_email}}</span>
                             </p>
 
-                            <p class="website ">
+                            <p class="website" *ngIf="event.organization_website!=''">
                                 <label>Website:</label>
                                 <span class="label_data frontend_organizer_website">
-                                    <a target="_blank" href="http://geekmeet.com">http://geekmeet.com</a>
+                                    <a target="_blank" href="">{{event.organization_website}}</a>
                                 </span>
                             </p>
                         </div>
@@ -350,9 +335,9 @@
                     <div class="abput-event-organizer ">
                         <h2>About the organizers</h2>
                         <div class="frontend_organizer_desc ">
-                            The 13th Anniversary of the <strong><a href="">Birmingham Ratha Yatra Festival 2013</a></strong> 
-                            promises to be a spectacular event with a City Centre procession and festival, incorporating all the exoticness, vitality and colour that is India.               
+                            <p [innerHTML]="event.organization_description"></p>             
                         </div>
+                    </div>
                     </div>
                     <div class="how_to_reg frontend_reg_desc ">
                         <h2>How to Register</h2>
@@ -361,9 +346,9 @@
                     <div class="listing_custom_field event_custom_field">
                         <h2 class="custom_field_headding">Contact Information</h2>                                                            
                         <p class="">
-                            <label>Email:&nbsp;</label>                                                                                                                                            
+                            <label>Phone:&nbsp;</label>                                                                                                                                            
                             <span>
-                                info@templatic.com                                                                           
+                                {{event.contact_info}}                                                                          
                             </span>
                         </p>
                     </div>
@@ -939,22 +924,23 @@
                 </div>
             </div>
 
-            <div id="templatic_popular_post_technews-2" class="widget widget-twocolumn popular_posts">
+            <div id="templatic_popular_post_technews-2" class="widget widget-twocolumn popular_posts" >
                 <h3 class="widget-title">Popular Events</h3>
                 <ul class="listingview clearfix list" id="list_776778595">
-                    <li class="clearfix">
-                        <a href="" title="Things To Do" class="link_img" data-rel="">
-                            <img src="http://demo.templatic.com/eventum/../images/event/event-(70)-60x60.jpg" alt="Things To Do" class="Thumbnail thumbnail popular_post-thumbnail " width="60" height="60"></a><div class="post_data"><h3><a href="http://demo.templatic.com/eventum/city/new-york/event/things-to-do/" title="Things To Do">Things To Do</a></h3><p><span class="views"> <a href="http://demo.templatic.com/eventum/city/new-york/event/things-to-do/#comments">8 Comments</a></span><span class="date">2 years ago</span></p></div></li><li class="clearfix"><a href="http://demo.templatic.com/eventum/city/new-york/event/nyc-pride-march/" title="NYC Pride March" class="link_img" data-rel=""><img src="http://demo.templatic.com/eventum/../images/event/event-(71)-60x60.jpg" alt="NYC Pride March" class="Thumbnail thumbnail popular_post-thumbnail " width="60" height="60"></a><div class="post_data"><h3><a href="http://demo.templatic.com/eventum/city/new-york/event/nyc-pride-march/" title="NYC Pride March">NYC Pride March</a></h3><p><span class="views"> <a href="http://demo.templatic.com/eventum/city/new-york/event/nyc-pride-march/#comments">8 Comments</a></span><span class="date">2 years ago</span></p></div></li><li class="clearfix"><a href="http://demo.templatic.com/eventum/city/new-york/event/kitty-nights-nyc-presents-the-strange/" title="Kitty Nights NYC Presents the Strange" class="link_img" data-rel=""><img src="http://demo.templatic.com/eventum/../images/event/event-(72)-60x60.jpg" alt="Kitty Nights NYC Presents the Strange" class="Thumbnail thumbnail popular_post-thumbnail " width="60" height="60"></a><div class="post_data"><h3><a href="http://demo.templatic.com/eventum/city/new-york/event/kitty-nights-nyc-presents-the-strange/" title="Kitty Nights NYC Presents the Strange">Kitty Nights NYC Presents the Strange</a></h3><p><span class="views"> <a href="http://demo.templatic.com/eventum/city/new-york/event/kitty-nights-nyc-presents-the-strange/#comments">8 Comments</a>
-                                </span>
-                                <span class="date">2 years ago</span>
-                            </p>
-                        </div>
-                    </li>
-                </ul>
+                    <li class="clearfix" *ngFor = "let popular_event of popularArr">
+                            <a href="" title="Things To Do" class="link_img" data-rel="">
+                            <img src="http://demo.templatic.com/eventum/../images/event/event-(70)-60x60.jpg" alt="Things To Do" class="Thumbnail thumbnail popular_post-thumbnail " width="60" height="60"></a>
 
+                            <div class="post_data"><h3><a href="http://demo.templatic.com/eventum/city/new-york/event/things-to-do/" title="Things To Do">Things To Do</a></h3><p><span class="views"> <a href="http://demo.templatic.com/eventum/city/new-york/event/things-to-do/#comments">8 Comments</a></span><span class="date">2 years ago</span></p></div></li>
+
+
+                </ul>
+                
                 <div class="postpagination_776778595 postpagination clearfix">
+       
                     <a num="1" rel="0" rev="3" class="active"> 1 </a>
-                    <a num="2" rel="3" rev="3" class="">2</a><a num="3" rel="6" rev="3" class="">3</a>			
+                    <a num="2" rel="3" rev="3" class="">2</a>
+                    <a num="3" rel="6" rev="3" class="">3</a>			
                 </div>
                 <script type="text/javascript">
                     jQuery(document).ready(function () {

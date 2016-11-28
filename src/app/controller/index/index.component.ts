@@ -31,7 +31,7 @@ export class IndexComponent implements OnInit {
 	popularEvent(){
 		var ref = this;
 		this.apiService.popularEventApi(function(res){
-			ref.popularArr = res.data;
+			ref.popularArr = res.data.data;
 			
 		});
 

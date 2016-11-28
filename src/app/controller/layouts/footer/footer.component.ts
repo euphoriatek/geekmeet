@@ -38,19 +38,7 @@ export class FooterComponent implements OnInit {
 
 	userSignIn(value:any):void{
 		var ref = this;
-		if(value.username == "" && value.password == ""){
-			ref.usernameErr = "Please Enter Username.!";
-			ref.passwordErr = "Please Enter Password.!";
-
-		}
-		else if(value.username == ""){
-			ref.usernameErr = "Please Enter Username.!";
-
-		}
-		else if(value.password == ""){
-			ref.passwordErr = "Please Enter Password.!";
-		}
-		else{
+		
 			this.apiService.userLoginApi(value,function(res){
 				console.log("this is api response"+ JSON.stringify(res));
 				if(res.data.token){
@@ -58,8 +46,12 @@ export class FooterComponent implements OnInit {
 				}
 				var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
 				closeBtn.click();
+			},function(error){
+
+
+				
 			});
-		}
+		
 
 	}
 
