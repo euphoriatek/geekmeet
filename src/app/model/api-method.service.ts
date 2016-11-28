@@ -129,6 +129,35 @@ export class ApiMethodService {
 		}, (error) => console.log('There was an error', error));
 	}
 
+	// 
+
+	// get upcoming event api list
+
+	upcomingEventApi(callBack){
+		this.http.get('http://2016.geekmeet.com/admin/v1/upcoming_event').map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => console.log('There was an error', error));
+	}
+
+	//
+
+	// get upcoming event api list
+
+	EventDetail(regData,callBack){
+		
+		this.http.get('http://2016.geekmeet.com/admin/v1/event_detail/'+regData).map(res =>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => console.log('There was an error', error));
+	}
+
 
 
 }

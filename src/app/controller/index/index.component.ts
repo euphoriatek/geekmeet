@@ -13,6 +13,7 @@ export class IndexComponent implements OnInit {
 	getToken:any;
 	
 	popularArr:any;
+	upcomingArr:any;
 	constructor(private router: Router,public apiService:ApiMethodService) { }
 
 	ngOnInit() {
@@ -24,12 +25,22 @@ export class IndexComponent implements OnInit {
 		}
 
 		this.popularEvent();
+		this.upcomingEvent();
 	}
 
 	popularEvent(){
 		var ref = this;
 		this.apiService.popularEventApi(function(res){
 			ref.popularArr = res.data;
+			
+		});
+
+	}
+
+	upcomingEvent(){
+		var ref = this;
+		this.apiService.upcomingEventApi(function(res){
+			ref.upcomingArr = res.data;
 			
 		});
 

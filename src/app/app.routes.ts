@@ -50,7 +50,7 @@ export const routes: Routes = [
       {path:'organization-add' ,component: OrganizationAddComponent},
       {path:'login' ,component: LoginComponent},
       {path:'term-condition' ,component: TermConditionComponent},
-      {path:'event_detail' ,component: EventDetailComponent},
+      {path:'event_detail/:id' ,component: EventDetailComponent,data: [{id: true}]},
       {path:'blog_detail' ,component: BlogDetailComponent},
       {path:'' ,component: IndexComponent}
 

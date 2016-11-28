@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiMethodService } from '../../model/api-method.service';
+import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-blog-detail',
@@ -6,10 +11,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../../assets/css/blog-detail/blog-detail.component.css']
 })
 export class BlogDetailComponent implements OnInit {
+  selectedData:any;
+  constructor(private route: ActivatedRoute,private heroService: ApiMethodService) {
 
-  constructor() { }
+   }
 
   ngOnInit() {
+  		this.selectedData = this.route.params.subscribe(v => console.log("this is data"+JSON.stringify(v)));
+  		
   }
 
 }
+
+
+	
+		
