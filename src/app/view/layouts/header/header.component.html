@@ -108,7 +108,7 @@
                                     <li class=""><a href="" [routerLink]="['/contactus']">Contact Us</a></li>
                                     <li data-toggle="modal" data-target="#loginModal" class="tmpl-login" *ngIf = "!getToken"><a>Sign In</a></li>
                                     <!--<li class="tmpl-login"><a href="">Logout</a></li>-->
-                                    <li data-toggle="modal" data-target="#signupModal" class="tmpl-login" *ngIf = "!getToken"><a>Sign Up</a></li>
+                                    <li id="signUpFormModal" data-toggle="modal" data-target="#signupModal" class="tmpl-login" *ngIf = "!getToken"><a>Sign Up</a></li>
                                     <li class="tmpl-login" *ngIf = "getToken"><a>My Account</a>
                                         <ul class="sub-menu">
                                             <li class=""><a href="" [routerLink]="['/profile']">Profile</a></li>

@@ -22,6 +22,11 @@ export class FooterComponent implements OnInit {
 	tokenValueAuth:any;
 	usernameErr:any;
 	passwordErr:any;
+	invalidErr:any;
+	name:any;
+	useremail:any;
+	userPass:any;
+	usercnfpass:any;
 
 
 	constructor(private router: Router, public apiService:ApiMethodService,overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal) { 
@@ -38,28 +43,43 @@ export class FooterComponent implements OnInit {
 
 	userSignIn(value:any):void{
 		var ref = this;
-		if(value.username == "" && value.password == ""){
-			ref.usernameErr = "Please Enter Username.!";
-			ref.passwordErr = "Please Enter Password.!";
+		this.apiService.userLoginApi(value,function(res){
+			console.log("this is api response"+ JSON.stringify(res));
+			if(res.data.token){
+				ref.router.navigate(['/index']);
+			}
+			var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
+			closeBtn.click();
 
-		}
-		else if(value.username == ""){
-			ref.usernameErr = "Please Enter Username.!";
+		},function(error){
+			console.log("this is error res");
+			var errors = error.json().errors;
+			var cred = JSON.parse(error._body);
+			// var cred = error.json()._body;
+			// var allErrors = Object.keys(error.json().errors);
+			// var myErr = {};
+			// for (var i = 0; i < allErrors.length; ++i) {
+				// 	var errArr =errors[allErrors[i]];
+				// 	var message = "";
+				// 	for (var j = 0; j < errArr.length; ++j) {
+					// 		if (message.length > 0) {
+						// 			message += '\n';
+						// 		}
+						// 		message += errArr[j];
+						// 	}
+						// 	myErr[allErrors[i]] = message;
+						// }
 
-		}
-		else if(value.password == ""){
-			ref.passwordErr = "Please Enter Password.!";
-		}
-		else{
-			this.apiService.userLoginApi(value,function(res){
-				console.log("this is api response"+ JSON.stringify(res));
-				if(res.data.token){
-					ref.router.navigate(['/index']);
-				}
-				var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
-				closeBtn.click();
-			});
-		}
+						console.log(JSON.stringify(cred.error));
+						ref.passwordErr = errors.password;
+						ref.usernameErr = errors.username;
+						// ref.invalidErr  = errors.error;
+						// if(cred.error !==""){
+						// 	ref.invalidErr = "invalid_credentials or account is deactive";
+						// }
+						
+					});
+		
 
 	}
 
@@ -72,17 +92,24 @@ export class FooterComponent implements OnInit {
 			refreg.router.navigate(['/index']);
 			var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
 			closeBtn.click();
+		},function(error){
+			var errors = error.json().errors;
+			refreg.name = errors.username;
+			refreg.useremail = errors.email;
+			refreg.userPass = errors.password;
+			refreg.usercnfpass = errors.password_confirmation;
+
 		});
 	}
 
 	signupClick(){
-		var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
-		closeBtn.click();
+		var closesinBtn = <HTMLElement>document.getElementById("loginModal");
+		closesinBtn.click();
 	}
 
 	siginClick(){
-		var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
-		closeBtn.click();
+		var closeloginBtn = <HTMLElement>document.getElementById("signupModal");
+		closeloginBtn.click();
 	}
 
 

@@ -29,7 +29,7 @@ export class ApiMethodService {
 
 	//this is user login api
 
-	userLoginApi(params, callBack){
+	userLoginApi(params, callBack, failure){
 		this.http.post('http://2016.geekmeet.com/admin/v1/login', params).map(res =>res.json())
 		.subscribe((res) => {
 			localStorage.setItem('auth_token', res.data.token);
@@ -41,21 +41,21 @@ export class ApiMethodService {
 			{
 				callBack(res);
 			}
-		}, (error) => console.log("Invalid Credentials or Account is Deactive.!"));
+		}, (error) => failure(error));
 	}
 
 
 	// this is user registration api
 
 
-	userRegistrationApi(regData, callBack){
+	userRegistrationApi(regData, callBack, failure){
 		this.http.post('http://2016.geekmeet.com/admin/v1/registration', regData).map(res =>res.json())
 		.subscribe((res) => {
 			if(callBack)
 			{
 				callBack(res);
 			}
-		}, (error) => console.log('There was an error', error));
+		}, (error) => failure(error));;
 	}
 
 

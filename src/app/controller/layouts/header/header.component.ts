@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
       var ref = this;
       this.apiService.userLogoutApi(function(res){
         console.log("this is api response"+ JSON.stringify(res));
-        ref.router.navigate(['/']);
+        ref.router.navigate(['/index']);
       });
     }
   }
