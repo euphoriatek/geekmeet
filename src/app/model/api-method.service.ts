@@ -29,11 +29,11 @@ export class ApiMethodService {
 
 	//this is user login api
 
-<<<<<<< HEAD
-	userLoginApi(params,callBack,error){
-=======
+
+
+
 	userLoginApi(params, callBack, failure){
->>>>>>> 311fda7f2b2fb5649df1ff5933aa888d735e0027
+
 		this.http.post('http://2016.geekmeet.com/admin/v1/login', params).map(res =>res.json())
 		.subscribe((res) => {
 			localStorage.setItem('auth_token', res.data.token);
