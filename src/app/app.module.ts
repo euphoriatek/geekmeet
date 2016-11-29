@@ -34,6 +34,7 @@ import { BlogDetailComponent } from './controller/blog-detail/blog-detail.compon
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

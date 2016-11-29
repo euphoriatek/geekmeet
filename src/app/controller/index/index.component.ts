@@ -19,10 +19,10 @@ export class IndexComponent implements OnInit {
 	ngOnInit() {
 		this.getToken = this.apiService.getLoginToken();
 
-		if(this.getToken){
-			this.router.navigate(['/header']);
-			this.router.navigate(['/']);
-		}
+		// if(this.getToken){
+		// 	this.router.navigate(['/header']);
+		// 	this.router.navigate(['/']);
+		// }
 
 		this.popularEvent();
 		this.upcomingEvent();

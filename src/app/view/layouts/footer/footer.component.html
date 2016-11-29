@@ -134,7 +134,7 @@
                 <h3>Sign Up </h3>
                 <ul class="social_login social_media_login">
                     <li>Sign in with</li>
-                    <li><a rel="nofollow" class="facebook" href=""> Facebook</a></li>
+                    <li><a rel="nofollow" class="facebook"> Facebook</a></li>
                     <li><a rel="nofollow" class="linkedin" href=""> LinkedIn</a></li>
                 </ul>
                 <p class="login_sep">OR</p>
@@ -184,12 +184,11 @@
 
 
     <!-- this is login demo  modal squarespaceModal"-->
-
     <div style="background-color: transparent;" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"  *ngIf="loginModalHidden">
       <div class="modal-dialog" style="width: 390px;" >
         <div class="modal-content">
             <div class="modal-header" id="sign_in_modal">
-                <button id="closeLoginModal" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <button id="closeLoginModal" type="button" class="close" data-dismiss="modal" (click)="closeModal()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <h3 class="modal-title" id="lineModalLabel">Sign In</h3>
             </div>
             <div class="modal-body">
@@ -197,18 +196,15 @@
                 <!-- content goes here -->
                 <form name="popup_login"  #form="ngForm" (ngSubmit)="userSignIn(form.value)">
                     <div class="form_row clearfix">
-                        <label>Username <span class="indicates">*</span> </label>
-                        <div class="form-group">
+                        <label>Email <span class="indicates">*</span> </label>
                             <input type="text" (click)="usernameErr =''" name="username" id="user_login" size="20" class="textfield" ngModel>
                         <span id="user_loginInfo">{{usernameErr}}</span> 
                     </div>
                     <div class="form_row clearfix">
                         <label> Password <span class="indicates">*</span> </label>
-
                         <input type="password" (click)="passwordErr =''" name="password" id="user_pass" class="textfield" size="20" ngModel>
                         <span id="user_passInfo">{{passwordErr}}</span>
                         <span id="user_passInfo">{{invalidErr}}</span>
-
                     </div>
                     <div class="form_row rember clearfix">
                         <label>
@@ -241,7 +237,7 @@
       <div class="modal-dialog" style="width: 420px;" id="sign_up_modal">
         <div class="modal-content">
             <div class="modal-header">
-                <button id="closeSignupModal" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <button id="closeSignupModal" type="button" class="close" data-dismiss="modal" (click)="closeModal()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
             <h3 class="modal-title" id="lineModalLabel">Sign Up</h3>
         </div>
         <div class="modal-body">
@@ -251,8 +247,8 @@
 
             <ul class="social_login social_media_login">
                 <li>Sign in with</li>
-                <li><a rel="nofollow" class="facebook" href=""> Facebook</a></li>
-                <li><a rel="nofollow" class="linkedin" href=""> LinkedIn</a></li>
+                <li><a rel="nofollow" class="facebook" (click)="loginWithFb()"> Facebook</a></li>
+                <li><a rel="nofollow" class="linkedin" (click)="loginLinked()"> LinkedIn</a></li>
             </ul>
             <p class="login_sep">OR</p>
             <form name="popup_register" id="popup_register" enctype="multipart/form-data" #regForm="ngForm" (ngSubmit)="userSignUp(regForm.value)">
@@ -284,7 +280,7 @@
                 <div class="form_row rember clearfix">
                     <label>
                         <input name="rememberme" type="checkbox" id="rememberme" value="forever" class="fl">
-                        Accept<a href="" [routerLink]="['/term-condition']" class="terms"> Terms & Condition</a>
+                        Accept<a href="" [routerLink]="['/term-condition']" class="terms" data-dismiss="modal"> Terms & Condition</a>
                     </label>
                 </div>
                 <!-- <div id="popup_register_register_cap"></div> -->
