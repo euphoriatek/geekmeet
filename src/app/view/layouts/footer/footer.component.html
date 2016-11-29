@@ -1,7 +1,3 @@
-<!-- </div>
-</div>
-</div> -->
-
 <aside id="sidebar-subsidiary-2c" class="sidebar sidebar-2c sidebar-subsidiary clearfix large-3 small-12 columns">
     <div class="sidebar-wrap masonry" style="position: relative; height: 76px;">
         <div id="directory_search_location-2" class="widget search_key masonry-brick" style="position: absolute; top: 0px; left: 0px;">
@@ -27,7 +23,7 @@
                     </form>
                 </div>
             </div>
-        </div>	  
+        </div>    
     </div>
     <!-- .sidebar-wrap -->
 </aside>
@@ -39,7 +35,7 @@
             <div class="columns">
                 <div class="footer_widget_wrap">
                     <div id="supreme_subscriber_widget-1" class="widget subscribe">
-                        <div class="widget-wrap widget-inside">					
+                        <div class="widget-wrap widget-inside">                 
                             <p> Subscribe to get latest news from site </p>
                             <span class="newsletter_msg" id="newsletter_msg"> </span>
                             <div class="subscriber_container">
@@ -89,15 +85,15 @@
                     </div>
                     <div id="meta-1" class="widget widget_meta">
                         <div class="social_media widget-wrap widget-inside">
-                            <h3 class="widget-title">Social</h3>			
+                            <h3 class="widget-title">Social</h3>            
                             <ul class="social_media_list">
                                 <li> <a href="http://facebook.com/" target="_blank">
                                     <i class="fa fa-facebook"></i>
                                 </a> 
-                            </li>			
+                            </li>           
                         </ul>
                     </div>
-                </div>				
+                </div>              
             </div>
         </div>
     </div>
@@ -184,7 +180,6 @@
 
 
     <!-- this is login demo  modal squarespaceModal"-->
-
     <div style="background-color: transparent;" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"  *ngIf="loginModalHidden">
       <div class="modal-dialog" style="width: 390px;" >
         <div class="modal-content">
@@ -197,18 +192,15 @@
                 <!-- content goes here -->
                 <form name="popup_login"  #form="ngForm" (ngSubmit)="userSignIn(form.value)">
                     <div class="form_row clearfix">
-                        <label>Username <span class="indicates">*</span> </label>
-                        <div class="form-group">
+                        <label>Email <span class="indicates">*</span> </label>
                             <input type="text" (click)="usernameErr =''" name="username" id="user_login" size="20" class="textfield" ngModel>
                         <span id="user_loginInfo">{{usernameErr}}</span> 
                     </div>
                     <div class="form_row clearfix">
                         <label> Password <span class="indicates">*</span> </label>
-
                         <input type="password" (click)="passwordErr =''" name="password" id="user_pass" class="textfield" size="20" ngModel>
                         <span id="user_passInfo">{{passwordErr}}</span>
                         <span id="user_passInfo">{{invalidErr}}</span>
-
                     </div>
                     <div class="form_row rember clearfix">
                         <label>

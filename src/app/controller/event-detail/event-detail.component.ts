@@ -10,39 +10,67 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['../../assets/css/event-detail/event-detail.component.css']
 })
 export class EventDetailComponent implements OnInit {
-   eventDetail:any
-   selectedData:any;
-   popularArr:any;
-   popularTotal:any;
+  eventDetail:any
+  selectedData:any;
+  data:Object;
+ 
   constructor(private route: ActivatedRoute,private apiService: ApiMethodService) {
 
-   }
+  }
 
   ngOnInit() {
-  		this.selectedData = this.route.snapshot.params['id'];
-  		// console.log(this.selectedData)
-    	this.getEventDetail(this.selectedData);
-
-      this.popularEvent();
-  
-
+    //    this.data['popular_event']={};
+    // this.data['event_data']={};
+    this.selectedData = this.route.snapshot.params['id'];
+    // console.log(this.selectedData)
+   this.getEventDetail(this.selectedData);
+      this.popularEvent(1);
+    
   }
 
   getEventDetail(value){
-            console.log(value);
-			var refreg = this;
-			this.apiService.EventDetail(value,function(res){
-        refreg.eventDetail = res.data;
-        console.log("SDA");
-        console.log(refreg.eventDetail.category_id);
-			});
-		}
-    popularEvent(){
+    console.log(value);
+    var refreg = this;
+    this.apiService.EventDetail(value,function(res){
+      console.log(JSON.stringify(refreg.data));
+      if(typeof(refreg.data)=='undefined'){
+         refreg.data = {};
+      }
+      refreg.eventDetail = res.data;
+      refreg.data['event_data'] = res.data[0];
+       console.log("Asd");
+      
+    });
+  }
+
+  popularEvent(value){
     var ref = this;
-    this.apiService.popularEventApi(function(res){
-     ref.popularArr = res.data.data;
-     ref.popularTotal = res.total;      
+    this.apiService.popularEventApi(value,function(res){
+      if(typeof(ref.data)=='undefined'){
+         ref.data = {};
+      }
+      console.log(JSON.stringify(ref.data));
+      ref.data['popular_event'] = {
+        popularArr : res.data.data,
+        popularTotal : res.data.last_page,
+        currentPage : res.data.current_page,     
+      };
+
     });
 
   }
+
+  createRange(number){
+    var links = [];
+    for(var i = 1; i <= number; i++){
+      links.push(i);
+    }
+    
+    return links;
+  }
+
+  getEventPagination(ev_id){
+    this.popularEvent(ev_id);
+  }
 }
+

@@ -85,8 +85,8 @@ export class ApiMethodService {
 
 	//this is blog api when user not logged in
 
-	blogApi(callBack){
-		this.http.get('http://2016.geekmeet.com/admin/v1/blog').map(res=>res.json())
+	blogApi(regdata,callBack){
+		this.http.get('http://2016.geekmeet.com/admin/v1/blog?page='+regdata).map(res=>res.json())
 		.subscribe((res)=>{
 			if(callBack)
 			{
@@ -123,14 +123,16 @@ export class ApiMethodService {
 
 	// get popular event api list
 
-	popularEventApi(callBack){
-		this.http.get('http://2016.geekmeet.com/admin/v1/popular_event').map(res=>res.json())
+	popularEventApi(regdata,callBack){
+		
+	    this.http.get('http://2016.geekmeet.com/admin/v1/popular_event?page='+regdata).map(res=>res.json())
 		.subscribe((res)=>{
 			if(callBack)
 			{
 				callBack(res);
 			}
-		}, (error) => console.log('There was an error', error));
+		}, (error) => console.log('There was an error', error));	
+	    
 	}
 
 	// 

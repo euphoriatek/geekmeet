@@ -11,20 +11,37 @@ import 'rxjs/add/operator/catch';
 })
 export class BlogComponent implements OnInit {
 	blogArr:any;
+	blogTotal:any;
+	currentPage:any;
 
 	constructor(private router:Router, public apiService:ApiMethodService) { }
 
   ngOnInit() {
-  	this.blogDeafault();
+  	this.blogDeafault(1);
+
   }
 
-  blogDeafault(){
+  blogDeafault(value){
 		var ref = this;
-		this.apiService.blogApi(function(res){
+		this.apiService.blogApi(value,function(res){
 			// console.log("this is blog api response"+ JSON.stringify(res.data.data));
 			ref.blogArr = res.data.data;
-			console.log("this is array"+JSON.stringify(ref.blogArr));
+            ref.blogTotal = res.data.last_page;
+            ref.currentPage = res.data.current_page;   			
 		});
 	}
+
+	 createRange(number){
+    var links = [];
+    for(var i = 1; i <= number; i++){
+      links.push(i);
+    }
+    
+    return links;
+  }
+
+    getBlogPagination(ev_id){
+    this.blogDeafault(ev_id);
+  }
 
 }
