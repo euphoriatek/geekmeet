@@ -9,8 +9,11 @@ import { Overlay } from 'angular2-modal';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ProfileComponent } from '../../profile/profile.component';
+// import {FacebookService, FacebookInitParams} from 'ng2-facebook-sdk/dist';
 
-
+declare const FB: any;
+declare const IN: any;
+declare var Auth0Lock;
 @Component({
 	selector: 'app-footer',
 	templateUrl: '../../../view/layouts/footer/footer.component.html',
@@ -27,13 +30,94 @@ export class FooterComponent implements OnInit {
 	useremail:any;
 	userPass:any;
 	usercnfpass:any;
+	token: any;
+	loged: boolean = false;
+	user = { name: 'Hello' };
+	fbUserInfo:any;
+	fbtoken:any;
+	fbuserid:any;
+	first_name:any;
+	image:any;
+	last_name:any;
 
 
-	constructor(private router: Router, public apiService:ApiMethodService,overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal) { 
+	constructor(private router: Router,
+		public apiService:ApiMethodService,
+		overlay: Overlay,
+		vcRef: ViewContainerRef,
+		public modal: Modal
+		){ 
 		overlay.defaultViewContainer = vcRef;
+		FB.init({
+			appId      : '1840931362816112',
+			cookie     : false, 
+			xfbml      : true,  
+			version    : 'v2.8' 
+		});
 	}
 
+
+	statusChangeCallback(response: any) {
+		if (response.status === 'connected') {
+			console.log('connected');
+		} else {
+			this.login();
+		}
+	}
+
+	login() {
+		var refTokn = this;
+		FB.login(function(result) {
+			refTokn.loged = true;
+			refTokn.token = result;
+			// localStorage.setItem('auth_token', refTokn.token.authResponse.accessToken);
+			console.log(refTokn.token.authResponse);
+
+				refTokn.fbtoken= refTokn.token.authResponse.accessToken,
+				refTokn.fbuserid=refTokn.token.authResponse.userID
+
+			if(refTokn.token.authResponse.accessToken){
+				refTokn.me(refTokn.fbtoken);
+			}
+			var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
+			closeBtn.click();
+		}, { scope: 'user_friends' });
+	}
+
+	me(token) {
+		FB.api('/me?fields=id,name,first_name,picture.width(150).height(150),last_name,email',
+			function(result) {
+				if (result && !result.error) {
+					this.user = result;
+					console.log("user info");
+					console.log(this.user);
+					this.fbUserInfo = {
+						'first_name':this.user.first_name,
+						'image':this.user.picture.data.url,
+						'last_name': this.user.last_name,
+						'token': token
+					};
+					console.log(this.fbUserInfo);
+					
+
+				} else {
+					console.log(result.error);
+				}
+			});
+		console.log("this is fb info array");
+		
+		
+	}
+	
+
+
 	ngOnInit() {
+		
+	}
+	loginWithFb(){
+		FB.getLoginStatus(response => {
+			this.statusChangeCallback(response);
+		});
 	}
 
 	resolved(captchaResponse: string) {
@@ -75,10 +159,10 @@ export class FooterComponent implements OnInit {
 						ref.usernameErr = errors.username;
 						// ref.invalidErr  = errors.error;
 						// if(cred.error !==""){
-						// 	ref.invalidErr = "invalid_credentials or account is deactive";
-						// }
-						
-					});
+							// 	ref.invalidErr = "invalid_credentials or account is deactive";
+							// }
+
+						});
 		
 
 	}
@@ -111,6 +195,34 @@ export class FooterComponent implements OnInit {
 		var closeloginBtn = <HTMLElement>document.getElementById("signupModal");
 		closeloginBtn.click();
 	}
+
+	closeModal(){
+		this.name = "";
+		this.useremail = "";
+		this.userPass = "";
+		this.usercnfpass = "";
+		this.passwordErr = "";
+		this.usernameErr = "";
+	}
+
+	//  lock = new Auth0Lock('s7ln1gfIaFpcWTltHp9TExmkLrmfPl6L','kundan12.auth0.com/oauth/token');
+
+	// loginLinked() {
+ //    var hash = this.lock.parseHash();
+ //    if (hash) {
+ //      if (hash.error)
+ //        console.log('There was an error logging in', hash.error);
+ //      else
+ //        this.lock.getProfile(hash.id_token, function(err, profile) {
+ //          if (err) {
+ //            console.log(err);
+ //            return;
+ //          }
+ //          localStorage.setItem('profile', JSON.stringify(profile));
+ //          localStorage.setItem('id_token', hash.id_token);
+ //        });
+ //    }
+ //  }
 
 
 }

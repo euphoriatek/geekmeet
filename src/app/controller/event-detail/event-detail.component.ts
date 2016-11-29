@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 @Component({
   selector: 'app-event-detail',
   templateUrl: '../../view/event-detail/event-detail.component.html',
-  styleUrls: ['../../assets/css/event-detail/event-detail.component.css']
+  styleUrls: ['../../assets/css/event-detail/event-detail.component.css','../../assets/css/Templatic-Shortcodes/style.css']
 })
 export class EventDetailComponent implements OnInit {
   eventDetail:any

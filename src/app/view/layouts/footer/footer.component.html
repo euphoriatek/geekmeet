@@ -130,7 +130,7 @@
                 <h3>Sign Up </h3>
                 <ul class="social_login social_media_login">
                     <li>Sign in with</li>
-                    <li><a rel="nofollow" class="facebook" href=""> Facebook</a></li>
+                    <li><a rel="nofollow" class="facebook"> Facebook</a></li>
                     <li><a rel="nofollow" class="linkedin" href=""> LinkedIn</a></li>
                 </ul>
                 <p class="login_sep">OR</p>
@@ -184,7 +184,7 @@
       <div class="modal-dialog" style="width: 390px;" >
         <div class="modal-content">
             <div class="modal-header" id="sign_in_modal">
-                <button id="closeLoginModal" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <button id="closeLoginModal" type="button" class="close" data-dismiss="modal" (click)="closeModal()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <h3 class="modal-title" id="lineModalLabel">Sign In</h3>
             </div>
             <div class="modal-body">
@@ -233,7 +233,7 @@
       <div class="modal-dialog" style="width: 420px;" id="sign_up_modal">
         <div class="modal-content">
             <div class="modal-header">
-                <button id="closeSignupModal" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <button id="closeSignupModal" type="button" class="close" data-dismiss="modal" (click)="closeModal()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
             <h3 class="modal-title" id="lineModalLabel">Sign Up</h3>
         </div>
         <div class="modal-body">
@@ -243,8 +243,8 @@
 
             <ul class="social_login social_media_login">
                 <li>Sign in with</li>
-                <li><a rel="nofollow" class="facebook" href=""> Facebook</a></li>
-                <li><a rel="nofollow" class="linkedin" href=""> LinkedIn</a></li>
+                <li><a rel="nofollow" class="facebook" (click)="loginWithFb()"> Facebook</a></li>
+                <li><a rel="nofollow" class="linkedin" (click)="loginLinked()"> LinkedIn</a></li>
             </ul>
             <p class="login_sep">OR</p>
             <form name="popup_register" id="popup_register" enctype="multipart/form-data" #regForm="ngForm" (ngSubmit)="userSignUp(regForm.value)">
@@ -276,7 +276,7 @@
                 <div class="form_row rember clearfix">
                     <label>
                         <input name="rememberme" type="checkbox" id="rememberme" value="forever" class="fl">
-                        Accept<a href="" [routerLink]="['/term-condition']" class="terms"> Terms & Condition</a>
+                        Accept<a href="" [routerLink]="['/term-condition']" class="terms" data-dismiss="modal"> Terms & Condition</a>
                     </label>
                 </div>
                 <!-- <div id="popup_register_register_cap"></div> -->
