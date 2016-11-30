@@ -51,7 +51,7 @@ export const routes: Routes = [
       {path:'login' ,component: LoginComponent},
       {path:'term-condition' ,component: TermConditionComponent},
       {path:'event_detail/:id' ,component: EventDetailComponent,data: [{id: true}]},
-      {path:'blog_detail' ,component: BlogDetailComponent},
+      {path:'blog_detail/:id' ,component: BlogDetailComponent,data: [{id: true}]},
       {path:'' ,component: IndexComponent}
 
 ];

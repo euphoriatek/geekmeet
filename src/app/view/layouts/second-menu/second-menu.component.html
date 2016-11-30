@@ -11,7 +11,13 @@
                         <ul id="menu-secondary-items" class="mega">
                             <!-- <li  *ngFor = "let category of menuArr let index = index"><a href="">{{category.category_name}}</a></li> -->
 
+<<<<<<< HEAD
                             <li *ngFor="let category of menuArr; let index = index" class="event_category" (click)="sbmenuClick(category.category_name)"><a href="javascript:void(0)">{{category.category_name}}</a></li>
+=======
+                            <li  *ngFor="let category of menuArr; let index = index" >
+                            <a href="javascript:void(0)" (click)="getEventByCategory(category.category_name)">{{category.category_name}}</a>
+                            </li>
+>>>>>>> 53e9d453f3bd7c6c61f150159e42cd29d65acfc7
                          
                         </ul>
                     </div>  

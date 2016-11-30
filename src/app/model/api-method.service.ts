@@ -163,6 +163,39 @@ export class ApiMethodService {
 			}
 		}, (error) => console.log('There was an error', error));
 	}
+	
+
+	BlogDetail(regData,callBack){
+		
+		this.http.get('http://2016.geekmeet.com/admin/v1/blog_detail/'+regData).map(res =>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => console.log('There was an error', error));
+	}
+
+	 // get event by category
+
+	  EventCategoryApi(regdata,callBack){
+		
+	    this.http.get('http://2016.geekmeet.com/admin/v1/event_by_category/'+regdata).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => console.log('There was an error', error));	
+	    
+	}
+
+	GetEventCategory(data){
+     
+
+
+	}
+
 
 
 
