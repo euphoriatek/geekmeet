@@ -46,5 +46,15 @@ export class IndexComponent implements OnInit {
 
 	}
 
+	onchange(event){
+
+		var ref =this;
+
+		this.apiService.EventCategoryApi(event,function(res){
+		ref.popularArr = res.data.data;
+		});
+	}
+
+
 
 }

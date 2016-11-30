@@ -11,15 +11,48 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['../../assets/css/blog-detail/blog-detail.component.css']
 })
 export class BlogDetailComponent implements OnInit {
+  blogDetail:any = {};
   selectedData:any;
-  constructor(private route: ActivatedRoute,private heroService: ApiMethodService) {
+  data:Object;
+  next:any;
+  previous:any;
+
+ 
+   constructor(private router:Router,private route: ActivatedRoute,private apiService: ApiMethodService) {
 
    }
-
+  
   ngOnInit() {
-  		this.selectedData = this.route.params.subscribe(v => console.log("this is data"+JSON.stringify(v)));
+  	
+      this.route.params.subscribe(params => {
+      this.getBlogDetail(params['id']);
+      });
+      
   		
   }
+
+ 
+
+  getBlogDetail(value){
+    console.log(value);
+    var refreg = this;
+    this.apiService.BlogDetail(value,function(res){
+      
+     refreg.blogDetail = res.data[0];
+     refreg.next = res.next;
+     refreg.previous = res.previous;
+    
+      console.log(refreg.blogDetail.blog_title);
+      
+    });
+  }
+
+  disabled_function(value){
+   return value==null;
+
+  }
+
+
 
 }
 

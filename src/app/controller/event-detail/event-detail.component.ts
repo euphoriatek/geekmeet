@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
+ import {RatingModule} from "ng2-rating";
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -12,10 +13,11 @@ import 'rxjs/add/operator/catch';
 export class EventDetailComponent implements OnInit {
   eventDetail:any
   selectedData:any;
-  data:Object;
+  data:Object = {};
  
   constructor(private route: ActivatedRoute,private apiService: ApiMethodService) {
-
+ this.data['event_data'] = {};
+ this.data['popular_event'] = {};
   }
 
   ngOnInit() {
@@ -38,7 +40,7 @@ export class EventDetailComponent implements OnInit {
       }
       refreg.eventDetail = res.data;
       refreg.data['event_data'] = res.data[0];
-       console.log("Asd");
+   
       
     });
   }

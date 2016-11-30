@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output,EventEmitter} from '@angular/core';
 import { RouterModule, Router }   from '@angular/router';
 import { ApiMethodService } from '../../../model/api-method.service';
 import 'rxjs/add/operator/map';
@@ -13,7 +13,8 @@ import 'rxjs/add/operator/catch';
 
 export class SecondMenuComponent implements OnInit {
 	menuArr:any;
-
+	popularArr:any;
+    @Output() onMenuChange = new EventEmitter<string>();
 	constructor(private router:Router, public apiService:ApiMethodService) { }
 
   ngOnInit() {
@@ -28,5 +29,13 @@ export class SecondMenuComponent implements OnInit {
 
 		});
 	}
+
+    
+
+	getEventByCategory(value){
+	this.onMenuChange.emit(value);	
+	}
+
+
 
 }

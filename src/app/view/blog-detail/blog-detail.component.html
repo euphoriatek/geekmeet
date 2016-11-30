@@ -11,57 +11,51 @@
                 <span class="sep">»</span> 
                 <a href="" title="News">Blog</a>
                 <span class="sep">»</span>
-                <span class="trail-end">Reservation and Booking System + Multilevel Category Selection</span>
+                <span class="trail-end">{{blogDetail.blog_title}}</span>
             </div>
         </div>
 
         <section id="content" class="large-9 small-12 columns">
             <div class="hfeed">
                 <div class="post">
-                    <h1 class="post-title entry-title">Reservation and Booking System + Multilevel Category Selection</h1>
+                    <h1 class="post-title entry-title">{{blogDetail.blog_title}}</h1>
                     <div class="byline">Published by 
                         <span class="author vcard">
-                            <a class="url fn n" href="" title="Smith">Smith</a>
+                            <b>{{blogDetail.username}}</b>
                         </span> On 
-                        <abbr class="published" title="Saturday, August 27th, 2016, 3:39 pm">Aug 27, 2016</abbr> 
-                        <a class="comments-link" href="" title="Comment on Reservation and Booking System + Multilevel Category Selection">Leave a response</a>
+                        <abbr class="published" title="Saturday, August 27th, 2016, 3:39 pm">{{blogDetail.create_date}}</abbr> 
+                        <a class="comments-link" href="javascript:void(0)" title="Comment on Reservation and Booking System + Multilevel Category Selection">Leave a response</a>
                     </div>			
 
                     <section class="entry-content">
                         <div class="entry-thumbnail">
-                            <img src="http://demo.templatic.com/eventum/../images/post/directory-woocommercebookings-15.jpg" alt="">
+                            <img src="{{blogDetail.thumb}}" alt="">
                         </div>
-                        <p>
-                            <strong>Reservation and Booking System</strong><br>
-                            Introducing a powerful reservation and booking system in the directory.
-                        </p>
-
-                        <p>We have integrated industry’s best booking services. Installing WooCommerce Booking plugin it will turn your portal to a fully fledged booking system. Allow users to book hotel accommodation, rental properties, hire cars, book tours, appointments or even restaurant tables and a lot more.</p>
-                        <p>Want to see it Live? Click 
-                            <a href="" target="_blank"><strong>here</strong></a> for Live Demo.
-                        </p>
-                        <p>
-                            <strong>Multi-Level Category Selection options (NEW) </strong>:<br>
-                            Recently we have added Multilevel category selection option which determines the look of the categories field inside the submission form. This option will allow the user to select the category as per parent and child hierarchy. It is a very useful option when you have a number of categories and sub-categories to choose. Simply select a parent category it will open a new section which loads all child categories of that parent category. With this option, you can select multiple parent/child categories while submitting a listing. Isn’t it is more manageable?
-                        </p>
-                        <p>Available choices are Checkbox, Multi-select, Select and Multi-Level Category Selection. Checkbox, Multi-select and Multi-Level Category Selection allow visitors to select multiple categories while Select allows only one to be selected.</p>
+                        <p [innerHTML]="blogDetail.blog_content">
+                       
                     </section>
                     <!-- .entry-content -->
                     <div class="entry-meta "> 
                         <span class="category">
                             <span class="before">Categories: </span>
-                            <a href="" rel="tag">Blog</a>
+                            <a href="" rel="tag">{{ blogDetail.blog_category}}</a>
                         </span> 
                     </div>			
                 </div>
                 <!-- .hentry -->
                 <div class="loop-nav">
-                    <a href="" rel="prev">
+                    <a *ngIf="previous!=null" rel="next" [routerLink]="['/blog_detail',previous]">
                         <span class="previous">
-                            <span class="meta-nav">←</span>
+                            <span class="meta-nav">&larr;</span>
                             Previous
                         </span>
-                    </a>        
+                    </a>
+                     <a *ngIf="next!=null" [routerLink]="['/blog_detail',next]" >
+                        <span class="next" >
+                          Next
+                              <span class="meta-nav">&rarr;</span>
+                        </span>
+                    </a>         
                 </div>
             </div>
             <!-- .hfeed -->

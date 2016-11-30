@@ -39,11 +39,11 @@
                     </div>
                     <div class="entry-header">
                         <h2 class="entry-title">
-                            <a itemprop="url" href="" [routerLink]="['/blog_detail',blog.blog_id]"  title="" rel="bookmark">{{blog.blog_title}}</a>
+                            <a itemprop="url"  [routerLink]="['/blog_detail',blog.blog_id]"  title="" rel="bookmark">{{blog.blog_title}}</a>
                         </h2>
                         <div class="byline">Published by 
                             <span class="author vcard">
-                                <a class="url fn n" href="" title="Smith">{{blog.username}}</a>
+                                <a class="url fn n"  title="Smith">{{blog.username}}</a>
                             </span> On 
                             <abbr class="published" title="{{blog.create_date}}">{{blog.create_date}}</abbr> 
                             <a class="comments-link" href="" title="Comment on Reservation and Booking System + Multilevel Category Selection">Leave a response</a> 
@@ -63,7 +63,7 @@
 
                 <div class="postpagination_776778595 postpagination clearfix">
                 <div class="pagination" *ngFor="let object of createRange(blogTotal)">
-                <a href="javascript:void(0)" [ngClass]="{'active': object==currentPage}" (click)="getBlogPagination(object)" > {{object}} </a>
+                <a  class="page-numbers" href="javascript:void(0)" [ngClass]="{'active': object==currentPage}" (click)="getBlogPagination(object)" > {{object}} </a>
                 </div>
                 </div>
 
