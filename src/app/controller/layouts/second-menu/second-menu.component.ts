@@ -30,12 +30,7 @@ export class SecondMenuComponent implements OnInit {
 		});
 	}
 
-<<<<<<< HEAD
-	sbmenuClick(menu){
-		console.log(menu);
-	}
 
-=======
     
 
 	getEventByCategory(value){
@@ -43,6 +38,4 @@ export class SecondMenuComponent implements OnInit {
 	}
 
 
-
->>>>>>> 53e9d453f3bd7c6c61f150159e42cd29d65acfc7
 }
