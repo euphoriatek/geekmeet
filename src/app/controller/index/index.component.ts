@@ -24,13 +24,13 @@ export class IndexComponent implements OnInit {
 		// 	this.router.navigate(['/']);
 		// }
 
-		this.popularEvent();
+		this.popularEvent(1);
 		this.upcomingEvent();
 	}
 
-	popularEvent(){
+	popularEvent(value){
 		var ref = this;
-		this.apiService.popularEventApi(function(res){
+		this.apiService.popularEventApi(value,function(res){
 			ref.popularArr = res.data.data;
 			
 		});

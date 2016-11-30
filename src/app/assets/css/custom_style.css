@@ -104,6 +104,11 @@ a:hover{
     right: 16px;
     top: 14px;
 }
+
+.pagination{
+    display: inline-block;
+    margin: 3px;
+}
 .p-a-md {
     padding: 1.5rem!important;
 }
