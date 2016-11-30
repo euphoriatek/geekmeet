@@ -164,4 +164,23 @@ export class ApiMethodService {
 
 
 
+	//facebook login
+
+	socialLogin(userInfo,callBack, failure){
+		this.http.post('http://2016.geekmeet.com/admin/v1/social_login',userInfo).map(res =>res.json())
+		.subscribe((res) => {
+			localStorage.setItem('auth_token', res.data.token);
+			this.getTokenValue = localStorage.getItem('auth_token');
+			if(res.data.token){
+				this.loggedIn = true;
+			}
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
+
+
+
+}
 }

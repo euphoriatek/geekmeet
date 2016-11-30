@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
+import {RatingModule} from "ng2-rating";
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -14,6 +15,7 @@ export class EventDetailComponent implements OnInit {
    selectedData:any;
    popularArr:any;
    popularTotal:any;
+   starsCount:any;
   constructor(private route: ActivatedRoute,private apiService: ApiMethodService) {
 
    }
@@ -23,8 +25,7 @@ export class EventDetailComponent implements OnInit {
   		// console.log(this.selectedData)
     	this.getEventDetail(this.selectedData);
 
-      this.popularEvent();
-  
+      this.popularEvent(); 
 
   }
 

@@ -94,13 +94,7 @@
                                 <ul id="menu-primary-items" class="primary_menu clearfix">
                                     <li class=""><a>Events</a>
                                         <ul class="sub-menu">
-                                            <li class=""><a href="" [routerLink] = "['/eventadd']">Cisco</a></li>
-                                            <li class=""><a href="" [routerLink] = "['/eventadd']">Databases</a></li>
-                                            <li class=""><a href="" [routerLink] = "['/eventadd']">Microsoft's</a></li>
-                                            <li class=""><a href="" [routerLink] = "['/eventadd']">Networking</a></li>
-                                            <li class=""><a href="" [routerLink] = "['/eventadd']">Open Source</a></li>
-                                            <li class=""><a href="" [routerLink] = "['/eventadd']">IT</a></li>
-                                            <li class=""><a href="" [routerLink] = "['/eventadd']">User Groups</a></li>
+                                            <li class="" *ngFor = "let submenu of menuArr" (click)="sbmenuClick(submenu.category_name)" ><a>{{submenu.category_name}}</a></li>
                                         </ul>
                                     </li>
                                     <li class=""><a href="" [routerLink]="['/blog']" > Blog</a></li>

@@ -196,7 +196,7 @@
                 <!-- content goes here -->
                 <form name="popup_login"  #form="ngForm" (ngSubmit)="userSignIn(form.value)">
                     <div class="form_row clearfix">
-                        <label>Email <span class="indicates">*</span> </label>
+                        <label>Username <span class="indicates">*</span> </label>
                             <input type="text" (click)="usernameErr =''" name="username" id="user_login" size="20" class="textfield" ngModel>
                         <span id="user_loginInfo">{{usernameErr}}</span> 
                     </div>
@@ -248,7 +248,7 @@
             <ul class="social_login social_media_login">
                 <li>Sign in with</li>
                 <li><a rel="nofollow" class="facebook" (click)="loginWithFb()"> Facebook</a></li>
-                <li><a rel="nofollow" class="linkedin" (click)="loginLinked()"> LinkedIn</a></li>
+                <li><a rel="nofollow" class="linkedin" (click)="OnLinkedInFrameworkLoad()"> LinkedIn</a></li>
             </ul>
             <p class="login_sep">OR</p>
             <form name="popup_register" id="popup_register" enctype="multipart/form-data" #regForm="ngForm" (ngSubmit)="userSignUp(regForm.value)">
@@ -285,7 +285,7 @@
                 </div>
                 <!-- <div id="popup_register_register_cap"></div> -->
                 <button class="btn btn-info" type="submit">Sign Up</button>
-                <button class="btn btn-info" type="reset" value="Save" name="submit" data-dismiss="modal">Cancel</button>
+                <button (click)="closeModal()" class="btn btn-info" type="reset" value="Save" name="submit" data-dismiss="modal">Cancel</button>
             </form>
         </div>
 

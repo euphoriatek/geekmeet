@@ -13,6 +13,7 @@ import 'rxjs/add/operator/catch';
 })
 export class HeaderComponent implements OnInit {
   getToken:any;
+  menuArr:any;
   isUserLoggedIn:any = false;
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
 
@@ -25,22 +26,33 @@ export class HeaderComponent implements OnInit {
     
   }
 
-    ngOnInit() {
-
-      console.log("this is token"+this.getToken);
-    }
-
-    goToBlog(){
-      this.router.navigate(['/blog']);
-    }
-
-    userLogout(){
-      this.getToken="";
-      this.isUserLoggedIn = false;
-      var ref = this;
-      this.apiService.userLogoutApi(function(res){
-        console.log("this is api response"+ JSON.stringify(res));
-        ref.router.navigate(['/']);
-      });
-    }
+  ngOnInit() {
+    console.log("this is token"+this.getToken);
+    this.secondmenuDeafault();
   }
+
+  goToBlog(){
+    this.router.navigate(['/blog']);
+  }
+
+  userLogout(){
+    this.getToken="";
+    this.isUserLoggedIn = false;
+    var ref = this;
+    this.apiService.userLogoutApi(function(res){
+      console.log("this is api response"+ JSON.stringify(res));
+      ref.router.navigate(['/']);
+    });
+  }
+
+  secondmenuDeafault(){
+    var ref = this;
+    this.apiService.SecondMenuApi(function(res){
+      ref.menuArr = res.data;
+    });
+  }
+
+  sbmenuClick(menu){
+    console.log(menu);
+  }
+}

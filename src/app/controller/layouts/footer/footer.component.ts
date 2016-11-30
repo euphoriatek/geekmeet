@@ -1,4 +1,4 @@
-import { Component, OnInit,Output, ViewContainerRef, EventEmitter } from '@angular/core';
+import { Component, OnInit,Output, ViewContainerRef, EventEmitter, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RouterModule, Router }   from '@angular/router';
 import { ApiMethodService } from '../../../model/api-method.service';
@@ -14,6 +14,7 @@ import { ProfileComponent } from '../../profile/profile.component';
 declare const FB: any;
 declare const IN: any;
 declare var Auth0Lock;
+declare var proxy:any;
 @Component({
 	selector: 'app-footer',
 	templateUrl: '../../../view/layouts/footer/footer.component.html',
@@ -39,13 +40,15 @@ export class FooterComponent implements OnInit {
 	first_name:any;
 	image:any;
 	last_name:any;
+	linkedInData:any;
 
 
 	constructor(private router: Router,
 		public apiService:ApiMethodService,
 		overlay: Overlay,
 		vcRef: ViewContainerRef,
-		public modal: Modal
+		public modal: Modal,
+		private zone : NgZone
 		){ 
 		overlay.defaultViewContainer = vcRef;
 		FB.init({
@@ -54,176 +57,285 @@ export class FooterComponent implements OnInit {
 			xfbml      : true,  
 			version    : 'v2.8' 
 		});
-	}
 
-
-	statusChangeCallback(response: any) {
-		if (response.status === 'connected') {
-			console.log('connected');
-		} else {
-			this.login();
+		// this.zone.run(() => {
+			// 	this.proxy(this.OnLinkedInFrameworkLoad, this);
+			// });
 		}
-	}
 
-	login() {
-		var refTokn = this;
-		FB.login(function(result) {
-			refTokn.loged = true;
-			refTokn.token = result;
-			// localStorage.setItem('auth_token', refTokn.token.authResponse.accessToken);
-			console.log(refTokn.token.authResponse);
 
+		statusChangeCallback(response: any) {
+			if (response.status === 'connected') {
+				console.log('connected');
+			} else {
+				this.login();
+			}
+		}
+
+		login() {
+			var refTokn = this;
+			FB.login(function(result) {
+				refTokn.loged = true;
+				refTokn.token = result;
+				console.log(refTokn.token.authResponse);
 				refTokn.fbtoken= refTokn.token.authResponse.accessToken,
 				refTokn.fbuserid=refTokn.token.authResponse.userID
-
-			if(refTokn.token.authResponse.accessToken){
-				refTokn.me(refTokn.fbtoken);
-			}
-			var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
-			closeBtn.click();
-		}, { scope: 'user_friends' });
-	}
-
-	me(token) {
-		FB.api('/me?fields=id,name,first_name,picture.width(150).height(150),last_name,email',
-			function(result) {
-				if (result && !result.error) {
-					this.user = result;
-					console.log("user info");
-					console.log(this.user);
-					this.fbUserInfo = {
-						'first_name':this.user.first_name,
-						'image':this.user.picture.data.url,
-						'last_name': this.user.last_name,
-						'token': token
-					};
-					console.log(this.fbUserInfo);
-					
-
-				} else {
-					console.log(result.error);
+				if(refTokn.token.authResponse.accessToken){
+					refTokn.me(refTokn.fbtoken);
 				}
-			});
-		console.log("this is fb info array");
-		
-		
-	}
-	
+				var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
+				closeBtn.click();
+			}, { scope: 'user_friends' });
+		}
+
+		me(token) {
+			var ref = this;
+			FB.api('/me?fields=id,name,first_name,picture.width(150).height(150),last_name,email',
+				function(result) {
+					if (result && !result.error) {
+						this.user = result;
+						console.log(this.user);
+						this.fbUserInfo = {
+							'first_name':this.user.first_name,
+							'image':this.user.picture.data.url,
+							'last_name': this.user.last_name,
+							'token': token
+						};
+						console.log(this.fbUserInfo);
+						ref.userSocialLogin(this.fbUserInfo);				
+
+					} else {
+						console.log(result.error);
+					}
+				});		
+		}
 
 
-	ngOnInit() {
-		
-	}
-	loginWithFb(){
-		FB.getLoginStatus(response => {
-			this.statusChangeCallback(response);
-		});
-	}
 
-	resolved(captchaResponse: string) {
-		console.log(`Resolved captcha with response ${captchaResponse}:`);
-	}
+		ngOnInit() {
+			var linkedIn = document.createElement("script");
+			linkedIn.type = "text/javascript";
+			linkedIn.src = "http://platform.linkedin.com/in.js";
+			linkedIn.innerHTML = "\n"+
+			"api_key: 812nofjpm8avr4\n"
+			document.head.appendChild(linkedIn);
 
-
-	userSignIn(value:any):void{
-		var ref = this;
-		this.apiService.userLoginApi(value,function(res){
-			console.log("this is api response"+ JSON.stringify(res));
-			if(res.data.token){
-				ref.router.navigate(['/index']);
+			var script = document.createElement("script");
+			document.body.appendChild(script);
+		}
+		OnLinkedInFrameworkLoad(){
+			var ref = this;
+			var callbackFunction = function(){
+				IN.API.Raw("/people/~").result(result => onSuccess(result));
 			}
-			var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
-			closeBtn.click();
+			var callbackScope = function(error){
+				console.log(error);
+			}
+			var resultCallback = function(){
 
-		},function(error){
-			console.log("this is error res");
-			var errors = error.json().errors;
-			var cred = JSON.parse(error._body);
-			// var cred = error.json()._body;
-			// var allErrors = Object.keys(error.json().errors);
-			// var myErr = {};
-			// for (var i = 0; i < allErrors.length; ++i) {
-				// 	var errArr =errors[allErrors[i]];
-				// 	var message = "";
-				// 	for (var j = 0; j < errArr.length; ++j) {
-					// 		if (message.length > 0) {
-						// 			message += '\n';
-						// 		}
-						// 		message += errArr[j];
-						// 	}
-						// 	myErr[allErrors[i]] = message;
-						// }
+			}
+			var getProfileData = function(){
+				// IN.API.Raw("/people/~").result(result => console.log(result));
+				
+			}
+			var onSuccess = function(data) {
+				console.log("linkedin data");
+				       ref.linkedInData = {
+				       	'first_name':data.firstName,
+				       	'last_name':data.lastName,
+				       	'token':data.siteStandardProfileRequest.url
+				       }
+				        console.log(ref.linkedInData);
+				       ref.userSocialLogin(ref.linkedInData);
 
-						console.log(JSON.stringify(cred.error));
-						ref.passwordErr = errors.password;
-						ref.usernameErr = errors.username;
-						// ref.invalidErr  = errors.error;
-						// if(cred.error !==""){
-							// 	ref.invalidErr = "invalid_credentials or account is deactive";
-							// }
-
-						});
+				   }
+			IN.User.authorize(callbackFunction,callbackScope);
+		}
 		
 
-	}
+		// OnLinkedInFrameworkLoad(){
+			// 	IN.Event.on(IN, "auth", this.getProfileData());
+			// }
+			
+				//    onError(error) {
+					//        console.log(error);
+					//    }
+					// OnLinkedInAuth(){
+						// 	IN.API.Profile("me").result(result => this.ShowProfileData(result));
+						// }
+						// getProfileData() {
+							//        IN.API.Raw("/people/~").result(result => this.onSuccess(result));
+							//    }
+
+							// ShowProfileData(profiles) {
+								// 	console.log(profiles);
+								// 	var member = profiles.values[0];
+								// 	var id=member.id;
+								// 	var firstName=member.firstName;
+								// 	var lastName=member.lastName;
+								// 	var photo=member.pictureUrl;
+								// 	var headline=member.headline;
+								// }
+
+
+								loginWithFb(){
+									FB.getLoginStatus(response => {
+										this.statusChangeCallback(response);
+									});
+								}
+
+								resolved(captchaResponse: string) {
+									console.log(`Resolved captcha with response ${captchaResponse}:`);
+								}
+
+
+								userSignIn(value:any):void{
+									var ref = this;
+									this.apiService.userLoginApi(value,function(res){
+										console.log("this is api response"+ JSON.stringify(res));
+										if(res.data.token){
+											ref.router.navigate(['/index']);
+										}
+										var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
+										closeBtn.click();
+
+									},function(error){
+										console.log("this is error res");
+										var errors = error.json().errors;
+										var cred = JSON.parse(error._body);
+										// var cred = error.json()._body;
+										// var allErrors = Object.keys(error.json().errors);
+										// var myErr = {};
+										// for (var i = 0; i < allErrors.length; ++i) {
+											// 	var errArr =errors[allErrors[i]];
+											// 	var message = "";
+											// 	for (var j = 0; j < errArr.length; ++j) {
+												// 		if (message.length > 0) {
+													// 			message += '\n';
+													// 		}
+													// 		message += errArr[j];
+													// 	}
+													// 	myErr[allErrors[i]] = message;
+													// }
+
+													console.log(JSON.stringify(cred.error));
+													ref.passwordErr = errors.password;
+													ref.usernameErr = errors.username;
+													// ref.invalidErr  = errors.error;
+													// if(cred.error !==""){
+														// 	ref.invalidErr = "invalid_credentials or account is deactive";
+														// }
+
+													});
+
+
+								}
 
 
 
-	userSignUp(value:any):void{
-		var refreg = this;
-		this.apiService.userRegistrationApi(value,function(res){
-			console.log("this is api response"+ JSON.stringify(res));
-			refreg.router.navigate(['/index']);
-			var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
-			closeBtn.click();
-		},function(error){
-			var errors = error.json().errors;
-			refreg.name = errors.username;
-			refreg.useremail = errors.email;
-			refreg.userPass = errors.password;
-			refreg.usercnfpass = errors.password_confirmation;
+								userSignUp(value:any):void{
+									var refreg = this;
+									this.apiService.userRegistrationApi(value,function(res){
+										console.log("this is api response"+ JSON.stringify(res));
+										refreg.router.navigate(['/index']);
+										var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
+										closeBtn.click();
+									},function(error){
+										var errors = error.json().errors;
+										refreg.name = errors.username;
+										refreg.useremail = errors.email;
+										refreg.userPass = errors.password;
+										refreg.usercnfpass = errors.password_confirmation;
 
-		});
-	}
+									});
+								}
 
-	signupClick(){
-		var closesinBtn = <HTMLElement>document.getElementById("loginModal");
-		closesinBtn.click();
-	}
+								signupClick(){
+									var closesinBtn = <HTMLElement>document.getElementById("loginModal");
+									closesinBtn.click();
+								}
 
-	siginClick(){
-		var closeloginBtn = <HTMLElement>document.getElementById("signupModal");
-		closeloginBtn.click();
-	}
+								siginClick(){
+									var closeloginBtn = <HTMLElement>document.getElementById("signupModal");
+									closeloginBtn.click();
+								}
 
-	closeModal(){
-		this.name = "";
-		this.useremail = "";
-		this.userPass = "";
-		this.usercnfpass = "";
-		this.passwordErr = "";
-		this.usernameErr = "";
-	}
-
-	//  lock = new Auth0Lock('s7ln1gfIaFpcWTltHp9TExmkLrmfPl6L','kundan12.auth0.com/oauth/token');
-
-	// loginLinked() {
- //    var hash = this.lock.parseHash();
- //    if (hash) {
- //      if (hash.error)
- //        console.log('There was an error logging in', hash.error);
- //      else
- //        this.lock.getProfile(hash.id_token, function(err, profile) {
- //          if (err) {
- //            console.log(err);
- //            return;
- //          }
- //          localStorage.setItem('profile', JSON.stringify(profile));
- //          localStorage.setItem('id_token', hash.id_token);
- //        });
- //    }
- //  }
+								closeModal(){
+									this.name = "";
+									this.useremail = "";
+									this.userPass = "";
+									this.usercnfpass = "";
+									this.passwordErr = "";
+									this.usernameErr = "";
+								}
 
 
-}
+								userSocialLogin(fbUserInfo){
+									var ref = this;
+									ref.apiService.socialLogin(fbUserInfo,function(res){
+										console.log("this is api response"+ JSON.stringify(res));
+										if(res.data.token){
+											ref.router.navigate(['/index']);
+										}
+										var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
+										closeBtn.click();
+									},function(error){
+										console.log(error);
+									});
+								}
+
+
+
+								// 	@Component({
+									//   directives : [ROUTER_DIRECTIVES],
+									//   selector : '.main',
+									//   providers : [HTTP_PROVIDERS],
+									//   templateUrl : './app/registration/employee.reg.html'
+									// })
+
+									// export class EmployeeRegistrationComponent implements OnInit{
+
+										//  constructor(private zone : NgZone){
+											//     this.zone.run(() => {
+												//         $.proxy(this.OnLinkedInFrameworkLoad, this);
+												//     });
+												// }
+
+												// ngOnInit(){
+													//     var linkedIn = document.createElement("script");
+													//     linkedIn.type = "text/javascript";
+													//     linkedIn.src = "http://platform.linkedin.com/in.js";
+													//     linkedIn.innerHTML = "\n"+
+													//         "api_key: **********\n" +
+													//         "authorize: true\n" +
+													//         "onLoad:" + this.OnLinkedInFrameworkLoad ;
+													//     document.head.appendChild(linkedIn);
+
+													//     var script = document.createElement("script");
+													//     script.type = "in/Login";
+													//     document.body.appendChild(script);
+													// }
+
+													// OnLinkedInFrameworkLoad = () => {
+														//     IN.Event.on(IN, "auth", this.OnLinkedInAuth);
+														// }
+
+														// OnLinkedInAuth = () => {
+															//     IN.API.Profile("me").result(result => this.ShowProfileData);
+															// }
+
+															// ShowProfileData(profiles) {
+																//     console.log(profiles);
+																//     var member = profiles.values[0];
+																//     var id=member.id;
+																//     var firstName=member.firstName;
+																//     var lastName=member.lastName;
+																//     var photo=member.pictureUrl;
+																//     var headline=member.headline;
+
+																//     //use information captured above
+																//    }
+
+																// }
+															}
 
