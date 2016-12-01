@@ -1,5 +1,5 @@
 <app-header></app-header>
-<app-second-menu></app-second-menu>
+<app-second-menu (onMenuChange)="onSubMenuchange($event)"></app-second-menu>
 <section id="main" class="clearfix">
     <div class="wrap row">
         <div class="breadcrumb breadcrumbs columns">
@@ -28,10 +28,10 @@
             
             <div class="smart_tab">
                 <ul class="tabs">
-                    <li class="tab-title " role="presentational"><a href="" role="tab" tabindex="1" aria-selected="false">Past Events</a></li>
-                    <li class="tab-title active" role="presentational"><a href="" role="tab" tabindex="2" aria-selected="false">Current Events</a></li>
-                    <li class="tab-title " role="presentational"><a href="" role="tab" tabindex="3" aria-selected="false">Upcoming Events</a></li>
-                </ul>  
+                    <li [ngClass] = "{'active':(selectedIndex==0)}" class="tab-title " role="presentational"><a (click)="pastEvent(0)"  role="tab" tabindex="1" aria-selected="false">Past Events</a></li>
+                    <li [ngClass] = "{'active':(selectedIndex==1)}" class="tab-title active" role="presentational"><a (click)="currentEvent(1)" role="tab" tabindex="2" aria-selected="false">Current Events</a></li>
+                    <li [ngClass] = "{'active':(selectedIndex==2)}" class="tab-title" role="presentational"><a (click)="upcomingEvent(2)" role="tab" tabindex="3" aria-selected="false">Upcoming Events</a></li>
+                </ul> 
 
                 <div class="directory_manager_tab clearfix">
                     <div class="sort_options">
@@ -40,23 +40,23 @@
                             <li><a class="switcher last listview" id="listview" href="#">LIST VIEW</a></li>
                         </ul>	
                         <div class="tev_sorting_option">
-                            <form action="" method="get" id="event_sortby_frm" name="event_sortby_frm">
+                            <!-- <form action="" method="get" id="event_sortby_frm" name="event_sortby_frm"> -->
                                 <div class="select-wrap">
-                                    <select name="event_sortby" id="event_sortby" onchange="sort_as_set(this.value)" class="tev_options_sel" style="z-index: 10; opacity: 0;">
-                                        <option selected="selected">Sort By</option>
-                                        <option value="alphabetical">Alphabetical</option>
-                                        <option value="title_asc">Title Ascending</option>
-                                        <option value="title_desc">Title Descending</option>
-                                        <option value="date_asc">Publish Date Ascending</option>
-                                        <option value="date_desc">Publish Date Descending</option>
-                                        <option value="stdate_low_high">Start Date low to high</option>
-                                        <option value="stdate_high_low">Start Date high to low</option>
-                                        <option value="reviews">Reviews</option>
-                                        <option value="rating">Rating</option>
-                                        <option value="random">Random</option>
+                                    <select (change) = "sortEventsData($event.target.value)" id="event_sortby" class="tev_options_sel" style="z-index: 10; opacity: 0;">
+                                        <option value = "" selected="selected">Sort By</option>
+                                        <option  value="alphabetical">Alphabetical</option>
+                                        <option  value="title_asc">Title Ascending</option>
+                                        <option  value="title_desc">Title Descending</option>
+                                        <option  value="date_asc">Publish Date Ascending</option>
+                                        <option  value="date_desc">Publish Date Descending</option>
+                                        <option  value="stdate_low_high">Start Date low to high</option>
+                                        <option  value="stdate_high_low">Start Date high to low</option>
+                                        <option  value="reviews">Reviews</option>
+                                        <option  value="rating">Rating</option>
+                                        <option  value="random">Random</option>
                                     </select>
                                 </div>
-                            </form>
+                            <!-- </form> -->
                         </div>
                     </div><!--END sort_options div -->
                 </div><!-- END directory_manager_tab Div -->

@@ -40,6 +40,7 @@ export class FooterComponent implements OnInit {
 	first_name:any;
 	image:any;
 	last_name:any;
+	param_id:any;
 	linkedInData:any;
 
 
@@ -140,202 +141,130 @@ export class FooterComponent implements OnInit {
 			}
 			var onSuccess = function(data) {
 				console.log("linkedin data");
-				       ref.linkedInData = {
-				       	'first_name':data.firstName,
-				       	'last_name':data.lastName,
-				       	'token':data.siteStandardProfileRequest.url
-				       }
-				        console.log(ref.linkedInData);
-				       ref.userSocialLogin(ref.linkedInData);
+				ref.linkedInData = {
+					'first_name':data.firstName,
+					'last_name':data.lastName,
+					'token':data.siteStandardProfileRequest.url
+				}
+				console.log(ref.linkedInData);
+				ref.userSocialLogin(ref.linkedInData);
 
-				   }
+			}
 			IN.User.authorize(callbackFunction,callbackScope);
 		}
 		
 
-		// OnLinkedInFrameworkLoad(){
-			// 	IN.Event.on(IN, "auth", this.getProfileData());
-			// }
-			
-				//    onError(error) {
-					//        console.log(error);
-					//    }
-					// OnLinkedInAuth(){
-						// 	IN.API.Profile("me").result(result => this.ShowProfileData(result));
-						// }
-						// getProfileData() {
-							//        IN.API.Raw("/people/~").result(result => this.onSuccess(result));
-							//    }
+		loginWithFb(){
+			FB.getLoginStatus(response => {
+				this.statusChangeCallback(response);
+			});
+		}
 
-							// ShowProfileData(profiles) {
-								// 	console.log(profiles);
-								// 	var member = profiles.values[0];
-								// 	var id=member.id;
-								// 	var firstName=member.firstName;
-								// 	var lastName=member.lastName;
-								// 	var photo=member.pictureUrl;
-								// 	var headline=member.headline;
+		resolved(captchaResponse: string) {
+			console.log(`Resolved captcha with response ${captchaResponse}:`);
+		}
+
+
+		userSignIn(value:any):void{
+			var ref = this;
+			this.apiService.userLoginApi(value,function(res){
+				console.log("this is api response"+ JSON.stringify(res));
+				if(res.data.token){
+					var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
+					closeBtn.click();
+					// ref.param_id = this.router.getLastURLSegment().getParam('id');
+					// if(this.router.url === "/event_detail/"+ref.param_id){
+					// 	ref.router.navigate(['/event_details/'+ref.param_id]);
+					// }
+					ref.router.navigate(['/index']);
+					// ref.router.navigate(this.router.url);
+				}
+
+
+			},function(error){
+				console.log("this is error res");
+				var errors = error.json().errors;
+				var cred = JSON.parse(error._body);
+				// var cred = error.json()._body;
+				// var allErrors = Object.keys(error.json().errors);
+				// var myErr = {};
+				// for (var i = 0; i < allErrors.length; ++i) {
+					// 	var errArr =errors[allErrors[i]];
+					// 	var message = "";
+					// 	for (var j = 0; j < errArr.length; ++j) {
+						// 		if (message.length > 0) {
+							// 			message += '\n';
+							// 		}
+							// 		message += errArr[j];
+							// 	}
+							// 	myErr[allErrors[i]] = message;
+							// }
+
+							console.log(JSON.stringify(cred.error));
+							ref.passwordErr = errors.password;
+							ref.usernameErr = errors.username;
+							// ref.invalidErr  = errors.error;
+							// if(cred.error !==""){
+								// 	ref.invalidErr = "invalid_credentials or account is deactive";
 								// }
 
-
-								loginWithFb(){
-									FB.getLoginStatus(response => {
-										this.statusChangeCallback(response);
-									});
-								}
-
-								resolved(captchaResponse: string) {
-									console.log(`Resolved captcha with response ${captchaResponse}:`);
-								}
+							});
 
 
-								userSignIn(value:any):void{
-									var ref = this;
-									this.apiService.userLoginApi(value,function(res){
-										console.log("this is api response"+ JSON.stringify(res));
-										if(res.data.token){
-											ref.router.navigate(['/index']);
-										}
-										var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
-										closeBtn.click();
-
-									},function(error){
-										console.log("this is error res");
-										var errors = error.json().errors;
-										var cred = JSON.parse(error._body);
-										// var cred = error.json()._body;
-										// var allErrors = Object.keys(error.json().errors);
-										// var myErr = {};
-										// for (var i = 0; i < allErrors.length; ++i) {
-											// 	var errArr =errors[allErrors[i]];
-											// 	var message = "";
-											// 	for (var j = 0; j < errArr.length; ++j) {
-												// 		if (message.length > 0) {
-													// 			message += '\n';
-													// 		}
-													// 		message += errArr[j];
-													// 	}
-													// 	myErr[allErrors[i]] = message;
-													// }
-
-													console.log(JSON.stringify(cred.error));
-													ref.passwordErr = errors.password;
-													ref.usernameErr = errors.username;
-													// ref.invalidErr  = errors.error;
-													// if(cred.error !==""){
-														// 	ref.invalidErr = "invalid_credentials or account is deactive";
-														// }
-
-													});
-
-
-								}
+		}
 
 
 
-								userSignUp(value:any):void{
-									var refreg = this;
-									this.apiService.userRegistrationApi(value,function(res){
-										console.log("this is api response"+ JSON.stringify(res));
-										refreg.router.navigate(['/index']);
-										var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
-										closeBtn.click();
-									},function(error){
-										var errors = error.json().errors;
-										refreg.name = errors.username;
-										refreg.useremail = errors.email;
-										refreg.userPass = errors.password;
-										refreg.usercnfpass = errors.password_confirmation;
+		userSignUp(value:any):void{
+			var refreg = this;
+			this.apiService.userRegistrationApi(value,function(res){
+				console.log("this is api response"+ JSON.stringify(res));
+				refreg.router.navigate(['/index']);
+				var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
+				closeBtn.click();
+			},function(error){
+				var errors = error.json().errors;
+				refreg.name = errors.username;
+				refreg.useremail = errors.email;
+				refreg.userPass = errors.password;
+				refreg.usercnfpass = errors.password_confirmation;
 
-									});
-								}
+			});
+		}
 
-								signupClick(){
-									var closesinBtn = <HTMLElement>document.getElementById("loginModal");
-									closesinBtn.click();
-								}
+		signupClick(){
+			var closesinBtn = <HTMLElement>document.getElementById("loginModal");
+			closesinBtn.click();
+		}
 
-								siginClick(){
-									var closeloginBtn = <HTMLElement>document.getElementById("signupModal");
-									closeloginBtn.click();
-								}
+		siginClick(){
+			var closeloginBtn = <HTMLElement>document.getElementById("signupModal");
+			closeloginBtn.click();
+		}
 
-								closeModal(){
-									this.name = "";
-									this.useremail = "";
-									this.userPass = "";
-									this.usercnfpass = "";
-									this.passwordErr = "";
-									this.usernameErr = "";
-								}
-
-
-								userSocialLogin(fbUserInfo){
-									var ref = this;
-									ref.apiService.socialLogin(fbUserInfo,function(res){
-										console.log("this is api response"+ JSON.stringify(res));
-										if(res.data.token){
-											ref.router.navigate(['/index']);
-										}
-										var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
-										closeBtn.click();
-									},function(error){
-										console.log(error);
-									});
-								}
+		closeModal(){
+			this.name = "";
+			this.useremail = "";
+			this.userPass = "";
+			this.usercnfpass = "";
+			this.passwordErr = "";
+			this.usernameErr = "";
+		}
 
 
+		userSocialLogin(fbUserInfo){
+			var ref = this;
+			ref.apiService.socialLogin(fbUserInfo,function(res){
+				console.log("this is api response"+ JSON.stringify(res));
+				if(res.data.token){
+					ref.router.navigate(['/index']);
+				}
+				var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
+				closeBtn.click();
+			},function(error){
+				console.log(error);
+			});
+		}
 
-								// 	@Component({
-									//   directives : [ROUTER_DIRECTIVES],
-									//   selector : '.main',
-									//   providers : [HTTP_PROVIDERS],
-									//   templateUrl : './app/registration/employee.reg.html'
-									// })
 
-									// export class EmployeeRegistrationComponent implements OnInit{
-
-										//  constructor(private zone : NgZone){
-											//     this.zone.run(() => {
-												//         $.proxy(this.OnLinkedInFrameworkLoad, this);
-												//     });
-												// }
-
-												// ngOnInit(){
-													//     var linkedIn = document.createElement("script");
-													//     linkedIn.type = "text/javascript";
-													//     linkedIn.src = "http://platform.linkedin.com/in.js";
-													//     linkedIn.innerHTML = "\n"+
-													//         "api_key: **********\n" +
-													//         "authorize: true\n" +
-													//         "onLoad:" + this.OnLinkedInFrameworkLoad ;
-													//     document.head.appendChild(linkedIn);
-
-													//     var script = document.createElement("script");
-													//     script.type = "in/Login";
-													//     document.body.appendChild(script);
-													// }
-
-													// OnLinkedInFrameworkLoad = () => {
-														//     IN.Event.on(IN, "auth", this.OnLinkedInAuth);
-														// }
-
-														// OnLinkedInAuth = () => {
-															//     IN.API.Profile("me").result(result => this.ShowProfileData);
-															// }
-
-															// ShowProfileData(profiles) {
-																//     console.log(profiles);
-																//     var member = profiles.values[0];
-																//     var id=member.id;
-																//     var firstName=member.firstName;
-																//     var lastName=member.lastName;
-																//     var photo=member.pictureUrl;
-																//     var headline=member.headline;
-
-																//     //use information captured above
-																//    }
-
-																// }
-															}
-
+	}

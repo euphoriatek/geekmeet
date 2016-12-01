@@ -13,6 +13,8 @@ import 'rxjs/add/operator/catch';
 export class EventDetailComponent implements OnInit {
   eventDetail:any
   selectedData:any;
+  getToken:any;
+  isUserLoggedIn:any;
   data:Object = {};
  
   constructor(private route: ActivatedRoute,private apiService: ApiMethodService) {
@@ -21,6 +23,10 @@ export class EventDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getToken = this.apiService.getLoginToken();
+    if(this.getToken){
+      this.isUserLoggedIn = true;
+    }
     //    this.data['popular_event']={};
     // this.data['event_data']={};
     this.selectedData = this.route.snapshot.params['id'];

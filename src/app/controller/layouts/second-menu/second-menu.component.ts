@@ -14,7 +14,8 @@ import 'rxjs/add/operator/catch';
 export class SecondMenuComponent implements OnInit {
 	menuArr:any;
 	popularArr:any;
-    @Output() onMenuChange = new EventEmitter<string>();
+	selectedIndex = -1;
+	@Output() onMenuChange = new EventEmitter<string>();
 	constructor(private router:Router, public apiService:ApiMethodService) { }
 
 	ngOnInit() {
@@ -31,10 +32,16 @@ export class SecondMenuComponent implements OnInit {
 	}
 
 
-    
-
-	getEventByCategory(value){
-	this.onMenuChange.emit(value);	
+	getEventByCategory(value, index){
+		this.selectedIndex = index;
+		console.log(this.router.url);
+		if(this.router.url === '/event/'+value){
+			this.router.navigate(['/event',value]);
+		}
+		else{
+			this.onMenuChange.emit(value);
+		}
+			
 	}
 
 

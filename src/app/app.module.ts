@@ -77,6 +77,7 @@ import { BlogDetailComponent } from './controller/blog-detail/blog-detail.compon
       {path:'contactus' ,component: ContactusComponent},
       {path:'eventadd' ,component: EventaddComponent},
       {path:'index' ,component: IndexComponent},
+      {path:'event' ,component: EventComponent},
       {path:'profile' ,component: ProfileComponent},
       {path:'groups' ,component: GroupsComponent},
       {path:'organization' ,component: ChangepasswordComponent},

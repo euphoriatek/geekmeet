@@ -11,47 +11,48 @@ import 'rxjs/add/operator/catch';
 })
 export class IndexComponent implements OnInit {
 	getToken:any;
-	
+	eventArr:any;
 	popularArr:any;
 	upcomingArr:any;
+	events:any;
 	constructor(private router: Router,public apiService:ApiMethodService) { }
 
 	ngOnInit() {
 		this.getToken = this.apiService.getLoginToken();
-
-		// if(this.getToken){
-		// 	this.router.navigate(['/header']);
-		// 	this.router.navigate(['/']);
-		// }
-
 		this.popularEvent(1);
 		this.upcomingEvent();
 	}
 
 	popularEvent(value){
 		var ref = this;
+		ref.events = "Popular Events";
 		this.apiService.popularEventApi(value,function(res){
-			ref.popularArr = res.data.data;
-			
+			ref.popularArr = res.data.data;	
 		});
-
 	}
+
 
 	upcomingEvent(){
 		var ref = this;
 		this.apiService.upcomingEventApi(function(res){
-			ref.upcomingArr = res.data;
-			
+			ref.upcomingArr = res.data;		
 		});
-
 	}
 
+
 	onchange(event){
-
 		var ref =this;
-
 		this.apiService.EventCategoryApi(event,function(res){
-		ref.popularArr = res.data.data;
+			ref.popularArr = res.data.data;
+		});
+	}
+
+	showAllEvents(){
+		var ref = this;
+		ref.events = "Events"
+		ref.apiService.eventApi(function(res){
+			ref.popularArr = res.data;
+			console.log("this is event api response"+ JSON.stringify(res));			
 		});
 	}
 

@@ -34,9 +34,12 @@
                             <div id="widget_loop_event" class="widget widget_loop_taxonomy widget_loop_event">
                                 <div class="title-subtitle">  
                                     <h3 class="widget-title">
-                                        <span>Popular Events</span>
-                                        <a href="" class="more">
-                                            View All                              
+                                        <span>{{events}}</span>
+                                        <a (click)="showAllEvents()" class="more">
+                                           |   View All                              
+                                        </a> 
+                                        <a (click)="popularEvent(1)" class="more" style="margin-right: 4px;">
+                                            Popular Events                              
                                         </a>
                                     </h3>
                                 </div>    

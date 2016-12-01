@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   getToken:any;
   menuArr:any;
   isUserLoggedIn:any = false;
-  @Output() notify: EventEmitter<any> = new EventEmitter<any>();
+  // @Output() onSubMenuChange = new EventEmitter<string>();
 
 
   constructor(private router: Router, public apiService:ApiMethodService) {
@@ -52,7 +52,8 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  sbmenuClick(menu){
+  submenuClick(menu){
     console.log(menu);
+    this.router.navigate(['/event',menu]);
   }
 }

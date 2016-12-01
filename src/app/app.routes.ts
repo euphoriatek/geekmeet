@@ -40,7 +40,7 @@ export const routes: Routes = [
       {path:'sponsors' ,component: SponsorsComponent},
       {path:'contactus' ,component: ContactusComponent},
       {path:'index' ,component: IndexComponent},
-      {path:'event' ,component: EventComponent},
+      {path:'event/:menu' ,component: EventComponent,data:[{menu:true}]},
       {path:'profile' ,component: ProfileComponent},
       {path:'groups' ,component: GroupsComponent},
       {path:'organization' ,component: OrganizationComponent},
@@ -51,6 +51,7 @@ export const routes: Routes = [
       {path:'login' ,component: LoginComponent},
       {path:'term-condition' ,component: TermConditionComponent},
       {path:'event_detail/:id' ,component: EventDetailComponent,data: [{id: true}]},
+      {path:'event_details/:id' ,component: EventDetailComponent,data: [{id: true}]},
       {path:'blog_detail/:id' ,component: BlogDetailComponent,data: [{id: true}]},
       {path:'' ,component: IndexComponent}
 
