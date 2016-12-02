@@ -12,6 +12,7 @@ import 'rxjs/add/operator/catch';
 })
 export class ProfileComponent implements OnInit {
 	getToken:any;
+	userInfoArr:Object = {};
 
 	constructor(private router: Router,public apiService:ApiMethodService) { }
 
@@ -20,6 +21,19 @@ export class ProfileComponent implements OnInit {
 		if(!(this.getToken)){
 			this.router.navigate(['/']);
 		}
+			this.userInformation();	
+	}
+
+
+	userInformation(){
+		var ref = this;
+		ref.apiService.userProfile(function(res){
+			// console.log(JSON.stringify(res));
+			ref.userInfoArr = res.data;
+			console.log(ref.userInfoArr);
+		}, function(err){
+			console.log(err);
+		});
 	}
 
 }

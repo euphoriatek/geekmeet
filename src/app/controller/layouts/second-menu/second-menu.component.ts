@@ -25,7 +25,7 @@ export class SecondMenuComponent implements OnInit {
 	secondmenuDeafault(){
 		var ref = this;
 		this.apiService.SecondMenuApi(function(res){
-			//	 console.log("this is event category api response"+ JSON.stringify(res));
+				 console.log("this is event category api response"+ JSON.stringify(res));
 			ref.menuArr = res.data;
 
 		});
@@ -33,9 +33,11 @@ export class SecondMenuComponent implements OnInit {
 
 
 	getEventByCategory(value, index){
-		this.selectedIndex = index;
-		console.log(this.router.url);
-		if(this.router.url === '/event/'+value){
+		var ref= this;
+		ref.selectedIndex = index;
+		console.log(ref.router.url);
+		console.log(value);
+		if(ref.router.url!="/"){
 			this.router.navigate(['/event',value]);
 		}
 		else{

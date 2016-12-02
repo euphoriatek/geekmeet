@@ -42,18 +42,35 @@ export class IndexComponent implements OnInit {
 
 	onchange(event){
 		var ref =this;
-		this.apiService.EventCategoryApi(event,function(res){
+		var eventArr = {
+			"category": event,
+			"type": "",
+			"sort":"",
+			"all": "false"
+		}
+		this.apiService.eventApi(eventArr,function(res){
 			ref.popularArr = res.data.data;
 		});
 	}
 
 	showAllEvents(){
 		var ref = this;
-		ref.events = "Events"
-		ref.apiService.eventApi(function(res){
+		ref.events = "Events";
+		var eventArr = {
+			"category": "",
+			"type": "",
+			"sort":"",
+			"all": "true"
+		}
+		ref.apiService.eventApi(eventArr,function(res){
 			ref.popularArr = res.data;
 			console.log("this is event api response"+ JSON.stringify(res));			
 		});
+	}
+
+	goToEventDetail(id){
+		this.router.navigate(['/event_detail',id]);
+		// this.router.navigateByUrl('/event_detail',id);
 	}
 
 

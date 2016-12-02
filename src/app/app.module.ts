@@ -7,7 +7,7 @@ import { ApiMethodService } from './model/api-method.service';
 import { RecaptchaModule } from 'ng2-recaptcha';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
-import {RatingModule} from "ng2-rating";
+import { RatingModule } from "ng2-rating";
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './controller/layouts/header/header.component';

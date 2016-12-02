@@ -99,8 +99,8 @@ export class ApiMethodService {
 
 	//this is event api
 
-	eventApi(callBack){
-		this.http.get('http://2016.geekmeet.com/admin/v1/event').map(res=>res.json())
+	eventApi(eventData,callBack){
+		this.http.post('http://2016.geekmeet.com/admin/v1/event',eventData).map(res=>res.json())
 		.subscribe((res)=>{
 			if(callBack)
 			{
@@ -125,14 +125,14 @@ export class ApiMethodService {
 
 	popularEventApi(regdata,callBack){
 		
-	    this.http.get('http://2016.geekmeet.com/admin/v1/popular_event?page='+regdata).map(res=>res.json())
+		this.http.get('http://2016.geekmeet.com/admin/v1/popular_event?page='+regdata).map(res=>res.json())
 		.subscribe((res)=>{
 			if(callBack)
 			{
 				callBack(res);
 			}
 		}, (error) => console.log('There was an error', error));	
-	    
+
 	}
 
 	// 
@@ -176,22 +176,22 @@ export class ApiMethodService {
 		}, (error) => console.log('There was an error', error));
 	}
 
-	 // get event by category
+	// get event by category
 
-	  EventCategoryApi(regdata,callBack){
+	EventCategoryApi(regdata,callBack){
 		
-	    this.http.get('http://2016.geekmeet.com/admin/v1/event_by_category/'+regdata).map(res=>res.json())
+		this.http.get('http://2016.geekmeet.com/admin/v1/event_by_category/'+regdata).map(res=>res.json())
 		.subscribe((res)=>{
 			if(callBack)
 			{
 				callBack(res);
 			}
 		}, (error) => console.log('There was an error', error));	
-	    
+
 	}
 
 	GetEventCategory(data){
-     
+
 
 
 	}
@@ -217,5 +217,20 @@ export class ApiMethodService {
 
 
 
-}
+	}
+
+
+	// user profile
+
+	userProfile(callBack, failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.get('http://2016.geekmeet.com/admin/v1/profile',options).map(res =>res.json())
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
+	}
 }

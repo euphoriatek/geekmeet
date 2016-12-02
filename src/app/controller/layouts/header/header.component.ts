@@ -52,8 +52,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  submenuClick(menu){
-    console.log(menu);
+  submenuClick(menu,index){
     this.router.navigate(['/event',menu]);
   }
 }

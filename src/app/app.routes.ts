@@ -33,6 +33,7 @@ import { BlogDetailComponent } from './controller/blog-detail/blog-detail.compon
 
 
 
+
 export const routes: Routes = [
       {path:'header' ,component: HeaderComponent},
       {path:'footer' ,component: FooterComponent},
@@ -41,6 +42,7 @@ export const routes: Routes = [
       {path:'contactus' ,component: ContactusComponent},
       {path:'index' ,component: IndexComponent},
       {path:'event/:menu' ,component: EventComponent,data:[{menu:true}]},
+      // {path:'event' ,component: EventComponent},
       {path:'profile' ,component: ProfileComponent},
       {path:'groups' ,component: GroupsComponent},
       {path:'organization' ,component: OrganizationComponent},
