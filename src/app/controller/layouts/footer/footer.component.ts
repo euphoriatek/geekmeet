@@ -67,7 +67,7 @@ export class FooterComponent implements OnInit {
 
 		statusChangeCallback(response: any) {
 			if (response.status === 'connected') {
-				console.log('connected');
+				this.login();
 			} else {
 				this.login();
 			}

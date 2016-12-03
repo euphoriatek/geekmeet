@@ -182,6 +182,7 @@
                                                 <!--Start Post Content -->
                                                 <div class="entry-summary" itemprop="description">
                                                 <p [innerHTML]="events.event_description"></p>
+                                                <a *ngIf="events.readmore==1" [routerLink]="['/event_detail']" >Read More</a>
                                                
                                                 </div>                                                                        <!-- End Post Content -->
                                                 <div class="rev_pin"><ul> 
