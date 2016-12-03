@@ -35,7 +35,11 @@ export class EventComponent implements OnInit {
 
    ngAfterViewInit() {
     //to initiate sort dropdown on first view load
-    jQuery(".sort_options select,#searchform select,#submit_form select,.search_filter select,.tmpl_search_property select,.widget_location_nav select,#srchevent select,#header_location .location_nav select,.horizontal_location_nav select,.widget select").not("#tevolution_location_map select").each(function() {
+    
+
+       setTimeout(_ => {
+      
+      jQuery(".sort_options select,#searchform select,#submit_form select,.search_filter select,.tmpl_search_property select,.widget_location_nav select,#srchevent select,#header_location .location_nav select,.horizontal_location_nav select,.widget select").not("#tevolution_location_map select").each(function() {
         if (0 == jQuery(this).parent().find(".select-wrap").length && "js-cat-basic-multiple select2-hidden-accessible" != jQuery(this).prop("className") && "js-sub-cat-basic-multiple select2-hidden-accessible" != jQuery(this).prop("className")) {
             jQuery(this).wrap("<div class='select-wrap'></div>");
             jQuery(".peoplelisting li").wrapInner("<div class='peopleinfo-wrap'></div>");
@@ -53,6 +57,8 @@ export class EventComponent implements OnInit {
             });
         }
     });
+     
+    }, 1000);
   }
 
   eventDeafault(){
