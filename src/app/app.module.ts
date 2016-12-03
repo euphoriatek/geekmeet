@@ -8,6 +8,7 @@ import { RecaptchaModule } from 'ng2-recaptcha';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { RatingModule } from "ng2-rating";
+// import  Select2Component  from 'angular2-select2';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './controller/layouts/header/header.component';

@@ -65,15 +65,12 @@
                         <div>
                             <label><i class="fa fa-list"></i> Interest Topic:</label>
                             <span>
-                                <ul class="interest-topic">
-                                    <li>Cisco</li> -
-                                    <li>Database</li> -
-                                    <li>Microsoft's</li> -
-                                    <li>Networking</li>
+                                <ul *ngFor="let topic of userInfoArr.favorite_category" class="interest-topic" style="display: inline;">
+                                    <li>{{topic}}</li> -
                                 </ul>
                             </span>
                         </div>
-                        <div>
+                        <div *ngIf="userInfoArr.about_me">
                             <label><i class="fa fa-user"></i> About Me :</label>
                             <span><p>{{userInfoArr.about_me}}</p></span>
                         </div>
