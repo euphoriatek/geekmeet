@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 // import  Select2Component  from 'angular2-select2';
+declare var jQuery: any;
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -24,6 +25,18 @@ export class EditProfileComponent implements OnInit {
     }
       this.userInformation();  
   }
+
+  ngAfterViewInit() {
+    jQuery(document).find("#multiple").select2({
+        width: '100%',
+        start: function (select2) {
+            jQuery('.edit_profile__module').removeClass('loading');
+        }
+    });
+
+  }
+
+  
 
 
   userInformation(){

@@ -18,7 +18,7 @@
                 <h3>Edit Profile</h3>
             </div>
 
-            <form name="profile edit" id="event-add" action="#" method="post" enctype="multipart/form-data" #editProfileForm="ngForm" (ngSubmit)="updateUserProfile(editProfileForm.value)">
+            <form enctype="multipart/form-data" #form="ngForm" (ngSubmit)="updateUserProfile(form.value)">
                 <div class="event-edit-form large-9 small-12 columns">
                     <div class="form_row clearfix">
                         <label>Profile Photo<span class="indicates">*</span></label>
@@ -72,7 +72,7 @@
                     <div class="form_row clearfix">
                         <label>Interest Topic</label>
                         <div class="col-sm-12 -m-rl-15">
-                            <select id="multiple" class="textfield select2-multiple" multiple ngModel name="favorite_category[]"> 
+                            <select id="multiple" class="textfield select2-multiple" multiple name="favorite_category[]" ngModel> 
                                 <optgroup label="Tech">
                                     <option>Cisco</option>
                                     <option>Database</option>
@@ -89,8 +89,8 @@
                         <textarea class="ckeditor form-control" name="about_me" rows="6" ngModel>{{userInfoArr.about_me}}</textarea>
                     </div>
                     <div class="form_row ">
-                        <button class="btn btn-warning" type="submit">Update</button>
-                        <a class="btn btn-warning" type="reset" value="Save" name="submit">Cancel</a>	
+                        <button class="btn btn-info" type="submit">Update</button>
+                        <a class="btn btn-info" type="reset" value="Save" name="submit">Cancel</a>	
                     </div>
                 </div>
             </form>
