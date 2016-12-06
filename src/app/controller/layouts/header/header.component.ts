@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("this is token"+this.getToken);
+    // console.log("this is token"+this.getToken);
     this.secondmenuDeafault();
   }
 

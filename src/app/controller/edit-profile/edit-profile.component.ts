@@ -60,13 +60,18 @@ export class EditProfileComponent implements OnInit {
   userInformation(){
     var ref = this;
     ref.apiService.userProfile(function(res){
-      // ref.getState(res.data.country);
-      // ref.getCIty(res.data.state);
+      ref.getState(res.data.country);
+      ref.getCIty(res.data.state);
       ref.userInfoArr = res.data;
       console.log(ref.userInfoArr);
       ref.selectedDateNormal = res.data.dob;
     }, function(err){
-      console.log(err);
+      // console.log("this is token expire");
+      // console.log(err.status);
+      if(err.status == '401'){
+        localStorage.removeItem('auth_token');
+        this.router.navigate(['/']);
+      }
     });
   }
 
@@ -97,14 +102,6 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  public selected(value:any):void {
-    console.log('Selected value is: ', value);
-  }
-
-  public refreshValue(value:any):void {
-    this.value = value;
-  }
-
 
   public itemsToString(value:Array<any> = []):string {
     return value
@@ -133,11 +130,11 @@ export class EditProfileComponent implements OnInit {
   updateUserProfile(value:any):void{
     console.log("this is update of user profile");
     console.log(value);
-    // this.apiService.updateUser(value,function(res){
-    //   console.log(res);
-    // },function(err){
-    //   console.log(err);
-    // });
+    this.apiService.updateUser(value,function(res){
+      console.log(res);
+    },function(err){
+      console.log(err);
+    });
   }
 
 
