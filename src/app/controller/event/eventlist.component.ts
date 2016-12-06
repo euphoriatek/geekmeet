@@ -31,7 +31,7 @@ export class EventListComponent implements OnInit{
     })
   }
 
-   /*ngAfterViewInit() {
+  ngAfterViewInit() {
     //to initiate sort dropdown on first view load
      setTimeout(_ => {
       
@@ -55,7 +55,7 @@ export class EventListComponent implements OnInit{
     });
      
     }, 1000);
-  }*/
+  }
 
   eventDeafault(){
     var ref = this;
