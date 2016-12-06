@@ -33,6 +33,7 @@ import { OrganizationAddComponent } from './controller/organization-add/organiza
 import { TermConditionComponent } from './controller/term-condition/term-condition.component';
 import { EventDetailComponent } from './controller/event-detail/event-detail.component';
 import { BlogDetailComponent } from './controller/blog-detail/blog-detail.component';
+import { EventListComponent } from './controller/event/eventlist.component';
 
 
 
@@ -59,7 +60,8 @@ import { BlogDetailComponent } from './controller/blog-detail/blog-detail.compon
     OrganizationAddComponent,
     TermConditionComponent,
     EventDetailComponent,
-    BlogDetailComponent
+    BlogDetailComponent,
+    EventListComponent
   ],
   imports: [
     BrowserModule,
