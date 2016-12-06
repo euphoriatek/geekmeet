@@ -64,11 +64,9 @@ import { MyOrganizationsComponent } from './controller/my-organizations/my-organ
     TermConditionComponent,
     EventDetailComponent,
     BlogDetailComponent,
-<<<<<<< HEAD
-    EventListComponent
-=======
+    EventListComponent,
     MyOrganizationsComponent
->>>>>>> 7b893567fa2bc070b5358593357df73c9e4ba61c
+
   ],
   imports: [
     BrowserModule,
