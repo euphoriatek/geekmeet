@@ -1,19 +1,18 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { RouterModule, Router, ActivatedRoute }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
-import { EventListComponent } from './eventlist.component';
 declare var jQuery: any;
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Component({
-  selector: 'app-event',
-  templateUrl: '../../view/event/event.component.html',
-  styleUrls: ['../../assets/css/event/event.component.css']  
+  selector: 'eventlist',
+  templateUrl: '../../view/event/eventlist.component.html',
+  styleUrls: ['../../assets/css/event/event.component.css']
 })
-export class EventComponent {
- /* eventArr:any;
+export class EventListComponent implements OnInit{
+  eventArr:any;
   selectedmenu:any;
   sortvalData:any;
   selectedIndex = -1;
@@ -28,6 +27,7 @@ export class EventComponent {
   page:any = 1;
 
 
+  
   constructor(private router:Router,private route: ActivatedRoute, public apiService:ApiMethodService) { }
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class EventComponent {
     })
   }
 
-   ngAfterViewInit() {
+ ngAfterViewInit() {
     //to initiate sort dropdown on first view load
     
 
@@ -134,7 +134,7 @@ export class EventComponent {
 
    changeGridTolist(status){
     this.gridview = status;
-  }*/
+  }
 
   createRange(number){
     var links = [];
@@ -144,7 +144,6 @@ export class EventComponent {
     
     return links;
   }
-
 
 
 

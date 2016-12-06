@@ -45,7 +45,7 @@ export const routes: Routes = [
       // {path:'event' ,component: EventComponent},
       {path:'profile' ,component: ProfileComponent},
       {path:'groups' ,component: GroupsComponent},
-      {path:'organization' ,component: OrganizationComponent},
+      {path:'organization/:id' ,component: OrganizationComponent,data: [{id: true}]},
       {path:'changepassword' ,component: ChangepasswordComponent},
       {path:'notification-setting' ,component: NotificationSettingComponent},
       {path:'edit_profile' ,component: EditProfileComponent},
