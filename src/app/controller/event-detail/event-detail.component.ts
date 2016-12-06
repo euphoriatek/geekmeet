@@ -3,7 +3,6 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import {RatingModule} from "ng2-rating";
 
-
 declare var jQuery: any;
 
 import 'rxjs/add/operator/map';

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
+import {Location} from '@angular/common';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -15,7 +16,7 @@ export class IndexComponent implements OnInit {
 	popularArr:any;
 	upcomingArr:any;
 	events:any;
-	constructor(private router: Router,public apiService:ApiMethodService) { }
+	constructor(private router: Router,public apiService:ApiMethodService,private location: Location) { }
 
 	ngOnInit() {
 		this.getToken = this.apiService.getLoginToken();
@@ -70,6 +71,7 @@ export class IndexComponent implements OnInit {
 
 	goToEventDetail(id){
 		this.router.navigate(['/event_detail',id]);
+		// this.location.replaceState("/event_detail/"+id);
 		// this.router.navigateByUrl('/event_detail',id);
 	}
 
