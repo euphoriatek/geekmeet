@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
 		if(!(this.getToken)){
 			this.router.navigate(['/']);
 		}
-			this.userInformation();	
+		this.userInformation();	
 	}
 
 
@@ -33,6 +33,10 @@ export class ProfileComponent implements OnInit {
 			console.log(ref.userInfoArr);
 		}, function(err){
 			console.log(err);
+			if(err.status == '401'){
+				localStorage.removeItem('auth_token');
+				this.router.navigate(['/']);
+			}
 		});
 	}
 

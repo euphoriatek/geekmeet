@@ -28,15 +28,18 @@
                     </div>
                     <div class="form_row clearfix">
                         <label>First Name <span class="indicates">*</span></label>
-                        <input type="text" name="first_name" id="" [(ngModel)]="userInfoArr.first_name" class="form-control textfield" > 
+                        <input type="text" name="first_name" id="" [(ngModel)]="userInfoArr.first_name" class="form-control textfield" >
+                        <span id="user_loginInfo">{{firstname}}</span>  
                     </div>
                     <div class="form_row clearfix">
                         <label>Last Name <span class="indicates">*</span></label>
-                        <input type="text" name="last_name" id="" [(ngModel)]="userInfoArr.last_name" class="form-control textfield" > 
+                        <input type="text" name="last_name" id="" [(ngModel)]="userInfoArr.last_name" class="form-control textfield" >
+                        <span id="user_loginInfo">{{lastname}}</span>  
                     </div>
                     <div class="form_row clearfix">
                         <label>Address <span class="indicates">*</span></label>
-                        <textarea class="textfield" name="address" [(ngModel)]="userInfoArr.address" style="height: 100px"></textarea> 
+                        <textarea class="textfield" name="address" [(ngModel)]="userInfoArr.address" style="height: 100px"></textarea>
+                        <span id="user_loginInfo">{{address}}</span>  
                     </div>
                     <div class="form_row clearfix">
                         <label>Birth date<span class="indicates">*</span></label>
@@ -44,51 +47,59 @@
                         <!-- <datepicker-ionic singleSelect ([ngModel])="date"></datepicker-ionic>  -->
                         <!-- <datepicker [(ngModel)]="dateValue"></datepicker> -->
                         <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [selDate]="selectedDateNormal"></my-date-picker>
+                        <span id="user_loginInfo">{{dob}}</span> 
                         <input type="hidden" name="dob" [(ngModel)]="selectedDateNormal">
                     </div>
                     <div class="form_row clearfix">
                         <label>Birth place<span class="indicates">*</span></label>
-                        <input type="text" name="birth_place" id="" [(ngModel)]="userInfoArr.birth_place" class="textfield"> 
+                        <input type="text" name="birth_place" id="" [(ngModel)]="userInfoArr.birth_place" class="textfield">
+                        <span id="user_loginInfo">{{birthplace}}</span>  
                     </div>
                     <div class="form_row clearfix">
                         <label>Gender <span class="indicates">*</span></label>
                         <div class="col-sm-12">
                             <label class=""><input type="radio" name="gender" value="male" [checked]="'male'===userInfoArr.gender" [(ngModel)]="gender" />Male </label>
                             <label><input type="radio" value="female" name="gender" [(ngModel)]="gender" [checked]="'female'===userInfoArr.gender" />Female </label>
+                            <span id="user_loginInfo">{{gender}}</span> 
                         </div>
                     </div>
                     <div class="form_row clearfix">
                         <label>Country<span class="indicates">*</span></label>
-                        <select class="form-control">
-                            <option [selected]="userInfoArr.country==country.id"  *ngFor="let country of countryList" value="{{country.id}}" (click)="getState(country.id)" >{{country.name}}</option>
+                        <select class="form-control" name="country" [(ngModel)]="userInfoArr.country" >
+                            <option *ngFor="let country of countryList" value="{{country.id}}" (click)="getState(country.id)" >{{country.name}}</option>
                         </select>
+                        <span id="user_loginInfo">{{country}}</span> 
                     </div>
 
                     <div class="form_row clearfix">
                         <label>State<span class="indicates">*</span></label>
-                        <select class="form-control">
-                            <option [selected]="userInfoArr.state==state.state_id" *ngFor="let state of stateList" value="{{state.state_id}}" (click)="getCIty(state.state_id)" >{{state.name}}</option>
+                        <select class="form-control" name="state" [(ngModel)]="userInfoArr.state" >
+                            <option *ngFor="let state of stateList" value="{{state.state_id}}" (click)="getCIty(state.state_id)" >{{state.name}}</option>
                         </select>
+                        <span id="user_loginInfo">{{state}}</span> 
                     </div>
-
                     <div class="form_row clearfix">
                         <label>City<span class="indicates">*</span></label>
-                        <select class="form-control">
-                            <option [selected]="userInfoArr.city==country.city_id" *ngFor="let city of cityList" value="{{city.city_id}}">{{city.name}}</option>
+                        <select class="form-control" name="city" [(ngModel)]="userInfoArr.city" >
+                            <option *ngFor="let city of cityList" value="{{city.city_id}}">{{city.name}}</option>
                         </select>
+                        <span id="user_loginInfo">{{city}}</span> 
                     </div>
                     <!-- <input type="text" name="city_name" id="" class="form-control textfield" >  -->
                     <div class="form_row clearfix">
                     <label>Zip Code<span class="indicates">*</span></label>
-                    <input type="text" name="zip_code" id="" [(ngModel)]="userInfoArr.zip_code" class="form-control textfield" > 
+                    <input type="text" name="zip_code" id="" [(ngModel)]="userInfoArr.zip_code" class="form-control textfield" >
+                    <span id="user_loginInfo">{{zipcode}}</span>  
                 </div>
                 <div class="form_row clearfix">
                     <label>Email<span class="indicates">*</span></label>
                     <input type="email" name="email" [(ngModel)]="userInfoArr.email" class="form-control textfield" >
+                    <span id="user_loginInfo">{{email}}</span> 
                 </div>
                 <div class="form_row clearfix">
                     <label>Contact</label>
-                    <input type="tel" name="phone" [(ngModel)]="userInfoArr.phone" class="form-control textfield" > 
+                    <input type="tel" name="phone" [(ngModel)]="userInfoArr.phone" class="form-control textfield" >
+                    <span id="user_loginInfo">{{contact}}</span>  
                 </div>
                 <div class="form_row clearfix">
                     <label>Interest Topic</label>
@@ -103,12 +114,13 @@
                                     <option>IT</option>
                                 </optgroup>
                             </select> -->
-                            <ng-select (data)="value"
+                            <ng-select (data)="userInfoArr.favorite_category"
                             [multiple]="true"
+                            [active] = "userInfoArr.favorite_category"
                             [items]="userInfoArr.favorite_category"
-                            (selected)="value">
+                            (selected)="favorite_category">
                         </ng-select>
-                        <input type="hidden" name="favorite_category" [(ngModel)]="value">
+                        <input type="hidden" name="favorite_category" [(ngModel)]="userInfoArr.favorite_category">
                     </div>
                 </div>
                 <div class="form_row clearfix">
