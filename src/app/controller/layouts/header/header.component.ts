@@ -19,6 +19,10 @@ export class HeaderComponent implements OnInit {
 
 
   constructor(private router: Router, public apiService:ApiMethodService) {
+    this.getToken = this.apiService.getLoginToken();
+        if(this.getToken){
+          this.isUserLoggedIn = true;
+        }
     apiService.signinSuccess$.subscribe(status => {
 
       if(status) {

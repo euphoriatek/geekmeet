@@ -19,17 +19,26 @@ export class EventComponent {
   selectedIndex = -1;
   gridview=true;
   param_id:any;
+  total:any;
+  currentPage:any;
+
+  category:any ='';
+  type:any = '';
+  sort:any ='';
+  page:any = 1;
+
 
   constructor(private router:Router,private route: ActivatedRoute, public apiService:ApiMethodService) { }
 
   ngOnInit() {
-    if(this.router.url === '/event'){
-      this.eventDeafault();
+    if(this.router.url == '/event'){
+      this.eventDeafault('','','',1);
     }
     this.selectedmenu = this.route.snapshot.params['menu'];
     this.route.params.subscribe((param) => {
       this.param_id = param['menu'];
       console.log(JSON.stringify(param));
+      this.category = param['menu'];
       this.onSubMenuchange(param['menu']);
     })
   }
@@ -62,66 +71,79 @@ export class EventComponent {
     }, 1000);
   }
 
-  eventDeafault(){
+    eventDeafault(category,type,sort,page){
     var ref = this;
+    this.category = category;
+    this.type = type; 
+    this.sort = sort;
+    this.page = page; 
     var eventArrData = {
-      "category": "",
-      "type": "",
-      "sort":"",
-      "all": "true"
+      "category": category,
+      "type":type,
+      "sort":sort,
+      "all": "false",
+      "page":page
     }
     ref.apiService.eventApi(eventArrData,function(res){
-      ref.eventArr = res.data;
-      console.log("this is event api response"+ JSON.stringify(res));			
+       ref.eventArr = res.data.data;
+       ref.total =     res.data.last_page;
+       ref.currentPage = res.data.current_page;
+
     });
   }
 
-  onSubMenuchange(event){
-    var ref = this;
-    ref.selectedIndex = -1;
-    var eventArrData = {
-      "category": event,
-      "type": "",
-      "sort":"",
-      "all": "false"
-    }
-    ref.apiService.eventApi(eventArrData,function(res){
-      ref.eventArr = res.data.data;
-    });
+  onSubMenuchange(category){
+    this.category = category;
+    var category = this.category;
+    var sort = this.sort;
+    var type = this.type;
+    var page = this.page;
+    this.eventDeafault(category,type,sort,page);  
   }
 
-  sortEventsData(sortVal){
-    var ref = this;
-    console.log(ref.param_id);
-    var eventArrData = {
-      "category": ref.param_id,
-      "type": "",
-      "sort":sortVal,
-      "all": "false"
-    }
-    ref.apiService.eventApi(eventArrData,function(res){
-      ref.eventArr = res.data.data;
-    });
+
+  sortEventsData(sort){
+     this.sort = sort;
+    var category = this.category;
+    var sort = this.sort;
+    var type = this.type;
+    var page = this.page;
+   this.eventDeafault(category,type,sort,page);
   }
 
-  typeOfEvent(event,index){
-    var ref = this;
-    console.log("this is type event"+event);
+  typeOfEvent(type,index){
     this.selectedIndex = index;
-    var eventArrData = {
-      "category": ref.param_id,
-      "type": event,
-      "sort":"",
-      "all": "false"
-    }
-    ref.apiService.eventApi(eventArrData,function(res){
-      ref.eventArr = res.data.data;
-    });
+    this.type = type;
+    var category = this.category;
+    var sort = this.sort;
+    var type = this.type;
+    var page = this.page;
+   this.eventDeafault(category,type,sort,page);
   }
 
-  changeGridTolist(status){
+ 
+
+  getEventPagination(page){
+     this.page = page;
+    var category = this.category;
+    var sort = this.sort;
+    var type = this.type;
+    var page = this.page;
+   this.eventDeafault(category,type,sort,page);  
+  }
+
+   changeGridTolist(status){
     this.gridview = status;
   }*/
+
+  createRange(number){
+    var links = [];
+    for(var i = 1; i <= number; i++){
+      links.push(i);
+    }
+    
+    return links;
+  }
 
 
 

@@ -66,9 +66,9 @@
             <section *ngIf="gridview" id="loop_event_taxonomy" class="search_result_listing grid" style="display: block;">
                 <article id="event_27121" class="post" *ngFor = "let events of eventArr">
                     <div class="listing_img">
-                        <a href="" [routerLink]="['/event_detail']"> 
+                       
                             <img src="{{events.featured_image}}" alt="image" title="event-(13)">
-                        </a>
+                        
 
                     </div>
                     <!- Entry Start ->
@@ -81,7 +81,7 @@
                                         {{events.start_date}}			<span></span>
                                     </span>
                                     <h2 class="entry-title">
-                                        <a itemprop="url" href="" [routerLink]="['/event_detail']" title="Disaster! A 70’s Movie…Musical!" rel="bookmark">{{events.event_title}}</a>
+                                        <a itemprop="url" href="" [routerLink]="['/event_detail',events.event_id]" title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a>
                                     </h2>
                                     <div class="listing_rating">
                                         <div class="directory_rating_row">
@@ -99,7 +99,7 @@
 
                                 <!- Entry details start ->
                                 <div class="entry-details">
-                                    <p class="address" itemprop="address">308 West 46th Street New York, NY 10036</p>
+                                  
                                     <p class="event_date">
                                         <span>
                                             <span itemprop="startDate" content="2014-07-08T22:00">{{events.start_date}}</span>
@@ -108,9 +108,11 @@
                                     </p>
                                     <p class="time">
                                         <span>{{events.start_time}} To {{events.end_time}}</span>
+
                                     </p><!-googleoff: all->
                                     <p class="phone">+86 10 6538 5537</p><!-googleon: all->                                                                            </div>
                                     <!- Entry details end -> 
+
                                 </div>
                                 <!-Start Post Content ->
                                 <div class="entry-summary" itemprop="description"><p>{{events.event_description}} <a class="moretag" href="http://demo.templatic.com/eventum/city/new-york/event/disaster-a-70s-movie-musical/">&nbsp;Read more »</a></p></div>                                                                        <!- End Post Content ->
@@ -207,13 +209,11 @@
 
 
 
-                    <div id="listpagi">
-                        <div class="pagination pagination-position">
-                            <a href="" class="current page-numbers" title="1">1</a>
-                            <a class= "page-numbers"><strong>2</strong></a>
-                            <a href="" class="next page-numbers"><strong>NEXT</strong></a>                  
-                        </div>
-                    </div>
+                    <div class="postpagination_776778595 postpagination clearfix">
+                <div class="pagination" *ngFor="let object of createRange(total)">
+                <a  class="page-numbers" href="javascript:void(0)" [ngClass]="{'active': object==currentPage}" (click)="getEventPagination(object)" > {{object}} </a>
+                </div>
+                </div>
                     
 
                     <!-End loop taxonomy page -->
