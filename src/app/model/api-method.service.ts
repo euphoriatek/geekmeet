@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable , EventEmitter } from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 // import {localStorage} from 'localStorage';
@@ -13,9 +13,12 @@ export class ApiMethodService {
 	getTokenValue:any;
 	private storage: any;
 	private loggedIn = false;
+	public signinSuccess$: EventEmitter<boolean>;
 
 	constructor(private http: Http) {
 		this.loggedIn = !!localStorage.getItem('auth_token');
+		this.signinSuccess$ = new EventEmitter();
+
 	}
 
 	getLoginToken(){
@@ -227,6 +230,21 @@ export class ApiMethodService {
 		let options = new RequestOptions({ headers: headers });
 		this.http.get('http://2016.geekmeet.com/admin/v1/profile',options).map(res =>res.json())
 		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
+	}
+
+
+	//update user profile
+
+	updateUser(userData,callBack, failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.post('http://2016.geekmeet.com/admin/v1/update_profile',userData,options).map(res=>res.json())
+		.subscribe((res)=>{
 			if(callBack)
 			{
 				callBack(res);

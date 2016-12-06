@@ -8,6 +8,8 @@ import { RecaptchaModule } from 'ng2-recaptcha';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { RatingModule } from "ng2-rating";
+import {SelectModule} from 'ng2-select/ng2-select';
+import { MyDatePickerModule } from 'mydatepicker';
 // import  Select2Component  from 'angular2-select2';
 
 import { AppComponent } from './app.component';
@@ -67,6 +69,8 @@ import { BlogDetailComponent } from './controller/blog-detail/blog-detail.compon
     routing,
     HttpModule,
     RatingModule,
+    SelectModule,
+    MyDatePickerModule,
     RecaptchaModule.forRoot(),
     ModalModule.forRoot(),
     BootstrapModalModule,
