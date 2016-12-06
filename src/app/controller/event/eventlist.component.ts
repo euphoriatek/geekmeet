@@ -18,22 +18,36 @@ export class EventListComponent implements OnInit{
   selectedIndex = -1;
   gridview=true;
   param_id:any;
+  total:any;
+  currentPage:any;
 
+  category:any ='';
+  type:any = '';
+  sort:any ='';
+  page:any = 1;
+
+
+  
   constructor(private router:Router,private route: ActivatedRoute, public apiService:ApiMethodService) { }
 
-  ngOnInit() {    
-    this.eventDeafault();    
+  ngOnInit() {
+    if(this.router.url == '/event'){
+      this.eventDeafault('','','',1);
+    }
     this.selectedmenu = this.route.snapshot.params['menu'];
     this.route.params.subscribe((param) => {
       this.param_id = param['menu'];
       console.log(JSON.stringify(param));
+      this.category = param['menu'];
       this.onSubMenuchange(param['menu']);
     })
   }
 
-  ngAfterViewInit() {
+ ngAfterViewInit() {
     //to initiate sort dropdown on first view load
-     setTimeout(_ => {
+    
+
+       setTimeout(_ => {
       
       jQuery(".sort_options select,#searchform select,#submit_form select,.search_filter select,.tmpl_search_property select,.widget_location_nav select,#srchevent select,#header_location .location_nav select,.horizontal_location_nav select,.widget select").not("#tevolution_location_map select").each(function() {
         if (0 == jQuery(this).parent().find(".select-wrap").length && "js-cat-basic-multiple select2-hidden-accessible" != jQuery(this).prop("className") && "js-sub-cat-basic-multiple select2-hidden-accessible" != jQuery(this).prop("className")) {
@@ -57,67 +71,79 @@ export class EventListComponent implements OnInit{
     }, 1000);
   }
 
-  eventDeafault(){
+    eventDeafault(category,type,sort,page){
     var ref = this;
+    this.category = category;
+    this.type = type; 
+    this.sort = sort;
+    this.page = page; 
     var eventArrData = {
-      "category": "",
-      "type": "",
-      "sort":"",
-      "all": "true"
+      "category": category,
+      "type":type,
+      "sort":sort,
+      "all": "false",
+      "page":page
     }
     ref.apiService.eventApi(eventArrData,function(res){
-      ref.eventArr = res.data;
-      console.log("this is event api response"+ JSON.stringify(res));			
+       ref.eventArr = res.data.data;
+       ref.total =     res.data.last_page;
+       ref.currentPage = res.data.current_page;
+
     });
   }
 
-  onSubMenuchange(event){
-    var ref = this;
-    ref.selectedIndex = -1;
-    var eventArrData = {
-      "category": event,
-      "type": "",
-      "sort":"",
-      "all": "false"
-    }
-    ref.apiService.eventApi(eventArrData,function(res){
-      ref.eventArr = res.data.data;
-    });
+  onSubMenuchange(category){
+    this.category = category;
+    var category = this.category;
+    var sort = this.sort;
+    var type = this.type;
+    var page = this.page;
+    this.eventDeafault(category,type,sort,page);  
   }
 
-  sortEventsData(sortVal){
-    var ref = this;
-    console.log(ref.param_id);
-    var eventArrData = {
-      "category": ref.param_id,
-      "type": "",
-      "sort":sortVal,
-      "all": "false"
-    }
-    ref.apiService.eventApi(eventArrData,function(res){
-      ref.eventArr = res.data.data;
-    });
+
+  sortEventsData(sort){
+     this.sort = sort;
+    var category = this.category;
+    var sort = this.sort;
+    var type = this.type;
+    var page = this.page;
+   this.eventDeafault(category,type,sort,page);
   }
 
-  typeOfEvent(event,index){
-    var ref = this;
-    console.log("this is type event"+event);
+  typeOfEvent(type,index){
     this.selectedIndex = index;
-    var eventArrData = {
-      "category": ref.param_id,
-      "type": event,
-      "sort":"",
-      "all": "false"
-    }
-    ref.apiService.eventApi(eventArrData,function(res){
-      ref.eventArr = res.data.data;
-    });
+    this.type = type;
+    var category = this.category;
+    var sort = this.sort;
+    var type = this.type;
+    var page = this.page;
+   this.eventDeafault(category,type,sort,page);
   }
 
-  changeGridTolist(status){
+ 
+
+  getEventPagination(page){
+     this.page = page;
+    var category = this.category;
+    var sort = this.sort;
+    var type = this.type;
+    var page = this.page;
+   this.eventDeafault(category,type,sort,page);  
+  }
+
+   changeGridTolist(status){
     this.gridview = status;
   }
 
+  createRange(number){
+    var links = [];
+    for(var i = 1; i <= number; i++){
+      links.push(i);
+    }
+    
+    return links;
+  }
 
 
 

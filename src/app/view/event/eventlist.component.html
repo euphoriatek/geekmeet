@@ -172,12 +172,10 @@
                                     <!-- inside loop div start -->
                                     
                                 </section>
+                   
 
-
-                    <div id="listpagi">
-                        <div class="pagination pagination-position">
-                            <a href="" class="current page-numbers" title="1">1</a>
-                            <a class= "page-numbers"><strong>2</strong></a>
-                            <a href="" class="next page-numbers"><strong>NEXT</strong></a>                  
-                        </div>
+                <div class="postpagination_776778595 postpagination clearfix">
+                    <div class="pagination" *ngFor="let object of createRange(total)">
+                        <a  class="page-numbers" href="javascript:void(0)" [ngClass]="{'active': object==currentPage}" (click)="getEventPagination(object)" > {{object}} </a>
                     </div>
+                </div>

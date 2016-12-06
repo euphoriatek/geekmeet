@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { RouterModule, Router, ActivatedRoute }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
+import { EventListComponent } from './eventlist.component';
 declare var jQuery: any;
 
 import 'rxjs/add/operator/map';
@@ -9,10 +10,10 @@ import 'rxjs/add/operator/catch';
 @Component({
   selector: 'app-event',
   templateUrl: '../../view/event/event.component.html',
-  styleUrls: ['../../assets/css/event/event.component.css']
+  styleUrls: ['../../assets/css/event/event.component.css']  
 })
-export class EventComponent implements OnInit {
-  eventArr:any;
+export class EventComponent {
+ /* eventArr:any;
   selectedmenu:any;
   sortvalData:any;
   selectedIndex = -1;
@@ -120,7 +121,7 @@ export class EventComponent implements OnInit {
 
   changeGridTolist(status){
     this.gridview = status;
-  }
+  }*/
 
 
 
