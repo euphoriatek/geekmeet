@@ -260,10 +260,10 @@ export class ApiMethodService {
 
 	// organization details
 
-	organizationDetail(callBack, failure){
+	organizationList(value,callBack,failure){
 		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		let options = new RequestOptions({ headers: headers });
-		this.http.get('http://2016.geekmeet.com/admin/v1/organization',options).map(res =>res.json())
+		this.http.get('http://2016.geekmeet.com/admin/v1/organization?page='+value,options).map(res =>res.json())
 		.subscribe((res) => {
 			if(callBack)
 			{
@@ -312,5 +312,19 @@ export class ApiMethodService {
 		}, (error) => faliure(error));	
 
 	}
+
+		organization_detail(value,callBack,failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.get('http://2016.geekmeet.com/admin/v1/organization_detail/'+value,options).map(res =>res.json())
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
+	}
+
+
 
 }

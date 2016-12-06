@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
-import { RouterModule, Router }   from '@angular/router';
+import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
+
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -20,7 +21,7 @@ export class OrganizationComponent implements OnInit {
   gridview=true;
   param_id:any;
 
-  constructor(private router: Router,public apiService:ApiMethodService) { }
+  constructor(private router: Router,private route: ActivatedRoute,public apiService:ApiMethodService) { }
 
   ngOnInit() {
   	this.getToken = this.apiService.getLoginToken();
@@ -28,15 +29,18 @@ export class OrganizationComponent implements OnInit {
 			this.router.navigate(['/']);
 		}
 
-    this.organizationDetail();  
+     this.route.params.subscribe(params => {
+      this.organizationDetail(params['id']);
+      });
+
+   // this.organizationDetail();  
     this.eventDefault();
   }
 
-  organizationDetail(){
+    organizationDetail(value){
     var ref = this;
-    ref.apiService.organizationDetail(function(res){     
+    ref.apiService.organization_detail(value,function(res){     
       ref.detailArr = res.data;
-      console.log(ref.detailArr);
     }, function(err){
       console.log(err);
     });
