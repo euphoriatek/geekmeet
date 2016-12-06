@@ -103,10 +103,15 @@ export class ApiMethodService {
 	//this is event api
 
 	eventApi(eventData,callBack){
-		this.http.post('http://2016.geekmeet.com/admin/v1/event',eventData).map(res=>res.json())
+		var page = eventData.page;
+		if(page==undefined){
+			page = 1;
+		}
+		this.http.post('http://2016.geekmeet.com/admin/v1/event?page='+page,eventData).map(res=>res.json())
 		.subscribe((res)=>{
 			if(callBack)
 			{
+				
 				callBack(res);
 			}
 		}, (error) => console.log('There was an error', error));
