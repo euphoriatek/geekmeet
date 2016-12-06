@@ -11,7 +11,14 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['../../assets/css/organization/organization.component.css']
 })
 export class OrganizationComponent implements OnInit {
-	getToken:any;
+	getToken:any; 
+  detailArr:Object = {};
+  eventArr:any;
+  selectedmenu:any;
+  sortvalData:any;
+  selectedIndex = -1;
+  gridview=true;
+  param_id:any;
 
   constructor(private router: Router,public apiService:ApiMethodService) { }
 
@@ -20,6 +27,80 @@ export class OrganizationComponent implements OnInit {
 		if(!(this.getToken)){
 			this.router.navigate(['/']);
 		}
+
+    this.organizationDetail();  
+    this.eventDefault();
+  }
+
+  organizationDetail(){
+    var ref = this;
+    ref.apiService.organizationDetail(function(res){     
+      ref.detailArr = res.data;
+      console.log(ref.detailArr);
+    }, function(err){
+      console.log(err);
+    });
+  }
+
+  eventDefault(){
+    var ref = this;
+    var eventArrData = {
+      "category": "",
+      "type": "",
+      "sort":"",
+      "all": "true"
+    }
+    ref.apiService.eventApi(eventArrData,function(res){
+      ref.eventArr = res.data;
+      console.log("this is event api response"+ JSON.stringify(res));      
+    });
+  }
+
+  onSubMenuchange(event){
+    var ref = this;
+    ref.selectedIndex = -1;
+    var eventArrData = {
+      "category": event,
+      "type": "",
+      "sort":"",
+      "all": "false"
+    }
+    ref.apiService.eventApi(eventArrData,function(res){
+      ref.eventArr = res.data.data;
+    });
+  }
+
+  sortEventsData(sortVal){
+    var ref = this;
+    console.log(ref.param_id);
+    var eventArrData = {
+      "category": ref.param_id,
+      "type": "",
+      "sort":sortVal,
+      "all": "false"
+    }
+    ref.apiService.eventApi(eventArrData,function(res){
+      ref.eventArr = res.data.data;
+    });
+  }
+
+  typeOfEvent(event,index){
+    var ref = this;
+    console.log("this is type event"+event);
+    this.selectedIndex = index;
+    var eventArrData = {
+      "category": ref.param_id,
+      "type": event,
+      "sort":"",
+      "all": "false"
+    }
+    ref.apiService.eventApi(eventArrData,function(res){
+      ref.eventArr = res.data.data;
+    });
+  }
+
+  changeGridTolist(status){
+    this.gridview = status;
   }
 
 }
