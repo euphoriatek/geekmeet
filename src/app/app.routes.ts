@@ -16,7 +16,6 @@ import { ChangepasswordComponent } from './controller/changepassword/changepassw
 import { NotificationSettingComponent } from './controller/notification-setting/notification-setting.component';
 import { EditProfileComponent } from './controller/edit-profile/edit-profile.component';
 import { OrganizationAddComponent } from './controller/organization-add/organization-add.component';
-import { LoginComponent } from './controller/login/login.component';
 import { TermConditionComponent } from './controller/term-condition/term-condition.component';
 import { EventDetailComponent } from './controller/event-detail/event-detail.component';
 import { BlogDetailComponent } from './controller/blog-detail/blog-detail.component';
@@ -50,7 +49,6 @@ export const routes: Routes = [
       {path:'notification-setting' ,component: NotificationSettingComponent},
       {path:'edit_profile' ,component: EditProfileComponent},
       {path:'organization-add' ,component: OrganizationAddComponent},
-      {path:'login' ,component: LoginComponent},
       {path:'term-condition' ,component: TermConditionComponent},
       {path:'event_detail/:id' ,component: EventDetailComponent,data: [{id: true}]},
       {path:'event_details/:id' ,component: EventDetailComponent,data: [{id: true}]},

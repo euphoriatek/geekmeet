@@ -30,7 +30,6 @@ import { ChangepasswordComponent } from './controller/changepassword/changepassw
 import { NotificationSettingComponent } from './controller/notification-setting/notification-setting.component';
 import { EditProfileComponent } from './controller/edit-profile/edit-profile.component';
 import { OrganizationAddComponent } from './controller/organization-add/organization-add.component';
-import { LoginComponent } from './controller/login/login.component';
 import { TermConditionComponent } from './controller/term-condition/term-condition.component';
 import { EventDetailComponent } from './controller/event-detail/event-detail.component';
 import { BlogDetailComponent } from './controller/blog-detail/blog-detail.component';
@@ -58,7 +57,6 @@ import { BlogDetailComponent } from './controller/blog-detail/blog-detail.compon
     NotificationSettingComponent,
     EditProfileComponent,
     OrganizationAddComponent,
-    LoginComponent,
     TermConditionComponent,
     EventDetailComponent,
     BlogDetailComponent
