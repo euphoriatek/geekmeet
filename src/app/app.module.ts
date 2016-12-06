@@ -88,7 +88,6 @@ import { BlogDetailComponent } from './controller/blog-detail/blog-detail.compon
       {path:'notification-setting' ,component: NotificationSettingComponent},
       {path:'edit_profile' ,component: EditProfileComponent},
       {path:'organization-add' ,component: OrganizationAddComponent},
-      {path:'login' ,component: LoginComponent},
       {path:'term-condition' ,component: TermConditionComponent},
       {path:'event_detail' ,component: EventDetailComponent},
       {path:'blog_detail' ,component: BlogDetailComponent},
