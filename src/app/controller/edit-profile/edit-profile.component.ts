@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
+import {DropdownModule} from "ng2-dropdown";
 // import {SELECT_DIRECTIVES} from 'ng2-select/ng2-select';
 import { MyDatePickerModule } from 'mydatepicker';
 import {SelectModule} from 'ng2-select/ng2-select';
@@ -24,6 +25,9 @@ export class EditProfileComponent implements OnInit {
   userInfoArr:Object = {};
   topic:any;
   value:any;
+  countryList:any;
+  stateList:any;
+  cityList:any;
   private selectedDateNormal:string = '';
 
   private selectedTextNormal: string = '';
@@ -37,7 +41,8 @@ export class EditProfileComponent implements OnInit {
     if(!(this.getToken)){
       this.router.navigate(['/']);
     }
-    this.userInformation();  
+    this.userInformation();
+    this.getCountryList();  
   }
 
   ngAfterViewInit() {
@@ -55,9 +60,38 @@ export class EditProfileComponent implements OnInit {
   userInformation(){
     var ref = this;
     ref.apiService.userProfile(function(res){
+      // ref.getState(res.data.country);
+      // ref.getCIty(res.data.state);
       ref.userInfoArr = res.data;
       console.log(ref.userInfoArr);
       ref.selectedDateNormal = res.data.dob;
+    }, function(err){
+      console.log(err);
+    });
+  }
+
+  getCountryList(){
+    var ref = this;
+    ref.apiService.countryList(function(res){
+      ref.countryList = res.data;
+    }, function(err){
+      console.log(err);
+    });
+  }
+
+  getState(id){
+    var ref = this;
+    ref.apiService.stateList(id,function(res){
+      ref.stateList = res.data;
+    }, function(err){
+      console.log(err);
+    });
+  }
+
+  getCIty(id){
+    var ref = this;
+    ref.apiService.cityList(id,function(res){
+      ref.cityList = res.data;
     }, function(err){
       console.log(err);
     });

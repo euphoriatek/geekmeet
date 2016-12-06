@@ -26,6 +26,7 @@
     "jquery": "^3.1.1",
     "moment": "^2.17.1",
     "mydatepicker": "^1.0.28",
+    "ng2-dropdown": "0.0.15",
     "ng2-popup": "^0.3.2",
     "ng2-rating": "0.0.6",
     "ng2-recaptcha": "^1.4.0",

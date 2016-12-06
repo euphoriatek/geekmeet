@@ -1,0 +1,55 @@
+<!-- <app-header></app-header> -->
+
+<section id="main" class="clearfix">
+	<div class="wrap row">
+		<div class="breadcrumb breadcrumbs columns">
+			<div class="breadcrumb-trail">
+				<span class="trail-begin">
+					<a [routerLink]="['/']" title="GeekMeet" rel="home" class="trail-begin">Home</a></span> <span class="sep">»</span> <span class="trail-end">Organization List</span>
+				</div>
+			</div>
+
+			<!-- start content part-->
+			<div id="content" role="main" class="large-9 small-12 columns">
+				<div class="form-group">
+					<div class="col-sm-12">
+						<label class="pull-right"><a class="btn btn-md primary" href="" [routerLink] = "['/organization-add']">Edit Organization</a></label>
+						<label class="pull-right"><a class="btn btn-md primary" href="">Invite</a></label>
+						<label class="pull-right"><a class="btn btn-md primary" href="">Join</a></label>
+					</div>
+				</div>
+				<div class="author_cont">
+					<!-- Author photo on left side start -->
+					<div class="organization-logo">
+						<img src="http://auvac.org/uploads/organization/Noaalogo.gif" alt="admin" title="admin">
+					</div>
+					<!-- Author photo on left side end -->
+
+					<!-- Author photo on right side start -->
+					<div class="right_box form-horizontal">
+					<h2> <a [routerLink]="['/organization']">National Oceanic and Atmospheric Administration</a></h2>
+						<div class="user_dsb">
+							<div class="form-group">
+								<label class="col-sm-1 col-xs-2 control-label"><i class="fa fa-map-marker"></i></label>
+								<span class="col-sm-10 col-xs-10">AUVAC 86 Old Concord Turnpike Lee, New Hampshire 03861 USA</span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-1 control-label"><i class="fa fa-envelope-o"></i></label>
+								<span class="col-sm-10">info@auvac.org</span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-1 control-label"><i class="fa fa-phone"></i></label>
+								<span class="col-sm-10">(360) 440-2812</span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-1 control-label"><i class="fa fa-globe"></i></label>
+								<span class="col-sm-10">www.auvac.org</span>
+							</div>
+						</div>
+
+					</div>
+					<!-- Author photo on right side end -->
+				</div>
+			</div>
+		</div>
+	</section>

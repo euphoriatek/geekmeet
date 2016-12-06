@@ -267,4 +267,45 @@ export class ApiMethodService {
 		}, (error) => failure(error));
 	}
 
+
+
+	// get country
+
+	countryList(callBack,faliure){
+		this.http.get('http://2016.geekmeet.com/admin/v1/country').map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => faliure(error));	
+
+	}
+
+
+	//get State
+
+	stateList(country_id,callBack,faliure){
+		this.http.get('http://2016.geekmeet.com/admin/v1/state/'+country_id).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => faliure(error));	
+	}
+
+	//get City
+
+	cityList(state_id,callBack,faliure){
+		this.http.get('http://2016.geekmeet.com/admin/v1/city/'+state_id).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => faliure(error));	
+
+	}
+
 }

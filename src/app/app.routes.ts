@@ -19,6 +19,7 @@ import { OrganizationAddComponent } from './controller/organization-add/organiza
 import { TermConditionComponent } from './controller/term-condition/term-condition.component';
 import { EventDetailComponent } from './controller/event-detail/event-detail.component';
 import { BlogDetailComponent } from './controller/blog-detail/blog-detail.component';
+import { MyOrganizationsComponent } from './controller/my-organizations/my-organizations.component';
 
 
 
@@ -53,6 +54,7 @@ export const routes: Routes = [
       {path:'event_detail/:id' ,component: EventDetailComponent,data: [{id: true}]},
       {path:'event_details/:id' ,component: EventDetailComponent,data: [{id: true}]},
       {path:'blog_detail/:id' ,component: BlogDetailComponent,data: [{id: true}]},
+      {path:'my-organizations' ,component: MyOrganizationsComponent},
       {path:'' ,component: IndexComponent}
 
 ];

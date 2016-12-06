@@ -10,6 +10,7 @@ import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { RatingModule } from "ng2-rating";
 import {SelectModule} from 'ng2-select/ng2-select';
 import { MyDatePickerModule } from 'mydatepicker';
+import {DropdownModule} from "ng2-dropdown";
 // import  Select2Component  from 'angular2-select2';
 
 import { AppComponent } from './app.component';
@@ -33,6 +34,7 @@ import { OrganizationAddComponent } from './controller/organization-add/organiza
 import { TermConditionComponent } from './controller/term-condition/term-condition.component';
 import { EventDetailComponent } from './controller/event-detail/event-detail.component';
 import { BlogDetailComponent } from './controller/blog-detail/blog-detail.component';
+import { MyOrganizationsComponent } from './controller/my-organizations/my-organizations.component';
 
 
 
@@ -59,7 +61,8 @@ import { BlogDetailComponent } from './controller/blog-detail/blog-detail.compon
     OrganizationAddComponent,
     TermConditionComponent,
     EventDetailComponent,
-    BlogDetailComponent
+    BlogDetailComponent,
+    MyOrganizationsComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +72,7 @@ import { BlogDetailComponent } from './controller/blog-detail/blog-detail.compon
     RatingModule,
     SelectModule,
     MyDatePickerModule,
+    DropdownModule,
     RecaptchaModule.forRoot(),
     ModalModule.forRoot(),
     BootstrapModalModule,
@@ -91,6 +95,7 @@ import { BlogDetailComponent } from './controller/blog-detail/blog-detail.compon
       {path:'term-condition' ,component: TermConditionComponent},
       {path:'event_detail' ,component: EventDetailComponent},
       {path:'blog_detail' ,component: BlogDetailComponent},
+      {path:'my-organizations' ,component: MyOrganizationsComponent},
       {path:'' ,component: IndexComponent}
       ])
   ],

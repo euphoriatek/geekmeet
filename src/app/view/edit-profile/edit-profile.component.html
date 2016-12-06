@@ -58,24 +58,41 @@
                         </div>
                     </div>
                     <div class="form_row clearfix">
+                        <label>Country<span class="indicates">*</span></label>
+                        <select class="form-control">
+                            <option [selected]="userInfoArr.country==country.id"  *ngFor="let country of countryList" value="{{country.id}}" (click)="getState(country.id)" >{{country.name}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form_row clearfix">
+                        <label>State<span class="indicates">*</span></label>
+                        <select class="form-control">
+                            <option [selected]="userInfoArr.state==state.state_id" *ngFor="let state of stateList" value="{{state.state_id}}" (click)="getCIty(state.state_id)" >{{state.name}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form_row clearfix">
                         <label>City<span class="indicates">*</span></label>
-                        <input type="text" name="city_name" id="" [(ngModel)]="userInfoArr.city_name" class="form-control textfield" > 
+                        <select class="form-control">
+                            <option [selected]="userInfoArr.city==country.city_id" *ngFor="let city of cityList" value="{{city.city_id}}">{{city.name}}</option>
+                        </select>
                     </div>
+                    <!-- <input type="text" name="city_name" id="" class="form-control textfield" >  -->
                     <div class="form_row clearfix">
-                        <label>Zip Code<span class="indicates">*</span></label>
-                        <input type="text" name="zip_code" id="" [(ngModel)]="userInfoArr.zip_code" class="form-control textfield" > 
-                    </div>
-                    <div class="form_row clearfix">
-                        <label>Email<span class="indicates">*</span></label>
-                        <input type="email" name="email" [(ngModel)]="userInfoArr.email" class="form-control textfield" >
-                    </div>
-                    <div class="form_row clearfix">
-                        <label>Contact</label>
-                        <input type="tel" name="phone" [(ngModel)]="userInfoArr.phone" class="form-control textfield" > 
-                    </div>
-                    <div class="form_row clearfix">
-                        <label>Interest Topic</label>
-                        <div class="col-sm-12 -m-rl-15">
+                    <label>Zip Code<span class="indicates">*</span></label>
+                    <input type="text" name="zip_code" id="" [(ngModel)]="userInfoArr.zip_code" class="form-control textfield" > 
+                </div>
+                <div class="form_row clearfix">
+                    <label>Email<span class="indicates">*</span></label>
+                    <input type="email" name="email" [(ngModel)]="userInfoArr.email" class="form-control textfield" >
+                </div>
+                <div class="form_row clearfix">
+                    <label>Contact</label>
+                    <input type="tel" name="phone" [(ngModel)]="userInfoArr.phone" class="form-control textfield" > 
+                </div>
+                <div class="form_row clearfix">
+                    <label>Interest Topic</label>
+                    <div class="col-sm-12 -m-rl-15">
                             <!-- <select id="multiple" class="textfield select2-multiple" [(ngModel)]="userInfoArr.favorite_category" multiple name="favorite_category[]"> 
                                 <optgroup label="Tech"  *ngFor="let topic of userInfoArr.favorite_category">
                                     <option>Cisco</option>
@@ -90,23 +107,23 @@
                             [multiple]="true"
                             [items]="userInfoArr.favorite_category"
                             (selected)="value">
-                            </ng-select>
-                            <input type="hidden" name="favorite_category" [(ngModel)]="value">
-                        </div>
-                    </div>
-                    <div class="form_row clearfix">
-                        <label>About Me</label>
-                        <textarea class="ckeditor form-control" name="about_me" rows="6" [(ngModel)]="userInfoArr.about_me"></textarea>
-                    </div>
-                    <div class="form_row ">
-                        <button class="btn btn-info" type="submit">Update</button>
-                        <a class="btn btn-info" type="reset" value="Save" name="submit">Cancel</a>	
+                        </ng-select>
+                        <input type="hidden" name="favorite_category" [(ngModel)]="value">
                     </div>
                 </div>
-            </form>
-        </div>
+                <div class="form_row clearfix">
+                    <label>About Me</label>
+                    <textarea class="ckeditor form-control" name="about_me" rows="6" [(ngModel)]="userInfoArr.about_me"></textarea>
+                </div>
+                <div class="form_row ">
+                    <button class="btn btn-info" type="submit">Update</button>
+                    <a class="btn btn-info" type="reset" value="Save" name="submit">Cancel</a>	
+                </div>
+            </div>
+        </form>
     </div>
-    <!-- .wrap -->
+</div>
+<!-- .wrap -->
 </section>
 
 <!-- <app-footer></app-footer> -->
