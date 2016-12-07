@@ -24,7 +24,6 @@ export class HeaderComponent implements OnInit {
           this.isUserLoggedIn = true;
         }
     apiService.signinSuccess$.subscribe(status => {
-
       if(status) {
         this.getToken = this.apiService.getLoginToken();
         if(this.getToken){

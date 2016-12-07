@@ -262,6 +262,7 @@ export class FooterComponent implements OnInit {
 				console.log("this is api response"+ JSON.stringify(res));
 				if(res.data.token){
 					ref.router.navigate(['/index']);
+					ref.apiService.signinSuccess$.emit(true);
 				}
 				var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
 				closeBtn.click();
