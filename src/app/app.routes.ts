@@ -20,7 +20,7 @@ import { TermConditionComponent } from './controller/term-condition/term-conditi
 import { EventDetailComponent } from './controller/event-detail/event-detail.component';
 import { BlogDetailComponent } from './controller/blog-detail/blog-detail.component';
 import { MyOrganizationsComponent } from './controller/my-organizations/my-organizations.component';
-
+import { OrganizationEditComponent } from './controller/organization-edit/organization-edit.component';
 
 
 
@@ -55,6 +55,7 @@ export const routes: Routes = [
       {path:'event_details/:id' ,component: EventDetailComponent,data: [{id: true}]},
       {path:'blog_detail/:id' ,component: BlogDetailComponent,data: [{id: true}]},
       {path:'my-organizations' ,component: MyOrganizationsComponent},
+      {path:'organization-edit/:id' ,component: OrganizationEditComponent,data: [{id: true}]},
       {path:'' ,component: IndexComponent}
 
 ];

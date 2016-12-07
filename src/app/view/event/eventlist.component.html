@@ -37,7 +37,7 @@
             <section *ngIf="gridview" id="loop_event_taxonomy" class="search_result_listing grid" style="display: block;">
                 <article id="event_27121" class="post" *ngFor = "let events of eventArr">
                     <div class="listing_img">
-                        <a href="" [routerLink]="['/event_detail']"> 
+                        <a href="" [routerLink]="['/event_detail',events.event_id]"> 
                             <img src="{{events.featured_image}}" alt="image" title="event-(13)">
                         </a>
 
@@ -52,7 +52,7 @@
                                         {{events.start_date}}			<span></span>
                                     </span>
                                     <h2 class="entry-title">
-                                        <a itemprop="url" href="" [routerLink]="['/event_detail']" title="Disaster! A 70’s Movie…Musical!" rel="bookmark">{{events.event_title}}</a>
+                                        <a itemprop="url" href="" [routerLink]="['/event_detail',events.event_id]" title="Disaster! A 70’s Movie…Musical!" rel="bookmark">{{events.event_title}}</a>
                                     </h2>
                                     <div class="listing_rating">
                                         <div class="directory_rating_row">
@@ -109,7 +109,7 @@
                                     <!-- inside loop div start -->
                                          <article class="post" *ngFor = "let events of eventArr">
                                         <div class="listing_img">
-                                            <a [routerLink]="['/event_detail']"> 
+                                            <a [routerLink]="['/event_detail',events.event_id]"> 
                                             <img src="{{events.featured_image}}" alt="image" title="{{events.event_title}}">
                                            </a>
                                         </div>
@@ -125,7 +125,7 @@
                                                         </span>
                                                         <h2 class="entry-title">
                                                             
-                                                             <a itemprop="url" [routerLink]="['/event_detail']" title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a></h2>
+                                                             <a itemprop="url" [routerLink]="['/event_detail',events.event_id]" title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a></h2>
 
                                                         <div class="listing_rating">
                                                             <div class="directory_rating_row"><span class="single_rating"> <i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i> </span></div>
@@ -155,7 +155,7 @@
                                                 <!--Start Post Content -->
                                                 <div class="entry-summary" itemprop="description">
                                                 <p [innerHTML]="events.event_description"></p>
-                                                <a *ngIf="events.readmore==1" [routerLink]="['/event_detail']" >Read More</a>
+                                                <a *ngIf="events.readmore==1" [routerLink]="['/event_detail',events.event_id]" >Read More</a>
                                                
                                                 </div>                                                                        <!-- End Post Content -->
                                                 <div class="rev_pin"><ul> 

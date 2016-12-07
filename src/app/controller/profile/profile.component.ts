@@ -36,6 +36,7 @@ export class ProfileComponent implements OnInit {
 			if(err.status == '401'){
 				localStorage.removeItem('auth_token');
 				this.router.navigate(['/']);
+				ref.apiService.signinSuccess$.emit(false);
 			}
 		});
 	}

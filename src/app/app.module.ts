@@ -11,6 +11,9 @@ import { RatingModule } from "ng2-rating";
 import {SelectModule} from 'ng2-select/ng2-select';
 import { MyDatePickerModule } from 'mydatepicker';
 import {DropdownModule} from "ng2-dropdown";
+import { ImageUploadModule } from 'ng2-imageupload';
+import { SimpleNotificationsModule }from 'angular2-notifications'
+import {CKEditorModule} from 'ng2-ckeditor';
 // import  Select2Component  from 'angular2-select2';
 
 import { AppComponent } from './app.component';
@@ -36,6 +39,8 @@ import { EventDetailComponent } from './controller/event-detail/event-detail.com
 import { BlogDetailComponent } from './controller/blog-detail/blog-detail.component';
 import { EventListComponent } from './controller/event/eventlist.component';
 import { MyOrganizationsComponent } from './controller/my-organizations/my-organizations.component';
+import { OrganizationEditComponent } from './controller/organization-edit/organization-edit.component';
+
 
 
 
@@ -65,7 +70,9 @@ import { MyOrganizationsComponent } from './controller/my-organizations/my-organ
     EventDetailComponent,
     BlogDetailComponent,
     EventListComponent,
-    MyOrganizationsComponent
+    MyOrganizationsComponent,
+    OrganizationEditComponent,
+    
 
   ],
   imports: [
@@ -77,6 +84,9 @@ import { MyOrganizationsComponent } from './controller/my-organizations/my-organ
     SelectModule,
     MyDatePickerModule,
     DropdownModule,
+    ImageUploadModule,
+    SimpleNotificationsModule,
+    CKEditorModule,
     RecaptchaModule.forRoot(),
     ModalModule.forRoot(),
     BootstrapModalModule,
@@ -100,7 +110,8 @@ import { MyOrganizationsComponent } from './controller/my-organizations/my-organ
       {path:'event_detail' ,component: EventDetailComponent},
       {path:'blog_detail' ,component: BlogDetailComponent},
       {path:'my-organizations' ,component: MyOrganizationsComponent},
-      {path:'' ,component: IndexComponent}
+      {path:'' ,component: IndexComponent},
+	  {path:'organization-edit' ,component: OrganizationEditComponent},
       ])
   ],
   providers: [ApiMethodService],
