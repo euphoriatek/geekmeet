@@ -11,6 +11,8 @@ import { RatingModule } from "ng2-rating";
 import {SelectModule} from 'ng2-select/ng2-select';
 import { MyDatePickerModule } from 'mydatepicker';
 import {DropdownModule} from "ng2-dropdown";
+import { ImageUploadModule } from 'ng2-imageupload';
+import { SimpleNotificationsModule }from 'angular2-notifications'
 // import  Select2Component  from 'angular2-select2';
 
 import { AppComponent } from './app.component';
@@ -77,6 +79,8 @@ import { MyOrganizationsComponent } from './controller/my-organizations/my-organ
     SelectModule,
     MyDatePickerModule,
     DropdownModule,
+    ImageUploadModule,
+    SimpleNotificationsModule,
     RecaptchaModule.forRoot(),
     ModalModule.forRoot(),
     BootstrapModalModule,

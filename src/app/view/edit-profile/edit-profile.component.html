@@ -23,7 +23,10 @@
                     <div class="form_row clearfix">
                         <label>Profile Photo<span class="indicates">*</span></label>
                         <div class="col-sm-10 -m-rl-15">
-                            <input type="file" name="image" value="" class="form-control textfield" ngModel> 
+                            <!-- <input type="file" name="image" value="" class="form-control textfield" ngModel>  -->
+                            <input type="file" image-upload
+                            (imageSelected)="selected($event)"
+                            [resizeOptions]="resizeOptions">
                         </div>
                     </div>
                     <div class="form_row clearfix">
@@ -43,9 +46,6 @@
                     </div>
                     <div class="form_row clearfix">
                         <label>Birth date<span class="indicates">*</span></label>
-                        <!-- <input type="text" name="dob" id="birth-date" [(ngModel)]="userInfoArr.dob" class="form-control textfield" > -->
-                        <!-- <datepicker-ionic singleSelect ([ngModel])="date"></datepicker-ionic>  -->
-                        <!-- <datepicker [(ngModel)]="dateValue"></datepicker> -->
                         <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [selDate]="selectedDateNormal"></my-date-picker>
                         <span id="errfield">{{dob}}</span> 
                         <input type="hidden" name="dob" [(ngModel)]="selectedDateNormal">
@@ -58,9 +58,9 @@
                     <div class="form_row clearfix">
                         <label>Gender <span class="indicates">*</span></label>
                         <div class="col-sm-12">
-                            <label class=""><input type="radio" name="gender" value="male" [checked]="'male'===userInfoArr.gender" [(ngModel)]="gender" />Male </label>
-                            <label><input type="radio" value="female" name="gender" [(ngModel)]="gender" [checked]="'female'===userInfoArr.gender" />Female </label>
-                            <span id="errfield">{{gender}}</span> 
+                            <label class=""><input type="radio" value="male" name="gender" [(ngModel)]="userInfoArr.gender"  [checked]="'male'==userInfoArr.gender">Male </label>
+                            <label><input type="radio" value="female" [(ngModel)]="userInfoArr.gender" name="gender" [(ngModel)]="gender" [checked]="'female'==userInfoArr.gender" />Female </label>
+                            <span id="errfield">{{gendererr}}</span> 
                         </div>
                     </div>
                     <div class="form_row clearfix">
@@ -85,42 +85,31 @@
                         </select>
                         <span id="errfield">{{city}}</span> 
                     </div>
-                    <!-- <input type="text" name="city_name" id="" class="form-control textfield" >  -->
                     <div class="form_row clearfix">
-                    <label>Zip Code<span class="indicates">*</span></label>
-                    <input type="text" name="zip_code" id="" [(ngModel)]="userInfoArr.zip_code" class="form-control textfield" >
-                    <span id="errfield">{{zipcode}}</span>  
-                </div>
-                <div class="form_row clearfix">
-                    <label>Email<span class="indicates">*</span></label>
-                    <input type="email" name="email" [(ngModel)]="userInfoArr.email" class="form-control textfield" >
-                    <span id="errfield">{{email}}</span> 
-                </div>
-                <div class="form_row clearfix">
-                    <label>Contact</label>
-                    <input type="tel" name="phone" [(ngModel)]="userInfoArr.phone" class="form-control textfield" >
-                    <span id="errfield">{{contact}}</span>  
-                </div>
-                <div class="form_row clearfix">
-                    <label>Interest Topic</label>
-                    <div class="col-sm-12 -m-rl-15">
-                            <!-- <select id="multiple" class="textfield select2-multiple" [(ngModel)]="userInfoArr.favorite_category" multiple name="favorite_category[]"> 
-                                <optgroup label="Tech"  *ngFor="let topic of userInfoArr.favorite_category">
-                                    <option>Cisco</option>
-                                    <option>Database</option>
-                                    <option>Microsoft's</option>
-                                    <option>Networking</option>
-                                    <option>Open Source</option>
-                                    <option>IT</option>
-                                </optgroup>
-                            </select> -->
-                            <ng-select (data)="userInfoArr.favorite_category"
+                        <label>Zip Code<span class="indicates">*</span></label>
+                        <input type="text" name="zip_code" id="" [(ngModel)]="userInfoArr.zip_code" class="form-control textfield" >
+                        <span id="errfield">{{zipcode}}</span>  
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Email<span class="indicates">*</span></label>
+                        <input type="email" name="email" [(ngModel)]="userInfoArr.email" class="form-control textfield" >
+                        <span id="errfield">{{email}}</span> 
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Contact</label>
+                        <input type="tel" name="phone" [(ngModel)]="userInfoArr.phone" class="form-control textfield" >
+                        <span id="errfield">{{contact}}</span>  
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Interest Topic</label>
+                        <div class="col-sm-12 -m-rl-15">
+                            <ng-select (data)="value"
                             [multiple]="true"
                             [active] = "userInfoArr.favorite_category"
-                            [items]="userInfoArr.favorite_category"
-                            (selected)="favorite_category">
+                            [items]="topicArr"
+                            (data)="refreshValue($event)"
+                            (selected)="value">
                         </ng-select>
-                        <input type="hidden" name="favorite_category" [(ngModel)]="userInfoArr.favorite_category">
                     </div>
                 </div>
                 <div class="form_row clearfix">
@@ -133,6 +122,7 @@
                 </div>
             </div>
         </form>
+        <simple-notifications [options]="options" (onCreate)="created($event)" (onDestroy)="destroyed($event)"></simple-notifications>
     </div>
 </div>
 <!-- .wrap -->
