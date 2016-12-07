@@ -46,11 +46,20 @@
 
 					</div>
 					<div class="col-sm-4 pull-right ">
-						<label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/organization-add',org.organization_id]">Edit Organization</a></label>
+						<label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/organization-edit',org.organization_id]">Edit Organization</a></label>
 						<label class="org_btn"><a class="btn btn-xs primary" href="javascript:void(0)">Invite</a></label>
 						<label class="org_btn"><a class="btn btn-xs primary" href="javascript:void(0)">Join</a></label>
 					</div>					
 				</div>
+
+
+
+
+				 <div class="postpagination_776778595 postpagination clearfix">
+                <div class="pagination" *ngFor="let object of createRange(Total)">
+                <a  class="page-numbers" href="javascript:void(0)" [ngClass]="{'active': object==currentPage}" (click)="getOrganizationPagination(object)" > {{object}} </a>
+                </div>
+                </div>
 				  
 				
 

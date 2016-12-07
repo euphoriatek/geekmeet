@@ -29,7 +29,7 @@ export class MyOrganizationsComponent implements OnInit {
 		this.apiService.organizationList(value,function(res){
 		    ref.organizationArr = res.data.data;
 		    ref.Total = res.data.last_page;
-            ref.currentPage = res.data.current_page;   			
+        ref.currentPage = res.data.current_page;   			
 		},function(err){
       console.log(err);
     });
@@ -44,7 +44,7 @@ export class MyOrganizationsComponent implements OnInit {
     return links;
   }
 
-    getBlogPagination(page){
+    getOrganizationPagination(page){
     this.OrganizationList(page);
   }
 
