@@ -30,6 +30,9 @@ export class HeaderComponent implements OnInit {
           this.isUserLoggedIn = true;
         }
       }
+      else{
+        this.getToken = '';
+      }
     });
 
 

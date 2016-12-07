@@ -114,15 +114,18 @@
                 </div>
                 <div class="form_row clearfix">
                     <label>About Me</label>
-                    <textarea class="ckeditor form-control" name="about_me" rows="6" [(ngModel)]="userInfoArr.about_me"></textarea>
-                </div>
-                <div class="form_row ">
-                    <button class="btn btn-info" type="submit">Update</button>
-                    <a class="btn btn-info" type="reset" value="Save" name="submit">Cancel</a>	
-                </div>
+                   <!--  <ckeditor [(ngModel)]="userInfoArr.about_me" debounce="500">
+                  </ckeditor> -->
+                  <!-- <textarea class="ckeditor form-control" name="about_me" rows="6" [(ngModel)]="userInfoArr.about_me"></textarea> -->
+              </div>
+              <div class="form_row ">
+                <button class="btn btn-info" type="submit">Update</button>
+                <a class="btn btn-info" type="reset" value="Save" name="submit">Cancel</a>	
             </div>
-        </form>
-        <simple-notifications [options]="options" (onCreate)="created($event)" (onDestroy)="destroyed($event)"></simple-notifications>
+        </div>
+    </form>
+        <!-- <button (click)="create()">Create Notification</button>
+        <simple-notifications [options]="options" (onCreate)="onCreate($event)" (onDestroy)="onDestroy($event)"></simple-notifications> -->
     </div>
 </div>
 <!-- .wrap -->

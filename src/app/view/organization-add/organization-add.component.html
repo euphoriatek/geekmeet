@@ -21,7 +21,10 @@
                     <div class="form_row clearfix">
                         <label>Business Logo</label>
                         <div class="col-sm-10 -m-rl-15">
-                            <input type="file" name="image" value="" ngModel class="form-control textfield"> 
+                            <!-- <input type="file" name="image" value="" ngModel class="form-control textfield">  -->
+                            <input type="file" image-upload
+                            (imageSelected)="selected($event)"
+                            [resizeOptions]="resizeOptions">
                         </div>
                        
                     </div>
@@ -75,7 +78,7 @@
                     </div>
                     <div class="form_row clearfix">
                         <label>Email</label>
-                        <input type="textimage" name="organization_email" value="" class="form-control textfield" ngModel>
+                        <input type="text" name="organization_email" value="" class="form-control textfield" ngModel>
                     </div>
                     <div class="form_row clearfix">
                         <label>Website</label>

@@ -13,6 +13,7 @@ import { MyDatePickerModule } from 'mydatepicker';
 import {DropdownModule} from "ng2-dropdown";
 import { ImageUploadModule } from 'ng2-imageupload';
 import { SimpleNotificationsModule }from 'angular2-notifications'
+import {CKEditorModule} from 'ng2-ckeditor';
 // import  Select2Component  from 'angular2-select2';
 
 import { AppComponent } from './app.component';
@@ -83,6 +84,7 @@ import { MyOrganizationsComponent } from './controller/my-organizations/my-organ
     DropdownModule,
     ImageUploadModule,
     SimpleNotificationsModule,
+    CKEditorModule,
     RecaptchaModule.forRoot(),
     ModalModule.forRoot(),
     BootstrapModalModule,
