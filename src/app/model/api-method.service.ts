@@ -325,20 +325,46 @@ export class ApiMethodService {
 		}, (error) => failure(error));
 	}
 
-	addOrganization(value,callBack,failure){
-	    let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+	// get organization names	
+    organizationNames(callBack,failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		let options = new RequestOptions({ headers: headers });
-		this.http.post('http://2016.geekmeet.com/admin/v1/add_organization',value,options).map(res =>res.json())
+		this.http.get('http://2016.geekmeet.com/admin/v1/organization_list',options).map(res =>res.json())
 		.subscribe((res) => {
 			if(callBack)
 			{
 				callBack(res);
 			}
-		}, (error) => failure(error));	
-	}
+		}, (error) => failure(error));
+	} 
 
+	// get venue names	
+    venueNames(callBack,failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.get('http://2016.geekmeet.com/admin/v1/venue',options).map(res =>res.json())
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
+	} 
 
-	editOrganization(value,callBack,failure){
+	// get category list	
+    categoryList(callBack,failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.get('http://2016.geekmeet.com/admin/v1/category_list',options).map(res =>res.json())
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
+	} 
+   
+   editOrganization(value,callBack,failure){
 	    let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		let options = new RequestOptions({ headers: headers });
 		this.http.post('http://2016.geekmeet.com/admin/v1/update_organization',value,options).map(res =>res.json())
@@ -347,9 +373,22 @@ export class ApiMethodService {
 			{
 				callBack(res);
 			}
-		}, (error) => failure(error));	
-	}
+		}, (error) => failure(error));
+	}  
 
+	addOrganization(value,callBack,failure){
+	    let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.post('http://2016.geekmeet.com/admin/v1/add_organization',value,options).map(res =>res.json())
+
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+
+		}, (error) => failure(error));
+	}   
 
 
 }

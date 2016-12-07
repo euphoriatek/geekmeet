@@ -77,7 +77,7 @@ import { OrganizationEditComponent } from './controller/organization-edit/organi
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    FormsModule,    
     routing,
     HttpModule,
     RatingModule,
