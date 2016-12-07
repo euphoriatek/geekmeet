@@ -44,6 +44,7 @@ import { MyOrganizationsComponent } from './controller/my-organizations/my-organ
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +68,8 @@ import { MyOrganizationsComponent } from './controller/my-organizations/my-organ
     EventDetailComponent,
     BlogDetailComponent,
     EventListComponent,
-    MyOrganizationsComponent
+    MyOrganizationsComponent,
+    
 
   ],
   imports: [

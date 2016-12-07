@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
+import { EventListComponent } from '../event/eventlist.component';
 
 
 import 'rxjs/add/operator/map';

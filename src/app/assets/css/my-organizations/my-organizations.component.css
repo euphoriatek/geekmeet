@@ -6,6 +6,13 @@
     vertical-align: top;
     width: 150px;
 }
-.btn{
-	color: #DFDFDF!important;
+
+.org_btn a{
+    color: #fff !important;
 }
+
+.organization_div{
+	margin-bottom: 15px;
+}
+
+
