@@ -6,7 +6,8 @@ import {DropdownModule} from "ng2-dropdown";
 import { MyDatePickerModule } from 'mydatepicker';
 import {SelectModule} from 'ng2-select/ng2-select';
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
-import { SimpleNotificationsModule }from 'angular2-notifications'
+import { SimpleNotificationsModule, NotificationsService }from 'angular2-notifications'
+import {CKEditorModule} from 'ng2-ckeditor';
 // import * as moment from 'moment';
 // import { DatePickerIonicComponent } from 'ng2-datepicker';
 // import { Select2Component } from 'ng2-select2/ng2-select';
@@ -28,6 +29,7 @@ export class EditProfileComponent implements OnInit {
   userInfoArr:Object = {};
   topic:any;
   private value:any = [];
+  private topicData:any = [];
   countryList:any;
   stateList:any;
   cityList:any;
@@ -44,6 +46,7 @@ export class EditProfileComponent implements OnInit {
   email:any;
   contact:any;
   valArr:any;
+  newTopic:any;
   public topicArr:Array<string> = ['Cisco','Database',"Microsoft's",'Networking','Open Source','IT', 'Job'];
   private selectedDateNormal:string = '';
 
@@ -55,7 +58,7 @@ export class EditProfileComponent implements OnInit {
     resizeMaxWidth: 128
   };
 
-  constructor(private router: Router,public apiService:ApiMethodService) { }
+  constructor(private router: Router,public apiService:ApiMethodService, private _service: NotificationsService,) { }
 
   ngOnInit() {
     this.getToken = this.apiService.getLoginToken();
@@ -131,19 +134,21 @@ export class EditProfileComponent implements OnInit {
   }
 
   // intrestedTopic(){
-    //   var ref = this;
-    //   ref.apiService.SecondMenuApi(function(res){
-      //     ref.topicArr = res.data;
-      //     console.log(ref.topicArr);
-      //   });
-      // }
+  //     var ref = this;
+  //     ref.apiService.SecondMenuApi(function(res){
+  //         ref.newTopic = res.data;
+  //         console.log(ref.newTopic);
+  //         var newOne = ref.newintrestedTopic(ref.topicData);
+  //         console.log(newOne);
+  //       });
+  //     }
 
-       // intrestedTopic(topicArr:Array<any> = []):Array<string>{
-    //   return topicArr
-    //   .map((topicArr:any) => {
-        //   return topicArr.category_name;
-        // });
-      // }
+  //      newintrestedTopic(topicData:Array<any> = []):Array<string>{
+  //     return topicData
+  //     .map((newTopic:any) => {
+  //         return newTopic.category_name;
+  //       });
+  //     }
 
 
 
@@ -182,7 +187,7 @@ export class EditProfileComponent implements OnInit {
         lastOnBottom: true
       }
 
-      create(title: 'update successfully.!', type:'success'){}
+      created(title: 'update successfully.!', type:'success'){}
 
 
       updateUserProfile(value:any):void{

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import {DropdownModule} from "ng2-dropdown";
+import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 
 import {SelectModule} from 'ng2-select/ng2-select';
 
@@ -15,32 +16,43 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['../../assets/css/organization-edit/organization-edit.component.css']
 })
 export class OrganizationEditComponent implements OnInit {
+  src: string = "";
   getToken:any;
   countryList:any;
   stateList:any;
   cityList:any;
   orgDetail:any = {};
   errors:Object = {};
+  resizeOptions: ResizeOptions = {
+    resizeMaxHeight: 128,
+    resizeMaxWidth: 128
+  };
   constructor(private router:Router,private route: ActivatedRoute,public apiService:ApiMethodService) { }
 
-   ngOnInit() {
+  ngOnInit() {
   	this.getToken = this.apiService.getLoginToken();
-		if(!(this.getToken)){
-			this.router.navigate(['/']);
-		}
-
-	  this.route.params.subscribe(params => {
-      this.organizationDetail(params['id']);
-      });
-        this.getCountryList(); 
+    if(!(this.getToken)){
+      this.router.navigate(['/']);
     }
 
+    this.route.params.subscribe(params => {
+      this.organizationDetail(params['id']);
+    });
+    this.getCountryList(); 
+  }
+
+  selected(imageResult: ImageResult) {
+    this.src = imageResult.dataURL;
+  }
 
 
-   organizationDetail(value){
+
+  organizationDetail(value){
     var ref = this;
     ref.apiService.organization_detail(value,function(res){     
       ref.orgDetail = res.data;
+      ref.getState(res.data.country);
+      ref.getCIty(res.data.state);
       console.log(ref.orgDetail);
     }, function(err){
       console.log(err);
@@ -48,7 +60,7 @@ export class OrganizationEditComponent implements OnInit {
   }
 
 
-      getCountryList(){
+  getCountryList(){
     var ref = this;
     ref.apiService.countryList(function(res){
       ref.countryList = res.data;
@@ -76,18 +88,19 @@ export class OrganizationEditComponent implements OnInit {
   }
 
   editOrganization(value:any):void{
-    console.log("this is update of user profile");
-    console.log(value);
     var refreg = this;
-      this.apiService.editOrganization(value,function(res){
+    console.log("this is update of user profile");
+    value['image'] = refreg.src;
+    console.log(value);
+    this.apiService.editOrganization(value,function(res){
       refreg.router.navigate(['/my-organizations']);
     },function(err){
-        console.log(err);
-        var error = err.json().errors;
-          refreg.errors = error;
+      console.log(err);
+      var error = err.json().errors;
+      refreg.errors = error;
 
-       
-        });
+
+    });
   }
 
 }
