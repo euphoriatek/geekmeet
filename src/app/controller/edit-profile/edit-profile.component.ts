@@ -28,6 +28,18 @@ export class EditProfileComponent implements OnInit {
   countryList:any;
   stateList:any;
   cityList:any;
+  firstname:any;
+  lastname:any;
+  address:any;
+  dob:any;
+  birthplace:any;
+  gender:any;
+  country:any;
+  state:any;
+  city:any;
+  zipcode:any;
+  email:any;
+  contact:any;
   private selectedDateNormal:string = '';
 
   private selectedTextNormal: string = '';
@@ -66,8 +78,6 @@ export class EditProfileComponent implements OnInit {
       console.log(ref.userInfoArr);
       ref.selectedDateNormal = res.data.dob;
     }, function(err){
-      // console.log("this is token expire");
-      // console.log(err.status);
       if(err.status == '401'){
         localStorage.removeItem('auth_token');
         this.router.navigate(['/']);
@@ -128,12 +138,29 @@ export class EditProfileComponent implements OnInit {
 
 
   updateUserProfile(value:any):void{
+    var ref = this;
     console.log("this is update of user profile");
     console.log(value);
-    this.apiService.updateUser(value,function(res){
+    ref.apiService.updateUser(value,function(res){
       console.log(res);
     },function(err){
-      console.log(err);
+      if(err.status == '401'){
+        localStorage.removeItem('auth_token');
+        ref.router.navigate(['/']);
+      }
+      var errors = err.json().errors;
+      ref.firstname = errors.first_name[0];
+      ref.lastname = errors.last_name;
+      ref.address = errors.address;
+      ref.dob = errors.dob;
+      ref.birthplace = errors.birth_place;
+      ref.gender = errors.gender;
+      ref.country = errors.country;
+      ref.state = errors.state;
+      ref.city = errors.city;
+      ref.zipcode = errors.zip_code;
+      ref.email = errors.email;
+      ref.contact = errors.phone;  
     });
   }
 
