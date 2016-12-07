@@ -16,44 +16,78 @@
                 <h3>Organization Add</h3>
             </div>
 
-            <form name="event-add" id="event-add" action="#" method="post">
+            <form #addOrganizationForm="ngForm" (ngSubmit)="addOrganization(addOrganizationForm.value)">
                 <div class="event-edit-form large-9 small-12 columns">
                     <div class="form_row clearfix">
-                        <label>Business Logo<span class="indicates">*</span></label>
+                        <label>Business Logo</label>
                         <div class="col-sm-10 -m-rl-15">
-                            <input type="file" name="" value="" class="form-control textfield"> 
+                            <input type="file" name="image" value="" ngModel class="form-control textfield"> 
                         </div>
-                        <div class="col-sm-2">
-                            <input class="btn btn-warning logo-submit" type="submit" value="Upload" name="submit">
-                        </div>
+                       
                     </div>
                     <div class="form_row clearfix">
                         <label>Name<span class="indicates">*</span></label>
-                        <input type="text" name="" id="" value="" class="form-control textfield"> 
-                    </div>
+                        <input type="text" name="organization_name" ngModel id="" value="" class="form-control textfield"> 
+                        <ul class="error" *ngIf="errors['organization_name']!=''" >
+                        <li *ngFor="let org_err of errors['organization_name']" >
+                          {{org_err}}  
+
+                        </li>    
+
+                        </ul>                    
+                        </div>
                     <div class="form_row clearfix">
                         <label>About the Organization<span class="indicates">*</span></label>
-                        <textarea class="ckeditor form-control" name="editor1" rows="6"></textarea>
+                        <textarea class="form-control" name="organization_description" rows="6"  ngModel></textarea>
+                         <ul class="error" *ngIf="errors['organization_description']!=''" >
+                        <li *ngFor="let org_err of errors['organization_description']" >
+                          {{org_err}}  
+
+                        </li>    
+
+                        </ul>  
+                    </div>
+                      <div class="form_row clearfix">
+                        <label>Country</label>
+                        <select class="form-control" name="country" ngModel>
+                            <option *ngFor="let country of countryList" value="{{country.id}}" (click)="getState(country.id)" >{{country.name}}</option>
+                        </select>
+                        <span id="user_loginInfo">{{country}}</span> 
+                    </div>
+
+                    <div class="form_row clearfix">
+                        <label>State</label>
+                        <select class="form-control" name="state" ngModel>
+                            <option *ngFor="let state of stateList" value="{{state.state_id}}" (click)="getCIty(state.state_id)" >{{state.name}}</option>
+                        </select>
+                        <span id="user_loginInfo">{{state}}</span> 
                     </div>
                     <div class="form_row clearfix">
-                        <label>Location<span class="indicates">*</span></label>
-                        <input type="text" name="" value="" class="form-control textfield">
+                        <label>City</label>
+                        <select class="form-control" name="city" ngModel >
+                            <option *ngFor="let city of cityList" value="{{city.city_id}}">{{city.name}}</option>
+                        </select>
+                        <span id="user_loginInfo">{{city}}</span> 
                     </div>
                     <div class="form_row clearfix">
-                        <label>Email<span class="indicates">*</span></label>
-                        <input type="email" name="" value="" class="form-control textfield">
+                        <label>Street Address</label>
+                        <textarea class="form-control" name="organization_location" ngModel></textarea>
                     </div>
                     <div class="form_row clearfix">
-                        <label>Website<span class="indicates">*</span></label>
-                        <input type="url" name="" value="" class="form-control textfield"> 
+                        <label>Email</label>
+                        <input type="textimage" name="organization_email" value="" class="form-control textfield" ngModel>
                     </div>
                     <div class="form_row clearfix">
-                        <label>Contact Info<span class="indicates">*</span></label>
-                        <input type="tel" name="" value="" class="form-control textfield"> 
+                        <label>Website</label>
+                        <input type="text" name="organization_website" value="" class="form-control textfield" ngModel> 
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Phone</label>
+                        <input type="text" name="organization_contact" value="" class="form-control textfield" ngModel> 
                     </div>
 
                     <div class="form_row ">
-                        <a class="btn btn-warning" type="submit" value="Save" name="submit">Save</a>
+                        <button class="btn btn-warning" type="submit" value="Save" name="submit">Save</button>
                         <a class="btn btn-warning" type="submit" value="Save" name="submit">Cancel</a>	
                     </div>
                 </div>
