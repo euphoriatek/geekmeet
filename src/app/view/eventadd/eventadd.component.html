@@ -15,83 +15,97 @@
             <div class="event-add">
                 <h3>Event Add</h3>
             </div>
+          
 
-            <form name="event-add" id="event-add" action="#" method="post">
+            <form name="event-add" id="event-add" #addEventForm="ngForm" (ngSubmit)="submitEvent(addEventForm.value)">    
                 <div class="event-edit-form large-6 small-12 columns">
                     <div class="form_row clearfix">
                         <label>Event Title<span class="indicates">*</span></label>
-                        <input type="text" name="" id="event-title" value="" class="form-control textfield"> 
+                        <input type="text" [(ngModel)]="title" id="event-title" name="event-title" value="" class="form-control textfield"> 
                     </div>
                     <div class="form_row clearfix">
                         <label>Event Description<span class="indicates">*</span></label>
-                        <textarea id="event-description" value="" rows="5" cols="6" class="textfield" style="height: 194px;"> </textarea>
+                        <textarea [(ngModel)]="description" name="event-description" id="event-description" value="" rows="5" cols="6" class="textfield" style="height: 194px;"> </textarea>
                     </div>
                     <div class="form_row clearfix">
-                        <label>Start Date<span class="indicates">*</span></label>
-                        <input id="start-date" class="form-control" type="text"/>
+                        <label>Start Date<span class="indicates">*</span></label>                                         
+                        <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event,'start')" [selDate]="startDateNormal"></my-date-picker>
+                        <input type="hidden" name="start-date" [(ngModel)]="startDateNormal">
                     </div>
                     <div class="form_row clearfix">
-                        <label>End Date<span class="indicates">*</span></label>
-                        <input id="end-date" class="form-control" type="text"/> 
+                        <label>Start Time<span class="indicates">*</span></label>
+                        <input type="text" [(ngModel)]="eventStartTime" name="eventstart-time" id="eventstart-time" class="form-control"> 
                     </div>
                     <div class="form_row clearfix">
-                        <label>Time<span class="indicates">*</span></label>
-                        <input type="text" id="event-time" class="form-control"> 
+                        <label>End Date<span class="indicates">*</span></label>                       
+                        <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event,'end')" [selDate]="endDateNormal"></my-date-picker>
+                        <input type="hidden" name="end-date" [(ngModel)]="endDateNormal"> 
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>End Time<span class="indicates">*</span></label>
+                        <input type="text" [(ngModel)]="eventEndTime" name="eventend-time" id="eventend-time" class="form-control"> 
                     </div>
                     <div class="form_row clearfix">
                         <label>Website<span class="indicates">*</span></label>
-                        <input type="url" name="" id="website" value="" class="form-control textfield"> 
+                        <input type="url" [(ngModel)]="website" name="website" id="website" value="" class="form-control textfield"> 
                     </div>
 
                 </div>
 
                 <div class="event-edit-form large-6 small-12 columns">
                     <div class="form_row clearfix">
-                        <label>Country<span class="indicates">*</span></label>
-                        <select class="form-control">
-                            <option>UK</option>
-                            <option>USA</option>
-                            <option>Australia</option>
-                            <option>India</option>
-                            <option>Japan</option>
+                        <label>Country<span class="indicates">*</span></label>                        
+                        <select class="form-control" name="country" [(ngModel)]="country" >
+                            <option *ngFor="let country of countryList" value="{{country.id}}" (click)="getState(country.id)" >{{country.name}}</option>
                         </select>
                     </div>
                     <div class="form_row clearfix">
-                        <label>State<span class="indicates">*</span></label>
-                        <select class="form-control">
-                            <option>State1</option>
-                            <option>State2</option>
-                            <option>State3</option>
-                            <option>State4</option>
-                            <option>State5</option>
+                        <label>State<span class="indicates">*</span></label>                        
+                        <select class="form-control" name="state" [(ngModel)]="state" >
+                            <option *ngFor="let state of stateList" value="{{state.state_id}}" (click)="getCIty(state.state_id)" >{{state.name}}</option>
                         </select>
                     </div>
                     <div class="form_row clearfix">
-                        <label>City<span class="indicates">*</span></label>
-                        <select class="form-control">
-                            <option>City1</option>
-                            <option>City2</option>
-                            <option>City3</option>
-                            <option>City4</option>
-                            <option>City5</option>
+                        <label>City<span class="indicates">*</span></label>                        
+                        <select class="form-control" name="city" [(ngModel)]="city" >
+                            <option *ngFor="let city of cityList" value="{{city.city_id}}">{{city.name}}</option>
                         </select>
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Organization<span class="indicates">*</span></label>
+                        <select class="form-control" name="organization" [(ngModel)]="organization" >
+                            <option *ngFor="let organization of organizationList" value="{{organization.organization_id}}">{{organization.organization_name}}</option>
+                        </select>                       
                     </div>
                     <div class="form_row clearfix">
                         <label>Location<span class="indicates">*</span></label>
-                        <input type="text" name="" id="event-location" value="" class="form-control textfield">
+                        <select class="form-control" name="location" [(ngModel)]="location" >
+                            <option *ngFor="let venue of venueList" value="{{venue.venue_id}}">{{venue.address}}</option>
+                        </select>                       
                     </div>
                     <div class="form_row clearfix">
+                        <label>Intended Audience:</label>
+                        <div class="">                                            
+                            <ng-select (data)="audienceList"
+                            [multiple]="true"                            
+                            [items]="audienceList"
+                            (selected)="audience">
+                            </ng-select>
+                           <input type="hidden" name="audience" [(ngModel)]="audience">
+                        </div>
+                    </div>    
+                    <div class="form_row clearfix">
                         <label>Contact Info<span class="indicates">*</span></label>
-                        <input type="tel" name="" id="contactinfo" value="" class="form-control textfield"> 
+                        <input type="tel" [(ngModel)]="contact" id="contactinfo" name="contact" value="" class="form-control textfield"> 
                     </div>
                     <div class="form_row clearfix">
                         <label>Event Purpose</label>
-                        <input type="text" name="" id="event-location" value="" class="form-control textfield">
+                        <input type="text" [(ngModel)]="purpose" id="purpose" name="purpose" value="" class="form-control textfield">
                     </div>
                     <div class="form_row clearfix">
                         <label>Event Keywords</label>
                         <div class="">
-                            <select id="multiple" class="form-control select2-multiple" multiple>
+                            <!--<select [(ngModel)]="keyword" id="multiple" name="keyword" class="form-control select2-multiple" multiple>
                                 <optgroup label="Tech">
                                     <option>Cisco</option>
                                     <option>Database</option>
@@ -100,12 +114,18 @@
                                     <option>Open Source</option>
                                     <option>IT</option>
                                 </optgroup>
-                            </select>
+                            </select>-->                           
+                            <ng-select (data)="organizationList"
+                            [multiple]="true"                            
+                            [items]="keywordList"
+                            (selected)="keyword">
+                            </ng-select>
+                           <input type="hidden" name="keyword" [(ngModel)]="keyword">
                         </div>
                     </div>
                     <div class="form_row clearfix">
                         <label>Upload Images</label>
-                        <input type="file" name="" id="event-images" value="" class="form-control textfield"> 
+                        <input type="file" name="event-images" id="event-images" value="" class="form-control textfield"> 
                     </div>
                 </div>
                 <div class="col-sm-12">

@@ -70,7 +70,7 @@ import { MyOrganizationsComponent } from './controller/my-organizations/my-organ
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    FormsModule,    
     routing,
     HttpModule,
     RatingModule,
