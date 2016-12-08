@@ -49,6 +49,7 @@
 						<label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/organization-edit',org.organization_id]">Edit Organization</a></label>
 						<label class="org_btn"><a class="btn btn-xs primary" href="javascript:void(0)">Invite</a></label>
 						<label class="org_btn"><a class="btn btn-xs primary" href="javascript:void(0)">Join</a></label>
+					    <label class="org_btn"><a class="btn btn-xs primary" href="javascript:void(0)"(click)="deleteOrg(org.organization_id)">Delete</a></label>
 					</div>					
 				</div>
 
@@ -63,6 +64,8 @@
 				  
 				
 
+ <!--<button type="button" class="btn btn-default" (click)="modal_id.open('sm')">Open me!</button> -->
+<delete-model></delete-model>
 
 		 
           

@@ -13,8 +13,11 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { DropdownModule } from "ng2-dropdown";
 import { ImageUploadModule } from 'ng2-imageupload';
 import { SimpleNotificationsModule }from 'angular2-notifications'
-import { CKEditorModule } from 'ng2-ckeditor';
-import { BusyModule } from 'angular2-busy';
+import {CKEditorModule} from 'ng2-ckeditor';
+import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+
+// import  Select2Component  from 'angular2-select2';
+
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './controller/layouts/header/header.component';
@@ -40,6 +43,7 @@ import { BlogDetailComponent } from './controller/blog-detail/blog-detail.compon
 import { EventListComponent } from './controller/event/eventlist.component';
 import { MyOrganizationsComponent } from './controller/my-organizations/my-organizations.component';
 import { OrganizationEditComponent } from './controller/organization-edit/organization-edit.component';
+import { DeleteModelComponent } from './controller/delete-model/delete-model.component';
 
 
 
@@ -72,6 +76,7 @@ import { OrganizationEditComponent } from './controller/organization-edit/organi
     EventListComponent,
     MyOrganizationsComponent,
     OrganizationEditComponent,
+    DeleteModelComponent,
     
 
   ],
@@ -87,7 +92,7 @@ import { OrganizationEditComponent } from './controller/organization-edit/organi
     ImageUploadModule,
     SimpleNotificationsModule,
     CKEditorModule,
-    BusyModule,
+    Ng2Bs3ModalModule,
     RecaptchaModule.forRoot(),
     ModalModule.forRoot(),
     BootstrapModalModule,
