@@ -13,6 +13,8 @@
                 <span class="trail-end">Edit Profile</span>
             </div>
         </div>
+        <!-- <button id="notification" (click)="addToast()"></button> -->
+        <ng2-toasty [position]="'top-center'" ></ng2-toasty>
 
         <!-- start content part-->
         <div id="content" role="main" class="large-9 small-12 columns" jstcache="0">
@@ -76,7 +78,7 @@
                     <div class="form_row clearfix">
                         <label>State<span class="indicates">*</span></label>
                         <select class="form-control" name="state" [(ngModel)]="userInfoArr.state" >
-                            <option *ngFor="let state of stateList" value="{{state.state_id}}" (click)="getCIty(state.state_id)" >{{state.name}}</option>
+                            <option *ngFor="let state of stateListArr" value="{{state.state_id}}" (click)="getCIty(state.state_id)" >{{state.name}}</option>
                         </select>
                         <span id="errfield">{{state}}</span> 
                     </div>

@@ -12,11 +12,10 @@ import { SelectModule } from 'ng2-select/ng2-select';
 import { MyDatePickerModule } from 'mydatepicker';
 import { DropdownModule } from "ng2-dropdown";
 import { ImageUploadModule } from 'ng2-imageupload';
-import { SimpleNotificationsModule }from 'angular2-notifications'
 import {CKEditorModule} from 'ng2-ckeditor';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import {ToastyModule} from 'ng2-toasty';
 
-// import  Select2Component  from 'angular2-select2';
 
 
 import { AppComponent } from './app.component';
@@ -96,9 +95,9 @@ import { VenuesEditComponent } from './controller/venues-edit/venues-edit.compon
     MyDatePickerModule,
     DropdownModule,
     ImageUploadModule,
-    SimpleNotificationsModule,
     CKEditorModule,
     Ng2Bs3ModalModule,
+    ToastyModule.forRoot(),
     RecaptchaModule.forRoot(),
     ModalModule.forRoot(),
     BootstrapModalModule,
