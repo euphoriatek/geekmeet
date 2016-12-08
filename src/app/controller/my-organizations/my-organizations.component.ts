@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Router }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
-import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+// import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { DeleteModelComponent } from '../delete-model/delete-model.component';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-my-organizations',
@@ -12,11 +12,11 @@ import { DeleteModelComponent } from '../delete-model/delete-model.component';
   styleUrls: ['../../assets/css/my-organizations/my-organizations.component.css']
 })
 export class MyOrganizationsComponent implements OnInit {
-  organizationArr:any;
+  organizationArr:any=[];
 	Total:Object;
 	currentPage:Object;
 	getToken:any;
-
+  deleteID:any;
 
   constructor(private router:Router, public apiService:ApiMethodService) { }
 
@@ -26,7 +26,7 @@ export class MyOrganizationsComponent implements OnInit {
       this.router.navigate(['/']);
     }
   	this.OrganizationList(1);
-    console.log(DeleteModelComponent);
+   
   }
 
    OrganizationList(value){
@@ -53,9 +53,15 @@ export class MyOrganizationsComponent implements OnInit {
     this.OrganizationList(page);
   }
 
-  deleteOrg(value){
+  setDeleteID(id){
+    console
+   this.deleteID = id;
+  }
+
+  deleteOrg(){
     var ref = this;
-    this.apiService.organizationDelete(value,function(res){
+    console.log(this.deleteID);
+    this.apiService.organizationDelete(this.deleteID,function(res){
      ref.OrganizationList(1);        
     },function(err){
       var status = err.status;
