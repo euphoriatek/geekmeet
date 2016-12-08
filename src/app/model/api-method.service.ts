@@ -388,6 +388,20 @@ export class ApiMethodService {
 			}
 
 		}, (error) => failure(error));
+	}
+
+	organizationDelete(value,callBack,failure){
+	    let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.get('http://2016.geekmeet.com/admin/v1/delete_organization/'+value,options).map(res =>res.json())
+
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+
+		}, (error) => failure(error));
 	}   
 
 
