@@ -25,7 +25,7 @@ import 'rxjs/add/operator/catch';
 })
 export class EditProfileComponent implements OnInit {
   src: string = "";
-  getToken:any;
+  getToken:any;  
   userInfoArr:Object = {};
   topic:any;
   private value:any = [];
@@ -67,22 +67,33 @@ export class EditProfileComponent implements OnInit {
     }
     this.userInformation();
     this.getCountryList(); 
-    // this.intrestedTopic(); 
+    // this.getFavTopics();
   }
 
   selected(imageResult: ImageResult) {
     this.src = imageResult.dataURL;
   }
 
-  ngAfterViewInit() {
-    jQuery(document).find("#multiple").select2({
-      width: '100%',
-      start: function (select2) {
-        jQuery('.edit_profile__module').removeClass('loading');
-      }
-    });
+  // ngAfterViewInit() {
+  //   jQuery(document).find("#multiple").select2({
+  //     width: '100%',
+  //     start: function (select2) {
+  //       jQuery('.edit_profile__module').removeClass('loading');
+  //     }
+  //   });
 
-  }
+  // }
+
+
+  // getFavTopics(){
+  //   var ref= this;
+  //   ref.apiService.categoryList(function(res){
+  //     ref.newTopic = this.convertArrTopic(res.data);
+  //     console.log(ref.newTopic);
+  //   },function(err){
+  //     console.log(err);
+  //   })
+  // }
 
 
 
@@ -118,7 +129,7 @@ export class EditProfileComponent implements OnInit {
   getState(id){
     var ref = this;
     ref.apiService.stateList(id,function(res){
-      ref.stateList = res.data;
+      ref.stateList = this.convertToValueArray(res.data);
     }, function(err){
       console.log(err);
     });
@@ -154,6 +165,13 @@ export class EditProfileComponent implements OnInit {
 
       public refreshValue(value:any):void {
         this.value = this.convertToValueArray(value);
+      }
+
+      public convertArrTopic(value:Array<any> = []):Array<string>{
+        return value
+        .map((value:any) => {
+          return value.category_name;
+        });
       }
 
 
