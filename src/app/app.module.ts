@@ -44,6 +44,9 @@ import { EventListComponent } from './controller/event/eventlist.component';
 import { MyOrganizationsComponent } from './controller/my-organizations/my-organizations.component';
 import { OrganizationEditComponent } from './controller/organization-edit/organization-edit.component';
 import { DeleteModelComponent } from './controller/delete-model/delete-model.component';
+import { MyVenuesComponent } from './controller/my-venues/my-venues.component';
+import { VenuesAddComponent } from './controller/venues-add/venues-add.component';
+import { VenuesEditComponent } from './controller/venues-edit/venues-edit.component';
 
 
 
@@ -77,6 +80,9 @@ import { DeleteModelComponent } from './controller/delete-model/delete-model.com
     MyOrganizationsComponent,
     OrganizationEditComponent,
     DeleteModelComponent,
+    MyVenuesComponent,
+    VenuesAddComponent,
+    VenuesEditComponent,
     
 
   ],
@@ -116,8 +122,11 @@ import { DeleteModelComponent } from './controller/delete-model/delete-model.com
       {path:'event_detail' ,component: EventDetailComponent},
       {path:'blog_detail' ,component: BlogDetailComponent},
       {path:'my-organizations' ,component: MyOrganizationsComponent},
+      {path:'my-venues' ,component: MyVenuesComponent},
+      {path:'venues-add' ,component: VenuesAddComponent},
+      {path:'venues-edit' ,component: VenuesEditComponent},
+	    {path:'organization-edit' ,component: OrganizationEditComponent},
       {path:'' ,component: IndexComponent},
-	  {path:'organization-edit' ,component: OrganizationEditComponent},
       ])
   ],
   providers: [ApiMethodService],

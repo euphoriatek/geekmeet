@@ -21,6 +21,9 @@ import { EventDetailComponent } from './controller/event-detail/event-detail.com
 import { BlogDetailComponent } from './controller/blog-detail/blog-detail.component';
 import { MyOrganizationsComponent } from './controller/my-organizations/my-organizations.component';
 import { OrganizationEditComponent } from './controller/organization-edit/organization-edit.component';
+import { MyVenuesComponent } from './controller/my-venues/my-venues.component';
+import { VenuesAddComponent } from './controller/venues-add/venues-add.component';
+import { VenuesEditComponent } from './controller/venues-edit/venues-edit.component';
 
 
 
@@ -56,6 +59,9 @@ export const routes: Routes = [
       {path:'blog_detail/:id' ,component: BlogDetailComponent,data: [{id: true}]},
       {path:'my-organizations' ,component: MyOrganizationsComponent},
       {path:'organization-edit/:id' ,component: OrganizationEditComponent,data: [{id: true}]},
+      {path:'my-venues' ,component: MyVenuesComponent},
+      {path:'venues-add' ,component: VenuesAddComponent},
+      {path:'venues-edit' ,component: VenuesEditComponent},
       {path:'' ,component: IndexComponent}
 
 ];

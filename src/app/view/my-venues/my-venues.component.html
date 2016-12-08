@@ -1,0 +1,76 @@
+<!-- <app-header></app-header> -->
+
+<section id="main" class="clearfix">
+	<div class="wrap row">
+		<div class="breadcrumb breadcrumbs columns">
+			<div class="breadcrumb-trail">
+				<span class="trail-begin">
+					<a [routerLink]="['/']" title="GeekMeet" rel="home" class="trail-begin">Home</a></span> <span class="sep">»</span> <span class="trail-end">Venue List</span>
+				</div>
+		
+            
+			<!-- start content part-->
+
+		
+			<div id="content" role="main" class="col-md-12 col-sm-12 columns">
+			  <h1 class="loop-title org_btn">Venue <a class="btn btn-warning pull-right" href="" [routerLink]="['/venues-add']">Add Venue</a></h1>
+				<!-- <div class="form-group organization_div row"  *ngFor = "let org of organizationArr">
+
+					
+					<div class="col-md-8">
+					  <div class="organization-logo col-sm-6">
+						<img src="{{org.organization_logo}}"  title="{{org.title}}">
+					</div>
+                   <div class="right_box form-horizontal col-sm-6">
+                   <h2> <a [routerLink]="['/organization',org.organization_id]">{{org.organization_name}}</a></h2>
+                   <div class="user_dsb">
+							<div class="form-group" *ngIf="org.organization_location!=''">
+								<label class="col-sm-1 col-xs-2 control-label"><i class="fa fa-map-marker"></i></label>
+								<span class="col-sm-10 col-xs-10">{{org
+								.organization_location}}</span>
+							</div>
+							<div class="form-group" *ngIf="org.organization_email!=''">
+								<label class="col-sm-1 control-label"><i class="fa fa-envelope-o"></i></label>
+								<span class="col-sm-10">{{org.organization_email}}</span>
+							</div>
+							<div class="form-group" *ngIf="org.organization_contact!=''">
+								<label class="col-sm-1 control-label"><i class="fa fa-phone"></i></label>
+								<span class="col-sm-10">{{org.organization_contact}}</span>
+							</div>
+							<div class="form-group" *ngIf="org.organization_website!=''">
+								<label class="col-sm-1 control-label"><i class="fa fa-globe"></i></label>
+								<span class="col-sm-10">{{org.organization_website}}</span>
+							</div>
+													</div>
+                    </div> 	
+
+					</div>
+					<div class="col-sm-4 pull-right ">
+						<label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/organization-edit',org.organization_id]">Edit Organization</a></label>
+						<label class="org_btn"><a class="btn btn-xs primary" href="javascript:void(0)">Invite</a></label>
+						<label class="org_btn"><a class="btn btn-xs primary" href="javascript:void(0)">Join</a></label>
+					    <label class="org_btn"><a class="btn btn-xs primary" href="javascript:void(0)"(click)="deleteOrg(org.organization_id)">Delete</a></label>
+					</div>					
+				</div>
+ -->
+
+
+
+				 <!-- <div class="postpagination_776778595 postpagination clearfix">
+                <div class="pagination" *ngFor="let object of createRange(Total)">
+                <a  class="page-numbers" href="javascript:void(0)" [ngClass]="{'active': object==currentPage}" (click)="getOrganizationPagination(object)" > {{object}} </a>
+                </div>
+                </div> -->
+				  
+				
+
+ <!--<button type="button" class="btn btn-default" (click)="modal_id.open('sm')">Open me!</button> -->
+<!-- <delete-model></delete-model> -->
+
+		 
+          
+
+		
+
+		   </div></div></div>
+	</section>
