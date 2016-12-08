@@ -9,6 +9,7 @@ import { Overlay } from 'angular2-modal';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ProfileComponent } from '../../profile/profile.component';
+import {FacebookService, FacebookLoginResponse, FacebookInitParams} from 'ng2-facebook-sdk/dist';
 // import {FacebookService, FacebookInitParams} from 'ng2-facebook-sdk/dist';
 
 declare const FB: any;
@@ -86,8 +87,7 @@ export class FooterComponent implements OnInit {
 				if(refTokn.token.authResponse.accessToken){
 					refTokn.me(refTokn.fbtoken);
 				}
-				var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
-				closeBtn.click();
+				
 			}, { scope: 'user_friends' });
 		}
 

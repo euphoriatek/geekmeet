@@ -8,13 +8,13 @@ import { RecaptchaModule } from 'ng2-recaptcha';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { RatingModule } from "ng2-rating";
-import {SelectModule} from 'ng2-select/ng2-select';
+import { SelectModule } from 'ng2-select/ng2-select';
 import { MyDatePickerModule } from 'mydatepicker';
-import {DropdownModule} from "ng2-dropdown";
+import { DropdownModule } from "ng2-dropdown";
 import { ImageUploadModule } from 'ng2-imageupload';
 import { SimpleNotificationsModule }from 'angular2-notifications'
-import {CKEditorModule} from 'ng2-ckeditor';
-// import  Select2Component  from 'angular2-select2';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { BusyModule } from 'angular2-busy';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './controller/layouts/header/header.component';
@@ -87,6 +87,7 @@ import { OrganizationEditComponent } from './controller/organization-edit/organi
     ImageUploadModule,
     SimpleNotificationsModule,
     CKEditorModule,
+    BusyModule,
     RecaptchaModule.forRoot(),
     ModalModule.forRoot(),
     BootstrapModalModule,
