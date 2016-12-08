@@ -9,7 +9,7 @@ import { Overlay } from 'angular2-modal';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ProfileComponent } from '../../profile/profile.component';
-import {FacebookService, FacebookLoginResponse, FacebookInitParams} from 'ng2-facebook-sdk/dist';
+//import {FacebookService, FacebookLoginResponse, FacebookInitParams} from 'ng2-facebook-sdk/dist';
 // import {FacebookService, FacebookInitParams} from 'ng2-facebook-sdk/dist';
 
 declare const FB: any;
@@ -54,13 +54,13 @@ export class FooterComponent implements OnInit {
 		){ 
 
 
-		overlay.defaultViewContainer = vcRef;
-		FB.init({
-			appId      : '1840931362816112',
-			cookie     : false, 
-			xfbml      : true,  
-			version    : 'v2.8' 
-		});
+		// overlay.defaultViewContainer = vcRef;
+		// FB.init({
+		// 	appId      : '1840931362816112',
+		// 	cookie     : false, 
+		// 	xfbml      : true,  
+		// 	version    : 'v2.8' 
+		// });
 
 		// this.zone.run(() => {
 			// 	this.proxy(this.OnLinkedInFrameworkLoad, this);
