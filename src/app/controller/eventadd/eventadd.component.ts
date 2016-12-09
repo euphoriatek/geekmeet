@@ -22,11 +22,12 @@ export class EventaddComponent implements OnInit {
   topic:any;
   value:any;
   countryList:any;
-  stateList:any;
-  cityList:any;
+  countryArr:Array<Object> = [];
+  stateList:Array<Object> = [];
+  cityList:Array<Object> = [];
   categoryList:any;
-  organizationList:any;
-  venueList:any;
+  organizationList:Array<Object> = [];
+  venueList:Array<Object> = [];
   keywordList:Array<string> = [];
   private startDateNormal:string = '';
   private startTextNormal: string = '';
@@ -92,8 +93,15 @@ export class EventaddComponent implements OnInit {
         localStorage.removeItem('auth_token');
         this.router.navigate(['/']);
       } 
-      
-      ref.organizationList = res.data;
+
+      jQuery.each( res.data , function( key, value ) {   
+      var valueid =  value.organization_id.toString();    
+      var  item = {id:valueid, text:value.organization_name};       
+      ref.organizationList.push(item);   
+      });
+
+     ref.organizationList = jQuery.makeArray( ref.organizationList );
+      //ref.organizationList = res.data;
 
     }, function(err){
       console.log(err);      
@@ -103,7 +111,14 @@ export class EventaddComponent implements OnInit {
   getVenueList(){
     var ref = this;
     ref.apiService.venueNames(function(res){
-      ref.venueList = res.data;
+      //ref.venueList = res.data;
+      jQuery.each( res.data , function( key, value ) {   
+      var valueid =  value.venue_id.toString();    
+      var  item = {id:valueid, text:value.venue_name};       
+      ref.venueList.push(item);   
+      });
+
+     ref.venueList = jQuery.makeArray( ref.venueList );
     }, function(err){
       console.log(err);
     });    
@@ -127,29 +142,76 @@ export class EventaddComponent implements OnInit {
   getCountryList(){
     var ref = this;
     ref.apiService.countryList(function(res){
-      ref.countryList = res.data;
+      //ref.countryList = res.data;
+
+      jQuery.each( res.data , function( key, value ) {   
+      var valueid =  value.id.toString();    
+      var  item = {id:valueid, text:value.name};       
+      ref.countryArr.push(item);   
+      });
+
+     ref.countryArr = jQuery.makeArray( ref.countryArr );
+      
     }, function(err){
       console.log(err);
     });
   }
 
-  getState(id){
+  /*getState(id){
     var ref = this;
     ref.apiService.stateList(id,function(res){
       ref.stateList = res.data;
     }, function(err){
       console.log(err);
     });
-  }
+  }*/
 
-  getCIty(id){
+  /*getCIty(id){
     var ref = this;
     ref.apiService.cityList(id,function(res){
       ref.cityList = res.data;
     }, function(err){
       console.log(err);
     });
+  }*/
+
+  public getState(value:any):void {
+    var ref = this;
+    ref.apiService.stateList(value.id,function(res){
+      //ref.stateList = res.data;
+
+      jQuery.each( res.data , function( key, value ) {   
+      var valueid =  value.state_id.toString();    
+      var  item = {id:valueid, text:value.name};       
+      ref.stateList.push(item);   
+      });
+
+     ref.stateList = jQuery.makeArray( ref.stateList );
+
+    }, function(err){
+      console.log(err);
+    });
   }
+
+   public getCIty(value:any):void {
+    var ref = this;
+    ref.apiService.cityList(value.id,function(res){
+      //ref.stateList = res.data;
+
+      jQuery.each( res.data , function( key, value ) {   
+      var valueid =  value.city_id.toString();    
+      var  item = {id:valueid, text:value.name};       
+      ref.cityList.push(item);   
+      });
+
+     ref.cityList = jQuery.makeArray( ref.cityList );
+     console.log(ref.cityList);
+
+    }, function(err){
+      console.log(err);
+    });
+  }
+
 
   onDateChanged(event:any, type) {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
