@@ -9,4 +9,8 @@ import { RouterModule, Router }   from '@angular/router';
 })
 export class AppComponent {
   title = 'app works!';
+  onActivate(e, outlet){
+    outlet.scrollTop = 0;
+    window.scrollTo(0, 0);
+  }
 }

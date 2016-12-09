@@ -239,7 +239,12 @@ export class ApiMethodService {
 			{
 				callBack(res);
 			}
-		}, (error) => failure(error));
+		}, (error) => {if(error.status == 401 || error.status == '401' || error.status == 400){
+			this.getTokenValue = "";
+				localStorage.removeItem('auth_token');
+				this.loggedIn = false;
+			}
+		});
 	}
 
 
@@ -402,7 +407,10 @@ export class ApiMethodService {
 			}
 
 		}, (error) => failure(error));
-	}   
+	} 
+
+
+
 
 
 }
