@@ -15,7 +15,7 @@ export class EventListComponent implements OnInit{
   eventArr:any;
   selectedmenu:any;
   sortvalData:any;
-  selectedIndex = -1;
+  selectedIndex = 1;
   gridview=true;
   param_id:any;
   total:any;
@@ -32,7 +32,7 @@ export class EventListComponent implements OnInit{
 
   ngOnInit() {
     if(this.router.url == '/event'){
-      this.eventDeafault('','','',1);
+      this.eventDeafault('','current','',1);
     }
     this.selectedmenu = this.route.snapshot.params['menu'];
     this.route.params.subscribe((param) => {

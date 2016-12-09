@@ -266,6 +266,7 @@ export class EditProfileComponent implements OnInit {
                                   ref.router.navigate(['/']);
                                   ref.apiService.signinSuccess$.emit(false);
                                 }
+                                ref.toastyService.error('Oops.! Something Went Wrong.');
                                 var errors = err.json().errors;
                                 ref.firstname = errors.first_name;
                                 ref.lastname = errors.last_name;

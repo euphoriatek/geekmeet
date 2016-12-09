@@ -70,7 +70,7 @@
                     <div class="form_row clearfix">
                         <label>Country<span class="indicates">*</span></label>
                         <select class="form-control" name="country" [(ngModel)]="userInfoArr.country" >
-                            <option *ngFor="let country of countryList" value="{{country.id}}" (click)="getState(country.id)" >{{country.name}}</option>
+                            <option *ngFor="let country of countryList" value="{{country.id}}" (click)="getState(country.id)">{{country.name}}</option>
                         </select>
                         <span id="errfield">{{country}}</span> 
                     </div>
