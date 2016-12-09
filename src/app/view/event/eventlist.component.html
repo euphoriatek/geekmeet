@@ -35,6 +35,7 @@
             <!--Start loop taxonomy page-->
 
             <section *ngIf="gridview" id="loop_event_taxonomy" class="search_result_listing grid" style="display: block;">
+            <p>{{showData}}</p>
                 <article id="event_27121" class="post" *ngFor = "let events of eventArr">
                     <div class="listing_img">
                         <a href="" [routerLink]="['/event_detail',events.event_id]"> 

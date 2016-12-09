@@ -74,9 +74,13 @@ export class OrganizationAddComponent implements OnInit {
     value['image'] = refreg.src;
     this.apiService.addOrganization(value,function(res){
       refreg.router.navigate(['/my-organizations']);
-    },function(err){
-      console.log(err);
-      var error = err.json().errors;
+    },function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
+        refreg.apiService.signinSuccess$.emit(false);
+        refreg.router.navigate(['/index']);
+      }
+      var error = error.json().errors;
       refreg.errors = error;
 
 

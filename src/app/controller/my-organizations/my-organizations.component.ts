@@ -35,8 +35,13 @@ export class MyOrganizationsComponent implements OnInit {
 		    ref.organizationArr = res.data.data;
 		    ref.Total = res.data.last_page;
         ref.currentPage = res.data.current_page;   			
-		},function(err){
-      console.log(err);
+		},function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        console.log("profile error");
+        localStorage.removeItem('auth_token');        
+        ref.apiService.signinSuccess$.emit(false);
+        ref.router.navigate(['/index']);
+      }
     });
 	}
 
@@ -63,12 +68,11 @@ export class MyOrganizationsComponent implements OnInit {
     console.log(this.deleteID);
     this.apiService.organizationDelete(this.deleteID,function(res){
      ref.OrganizationList(1);        
-    },function(err){
-      var status = err.status;
-      if(status == 401){
-        localStorage.removeItem('auth_token');
-        this.router.navigate(['/']);
+    },function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
         ref.apiService.signinSuccess$.emit(false);
+        ref.router.navigate(['/index']);
       }
     });
   }

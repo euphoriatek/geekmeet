@@ -138,7 +138,7 @@
                             <div id="widget_loop_event" class="widget widget_loop_taxonomy widget_loop_event">
                                 <div class="title-subtitle">  
                                     <h3 class="widget-title"><span>Upcoming Events</span>
-                                        <a href="" class="more">View All </a>
+                                        <a class="more">View All </a>
                                     </h3>
                                 </div>    
                                 <!-- widget_loop_taxonomy_wrap START -->
@@ -193,7 +193,7 @@
                                                 <!--Start Post Content -->
                                                 <div class="entry-summary" itemprop="description">
                                                 <p [innerHTML]="upcomingevents.event_description"></p>
-                                                <a *ngIf="upcomingevents.read_more==1" [routerLink]="['/event_detail']" >Read More</a>
+                                                <a *ngIf="upcomingevents.read_more==1" [routerLink]="['/event_detail',upcomingevents.event_id]" >Read More</a>
                                                
                                                 </div>                                                                        <!-- End Post Content -->
                                                 <div class="rev_pin"><ul> 

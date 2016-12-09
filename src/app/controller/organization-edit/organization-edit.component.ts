@@ -54,8 +54,12 @@ export class OrganizationEditComponent implements OnInit {
       ref.getState(res.data.country);
       ref.getCIty(res.data.state);
       console.log(ref.orgDetail);
-    }, function(err){
-      console.log(err);
+    }, function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
+        ref.apiService.signinSuccess$.emit(false);
+        ref.router.navigate(['/index']);
+      }
     });
   }
 

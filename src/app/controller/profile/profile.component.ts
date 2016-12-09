@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
 	constructor(private router: Router,public apiService:ApiMethodService) { }
 
 	ngOnInit() {
-		this.getToken = this.apiService.getLoginToken();
+		this.getToken = localStorage.getItem('auth_token');
 		if(!(this.getToken)){
 			this.router.navigate(['/']);
 		}
@@ -31,12 +31,11 @@ export class ProfileComponent implements OnInit {
 			// console.log(JSON.stringify(res));
 			ref.userInfoArr = res.data;
 			console.log(ref.userInfoArr);
-		}, function(err){
-			console.log(err);
-			if(err.status == '401'){
-				localStorage.removeItem('auth_token');
-				this.router.navigate(['/']);
+		}, function(error){
+			if(error.status == 401 || error.status == '401' || error.status == 400){
+				localStorage.removeItem('auth_token');				
 				ref.apiService.signinSuccess$.emit(false);
+				ref.router.navigate(['/index']);
 			}
 		});
 	}

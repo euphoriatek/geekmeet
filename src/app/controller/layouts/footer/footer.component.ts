@@ -9,6 +9,7 @@ import { Overlay } from 'angular2-modal';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ProfileComponent } from '../../profile/profile.component';
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 //import {FacebookService, FacebookLoginResponse, FacebookInitParams} from 'ng2-facebook-sdk/dist';
 // import {FacebookService, FacebookInitParams} from 'ng2-facebook-sdk/dist';
 
@@ -50,7 +51,9 @@ export class FooterComponent implements OnInit {
 		overlay: Overlay,
 		vcRef: ViewContainerRef,
 		public modal: Modal,
-		private zone : NgZone
+		private zone : NgZone,
+		private toastyService:ToastyService,
+		private toastyConfig: ToastyConfig
 		){ 
 
 
@@ -172,6 +175,7 @@ export class FooterComponent implements OnInit {
 
 			this.apiService.userLoginApi(value,function(res){
 				console.log("this is api response"+ JSON.stringify(res));
+				ref.toastyService.success(res.message);
 				if(res.data.token){
 					var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
 					closeBtn.click();
