@@ -47,6 +47,8 @@ export class EditProfileComponent implements OnInit {
   contact:any;
   valArr:any;
   newTopic:any;
+  cityFIrst = false;
+  countryFirst = false;
   public topicArr:Array<string> = ['Cisco','Database',"Microsoft's",'Networking','Open Source','IT', 'Job'];
   private selectedDateNormal:string = '';
 
@@ -137,17 +139,19 @@ export class EditProfileComponent implements OnInit {
 
                         console.log(ref.userInfoArr);
                         ref.selectedDateNormal = res.data.dob;
-                      }, function(err){
-                        if(err.status == '401'){
-                          localStorage.removeItem('auth_token');
-                          this.router.navigate(['/']);
+                      }, function(error){
+                        if(error.status == 401 || error.status == '401' || error.status == 400){
+                          console.log("profile error");
+                          localStorage.removeItem('auth_token');        
                           ref.apiService.signinSuccess$.emit(false);
+                          ref.router.navigate(['/index']);
                         }
                       });
                     }
 
                     getCountryList(){
                       var ref = this;
+                      ref.countryFirst = true;                      
                       ref.apiService.countryList(function(res){
                         ref.countryList = res.data;
                       }, function(err){
@@ -157,6 +161,9 @@ export class EditProfileComponent implements OnInit {
 
                     getState(id){
                       var ref = this;
+                      ref.countryFirst = false;
+                      ref.cityFIrst = true;                      
+                      ref.userInfoArr['state'] = -1;
                       ref.apiService.stateList(id,function(res){
                         ref.stateListArr = res.data;
                       }, function(err){
@@ -166,6 +173,8 @@ export class EditProfileComponent implements OnInit {
 
                     getCIty(id){
                       var ref = this;
+                      ref.cityFIrst = false;
+                      ref.userInfoArr['city'] = -1;
                       ref.apiService.cityList(id,function(res){
                         ref.cityList = res.data;
                       }, function(err){
@@ -223,7 +232,7 @@ export class EditProfileComponent implements OnInit {
                                 this.selectedDateNormal = event.formatted;
                               }
                               else {
-                                this.selectedTextNormal = '';
+                                this.selectedDateNormal = '';
                                 this.border = 'none';
                               }
                             }
@@ -247,7 +256,7 @@ export class EditProfileComponent implements OnInit {
                               ref.apiService.updateUser(value,function(res){
                                 var toastOptions:ToastOptions = {
                                   title: "Update.!",
-                                  msg: "Successfully Update User Profile.",
+                                  msg: res.message,
                                   showClose: true,
                                   timeout: 1000,
                                   theme: 'bootstrap',
@@ -259,15 +268,14 @@ export class EditProfileComponent implements OnInit {
                                   }
                                 };
                                 ref.toastyService.success(toastOptions);
-                              },function(err){
-                                if(err.status == '401' || err.status == 401){
-                                  localStorage.removeItem('auth_token');
-                                  ref.getToken='';
-                                  ref.router.navigate(['/']);
+                              },function(error){
+                                if(error.status == 401 || error.status == '401' || error.status == 400){
+                                  localStorage.removeItem('auth_token');        
                                   ref.apiService.signinSuccess$.emit(false);
+                                  ref.router.navigate(['/index']);
                                 }
-                                ref.toastyService.error('Oops.! Something Went Wrong.');
-                                var errors = err.json().errors;
+                                ref.toastyService.error(error.json().message);
+                                var errors = error.json().errors;
                                 ref.firstname = errors.first_name;
                                 ref.lastname = errors.last_name;
                                 ref.address = errors.address;

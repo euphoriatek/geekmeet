@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiMethodService } from '../../../model/api-method.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,8 @@ export class HeaderComponent implements OnInit {
   // @Output() onSubMenuChange = new EventEmitter<string>();
 
 
-  constructor(private router: Router, public apiService:ApiMethodService) {
+  constructor(private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
+    this.toastyConfig.theme = 'bootstrap';
     this.getToken = this.apiService.getLoginToken();
         if(this.getToken){
           this.isUserLoggedIn = true;

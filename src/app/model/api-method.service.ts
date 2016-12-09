@@ -239,10 +239,13 @@ export class ApiMethodService {
 			{
 				callBack(res);
 			}
-		}, (error) => {if(error.status == 401 || error.status == '401' || error.status == 400){
+		}, (error) =>  { 
+			if(error.status == 401 || error.status == '401' || error.status == 400){
+				console.log("this is user profile");
 			this.getTokenValue = "";
 				localStorage.removeItem('auth_token');
 				this.loggedIn = false;
+				failure(error);
 			}
 		});
 	}

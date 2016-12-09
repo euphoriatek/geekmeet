@@ -104,8 +104,13 @@ export class EventaddComponent implements OnInit {
      ref.organizationList = jQuery.makeArray( ref.organizationList );
       //ref.organizationList = res.data;
 
-    }, function(err){
-      console.log(err);      
+    }, function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        console.log("profile error");
+        localStorage.removeItem('auth_token');        
+        ref.apiService.signinSuccess$.emit(false);
+        ref.router.navigate(['/index']);
+      }      
     });    
   }
 
@@ -243,8 +248,12 @@ export class EventaddComponent implements OnInit {
     console.log(value);
     /*this.apiService.updateUser(value,function(res){
       console.log(res);
-    },function(err){
-      console.log(err);
+    },function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
+        ref.apiService.signinSuccess$.emit(false);
+        ref.router.navigate(['/index']);
+      }
     });*/
   }
 

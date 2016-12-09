@@ -18,8 +18,9 @@ export class EventDetailComponent implements OnInit {
   getToken:any;
   isUserLoggedIn:any;
   data:Object = {};
+  confirmKey = true;
  
-  constructor(private route: ActivatedRoute,private apiService: ApiMethodService) {
+  constructor(private route: ActivatedRoute,private apiService: ApiMethodService,private router: Router) {
   }
 
   ngOnInit() {
@@ -65,6 +66,16 @@ export class EventDetailComponent implements OnInit {
       
     });
   }
+  gotoPage(id){
+    if(this.confirmKey){
+      this.confirmKey = !this.confirmKey;
+      this.router.navigate(['/event_details/'+id]); 
+    }
+    else{
+      this.router.navigate(['/event_detail/'+id]); 
+    }
+    
+  }
 
   popularEvent(value){
     var ref = this;
@@ -94,6 +105,10 @@ export class EventDetailComponent implements OnInit {
 
   getEventPagination(ev_id){
     this.popularEvent(ev_id);
+  }
+
+  addReview(value:any):void{
+    console.log(value);
   }
 }
 

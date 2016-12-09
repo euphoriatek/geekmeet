@@ -77,14 +77,22 @@
 
                     <div class="form_row clearfix">
                         <label>State<span class="indicates">*</span></label>
-                        <select class="form-control" name="state" [(ngModel)]="userInfoArr.state" >
+                        <select  *ngIf="countryFirst">
+                            <option selected="selected">--First Select Country--</option>
+                        </select>
+                        <select *ngIf="!countryFirst" class="form-control" name="state" [(ngModel)]="userInfoArr.state" >
+                        <option selected="selected" value="-1" disabled="disabled">--Select State--</option>
                             <option *ngFor="let state of stateListArr" value="{{state.state_id}}" (click)="getCIty(state.state_id)" >{{state.name}}</option>
                         </select>
                         <span id="errfield">{{state}}</span> 
                     </div>
                     <div class="form_row clearfix">
                         <label>City<span class="indicates">*</span></label>
-                        <select class="form-control" name="city" [(ngModel)]="userInfoArr.city" >
+                        <select  *ngIf="cityFIrst" class="form-control">
+                            <option selected="selected">--Select State First--</option>
+                        </select>
+                        <select  *ngIf="!cityFIrst" class="form-control" name="city" [(ngModel)]="userInfoArr.city" >
+                        <option selected="selected" value="-1" disabled="disabled">--Select City--</option>
                             <option *ngFor="let city of cityList" value="{{city.city_id}}">{{city.name}}</option>
                         </select>
                         <span id="errfield">{{city}}</span> 

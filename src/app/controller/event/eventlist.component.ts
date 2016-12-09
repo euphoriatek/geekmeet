@@ -25,6 +25,7 @@ export class EventListComponent implements OnInit{
   type:any = '';
   sort:any ='';
   page:any = 1;
+  showData:any;
 
 
   
@@ -86,6 +87,12 @@ export class EventListComponent implements OnInit{
     }
     ref.apiService.eventApi(eventArrData,function(res){
        ref.eventArr = res.data.data;
+       if(ref.eventArr == [] || ref.eventArr == ''){
+         ref.showData = "No Data Found.!"
+       }
+       else{
+         ref.showData = '';
+       }
        ref.total =     res.data.last_page;
        ref.currentPage = res.data.current_page;
 
