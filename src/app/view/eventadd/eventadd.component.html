@@ -130,7 +130,7 @@
                     </div>    
                     <div class="form_row clearfix">
                         <label>Contact Info<span class="indicates">*</span></label>
-                        <input type="tel" [(ngModel)]="contact" id="contactinfo" name="contact" value="" class="form-control textfield"> 
+                        <input [textMask]="{mask: mask}" type="tel" [(ngModel)]="contact" id="contactinfo" name="contact" value="" class="form-control textfield">                          
                     </div>
                     <div class="form_row clearfix">
                         <label>Event Purpose</label>

@@ -38,7 +38,8 @@ export class EventaddComponent implements OnInit {
   private border: string = 'none';
   private myDatePickerNormalOptions = { selectionTxtFontSize: '14px'};
 
-  public audienceList:Array<string> = ['Child', 'Youngest', 'Oldest'];
+  public audienceList:Array<string> = ['Child', 'Youngest', 'Oldest']; 
+  public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   constructor(private router: Router,public apiService:ApiMethodService) { }
 
