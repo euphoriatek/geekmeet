@@ -37,9 +37,9 @@
                     </div>
                     <div class="form_row clearfix">
                         <label>Start Time<span class="indicates">*</span></label>
-                        <input type="text" [(ngModel)]="eventStartTime" name="start_time" name="start_time" (onchange)="timechange($event)" id="eventstart-time" class="form-control">
-                        <span class="errfield">{{eventStartTime}}</span> 
-                        <!--<input required [(ngModel)]='eventStartTime' name="eventStartTime" ng2-datetime-picker time-only="true"/>-->
+                        <input type="text" id="eventstart-time" class="form-control"> 
+                        <input type="hidden" id="start-Time" name="start-Time">                      
+                        <span class="errfield">{{startTime}}</span>                        
                     </div>
                     <div class="form_row clearfix">
                         <label>End Date<span class="indicates">*</span></label>                       
@@ -48,9 +48,10 @@
                         <span class="errfield">{{endDate}}</span> 
                     </div>
                     <div class="form_row clearfix">
-                        <label>End Time<span class="indicates">*</span></label>
-                        <input type="text" [(ngModel)]="eventEndTime" name="end_time" id="eventend-time" class="form-control"> 
-                        <span class="errfield">{{eventEndTime}}</span> 
+                        <label>End Time<span class="indicates">*</span></label>                        
+                        <input type="text" id="eventend-time" class="form-control"> 
+                        <input type="hidden" id="end-Time" name="end-Time">       
+                        <span class="errfield">{{end_timeErr}}</span> 
                     </div>
                     <div class="form_row clearfix">
                         <label>Website<span class="indicates">*</span></label>
