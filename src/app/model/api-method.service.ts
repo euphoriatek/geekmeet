@@ -412,21 +412,37 @@ export class ApiMethodService {
 		}, (error) => failure(error));
 	} 
 
+   //add event
+
 
 	showVenueList(callBack,failure){
 		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		let options = new RequestOptions({ headers: headers });
 		this.http.get('http://2016.geekmeet.com/admin/v1/venue_list',options).map(res =>res.json())
-		.subscribe((res) => {
+		.subscribe((res)=>{
+
 			if(callBack)
 			{
 				callBack(res);
 			}
 		}, (error) => failure(error));
+	
+	}
+
+
+
+	addEvent(userData,callBack, failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.post('http://2016.geekmeet.com/admin/v1/add_event',userData,options).map(res=>res.json())
+		.subscribe((res)=>{
+
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
+
 	} 
-
-
-
-
 
 }

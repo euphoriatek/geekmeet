@@ -4,6 +4,7 @@ import { RouterModule, Router }   from '@angular/router';
 import {DropdownModule} from "ng2-dropdown";
 import { MyDatePickerModule } from 'mydatepicker';
 import {SelectModule} from 'ng2-select/ng2-select';
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 
 declare var jQuery: any;
 
@@ -29,6 +30,28 @@ export class EventaddComponent implements OnInit {
   organizationList:Array<Object> = [];
   venueList:Array<Object> = [];
   keywordList:Array<string> = [];
+  country: string;
+  state: string;
+  city: string;
+  location: string;
+  organizers:string;
+  keyword:string;
+  audience:string;
+
+  title:any;
+  description:any;
+  startDate:any;
+  eventStartTime:any;
+  endDate:any;
+  eventEndTime:any;
+  websiteErr:any;
+  countryErr:any;
+  stateErr:any;
+  cityErr:any;
+  organizationErr:any;
+  locationErr:any;
+  contact:any;
+  
   private startDateNormal:string = '';
   private startTextNormal: string = '';
 
@@ -41,52 +64,32 @@ export class EventaddComponent implements OnInit {
   public audienceList:Array<string> = ['Child', 'Youngest', 'Oldest']; 
   public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
-  constructor(private router: Router,public apiService:ApiMethodService) { }
+   constructor(private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
+    this.toastyConfig.theme = 'bootstrap';
+  }
 
   ngOnInit() {
     this.getToken = this.apiService.getLoginToken();
     if(!(this.getToken)){
       this.router.navigate(['/']);
     }
-    //this.userInformation();
+   
     this.getCountryList();  
     this.getVenueList();
     this.getOrganizationList();
     this.getCategoryList();
   }
 
+  
   ngAfterViewInit() {
-   /* jQuery(document).find("#multiple").select2({
-      width: '100%',
-      start: function (select2) {
-        jQuery('.edit_profile__module').removeClass('loading');
-      }
-    });*/
-
+  
     jQuery('#eventstart-time, #eventend-time').timepicker({
         showSeconds: true
     });
 
   }
 
-  /*userInformation(){
-    var ref = this;
-    ref.apiService.userProfile(function(res){
-      ref.getState(res.data.country);
-      ref.getCIty(res.data.state);
-      ref.userInfoArr = res.data;
-      console.log(ref.userInfoArr);
-      ref.selectedDateNormal = res.data.dob;
-    }, function(err){
-      // console.log("this is token expire");
-      // console.log(err.status);
-      if(err.status == '401'){
-        localStorage.removeItem('auth_token');
-        this.router.navigate(['/']);
-      }
-    });
-  }*/
-
+  
   getOrganizationList(){
     var ref = this;
     ref.apiService.organizationNames(function(res){  
@@ -102,22 +105,15 @@ export class EventaddComponent implements OnInit {
       });
 
      ref.organizationList = jQuery.makeArray( ref.organizationList );
-      //ref.organizationList = res.data;
-
-    }, function(error){
-      if(error.status == 401 || error.status == '401' || error.status == 400){
-        console.log("profile error");
-        localStorage.removeItem('auth_token');        
-        ref.apiService.signinSuccess$.emit(false);
-        ref.router.navigate(['/index']);
-      }      
+      
+    }, function(err){
+      console.log(err);      
     });    
   }
 
   getVenueList(){
     var ref = this;
-    ref.apiService.venueNames(function(res){
-      //ref.venueList = res.data;
+    ref.apiService.venueNames(function(res){      
       jQuery.each( res.data , function( key, value ) {   
       var valueid =  value.venue_id.toString();    
       var  item = {id:valueid, text:value.venue_name};       
@@ -148,8 +144,7 @@ export class EventaddComponent implements OnInit {
   getCountryList(){
     var ref = this;
     ref.apiService.countryList(function(res){
-      //ref.countryList = res.data;
-
+      
       jQuery.each( res.data , function( key, value ) {   
       var valueid =  value.id.toString();    
       var  item = {id:valueid, text:value.name};       
@@ -162,30 +157,12 @@ export class EventaddComponent implements OnInit {
       console.log(err);
     });
   }
-
-  /*getState(id){
+  
+  public getState(value:any):void {    
     var ref = this;
-    ref.apiService.stateList(id,function(res){
-      ref.stateList = res.data;
-    }, function(err){
-      console.log(err);
-    });
-  }*/
-
-  /*getCIty(id){
-    var ref = this;
-    ref.apiService.cityList(id,function(res){
-      ref.cityList = res.data;
-    }, function(err){
-      console.log(err);
-    });
-  }*/
-
-  public getState(value:any):void {
-    var ref = this;
+    ref.country = value.id;
     ref.apiService.stateList(value.id,function(res){
-      //ref.stateList = res.data;
-
+    
       jQuery.each( res.data , function( key, value ) {   
       var valueid =  value.state_id.toString();    
       var  item = {id:valueid, text:value.name};       
@@ -199,11 +176,11 @@ export class EventaddComponent implements OnInit {
     });
   }
 
-   public getCIty(value:any):void {
+   public getCIty(value:any):void {   
     var ref = this;
+    ref.state = value.id;
     ref.apiService.cityList(value.id,function(res){
-      //ref.stateList = res.data;
-
+     
       jQuery.each( res.data , function( key, value ) {   
       var valueid =  value.city_id.toString();    
       var  item = {id:valueid, text:value.name};       
@@ -216,6 +193,42 @@ export class EventaddComponent implements OnInit {
     }, function(err){
       console.log(err);
     });
+  }
+
+  public optionSelected(value:any,type:any):void { 
+       
+    switch (type) {
+      case "city":
+       this.city = value.id;
+        break;    
+      case "organization":
+       this.organizers = value.id;
+        break;   
+      case "location":
+       this.location = value.id;
+        break;    
+      case "audience":
+      {
+        var listdata = '';
+        jQuery.each( value, function( key, data ) {          
+        listdata =listdata+","+data.id;
+        });
+        listdata = listdata.replace(/(^,)|(,$)/g, "");
+        this.audience = listdata;
+      }      
+      break;   
+      case "keyword":
+      {
+        var listdata = '';
+        jQuery.each( value, function( key, data ) {          
+        listdata =listdata+","+data.id;
+        });
+        listdata = listdata.replace(/(^,)|(,$)/g, "");
+        this.keyword = listdata;
+      }
+      break;    
+    }
+
   }
 
 
@@ -243,19 +256,52 @@ export class EventaddComponent implements OnInit {
     }
   }
 
-  submitEvent(value:any):void{
-    console.log("this is update of user profile");
-    console.log(value);
-    /*this.apiService.updateUser(value,function(res){
-      console.log(res);
-    },function(error){
-      if(error.status == 401 || error.status == '401' || error.status == 400){
-        localStorage.removeItem('auth_token');        
-        ref.apiService.signinSuccess$.emit(false);
-        ref.router.navigate(['/index']);
-      }
-    });*/
+  timechange(event:any) {
+    console.log(event);
   }
 
+  submitEvent(value:any):void{
+    var ref = this;
+    console.log("submit add event");
+    console.log(value);     
+     ref.apiService.addEvent(value,function(res){
+        var toastOptions:ToastOptions = {
+          title: "Event Added!",
+          msg: res.message,
+          showClose: true,
+          timeout: 1000,
+          theme: 'bootstrap',
+          onAdd: (toast:ToastData) => {
+
+          },
+          onRemove: function(toast:ToastData) {
+            ref.router.navigate(['/']);
+          }
+        };
+        ref.toastyService.success(toastOptions);
+      },function(error){
+        if(error.status == 401 || error.status == '401' || error.status == 400){
+          localStorage.removeItem('auth_token');        
+          ref.apiService.signinSuccess$.emit(false);
+          ref.router.navigate(['/index']);
+        }
+        ref.toastyService.error(error.json().message);
+        var errors = error.json().errors;
+        ref.title = errors.event_title;
+        ref.description = errors.event_description;
+        ref.startDate = errors.start_date;
+        ref.eventStartTime = errors.start_time;
+        ref.endDate = errors.end_date;
+        ref.eventEndTime = errors.end_time;
+        ref.websiteErr = errors.website;
+        ref.countryErr = errors.country;
+        ref.stateErr = errors.state;
+        ref.cityErr = errors.city;
+        ref.organizationErr = errors.organizers;
+        ref.locationErr = errors.location;
+        ref.contact = errors.contact_info;  
+      });
+  }
+ 
  
 }
