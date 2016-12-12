@@ -250,9 +250,19 @@
             <form name="popup_register" id="popup_register" enctype="multipart/form-data" #regForm="ngForm" (ngSubmit)="userSignUp(regForm.value)">
 
                 <div class="form_row clearfix">
-                    <label>Full Name <span class="indicates">*</span> </label>
+                    <label>First Name <span class="indicates">*</span> </label>
+                    <input name="first_name" type="text" id="user_name" class="textfield" value="" ngModel>
+                    <span id="user_loginInfo">{{first_name}}</span>
+                </div>
+                <div class="form_row clearfix">
+                    <label>Last Name <span class="indicates">*</span> </label>
+                    <input name="last_name" type="text" id="user_name" class="textfield" value="" ngModel>
+                    <span id="user_loginInfo">{{last_name}}</span>
+                </div>
+                <div class="form_row clearfix">
+                    <label>Username <span class="indicates">*</span> </label>
                     <input name="username" type="text" id="user_name" class="textfield" value="" ngModel>
-                    <span id="user_loginInfo">{{name}}</span>
+                    <span id="user_loginInfo">{{user_name}}</span>
                 </div>
                 <div class="form_row clearfix">
                     <label>Email <span class="indicates">*</span> </label>

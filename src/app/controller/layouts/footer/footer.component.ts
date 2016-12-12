@@ -29,7 +29,7 @@ export class FooterComponent implements OnInit {
 	usernameErr:any;
 	passwordErr:any;
 	invalidErr:any;
-	name:any;
+	user_name:any;
 	useremail:any;
 	userPass:any;
 	usercnfpass:any;
@@ -232,7 +232,7 @@ export class FooterComponent implements OnInit {
 				closeBtn.click();
 			},function(error){
 				var errors = error.json().errors;
-				refreg.name = errors.username;
+				refreg.user_name = errors.username;
 				refreg.useremail = errors.email;
 				refreg.userPass = errors.password;
 				refreg.usercnfpass = errors.password_confirmation;
@@ -251,7 +251,7 @@ export class FooterComponent implements OnInit {
 		}
 
 		closeModal(){
-			this.name = "";
+			this.user_name = "";
 			this.useremail = "";
 			this.userPass = "";
 			this.usercnfpass = "";

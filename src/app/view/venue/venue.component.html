@@ -1,0 +1,158 @@
+<!-- <app-header></app-header> -->
+
+<section id="main" class="clearfix">
+    <div class="wrap row">
+        <div class="breadcrumb breadcrumbs columns">
+            <div class="breadcrumb-trail">
+                <span class="trail-begin">
+                    <a [routerLink]="['/']" title="GeekMeet" rel="home" class="trail-begin">Home</a></span> <span class="sep">»</span> <span class="trail-end"><a [routerLink] = "['/my-venues']" >Venue List</a></span><span class="sep">»</span> <span class="trail-end">{{detailArr.organization_name}}</span>
+            </div>
+        </div>
+
+        <!-- start content part-->
+        <div id="content" role="main" class="large-9 small-12 columns">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label class="pull-right"><a class="btn btn-md primary" href="" [routerLink] = "['/organization-edit',detailArr.organization_id]">Edit Venue</a></label>
+                    <label class="pull-right"><a class="btn btn-md primary" href="javascript:void(0)">Invite</a></label>
+                    <label class="pull-right"><a class="btn btn-md primary" href="javascript:void(0)">Join</a></label>
+                </div>
+            </div>
+            <div class="author_cont">
+                <!-- Author photo on left side start -->
+                <div class="organization-logo">
+                    <img src="{{detailArr.organization_logo}}" title="{{detailArr.title}}">
+                </div>
+                <!-- Author photo on left side end -->
+
+                <!-- Author photo on right side start -->
+                <div class="right_box form-horizontal">
+                    <h2>{{detailArr.organization_name}}</h2>
+                    <div class="user_dsb">
+                        <div class="form-group" *ngIf="detailArr.organization_location!=''">
+                            <label class="col-sm-1 col-xs-2 control-label"><i class="fa fa-map-marker"></i></label>
+                            <span class="col-sm-10 col-xs-10">{{ detailArr.organization_location }}</span>
+                        </div>
+                        <div class="form-group" *ngIf="detailArr.organization_email!=''">
+                            <label class="col-sm-1 control-label"><i class="fa fa-envelope-o"></i></label>
+                            <span class="col-sm-10">{{ detailArr.organization_email }}</span>
+                        </div>
+                        <div class="form-group" *ngIf="detailArr.organization_contact!=''">
+                            <label class="col-sm-1 control-label"><i class="fa fa-phone"></i></label>
+                            <span class="col-sm-10">{{ detailArr.organization_contact }}</span>
+                        </div>
+                        <div class="form-group" *ngIf="detailArr.organization_website!=''">
+                            <label class="col-sm-1 control-label"><i class="fa fa-globe"></i></label>
+                            <span class="col-sm-10">{{ detailArr.organization_website }}</span>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Author photo on right side end -->
+            </div>
+            <div class="entry-content event-description">
+                <h2>About <small></small></h2>
+                <div class="entry-content frontend-entry-content ">
+                    <p [innerHTML]="detailArr.organization_description">
+                    </p>
+                </div>
+                 </div>
+
+                <!-- 728x90 ad_space -->
+                <div id="templatic_text-1" class="widget templatic_text" style="display: none;">
+                    <div class="widget-wrap widget-inside">		
+                        <div class="textwidget text-center">	
+                            <a href="">
+                                <img src="app/assets/images/ads images/728x90.jpg">
+                            </a>	
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" >
+                    <div class="col-sm-6">
+                        <!-- 300x250 ad_space -->
+                        <div id="templatic_text-1" class="widget templatic_text">
+                            <div class="widget-wrap widget-inside">		
+                                <div class="textwidget text-center">	
+                                    <a href="">
+                                        <img src="app/assets/images/ads images/300x250.jpg">
+                                    </a>	
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <!-- 300x250 ad_space -->
+                        <div id="templatic_text-1" class="widget templatic_text">
+                            <div class="widget-wrap widget-inside">		
+                                <div class="textwidget text-center">	
+                                    <a href="">
+                                        <img src="app/assets/images/ads images/300x250.jpg">
+                                    </a>	
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           
+                 <eventlist></eventlist>
+           
+
+
+   
+
+           
+
+
+               
+
+
+
+
+
+        </div>
+        <!-- #content --> 
+
+        <!--single post type sidebar -->
+        <div id="sidebar-primary" class="sidebar large-3 small-12 columns">
+            <!-- 160x600 ad_space -->
+            <div id="templatic_text-1" class="widget templatic_text">
+                <div class="widget-wrap widget-inside">		
+                    <div class="textwidget text-center">	
+                        <a href="">
+                            <img src="app/assets/images/ads images/160x600.jpg">
+                        </a>	
+                    </div>
+                </div>
+            </div>
+            <!-- 300x150 ad_space -->
+            <div id="templatic_text-1" class="widget templatic_text">
+                <div class="widget-wrap widget-inside">		
+                    <div class="textwidget text-center">	
+                        <a href="">
+                            <img src="app/assets/images/ads images/300x150.jpg">
+                        </a>	
+                    </div>
+                </div>
+            </div>
+
+            <!-- 300x250 ad_space -->
+            <div id="templatic_text-1" class="widget templatic_text">
+                <div class="widget-wrap widget-inside">		
+                    <div class="textwidget text-center">	
+                        <a href="">
+                            <img src="app/assets/images/ads images/300x250.jpg">
+                        </a>	
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end single post type sidebar --> 
+        <!-- end  content part-->
+    </div>
+    <!-- .wrap -->
+</section>
+
+<!-- <app-footer></app-footer> -->

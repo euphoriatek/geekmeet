@@ -32,15 +32,14 @@ export class EventListComponent implements OnInit{
   constructor(private router:Router,private route: ActivatedRoute, public apiService:ApiMethodService) { }
 
   ngOnInit() {
-    if(this.router.url == '/event'){
-      this.eventDeafault('','current','',1);
-    }
+    // if(this.router.url == '/event'){
+    //   this.eventDeafault('','current','',1);
+    // }
     this.selectedmenu = this.route.snapshot.params['menu'];
     this.route.params.subscribe((param) => {
       this.param_id = param['menu'];
-      console.log(JSON.stringify(param));
       this.category = param['menu'];
-      this.onSubMenuchange(param['menu']);
+      this.onSubMenuchange(param['menu'],'current');
     })
   }
 
@@ -99,11 +98,11 @@ export class EventListComponent implements OnInit{
     });
   }
 
-  onSubMenuchange(category){
+  onSubMenuchange(category,type){
     this.category = category;
     var category = this.category;
     var sort = this.sort;
-    var type = this.type;
+    var type = type;
     var page = this.page;
     this.eventDeafault(category,type,sort,page);  
   }

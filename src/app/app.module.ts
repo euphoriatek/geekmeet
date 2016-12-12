@@ -16,6 +16,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {ToastyModule} from 'ng2-toasty';
 import { TextMaskModule } from 'angular2-text-mask';
+import { AgmCoreModule } from 'angular2-google-maps/core';
 
 
 
@@ -47,6 +48,7 @@ import { DeleteModelComponent } from './controller/delete-model/delete-model.com
 import { MyVenuesComponent } from './controller/my-venues/my-venues.component';
 import { VenuesAddComponent } from './controller/venues-add/venues-add.component';
 import { VenuesEditComponent } from './controller/venues-edit/venues-edit.component';
+import { VenueComponent } from './controller/venue/venue.component';
 
 
 
@@ -83,6 +85,7 @@ import { VenuesEditComponent } from './controller/venues-edit/venues-edit.compon
     MyVenuesComponent,
     VenuesAddComponent,
     VenuesEditComponent,
+    VenueComponent,
     
 
   ],
@@ -99,6 +102,9 @@ import { VenuesEditComponent } from './controller/venues-edit/venues-edit.compon
     ImageUploadModule,
     CKEditorModule,
     Ng2Bs3ModalModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCbrPyDsleOvqZk84KT6YtzYcow7Nz-o_4'
+    }),
     ToastyModule.forRoot(),
     RecaptchaModule.forRoot(),
     ModalModule.forRoot(),
@@ -114,7 +120,7 @@ import { VenuesEditComponent } from './controller/venues-edit/venues-edit.compon
       {path:'event' ,component: EventComponent},
       {path:'profile' ,component: ProfileComponent},
       {path:'groups' ,component: GroupsComponent},
-      {path:'organization' ,component: ChangepasswordComponent},
+      {path:'organization' ,component: OrganizationComponent},
       {path:'changepassword' ,component: ChangepasswordComponent},
       {path:'notification-setting' ,component: NotificationSettingComponent},
       {path:'edit_profile' ,component: EditProfileComponent},
@@ -127,6 +133,7 @@ import { VenuesEditComponent } from './controller/venues-edit/venues-edit.compon
       {path:'venues-add' ,component: VenuesAddComponent},
       {path:'venues-edit' ,component: VenuesEditComponent},
 	    {path:'organization-edit' ,component: OrganizationEditComponent},
+      {path:'venue' ,component: VenueComponent},
       {path:'' ,component: IndexComponent},
       ])
   ],

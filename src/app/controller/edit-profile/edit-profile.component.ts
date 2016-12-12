@@ -28,7 +28,7 @@ export class EditProfileComponent implements OnInit {
   getToken:any;  
   userInfoArr:Object = {};
   topic:any;
-  private value:any = [];
+  private favValue:any = [];
   private topicData:any = [];
   countryList:any;
   stateListArr:any;
@@ -131,11 +131,15 @@ export class EditProfileComponent implements OnInit {
                     userInformation(){
                       var ref = this;
                       ref.apiService.userProfile(function(res){
-                        ref.getState(res.data.country);
-                        ref.getCIty(res.data.state);
+                        if(res.data.country){
+                          ref.getState(res.data.country);
+                        }
+                          if(res.data.state){
+                            ref.getCIty(res.data.state);
+                          }                                  
                         ref.userInfoArr = res.data;
 
-                        ref.value = ref.userInfoArr['favorite_category'];
+                        ref.favValue = ref.userInfoArr['favorite_category'];
 
                         console.log(ref.userInfoArr);
                         ref.selectedDateNormal = res.data.dob;
@@ -202,7 +206,7 @@ export class EditProfileComponent implements OnInit {
 
 
                             public refreshValue(value:any):void {
-                              this.value = this.convertToValueArray(value);
+                              this.favValue = this.convertToValueArray(value);
                             }
 
                             public convertArrTopic(value:Array<any> = []):Array<string>{
@@ -248,7 +252,7 @@ export class EditProfileComponent implements OnInit {
 
                             updateUserProfile(value:any):void{
                               var ref = this;
-                              value['favorite_category']=this.value.join(',');
+                              value['favorite_category']=this.favValue.join(',');
                               value['image'] = ref.src;
                               console.log(value);
                               console.log("this is update of user profile");

@@ -24,6 +24,7 @@ import { OrganizationEditComponent } from './controller/organization-edit/organi
 import { MyVenuesComponent } from './controller/my-venues/my-venues.component';
 import { VenuesAddComponent } from './controller/venues-add/venues-add.component';
 import { VenuesEditComponent } from './controller/venues-edit/venues-edit.component';
+import { VenueComponent } from './controller/venue/venue.component';
 
 
 
@@ -61,7 +62,8 @@ export const routes: Routes = [
       {path:'organization-edit/:id' ,component: OrganizationEditComponent,data: [{id: true}]},
       {path:'my-venues' ,component: MyVenuesComponent},
       {path:'venues-add' ,component: VenuesAddComponent},
-      {path:'venues-edit' ,component: VenuesEditComponent},
+      {path:'venues-edit/:id' ,component: VenuesEditComponent,data: [{id: true}]},
+      {path:'venue/:id' ,component: VenueComponent,data: [{id: true}]},
       {path:'' ,component: IndexComponent}
 
 ];
