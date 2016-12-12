@@ -372,6 +372,7 @@ export class ApiMethodService {
 		}, (error) => failure(error));
 	} 
    
+   // edit organization
    editOrganization(value,callBack,failure){
 	    let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		let options = new RequestOptions({ headers: headers });
@@ -384,6 +385,8 @@ export class ApiMethodService {
 		}, (error) => failure(error));
 	}  
 
+
+  // add organization
 	addOrganization(value,callBack,failure){
 	    let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		let options = new RequestOptions({ headers: headers });
@@ -398,6 +401,8 @@ export class ApiMethodService {
 		}, (error) => failure(error));
 	}
 
+
+// delete organization
 	organizationDelete(value,callBack,failure){
 	    let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		let options = new RequestOptions({ headers: headers });
@@ -412,14 +417,46 @@ export class ApiMethodService {
 		}, (error) => failure(error));
 	} 
 
-   //add event
 
-	addEvent(userData,callBack, failure){
-		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+// add review
+	    addReview(value,callBack,failure){
+	    let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		let options = new RequestOptions({ headers: headers });
-		this.http.post('http://2016.geekmeet.com/admin/v1/add_event',userData,options).map(res=>res.json())
+		this.http.post('http://2016.geekmeet.com/admin/v1/add_review',value,options).map(res =>res.json())
+
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+
+		}, (error) => failure(error));
+	}
+
+
+	// get review of event
+
+	getReview(event_id,callBack){
+	
+		this.http.get('http://2016.geekmeet.com/admin/v1/get_review/'+event_id).map(res=>res.json())
 		.subscribe((res)=>{
 			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => console.log('There was an error', error));	
+
+	}
+
+	// add reply
+
+	   addReply(value,callBack,failure){
+	    let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.post('http://2016.geekmeet.com/admin/v1/add_reply',value,options).map(res =>res.json())
+
+		.subscribe((res) => {
+         if(callBack)
 			{
 				callBack(res);
 			}
@@ -427,5 +464,37 @@ export class ApiMethodService {
 	}
 
 
+	addEvent(userData,callBack, failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.post('http://2016.geekmeet.com/admin/v1/add_event',userData,options).map(res=>res.json())
+		.subscribe((res)=>{
+
+			if(callBack)
+			{
+				callBack(res);
+			}
+
+
+		}, (error) => failure(error));
+	}
+
+
+	   editReview(value,callBack,failure){
+	    let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.post('http://2016.geekmeet.com/admin/v1/edit_review',value,options).map(res =>res.json())
+
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+
+		}, (error) => failure(error));
+	}
 
 }
+
+
+

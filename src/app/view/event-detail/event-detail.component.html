@@ -22,7 +22,7 @@
                         <div class="entry-header-title">
                             <h1 class="entry-title ">{{data.event_data.event_title}}</h1>
                             <div class="event_rating">
-                                <div class="event_rating_row"> <span><a href="#comments">{{data.event_data.review_count}}  Reviews</a></span> <span class="single_rating"> <i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i></span></div>
+                                <div class="event_rating_row"> <span><a href="#comments">{{data.review.review_count}}  Reviews</a></span> <span class="single_rating"> <i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i></span></div>
                             </div>
 
                             <!--Image gallery Section Start -->
@@ -394,15 +394,41 @@
             </div>
 
             <section id="comments-template">
-                <div class="comments-wrap ">
+                <div class="comments-wrap">
+                     <div id="respond" class="comment-respond" *ngIf = "!getToken">
+                            <h3 id="reply-title" class="comment-reply-title">Add a Review 
+                                <small>
+                                    <a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Click here to cancel reply.</a>
+                                </small>
+                            </h3>
+                            <p class="alert">You must be <a data-toggle="modal" data-target="#loginModal" title="Log in">logged in</a> to post a comment.</p><!-- .alert -->        
+                        </div><!-- #respond -->
+
+                        <div id="respond" class="comment-respond" *ngIf = "getToken">
+                            <h3 id="reply-title" class="comment-reply-title">Add a Review</h3>
+                              <form #addComment="ngForm" (ngSubmit)="addReview(addComment)"> 
+                            <div style="margin-top: 35px;">
+                               <label style="float:left;">Comment :</label>
+                               <textarea id="comment" name="event_review" ngModel placeholder="Message" cols="100%" rows="10" tabindex="4" style="width:600px; height: 154px;margin-left: 50px;"></textarea>
+
+                               <br>
+                               <label style="float: left;margin-top: 20px;">Rating :</label>
+                               <div class="container" style="width: 350px;margin: 0;padding: 15px;">
+                                   <label style="margin-left: 70px;"><rating name="rating" ngModel></rating></label>
+                               </div>
+                              <div class="text-right col-md-9"> <button type="submit"  style="margin: 20px 0px 10px 0px;" >Submit Review</button></div> 
+                              <div class="clearfix"></div>
+                           </div> </form>
+                              
+                       </div>    
                     <article id="comments">
                         <h3 id="comments-number" class="comments-header">
-                            {{data.event_data.review_count}}  Reviews
+                            {{data.review.review_count}}  Reviews
                         </h3>
                      
                         <ol class="comment-list">
-                            <li class="comment even thread-even depth-1" id="li-comment-745" *ngFor = "let review of data.event_data.review">
-                                <a href="" rel="external nofollow" title="Brad Kesselman">
+                            <li class="comment even thread-even depth-1" id="li-comment-745" *ngFor = "let review of data.review.review">
+                                <a href="" rel="external nofollow" title="Brad Kesselman" style="width: 60px;">
                                     <img alt="Brad Kesselman" src="{{review.user_detail.image_url}}" class="avatar avatar-60 photo" height="60" width="60"></a>	
                                     <div id="comment-745" class="comment-wrap">
                                         <div class="comment-header comment-author vcard"> 
@@ -415,12 +441,7 @@
                                         <!-- .comment-meta -->
                                         <div class="comment-content comment">
                                             <p>{{review.event_review}}.</p>
-                                            <div id="comment-745" class="comment odd alt thread-odd thread-alt depth-1">
-                                                <div class="comment-text">
-                                                    <span class="single_rating"> 
-                                                        <i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i>      	</span> 
-                                                    </div>
-                                                </div>
+                                            
                                             </div>
                                             <!-- .comment-content -->
                                             <div class="comment-meta">
@@ -428,16 +449,63 @@
                                                     <abbr class="comment-date" title="{{review.date}}">{{review.date}}
                                                     </abbr> at <abbr class="comment-time" title="{{review.time}}">{{review.time}}</abbr>
                                                 </span> 
-                                                <span class="comment-reply" data-toggle="modal" data-target="#comment">
-                                                    <a href="javascript:void(0)">Log in to reply.</a>
-                                                </span>
-                                            </div>	
+                                              
+                                                <span class="comment-reply" *ngIf = "!getToken">
+                                                <a data-toggle="modal" data-target="#loginModal" title="Log in" href="javascript:void(0)">Log in to reply.</a>
+                                               </span>
+                                               
+                                            </div>
+                                            <div *ngIf = "getToken">
+                                            <span class="views"> <a  (click)="ShowHideBox(review.event_review_id)" href="javascript:void(0)">reply</a>
+                                            </span>&nbsp;
+                                            <span class="views" *ngIf="review.review_given_by==login_user"> <a   href="javascript:void(0)" (click)="ShowHideEditBox(review.event_review_id)">edit</a>
+                                            </span>&nbsp;
+                                            <span *ngIf="review.review_given_by==login_user"> <a href="javascript:void(0)" >delete</a>
+                                             </span>
+                                            </div>
+                                        <div class="col-md-12" *ngIf = "reply_box[review.event_review_id]">
+                                           
+                                         <div class="row" style="margin-left: -30px ! important;margin-top: 5px;">
+                                          <div class="col-md-9">
+                                          <textarea name="reply" rows="1" cols="2" style="min-height: 25px!important;" #text></textarea>
+                                          
+                                          </div>
+                                          <div class="col-md-3"><a class="btn btn-xs btn-primary" (click)="addReply(text.value,review.event_review_id)">Save</a></div>
+                                           <div class="error col-md-12" *ngIf="errors[review.event_review_id]['reply']!=''" >
+                                          <span *ngFor="let reply_err of errors[review.event_review_id]['reply']" >
+                                          {{reply_err}}  
+                                          </span>    
+                                          </div> 
+                                         </div>
+                                       
+                                        </div>
+
+                                        <div class="col-md-12" *ngIf = "edit_box[review.event_review_id]">
+                                           
+                                         <div class="row" style="margin-left: -30px ! important;margin-top: 5px;">
+                                          <div class="col-md-9">
+                                          <textarea name="edit_reply" rows="1" cols="2" style="min-height: 25px!important;" #edit_text>{{review.event_review}}</textarea>
+                                          
+                                          </div>
+
+
+                                          <div class="col-md-3"><a class="btn btn-xs btn-primary" (click)="editReview(edit_text.value,review.event_review_id)">Save</a></div>
+                                           <div class="error col-md-12" *ngIf="errors[review.event_review_id]['reply']!=''" >
+                                          <span *ngFor="let reply_err of errors[review.event_review_id]['event_review']" >
+                                          {{reply_err}}  
+                                          </span>    
+                                          </div> 
+                                         </div>
+                                       
+                                        </div>
+
+
                                         </div>
                                         <!-- #comment-## -->
                                         <ol class="children">
                                             <li class="comment even depth-2" id="li-comment-746"  *ngFor = "let reply of review.reply" >
                                                
-                                                <a href="javascript:void(0)" rel="external nofollow" title="Kari Immel">
+                                                <a href="javascript:void(0)" rel="external nofollow" title="Kari Immel" style="width: 60px;">
                                                     <img alt="{{reply.user_detail.title}}" src="{{reply.user_detail.image_url}}" class="avatar avatar-60 photo" height="60" width="60">
                                                 </a>	
                                                 <div id="comment-746" class="comment-wrap">
@@ -457,10 +525,7 @@
                                                         <span class="published">
                                                             <abbr class="comment-date" title="{{reply.date}}">{{reply.date}}</abbr> at <abbr class="comment-time" title="{{reply.time}}">{{reply.time}}</abbr>
                                                         </span> 
-                                                        <span class="comment-reply">
-                                                            <a href="javascript:void(0)">Log in to reply.</a>
-                                                        </span>
-                                                    </div>	
+                                                                                                            </div>	
                                                 </div>
                                                 <!-- #comment-## -->
                                             </li><!-- .comment -->
@@ -473,28 +538,7 @@
                             <!-- .comment-list -->
                         </article>
                         <!-- #comments -->
-                        <div id="respond" class="comment-respond" *ngIf = "!getToken">
-                            <h3 id="reply-title" class="comment-reply-title">Add a Review 
-                                <small>
-                                    <a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Click here to cancel reply.</a>
-                                </small>
-                            </h3>
-                            <p class="alert">You must be <a data-toggle="modal" data-target="#loginModal" title="Log in">logged in</a> to post a comment.</p><!-- .alert -->		
-                        </div><!-- #respond -->
-
-                        <div id="respond" class="comment-respond" *ngIf = "getToken">
-                            <h3 id="reply-title" class="comment-reply-title">Add a Review</h3> 
-                            <div style="margin-top: 35px;">
-                               <label style="float:left;">Comment :</label>
-                               <textarea id="comment" name="comment" placeholder="Message" cols="100%" rows="10" tabindex="4" style="width:600px; height: 154px;margin-left: 50px;"></textarea><br>
-                               <label style="float: left;margin-top: 20px;">Rating :</label>
-                               <div class="container" style="width: 350px;margin: 0;padding: 15px;">
-                                   <label style="margin-left: 70px;"><rating [(ngModel)]="starsCountRating"></rating></label>
-                               </div>
-                               <button type="submit" style="margin: 20px 0px 10px 0px; ">Submit Review</button> 
-                           </div> 
-                              
-                       </div>
+                       
 
                    </div>
                    <!-- .comments-wrap -->
@@ -673,14 +717,15 @@
                         <h3 class="modal-title" id="lineModalLabel">Reply</h3>
                     </div>
                     <div class="modal-body">
-                        <label>Comment :</label>
+                        <label>Commenddt :</label>
                         <textarea id="comment" name="comment" placeholder="Message" cols="100%" rows="10" tabindex="4" style="width:360px; height: 154px;"></textarea>
-                        <label>Rating :</label>
+                       <!--  <label>Rating :</label>
                         <div class="container" style="width: 300px;margin: 0;padding: 0;">
                             <rating [(ngModel)]="starsCount"></rating>
-                        </div>
+                        </div> -->
                         <button class="btn btn-info" type="submit" style="margin: 20px 0px 10px 0px; ">Submit Reply</button>
                     </div>
+
                 </div>
             </div>
         </div>
