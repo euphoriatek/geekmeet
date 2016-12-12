@@ -37,13 +37,15 @@ export class EventaddComponent implements OnInit {
   organizers:string;
   keyword:string;
   audience:string;
+  start_time:string;
+  end_time:string;
 
   title:any;
   description:any;
   startDate:any;
-  eventStartTime:any;
+  start_timeErr:any;
   endDate:any;
-  eventEndTime:any;
+  end_timeErr:any;
   websiteErr:any;
   countryErr:any;
   stateErr:any;
@@ -85,6 +87,16 @@ export class EventaddComponent implements OnInit {
   
     jQuery('#eventstart-time, #eventend-time').timepicker({
         showSeconds: true
+    });
+
+    jQuery('#eventstart-time').on('change', function(){           
+        var startTime = jQuery(this).val();            
+        jQuery("#start-Time").val(startTime);       
+    });
+
+    jQuery('#eventend-time').on('change', function(){               
+        var endTime = jQuery(this).val();            
+        jQuery("#end-Time").val(endTime); 
     });
 
   }
@@ -262,8 +274,13 @@ export class EventaddComponent implements OnInit {
 
   submitEvent(value:any):void{
     var ref = this;
-    console.log("submit add event");
-    console.log(value);     
+    console.log("submit add event");    
+    console.log(value);   
+    var start_time = jQuery("#start-Time").val();
+    var end_time = jQuery("#end-Time").val();
+    value.start_time  = start_time;
+    value.end_time  = end_time;
+     
      ref.apiService.addEvent(value,function(res){
         var toastOptions:ToastOptions = {
           title: "Event Added!",
@@ -275,10 +292,11 @@ export class EventaddComponent implements OnInit {
 
           },
           onRemove: function(toast:ToastData) {
-            ref.router.navigate(['/']);
+            ref.router.navigate(['/eventadd']);
           }
         };
         ref.toastyService.success(toastOptions);
+        ref.router.navigate(['/event']);
       },function(error){
         if(error.status == 401 || error.status == '401' || error.status == 400){
           localStorage.removeItem('auth_token');        
@@ -290,9 +308,9 @@ export class EventaddComponent implements OnInit {
         ref.title = errors.event_title;
         ref.description = errors.event_description;
         ref.startDate = errors.start_date;
-        ref.eventStartTime = errors.start_time;
+        ref.start_timeErr = errors.start_time;
         ref.endDate = errors.end_date;
-        ref.eventEndTime = errors.end_time;
+        ref.end_timeErr = errors.end_time;
         ref.websiteErr = errors.website;
         ref.countryErr = errors.country;
         ref.stateErr = errors.state;
