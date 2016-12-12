@@ -21,33 +21,41 @@
                 <div class="event-edit-form large-6 small-12 columns">
                     <div class="form_row clearfix">
                         <label>Event Title<span class="indicates">*</span></label>
-                        <input type="text" [(ngModel)]="title" id="event-title" name="event-title" value="" class="form-control textfield"> 
+                        <input type="text" [(ngModel)]="event_title" id="event-title" name="event_title" value="" class="form-control textfield" required> 
+                        <span class="errfield">{{title}}</span>  
                     </div>
                     <div class="form_row clearfix">
                         <label>Event Description<span class="indicates">*</span></label>
-                        <textarea [(ngModel)]="description" name="event-description" id="event-description" value="" rows="5" cols="6" class="textfield" style="height: 194px;"> </textarea>
+                        <textarea [(ngModel)]="event_description" name="event_description" id="event-description" value="" rows="5" cols="6" class="textfield" style="height: 194px;" required> </textarea>
+                        <span class="errfield">{{description}}</span> 
                     </div>
                     <div class="form_row clearfix">
                         <label>Start Date<span class="indicates">*</span></label>                                         
                         <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event,'start')" [selDate]="startDateNormal"></my-date-picker>
-                        <input type="hidden" name="start-date" [(ngModel)]="startDateNormal">
+                        <input type="hidden" name="start_date" [(ngModel)]="startDateNormal" >
+                        <span class="errfield">{{startDate}}</span> 
                     </div>
                     <div class="form_row clearfix">
                         <label>Start Time<span class="indicates">*</span></label>
-                        <input type="text" [(ngModel)]="eventStartTime" name="eventstart-time" id="eventstart-time" class="form-control"> 
+                        <input type="text" [(ngModel)]="eventStartTime" name="start_time" name="start_time" (onchange)="timechange($event)" id="eventstart-time" class="form-control">
+                        <span class="errfield">{{eventStartTime}}</span> 
+                        <!--<input required [(ngModel)]='eventStartTime' name="eventStartTime" ng2-datetime-picker time-only="true"/>-->
                     </div>
                     <div class="form_row clearfix">
                         <label>End Date<span class="indicates">*</span></label>                       
                         <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event,'end')" [selDate]="endDateNormal"></my-date-picker>
-                        <input type="hidden" name="end-date" [(ngModel)]="endDateNormal"> 
+                        <input type="hidden" name="end_date" [(ngModel)]="endDateNormal"> 
+                        <span class="errfield">{{endDate}}</span> 
                     </div>
                     <div class="form_row clearfix">
                         <label>End Time<span class="indicates">*</span></label>
-                        <input type="text" [(ngModel)]="eventEndTime" name="eventend-time" id="eventend-time" class="form-control"> 
+                        <input type="text" [(ngModel)]="eventEndTime" name="end_time" id="eventend-time" class="form-control"> 
+                        <span class="errfield">{{eventEndTime}}</span> 
                     </div>
                     <div class="form_row clearfix">
                         <label>Website<span class="indicates">*</span></label>
-                        <input type="url" [(ngModel)]="website" name="website" id="website" value="" class="form-control textfield"> 
+                        <input type="url" [(ngModel)]="website" name="website" id="website" value="" class="form-control textfield" required> 
+                        <span class="errfield">{{websiteErr}}</span> 
                     </div>
 
                 </div>
@@ -55,82 +63,73 @@
                 <div class="event-edit-form large-6 small-12 columns">
                     <div class="form_row clearfix">
                         <label>Country<span class="indicates">*</span></label>                        
-                        <!--<select class="form-control" name="country" [(ngModel)]="country" >
-                            <option *ngFor="let country of countryList" value="{{country.id}}" (click)="getState(country.id)" >{{country.name}}</option>
-                        </select> -->    
-
+                      
                          <ng-select name="countryList" (data)="countryArr"                                                      
                             [items]="countryArr"
                             (selected)="getState($event)"
                             placeholder="No country selected">
-                            </ng-select>
-                        <input type="hidden" name="country" [(ngModel)]="country">    
-
+                        </ng-select>
+                        <input type="hidden" id="country" name="country" [(ngModel)]="country">    
+                        <span class="errfield">{{countryErr}}</span>
                     </div>
                     <div class="form_row clearfix">
                         <label>State<span class="indicates">*</span></label>                        
-                        <!--<select class="form-control" name="state" [(ngModel)]="state" >
-                            <option *ngFor="let state of stateList" value="{{state.state_id}}" (click)="getCIty(state.state_id)" >{{state.name}}</option>
-                        </select>-->
-
+                       
                         <ng-select name="stateList" (data)="stateList"                                                      
                             [items]="stateList"
                             (selected)="getCIty($event)"
                             placeholder="No state selected">
                         </ng-select>
-                        <input type="hidden" name="state" [(ngModel)]="state"> 
-
+                        <input type="hidden" id="state" name="state" [(ngModel)]="state"> 
+                        <span class="errfield">{{stateErr}}</span> 
                     </div>
                     <div class="form_row clearfix">
                         <label>City<span class="indicates">*</span></label>                        
-                        <!--<select class="form-control" name="city" [(ngModel)]="city" >
-                            <option *ngFor="let city of cityList" value="{{city.city_id}}">{{city.name}}</option>
-                        </select>-->
+                       
                         <ng-select name="cityList" (data)="cityList"                                                      
                             [items]="cityList"
-                            (selected)="city"
+                            (selected)="optionSelected($event,'city')"
                             placeholder="No city selected">
                         </ng-select>
-                        <input type="hidden" name="city" [(ngModel)]="city"> 
+                        <input type="hidden" id="city" name="city" [(ngModel)]="city"> 
+                        <span class="errfield">{{cityErr}}</span>
                     </div>
                     <div class="form_row clearfix">
                         <label>Organization<span class="indicates">*</span></label>
-                        <!--<select class="form-control" name="organization" [(ngModel)]="organization" >
-                            <option *ngFor="let organization of organizationList" value="{{organization.organization_id}}">{{organization.organization_name}}</option>
-                        </select> --> 
+                        
                          <ng-select name="organizationList" (data)="organizationList"                                                       
                             [items]="organizationList"
-                            (selected)="organization"
+                            (selected)="optionSelected($event,'organization')"
                             placeholder="No organization selected">
                         </ng-select>
-                        <input type="hidden" name="organization" [(ngModel)]="organization">                     
+                        <input type="hidden" id="organization" name="organizers" [(ngModel)]="organizers">  
+                        <span class="errfield">{{organizationErr}}</span>                   
                     </div>
                     <div class="form_row clearfix">
                         <label>Location<span class="indicates">*</span></label>
-                        <!--<select class="form-control" name="location" [(ngModel)]="location" >
-                            <option *ngFor="let venue of venueList" value="{{venue.venue_id}}">{{venue.address}}</option>
-                        </select>-->
+                        
                         <ng-select name="locationList" (data)="venueList"                                                       
                             [items]="venueList"
-                            (selected)="location"
+                            (selected)="optionSelected($event,'location')"
                             placeholder="No location selected">
                         </ng-select>
-                        <input type="hidden" name="location" [(ngModel)]="location">                       
+                        <input type="hidden" id="location" name="location" [(ngModel)]="location">       
+                        <span class="errfield">{{locationErr}}</span>                
                     </div>
                     <div class="form_row clearfix">
                         <label>Intended Audience:</label>
                         <div class="">                                            
-                            <ng-select (data)="audienceList"
+                            <ng-select (data)="optionSelected($event,'audience')"
                             [multiple]="true"                            
-                            [items]="audienceList"
-                            (selected)="audience">
+                            [items]="audienceList">                            
                             </ng-select>
-                           <input type="hidden" name="audience" [(ngModel)]="audience">
+                           <input type="hidden" id="audience" name="audience" [(ngModel)]="audience">
                         </div>
                     </div>    
                     <div class="form_row clearfix">
                         <label>Contact Info<span class="indicates">*</span></label>
-                        <input [textMask]="{mask: mask}" type="tel" [(ngModel)]="contact" id="contactinfo" name="contact" value="" class="form-control textfield">                          
+                        <input [textMask]="{mask: mask}" type="tel" [(ngModel)]="contact_info" id="contactinfo" name="contact_info" value="" class="form-control textfield">
+                        <span class="errfield">{{contact}}</span>                          
                     </div>
                     <div class="form_row clearfix">
                         <label>Event Purpose</label>
@@ -139,22 +138,12 @@
                     <div class="form_row clearfix">
                         <label>Event Keywords</label>
                         <div class="">
-                            <!--<select [(ngModel)]="keyword" id="multiple" name="keyword" class="form-control select2-multiple" multiple>
-                                <optgroup label="Tech">
-                                    <option>Cisco</option>
-                                    <option>Database</option>
-                                    <option>Microsoft's</option>
-                                    <option>Networking</option>
-                                    <option>Open Source</option>
-                                    <option>IT</option>
-                                </optgroup>
-                            </select>-->                           
-                            <ng-select (data)="organizationList"
+                                         
+                            <ng-select (data)="optionSelected($event,'keyword')"
                             [multiple]="true"                            
-                            [items]="keywordList"
-                            (selected)="keyword">
+                            [items]="keywordList">                            
                             </ng-select>
-                           <input type="hidden" name="keyword" [(ngModel)]="keyword">
+                           <input type="hidden" id="keyword" name="keyword" [(ngModel)]="keyword">
                         </div>
                     </div>
                     <div class="form_row clearfix">
@@ -164,9 +153,9 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="form_row ">
-                        <a class="btn btn-warning" type="submit" value="Save" name="submit">Save</a>    
-                        <a class="btn btn-warning" type="reset" value="Cancel" name="reset">    Cancel</a>
-                    </div>
+                        <button class="btn btn-info" type="submit" value="Save" name="submit">Save</button>                          
+                        <button class="btn btn-info" type="reset" value="Cancel" name="reset">Cancel</button>
+                    </div>                    
                 </div>
             </form>
         </div>
