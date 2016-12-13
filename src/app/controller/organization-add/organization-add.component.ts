@@ -3,6 +3,8 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import {DropdownModule} from "ng2-dropdown";
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+
 
 import {SelectModule} from 'ng2-select/ng2-select';
 
@@ -26,7 +28,9 @@ export class OrganizationAddComponent implements OnInit {
     resizeMaxWidth: 128
   };
 
-  constructor(private router: Router,public apiService:ApiMethodService) { }
+  constructor(private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { 
+    this.toastyConfig.theme = 'bootstrap';
+  }
 
   ngOnInit() {
   	this.getToken = this.apiService.getLoginToken();

@@ -179,45 +179,20 @@ export class FooterComponent implements OnInit {
 				if(res.data.token){
 					var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
 					closeBtn.click();
-					// ref.param_id = this.router.getLastURLSegment().getParam('id');
-					// if(this.router.url === "/event_detail/"+ref.param_id){
-						// 	ref.router.navigate(['/event_details/'+ref.param_id]);
-						// }
 						ref.router.navigate(['/index']);
-
 						ref.apiService.signinSuccess$.emit(true);
 					}
-
-
 				},function(error){
-					console.log("this is error res");
+					if(error.status == 401 || error.status == '401' || error.status == 400){
+						ref.toastyService.error(error.json().message);
+					}
 					var errors = error.json().errors;
 					var cred = JSON.parse(error._body);
-					// var cred = error.json()._body;
-					// var allErrors = Object.keys(error.json().errors);
-					// var myErr = {};
-					// for (var i = 0; i < allErrors.length; ++i) {
-						// 	var errArr =errors[allErrors[i]];
-						// 	var message = "";
-						// 	for (var j = 0; j < errArr.length; ++j) {
-							// 		if (message.length > 0) {
-								// 			message += '\n';
-								// 		}
-								// 		message += errArr[j];
-								// 	}
-								// 	myErr[allErrors[i]] = message;
-								// }
-
-								console.log(JSON.stringify(cred.error));
-								ref.passwordErr = errors.password;
-								ref.usernameErr = errors.username;
-								// ref.invalidErr  = errors.error;
-								// if(cred.error !==""){
-									// 	ref.invalidErr = "invalid_credentials or account is deactive";
-									// }
-
-								});
-
+					console.log(JSON.stringify(cred.error));
+					ref.passwordErr = errors.password;
+					ref.usernameErr = errors.username;
+					ref.toastyService.error(error.json().message);
+				});
 
 		}
 

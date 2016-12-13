@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, Router }   from '@angular/router';
+import { RouterModule, Router, ActivatedRoute }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { DeleteModelComponent } from '../delete-model/delete-model.component';
 import { AgmCoreModule } from 'angular2-google-maps/core';
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+
 
 @Component({
 	selector: 'app-my-venues',
@@ -22,8 +24,9 @@ export class MyVenuesComponent implements OnInit {
 
 
 
-	constructor(private router:Router, public apiService:ApiMethodService) { }
-
+	constructor(private router:Router,private route: ActivatedRoute,private toastyService:ToastyService,public apiService:ApiMethodService,private toastyConfig: ToastyConfig) {
+		this.toastyConfig.theme = 'bootstrap';
+	}
 	ngOnInit() {
 		this.getToken = this.apiService.getLoginToken();
 		if(!(this.getToken)){
@@ -35,7 +38,8 @@ export class MyVenuesComponent implements OnInit {
 
 	venueList(value){
 		var ref = this;
-		this.apiService.showVenueList(function(res){
+		this.apiService.showVenueList(value,function(res){
+			window.scrollTo(0, 0);
 			ref.venueArr = res.data.data;
 			ref.Total = res.data.last_page;
 			ref.currentPage = res.data.current_page;   			
@@ -69,18 +73,27 @@ export class MyVenuesComponent implements OnInit {
 		this.deleteID = id;
 	}
 
-	deleteOrg(){
-		// var ref = this;
-		// console.log(this.deleteID);
-		// this.apiService.organizationDelete(this.deleteID,function(res){
-			//  ref.venueList(1);        
-			// },function(error){
-				//   if(error.status == 401 || error.status == '401' || error.status == 400){
-					//     localStorage.removeItem('auth_token');        
-					//     ref.apiService.signinSuccess$.emit(false);
-					//     ref.router.navigate(['/index']);
-					//   }
-					// });
+	deleteVenue(){
+		var ref = this;
+		console.log(this.deleteID);
+		this.apiService.deleteVanue(this.deleteID,function(res){
+			var toastOptions:ToastOptions = {
+				title: "Delete.!",
+				msg: res.message,
+				showClose: true,
+				timeout: 1000,
+				theme: 'bootstrap',
+				onRemove: function(toast:ToastData) {ref.venueList(1);}
+			};
+			ref.toastyService.success(toastOptions);
+
+		},function(error){
+			if(error.status == 401 || error.status == '401' || error.status == 400){
+				localStorage.removeItem('auth_token');        
+				ref.apiService.signinSuccess$.emit(false);
+				ref.router.navigate(['/index']);
 			}
+		});
+	}
 
 }

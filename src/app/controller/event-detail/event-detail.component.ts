@@ -36,6 +36,7 @@ export class EventDetailComponent implements OnInit {
     if(this.getToken){
       this.isUserLoggedIn = true;
     }
+    this.route.params.subscribe(params => {
     this.data['popular_event']={};
     this.data['event_data']={};
     this.data['review']={};
@@ -46,13 +47,14 @@ export class EventDetailComponent implements OnInit {
     this.popularEvent(1);
     this.getReview(this.selectedData);
     this.userInformation();
+      });
+
+   
     
   }
 
   ngAfterViewInit() {
- 
-    setTimeout(_ => {
-      
+ setTimeout(_ => {
         jQuery(document).find('.flexslider').flexslider({
           animation: "slide",
           smoothHeight: true, /* for adjusting height for small images */
@@ -63,7 +65,7 @@ export class EventDetailComponent implements OnInit {
         });
      
     }, 1000);
-    
+   
   }
 
   getEventDetail(value){
@@ -79,14 +81,7 @@ export class EventDetailComponent implements OnInit {
     });
   }
   gotoPage(id){
-    if(this.confirmKey){
-      this.confirmKey = !this.confirmKey;
-      this.router.navigate(['/event_details/'+id]); 
-    }
-    else{
-      this.router.navigate(['/event_detail/'+id]); 
-    }
-    
+    this.router.navigate(['/event_detail/'+id]);   
   }
 
   popularEvent(value){
