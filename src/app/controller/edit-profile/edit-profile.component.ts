@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
-import {DropdownModule} from "ng2-dropdown";
 // import {SELECT_DIRECTIVES} from 'ng2-select/ng2-select';
 import { MyDatePickerModule } from 'mydatepicker';
 import {SelectModule} from 'ng2-select/ng2-select';

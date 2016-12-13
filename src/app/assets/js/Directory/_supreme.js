@@ -1,3 +1,4 @@
+
 (function($, undefined) {
     "use strict";
     var ver = '2.9999.6';
