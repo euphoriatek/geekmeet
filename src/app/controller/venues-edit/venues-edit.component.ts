@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
-import {DropdownModule} from "ng2-dropdown";
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 
 import {SelectModule} from 'ng2-select/ng2-select';
