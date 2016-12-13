@@ -25,6 +25,12 @@ export class EventDetailComponent implements OnInit {
   reply_box:Object = {};
   edit_box:Object = {};
   login_user:Object;
+  sub_reply_box:Object = {};
+  edit_reply_box:Object = {};
+  sub_errors:Object = {};
+  deleteID:any;
+  deleteType:any;
+
 
 
  
@@ -115,11 +121,27 @@ export class EventDetailComponent implements OnInit {
       };
 
       for(var i=0; i<res.data.review_count;i++){
-       ref.reply_box[res.data.review[i].event_review_id] = false; 
-       ref.edit_box[res.data.review[i].event_review_id] = false; 
-       ref.errors[res.data.review[i].event_review_id] = false; 
+       var review_index = res.data.review[i]; 
+       ref.reply_box[review_index.event_review_id] = false; 
+       ref.edit_box[review_index.event_review_id] = false; 
+       ref.errors[review_index.event_review_id] = false;
 
+       for(var j=0;j<(review_index.reply.length);j++){
+        if(ref.sub_reply_box[review_index.event_review_id]==undefined){
+         ref.sub_reply_box[review_index.event_review_id] = {}; 
+        } 
+        if(ref.edit_reply_box[review_index.event_review_id]==undefined){
+         ref.edit_reply_box[review_index.event_review_id] = {}; 
+        } 
+        if(ref.sub_errors[review_index.event_review_id]==undefined){
+         ref.sub_errors[review_index.event_review_id] = {}; 
+        } 
+        ref.sub_reply_box[review_index.event_review_id][review_index.reply[j].review_reply_id] = false; 
+        ref.edit_reply_box[review_index.event_review_id][review_index.reply[j].review_reply_id] = false; 
+        ref.sub_errors[review_index.event_review_id][review_index.reply[j].review_reply_id] = false;
+       } 
       }
+
 
      });
 
@@ -164,8 +186,8 @@ export class EventDetailComponent implements OnInit {
     }
   }
 
-
-    addReply(value:any,review_id:any):void{
+     
+    addReply(value:any,review_id:any,reply_id):void{
       this.getToken = this.apiService.getLoginToken();
      if(!(this.getToken)){
       this.getReview(this.selectedData);
@@ -185,7 +207,12 @@ export class EventDetailComponent implements OnInit {
         refreg.router.navigate(['/index']);
       }
       var error = error.json().errors;
+      if(reply_id!=false){
+      refreg.sub_errors[review_id][reply_id] = error;
+      }else{
       refreg.errors[review_id] = error;
+    }
+
     });
    }
   }
@@ -216,12 +243,59 @@ export class EventDetailComponent implements OnInit {
    }
   }
 
+
+
+     editReply(value:any, review_reply_id:any,review_id):void{
+      this.getToken = this.apiService.getLoginToken();
+     if(!(this.getToken)){
+      this.getReview(this.selectedData);
+    }else{
+    var input = {
+    reply:value, 
+    review_reply_id:review_reply_id
+    };
+    
+    var refreg = this;
+    refreg.apiService.editReply(input,function(res){
+       refreg.getReview(refreg.event_id);
+      },function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
+        refreg.apiService.signinSuccess$.emit(false);
+        refreg.router.navigate(['/index']);
+      }
+      var error = error.json().errors;
+      refreg.sub_errors[review_id][review_reply_id] = error;
+    });
+   }
+  }
+
   ShowHideBox(review_event_id){
   this.reply_box[review_event_id] = !this.reply_box[review_event_id];
+  if(this.reply_box[review_event_id]){
+  this.edit_box[review_event_id] = false;  
+  }
   }
 
   ShowHideEditBox(review_event_id){
   this.edit_box[review_event_id] = !this.edit_box[review_event_id];
+  if(this.edit_box[review_event_id]){
+  this.reply_box[review_event_id] = false;  
+  }
+  }
+
+  ShowHideReplyBox(review_event_id,reply_id){
+  this.sub_reply_box[review_event_id][reply_id] = !this.sub_reply_box[review_event_id][reply_id];
+  if(this.sub_reply_box[review_event_id][reply_id]){
+  this.edit_reply_box[review_event_id][reply_id] = false;  
+  }
+  }
+
+  ShowHideReplyEditBox(review_event_id,reply_id){
+  this.edit_reply_box[review_event_id][reply_id] = !this.edit_reply_box[review_event_id][reply_id];
+  if(this.edit_reply_box[review_event_id][reply_id]){
+  this.sub_reply_box[review_event_id][reply_id] = false;  
+  }
   }
 
 
@@ -237,6 +311,31 @@ export class EventDetailComponent implements OnInit {
       }
     });
   }
+
+  setDeleteID(id,type){
+   this.deleteID = id;
+   this.deleteType = type;
+  }
+
+
+    delete(){
+    var ref = this;
+    var value = {
+     'delete_id':ref.deleteID,
+     'type':ref.deleteType
+    };
+    
+    this.apiService.commentDelete(value,function(res){
+    ref.getReview(ref.event_id);
+    },function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
+        ref.apiService.signinSuccess$.emit(false);
+        ref.router.navigate(['/index']);
+      }
+    });
+  }
+
 
 
   

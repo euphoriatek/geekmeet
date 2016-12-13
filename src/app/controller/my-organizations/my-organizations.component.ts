@@ -59,7 +59,6 @@ export class MyOrganizationsComponent implements OnInit {
   }
 
   setDeleteID(id){
-    console
    this.deleteID = id;
   }
 
