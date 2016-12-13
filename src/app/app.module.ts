@@ -15,8 +15,8 @@ import { ImageUploadModule } from 'ng2-imageupload';
 import {CKEditorModule} from 'ng2-ckeditor';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {ToastyModule} from 'ng2-toasty';
-import { TextMaskModule } from 'angular2-text-mask';
 import { AgmCoreModule } from 'angular2-google-maps/core';
+
 
 
 
@@ -98,7 +98,6 @@ import { VenueComponent } from './controller/venue/venue.component';
     SelectModule,
     MyDatePickerModule,
     DropdownModule,
-    TextMaskModule,
     ImageUploadModule,
     CKEditorModule,
     Ng2Bs3ModalModule,
