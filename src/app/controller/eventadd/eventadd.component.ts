@@ -76,6 +76,12 @@ export class EventaddComponent implements OnInit {
       this.router.navigate(['/']);
     }
    
+     // adding script for phone mask
+     var s = document.createElement("script");
+     s.type = "text/javascript";
+     s.src = "../../app/assets/js/jquery/maskedinput.min.js";    
+     jQuery("head").append(s);
+
     this.getCountryList();  
     this.getVenueList();
     this.getOrganizationList();
@@ -98,6 +104,9 @@ export class EventaddComponent implements OnInit {
         var endTime = jQuery(this).val();            
         jQuery("#end-Time").val(endTime); 
     });
+
+    jQuery("#contactinfo").mask("(999) 999-9999");
+
 
   }
 
