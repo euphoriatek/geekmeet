@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import {DropdownModule} from "ng2-dropdown";
@@ -14,7 +14,8 @@ import 'rxjs/add/operator/catch';
 @Component({
   selector: 'app-eventadd',
   templateUrl: '../../view/eventadd/eventadd.component.html',
-  styleUrls: ['../../assets/css/eventadd/eventadd.component.css']  
+  styleUrls: ['../../assets/css/eventadd/eventadd.component.css','../../assets/css/eventadd/fileinput.min.css'],
+   encapsulation: ViewEncapsulation.None,  
 })
 export class EventaddComponent implements OnInit {
  
@@ -79,8 +80,13 @@ export class EventaddComponent implements OnInit {
      // adding script for phone mask
      var s = document.createElement("script");
      s.type = "text/javascript";
-     s.src = "../../app/assets/js/jquery/maskedinput.min.js";    
+     s.src = "../../app/assets/js/jquery/maskedinput.min.js"; 
+     var s1 = document.createElement("script");
+     s1.type = "text/javascript";
+     s1.src = "../../app/assets/js/jquery/fileinput.min.js";
+
      jQuery("head").append(s);
+     jQuery("head").append(s1);
 
     this.getCountryList();  
     this.getVenueList();
@@ -106,7 +112,15 @@ export class EventaddComponent implements OnInit {
     });
 
     jQuery("#contactinfo").mask("(999) 999-9999");
-
+    
+    jQuery("#event-images").fileinput({
+                uploadAsync: false,
+                        uploadUrl: "./my_ajax/test.php", // your upload server url
+                        uploadExtraData: function() {
+                        return {                      
+                        };
+                        }
+                });
 
   }
 

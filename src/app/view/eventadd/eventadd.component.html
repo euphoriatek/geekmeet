@@ -15,7 +15,7 @@
             <div class="event-add">
                 <h3>Event Add</h3>
             </div>
-          
+            <ng2-toasty [position]="'top-center'" ></ng2-toasty>
 
             <form name="event-add" id="event-add" #addEventForm="ngForm" (ngSubmit)="submitEvent(addEventForm.value)">    
                 <div class="event-edit-form large-6 small-12 columns">
@@ -147,13 +147,20 @@
                            <input type="hidden" id="keyword" name="keyword" [(ngModel)]="keyword">
                         </div>
                     </div>
-                    <div class="form_row clearfix">
+                    <!--<div class="form_row clearfix">
                         <label>Upload Images</label>
                         <input type="file" name="event-images" id="event-images" value="" class="form-control textfield"> 
-                    </div>
+                        <input id="event-images" name="event-images[]" type="file" class="file" data-preview-file-type="text" multiple>
+                    </div>-->
                 </div>
                 <div class="col-sm-12">
-                    <div class="form_row ">
+                    <div class="form_row clearfix">
+                        <label>Upload Images</label>
+                        <!--<input type="file" name="event-images" id="event-images" value="" class="form-control textfield"> 
+                        <input id="event-images" name="event-images[]" type="file" class="file" data-preview-file-type="text" multiple>-->
+                        <input id="event-images" name="event-images" [(ngModel)]="event-images" type="file" multiple>
+                    </div>
+                    <div class="form_row ">                         
                         <button class="btn btn-info" type="submit" value="Save" name="submit">Save</button>                          
                         <button class="btn btn-info" type="reset" value="Cancel" name="reset">Cancel</button>
                     </div>                    
