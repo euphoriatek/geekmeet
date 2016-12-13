@@ -251,7 +251,9 @@ export class EditProfileComponent implements OnInit {
 
                             updateUserProfile(value:any):void{
                               var ref = this;
-                              value['favorite_category']=this.favValue.join(',');
+                              if(this.favValue){
+                                value['favorite_category']=this.favValue.join(',');
+                              }
                               value['image'] = ref.src;
                               console.log(value);
                               console.log("this is update of user profile");

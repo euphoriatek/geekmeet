@@ -8,14 +8,14 @@
                     </span><span class="sep">»</span><a [routerLink]="['/my-venues']" title="venue" class="trail-begin">Venue List</a> <span class="sep">»</span> <span>Venue Edit</span>
             </div>
         </div>
-
+        <ng2-toasty [position]="'top-center'" ></ng2-toasty>
         <!-- start content part-->
         <div id="content" role="main" class="large-9 small-12 columns" jstcache="0">
             <div class="event-add">
                 <h3>Venue Edit</h3>
             </div>
 
-           <!--  <form #editVenueForm="ngForm" (ngSubmit)="updateVenue(editVenueForm.value)">
+            <form #editVenueForm="ngForm" (ngSubmit)="updateVenue(editVenueForm.value)">
                 <div class="event-edit-form large-9 small-12 columns">
                     <div class="form_row clearfix">
                         <label>Upload Media</label>
@@ -28,9 +28,9 @@
                     </div>
                     <div class="form_row clearfix">
                         <label>Venue Name<span class="indicates">*</span></label>
-                        <input type="text" name="organization_name" id="" value="" class="form-control textfield" [(ngModel)]="orgDetail.organization_name"> 
-                        <ul class="error" *ngIf="errors['organization_name']!=''" >
-                        <li *ngFor="let org_err of errors['organization_name']" >
+                        <input type="text" name="venue_name" id="" [(ngModel)]="detailArr.venue_name" class="form-control textfield"> 
+                        <ul class="error" *ngIf="errors['venue_name']!=''" >
+                        <li *ngFor="let org_err of errors['venue_name']" >
                           {{org_err}}  
 
                         </li>    
@@ -39,7 +39,7 @@
                         </div>
                     <div class="form_row clearfix">
                         <label>Venue Description <span class="indicates">*</span></label>
-                        <textarea class="form-control" name="organization_description" rows="6"  [(ngModel)]="orgDetail.organization_description"></textarea>
+                        <textarea class="form-control" name="venue_description" rows="6" [(ngModel)]="detailArr.venue_description"></textarea>
                          <ul class="error" *ngIf="errors['organization_description']!=''" >
                         <li *ngFor="let org_err of errors['organization_description']" >
                           {{org_err}}  
@@ -50,7 +50,7 @@
                     </div>
                       <div class="form_row clearfix">
                         <label>Country</label>
-                        <select class="form-control" name="country" [(ngModel)]="orgDetail.country">
+                        <select class="form-control" name="country" [(ngModel)]=detailArr.country>
                             <option *ngFor="let country of countryList" value="{{country.id}}" (click)="getState(country.id)" >{{country.name}}</option>
                         </select>
                         <span id="user_loginInfo">{{country}}</span> 
@@ -58,42 +58,54 @@
 
                     <div class="form_row clearfix">
                         <label>State</label>
-                        <select class="form-control" name="state"  [(ngModel)]="orgDetail.state">
+                        <select class="form-control" name="state" [(ngModel)]=detailArr.state>
                             <option *ngFor="let state of stateList" value="{{state.state_id}}" (click)="getCIty(state.state_id)" >{{state.name}}</option>
                         </select>
                         <span id="user_loginInfo">{{state}}</span> 
                     </div>
                     <div class="form_row clearfix">
                         <label>City</label>
-                        <select class="form-control" name="city"  [(ngModel)]="orgDetail.city" >
+                        <select class="form-control" name="city" [(ngModel)]=detailArr.city>
                             <option *ngFor="let city of cityList" value="{{city.city_id}}">{{city.name}}</option>
                         </select>
                         <span id="user_loginInfo">{{city}}</span> 
                     </div>
                     <div class="form_row clearfix">
                         <label>Street Address</label>
-                        <textarea class="form-control" name="organization_location" [(ngModel)]="orgDetail.organization_location"></textarea>
+                        <textarea class="form-control" name="address" [(ngModel)]="detailArr.address"></textarea>
+                        <ul class="error" *ngIf="errors['address']!=''" >
+                        <li *ngFor="let org_err of errors['address']" >
+                          {{org_err}}  
+
+                        </li>    
+
+                        </ul> 
+                        <br>    
+                        <a class="btn btn-success btn-sm btn-square active add_map" (click)="getLatLong()" >Find Location</a>
                     </div>
                     <div class="form_row clearfix">
                         <label>Latitude</label>
-                        <input type="text" name="organization_email" value="" class="form-control textfield" [(ngModel)]="orgDetail.organization_email">
+                        <input type="text" name="latitude" [(ngModel)]="detailArr.latitude" class="form-control textfield" >
                     </div>
                     <div class="form_row clearfix">
                         <label>Longitude</label>
-                        <input type="text" name="organization_website" value="" class="form-control textfield" [(ngModel)]="orgDetail.organization_website"> 
+                        <input type="text" name="longitude" [(ngModel)]="detailArr.longitude" class="form-control textfield"> 
                     </div>
-
-                        <input type="hidden" name="organization_id" [(ngModel)]="orgDetail.organization_id"> 
-                    
-
+                    <div>
+                       
+                </div>
+                        <br>
                     <div class="form_row ">
-                        <button class="btn btn-info" type="submit" value="Save" name="submit">Save</button>
-                           <button class="btn btn-info"  [routerLink] = "['/my-venues']">Cancel</button>   	
+                        <button class="btn btn-info" type="submit">Save</button>
+                           <button class="btn btn-info"  [routerLink] = "['/my-venues']">Cancel</button>    
                     </div>
                 </div>
-            </form> -->
+            </form>
         </div>
         <!-- #content --> 
+         <sebm-google-map [latitude]="center.latitude" [longitude]="center.longitude">
+                         <sebm-google-map-marker [latitude]="center.latitude" [longitude]="center.longitude"></sebm-google-map-marker>
+                        </sebm-google-map>
 
         <!--single post type sidebar -->
         <div id="sidebar-primary" class="sidebar large-3 small-12 columns">

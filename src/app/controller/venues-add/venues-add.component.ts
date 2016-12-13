@@ -3,6 +3,7 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 import { AgmCoreModule } from 'angular2-google-maps/core';
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 
 import {SelectModule} from 'ng2-select/ng2-select';
 
@@ -36,7 +37,9 @@ export class VenuesAddComponent implements OnInit {
 	lng: number = 7.809007;
 	geocoder:any;
 
-	constructor(private router:Router,private route: ActivatedRoute,public apiService:ApiMethodService) { }
+	constructor(private router:Router,private route: ActivatedRoute,private toastyService:ToastyService,public apiService:ApiMethodService,private toastyConfig: ToastyConfig) {
+		this.toastyConfig.theme = 'bootstrap';
+	}
 
 	ngOnInit() {
 		this.getToken = this.apiService.getLoginToken();
@@ -83,10 +86,36 @@ export class VenuesAddComponent implements OnInit {
 		ref.geocoder.geocode( { 'address': "Australia"}, function(results, status) {
 			console.log(status);
 			if (status == 'OK') { 
-				console.log(results[0].geometry.location);
 				ref.center['latitude'] = results[0].geometry.location.lat();
 				ref.center['longitude'] = results[0].geometry.location.lng();
 			}
+		});
+	}
+
+
+
+	addVenue(value:any):void{
+		var ref = this;
+		ref.apiService.addVenue(value,function(res){
+			var toastOptions:ToastOptions = {
+				title: "Add.!",
+				msg: res.message,
+				showClose: true,
+				timeout: 1000,
+				theme: 'bootstrap',
+				onRemove: function(toast:ToastData) {ref.router.navigate(['/my-venues']);}
+			};
+			ref.toastyService.success(toastOptions);
+		},function(error){
+			ref.toastyService.error(error.json().message);
+			if(error.status == 401 || error.status == '401' || error.status == 400){
+				console.log("profile error");
+				localStorage.removeItem('auth_token');        
+				ref.apiService.signinSuccess$.emit(false);
+				ref.router.navigate(['/index']);
+			}
+			var error = error.json().errors;
+			ref.errors = error;
 		});
 	}
 

@@ -56,7 +56,16 @@ export class HeaderComponent implements OnInit {
     var ref = this;
     this.apiService.userLogoutApi(function(res){
       console.log("this is api response"+ JSON.stringify(res));
-      ref.router.navigate(['/']);
+      var toastOptions:ToastOptions = {
+        title: "Logout.!",
+        msg: res.message,
+        showClose: true,
+        timeout: 1000,
+        theme: 'bootstrap',
+        onRemove: function(toast:ToastData) {ref.router.navigate(['/']);}
+      };
+      ref.toastyService.success(toastOptions);
+      
     });
   }
 

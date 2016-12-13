@@ -465,10 +465,10 @@ export class ApiMethodService {
 
 
 
-	showVenueList(callBack,failure){
+	showVenueList(value,callBack,failure){
 		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		let options = new RequestOptions({ headers: headers });
-		this.http.get('http://2016.geekmeet.com/admin/v1/venue_list',options).map(res =>res.json())
+		this.http.get('http://2016.geekmeet.com/admin/v1/venue_list?page='+value,options).map(res =>res.json())
 		.subscribe((res)=>{
 
 			if(callBack)
@@ -540,6 +540,77 @@ export class ApiMethodService {
 
 		}, (error) => failure(error));
 	} 
+
+
+	//show venue detail
+
+	showVenueDetails(id,callBack,failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.get('http://2016.geekmeet.com/admin/v1/venue_detail/'+id,options).map(res=>res.json())
+		.subscribe((res)=>{
+
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
+	}
+
+	//delete venue
+	
+	deleteVanue(value,callBack,failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.get('http://2016.geekmeet.com/admin/v1/delete_venue/'+value,options).map(res =>res.json())
+
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+
+		}, (error) => failure(error));
+	}
+
+
+
+	// add venue
+
+	addVenue(value,callBack,failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.post('http://2016.geekmeet.com/admin/v1/add_venue',value,options).map(res =>res.json())
+
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+
+		}, (error) => failure(error));
+	}
+
+
+
+	//update Venue
+
+	updateVenue(value,callBack,failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.post('http://2016.geekmeet.com/admin/v1/update_venue',value,options).map(res =>res.json())
+
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+
+		}, (error) => failure(error));
+	}
+	
+	
+
 
 }
 
