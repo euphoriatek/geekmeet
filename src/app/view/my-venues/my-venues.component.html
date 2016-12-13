@@ -1,0 +1,82 @@
+<!-- <app-header></app-header> -->
+
+<section id="main" class="clearfix">
+	<div class="wrap row">
+		<div class="breadcrumb breadcrumbs columns">
+			<div class="breadcrumb-trail">
+				<span class="trail-begin">
+					<a [routerLink]="['/']" title="GeekMeet" rel="home" class="trail-begin">Home</a></span> <span class="sep">»</span> <span class="trail-end">Venue List</span>
+				</div>
+		
+            
+			<!-- start content part-->
+
+			<ng2-toasty [position]="'top-center'" ></ng2-toasty>
+			<div id="content" role="main" class="col-md-12 col-sm-12 columns">
+			  <h1 class="loop-title venue_btn">Venue <a class="btn btn-warning pull-right" href="" [routerLink]="['/venues-add']">Add Venue</a></h1>
+				<div class="form-group organization_div row"  *ngFor = "let venue of venueArr">
+					<div class="col-md-8">
+					  <div class="venue-logo col-sm-6" style="width: 30%;">
+						<img src="{{venue.images[0].image_url}}"  title="{{venue.images.image_title}}" style="width: 270px; height: 150px;">
+					</div>
+                   <div class="right_box form-horizontal col-sm-6">
+                   <h2> <a [routerLink]="['/venue',venue.venue_id]">{{venue.venue_name}}</a></h2>
+                   <div class="user_dsb">
+							<div class="form-group" *ngIf="venue.address">
+								<label class="col-sm-1 col-xs-2 control-label"><i class="fa fa-map-marker"></i></label>
+								<span class="col-sm-10 col-xs-10">{{venue
+								.address}}</span>
+							</div>
+							<div class="form-group" *ngIf="venue.city">
+								<label class="col-sm-1 control-label"><i class="fa fa-building-o"></i></label>
+								<span class="col-sm-10">{{venue.city}}</span>
+							</div>
+							<!-- <div class="form-group" *ngIf="venue.venue_contact!=''">
+								<label class="col-sm-1 control-label"><i class="fa fa-phone"></i></label>
+								<span class="col-sm-10">{{venue.venue_contact}}</span>
+							</div>
+							<div class="form-group" *ngIf="venue.venue_website!=''">
+								<label class="col-sm-1 control-label"><i class="fa fa-globe"></i></label>
+								<span class="col-sm-10">{{venue.venue_website}}</span>
+							</div> -->
+						</div>
+                    </div> 	
+
+					</div>
+					<div class="col-sm-4 pull-right ">
+						<label class="venue_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/venues-edit',venue.venue_id]">Edit venue</a></label>
+					    <label class="venue_btn"><a class="btn btn-xs primary" href="javascript:void(0)"(click)="modal_id.open('sm');setDeleteID(venue.venue_id);">Delete</a></label>
+					</div>					
+				</div>
+
+
+
+
+				 <div class="postpagination_776778595 postpagination clearfix">
+                <div class="pagination" *ngFor="let object of createRange(Total)">
+                <a  class="page-numbers" href="javascript:void(0)" [ngClass]="{'active': object==currentPage}" (click)="getVenuePagination(object)" > {{object}} </a>
+                </div>
+                </div>
+				  
+				
+
+ <!--<button type="button" class="btn btn-default" (click)="modal_id.open('sm')">Open me!</button> -->
+<!-- <delete-model></delete-model  -->
+
+		 
+          
+
+		
+
+		   </div></div></div>
+	</section>
+	<modal #modal_id>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Are you sure!</h4>
+    </modal-header>
+  
+    <modal-footer>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteVenue()">Ok</button>
+        </modal-footer>
+</modal>
