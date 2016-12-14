@@ -53,7 +53,8 @@ export class EventDetailComponent implements OnInit {
     this.popularEvent(1);
     this.getReview(this.selectedData);
     this.userInformation();
-      });
+    this.addEventVisit(this.selectedData);
+    });
 
    
     
@@ -63,7 +64,7 @@ export class EventDetailComponent implements OnInit {
  setTimeout(_ => {
         jQuery(document).find('.flexslider').flexslider({
           animation: "slide",
-          smoothHeight: true, /* for adjusting height for small images */
+          smoothHeight: true, 
           animationLoop: false,
           start: function (slider) {
               jQuery('.event_detail_module').removeClass('loading');
@@ -334,6 +335,31 @@ export class EventDetailComponent implements OnInit {
         ref.router.navigate(['/index']);
       }
     });
+  }
+
+
+  addEventVisit(event_id){
+   
+    var value = {
+    'event_id':this.event_id,
+    'visit_count':1,
+    }
+    var refreg = this;
+    refreg.apiService.addVisit(value,function(res){
+       
+      },function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
+        refreg.apiService.signinSuccess$.emit(false);
+        refreg.router.navigate(['/index']);
+      }
+      var error = error.json().errors;
+      refreg.errors = error;
+    });
+
+    
+    
+
   }
 
 

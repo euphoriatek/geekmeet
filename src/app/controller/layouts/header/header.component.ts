@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit {
         showClose: true,
         timeout: 1000,
         theme: 'bootstrap',
-        onRemove: function(toast:ToastData) {ref.router.navigate(['/']);}
+        onRemove: function(toast:ToastData) {ref.router.navigate(['/index']);}
       };
       ref.toastyService.success(toastOptions);
       

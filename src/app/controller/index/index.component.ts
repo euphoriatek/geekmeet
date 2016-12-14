@@ -76,5 +76,11 @@ export class IndexComponent implements OnInit {
 	}
 
 
+	addFavorite(event_id){
+
+		console.log(event_id);
+	}
+
+
 
 }

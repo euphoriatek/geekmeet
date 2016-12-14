@@ -3671,7 +3671,22 @@ body #content .claim-post-wraper #recaptcha_table a {
     left: 0;
     top: 1px;
     text-align: center;
+    margin-left:3px
 }
+
+.done_favourite:before {
+    position: absolute;
+    font-family: fontAwesome;
+    content: "\f004";
+    height: 20px;
+    width: 10px;
+    left: 0;
+    top: 1px;
+    text-align: center;
+    color:red;
+    margin-left:3px
+}
+
 .attending_event .fav .addtofav {
     position: relative;
     padding-left: 22px;

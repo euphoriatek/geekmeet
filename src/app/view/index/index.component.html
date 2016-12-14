@@ -68,11 +68,9 @@
                                     <div class="listing_rating">
                                         <div class="directory_rating_row">
                                             <span class="single_rating"> 
-                                                <i class="rating-on"></i>
-                                                <i class="rating-on"></i>
-                                                <i class="rating-on"></i>
-                                                <i class="rating-on"></i>
-                                                <i class="rating-on"></i>
+                                            <rating [(ngModel)]="events.rating"
+                                            [readonly]="true" [float]="true">
+                                            </rating>
                                             </span>
                                         </div>
                                     </div>
@@ -81,7 +79,7 @@
 
                                 <!-- Entry details start -->
                                 <div class="entry-details">
-                                  
+                                    <p  *ngIf = "getToken" class="address" itemprop="address">{{events.location}}</p>
                                     <p class="event_date">
                                         <span>
                                             <span itemprop="startDate" content="2014-07-08T22:00">{{events.start_date}}</span>
@@ -91,6 +89,12 @@
                                     <p class="time">
                                         <span>{{events.start_time}} To {{events.end_time}}</span>
                                     </p>
+                                     <span *ngIf = "getToken">
+                                                      <p class="phone"  *ngIf = "events.contact_info!='' ">
+
+                                                      {{events.contact_info}}</p>
+                                                      </span>
+                                   
                                                                                                                </div>
                                 <!-- Entry details end --> 
                             </div>
@@ -98,13 +102,21 @@
                             <div class="entry-summary" itemprop="description"><p>{{events.event_description}} <a class="moretag" href="http://demo.templatic.com/eventum/city/new-york/event/disaster-a-70s-movie-musical/">&nbsp;Read more »</a></p></div>                                                                        <!-- End Post Content -->
                             <div class="rev_pin">
                                 <ul> 
-                                    <li class="favourite">
-                                        <span id="tmplfavorite_27121" class="fav fav_27121">
-                                            <a href="javascript:void(0);" data-reveal-id="tmpl_reg_login_container" id="tmpl_login_frm_27121" data-id="27121" class="addtofav  small_btn">Add to favorites</a>
+                                    <li class="favourite" *ngIf = "!getToken">
+
+                                        <span id="tmplfavorite_27121" class="fav fav_27121" >
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#loginModal" class="addtofav small_btn">Add to favorites</a>
                                         </span>
+
                                     </li>
 
-                                    <li class="review"> <a id="reviews_show" href="javascript:void(0);">8 &nbsp;</a></li>
+                                    <li class="favourite" *ngIf = "getToken">
+                                         <span id="tmplfavorite_27121" class="fav fav_27121" *ngIf = "getToken">
+                                            <a href="javascript:void(0);" (click)="addFavorite(events.event_id)" class="addtofav small_btn">Add to favorites</a>
+                                        </span>
+                                   </li>
+
+                                    <li class="review"> <a id="reviews_show" href="javascript:void(0);">{{events.comment_count}} &nbsp;</a></li>
 
                                                   
                                 </ul>
@@ -166,14 +178,19 @@
                                                              <a itemprop="url" href="" [routerLink]="['/event_detail',upcomingevents.event_id]" title="{{upcomingevents.event_title}}" rel="bookmark">{{upcomingevents.event_title}}</a></h2>
 
                                                         <div class="listing_rating">
-                                                            <div class="directory_rating_row"><span class="single_rating"> <i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i> </span></div>
+                                                            <div class="directory_rating_row">
+                                                            <span class="single_rating"> 
+                                                              <rating [(ngModel)]="upcomingevents.rating"
+                                            [readonly]="true" [float]="true">
+                                            </rating>
+                                                            </span></div>
                                                         </div>
                                                     </div>
                                                     <!-- Entry title end --> 
 
                                                     <!-- Entry details start -->
                                                     <div class="entry-details">
-                                                  
+                                                        <p class="address" itemprop="address" *ngIf = "getToken">{{upcomingevents.location}}</p>
                                                         <p class="event_date">
                                                             <span>
                                                                 <span itemprop="startDate" content="2014-07-08T15:30"> {{upcomingevents.start_date}}</span>
@@ -185,7 +202,12 @@
                                             <span itemprop="startDate" content="2014-07-08T22:00">{{upcomingevents.start_time}}</span>
                                             To <span itemprop="endDate" content="2019-07-08T23:30">{{upcomingevents.end_time}}</span>
                                         </span>
-                                                           </p><!--googleoff: all-->
+                                                           </p>
+                                                     <span *ngIf = "getToken">
+                                                      <p class="phone"  *ngIf = "upcomingevents.contact_info!='' ">
+
+                                                      {{upcomingevents.contact_info}}</p>
+                                                      </span>     <!--googleoff: all-->
                                                                                                                                
                                                     </div>
                                                     <!-- Entry details end --> 
@@ -200,7 +222,7 @@
                                                         <li class="favourite">              <span id="tmplfavorite_27097" class="fav fav_27097"><a href="javascript:void(0);" data-reveal-id="tmpl_reg_login_container" id="tmpl_login_frm_27097" data-id="27097" class="addtofav  small_btn" onclick="javascript:addToFavourite('27097', 'add');">Add to favorites</a></span>
                                                         </li>
 
-                                                        <li class="review"> <a href="javascript:void(0);" id="reviews_show" href="http://demo.templatic.com/eventum/city/new-york/event/a-moving-sound/#comments">8 &nbsp;</a></li>
+                                                        <li class="review"> <a href="javascript:void(0);" id="reviews_show" href="http://demo.templatic.com/eventum/city/new-york/event/a-moving-sound/#comments">{{upcomingevents.comment_count}} &nbsp;</a></li>
 
                                                                    
                                                     </ul></div>                                                                    </div>
@@ -226,7 +248,7 @@
                 <div class="widget-wrap widget-inside m-t-20">		
                     <div class="textwidget text-center">	
                         <a href="">
-                            <img src="app/assets/images/ads images/300x600.jpg">
+                            <ins data-revive-zoneid="6" data-revive-id="be6186b004d5136eb9e247010ad156eb"></ins>
                         </a>	
                     </div>
                 </div>
