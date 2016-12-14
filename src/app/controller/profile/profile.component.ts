@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
-import { RouterModule, Router }   from '@angular/router';
+import { RouterModule, Router, ActivatedRoute }   from '@angular/router';
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -14,8 +16,9 @@ export class ProfileComponent implements OnInit {
 	getToken:any;
 	userInfoArr:Object = {};
 
-	constructor(private router: Router,public apiService:ApiMethodService) { }
-
+constructor(private router:Router,private route: ActivatedRoute,private toastyService:ToastyService,public apiService:ApiMethodService,private toastyConfig: ToastyConfig) {
+		this.toastyConfig.theme = 'bootstrap';
+	}
 	ngOnInit() {
 		this.getToken = localStorage.getItem('auth_token');
 		if(!(this.getToken)){
@@ -32,6 +35,7 @@ export class ProfileComponent implements OnInit {
 			ref.userInfoArr = res.data;
 			console.log(ref.userInfoArr);
 		}, function(error){
+			ref.toastyService.error(error.json().message);
 			if(error.status == 401 || error.status == '401' || error.status == 400){
 				localStorage.removeItem('auth_token');				
 				ref.apiService.signinSuccess$.emit(false);

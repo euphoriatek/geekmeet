@@ -21,11 +21,9 @@ export class VenuesAddComponent implements OnInit {
 	getToken:any;
 	countryList:any;
 	stateList:any;
+	locationErr:any;
 	cityList:any;
-	center:Object = {
-		latitude:51.678418,
-		longitude:7.809007
-	};
+	center:Object = {};
 	getLocation = true;
 	orgDetail:any = {};
 	errors:Object = {};
@@ -33,8 +31,6 @@ export class VenuesAddComponent implements OnInit {
 		resizeMaxHeight: 128,
 		resizeMaxWidth: 128
 	};
-	lat: number = 51.678418;
-	lng: number = 7.809007;
 	geocoder:any;
 
 	constructor(private router:Router,private route: ActivatedRoute,private toastyService:ToastyService,public apiService:ApiMethodService,private toastyConfig: ToastyConfig) {
@@ -80,16 +76,45 @@ export class VenuesAddComponent implements OnInit {
 		});
 	}
 
-	getLatLong(){
+	getLatLong(val){
 		var ref = this;
-		ref.geocoder = new google.maps.Geocoder();
-		ref.geocoder.geocode( { 'address': "Australia"}, function(results, status) {
-			console.log(status);
-			if (status == 'OK') { 
-				ref.center['latitude'] = results[0].geometry.location.lat();
-				ref.center['longitude'] = results[0].geometry.location.lng();
+		if(val.country=='' || val.state ==''){
+			ref.locationErr = "Please Select Contry or State";
+		}
+		else{
+			ref.locationErr = '';
+			var country = '';
+			var state ='';
+			var city = '';
+			var address = val.address;
+			for (var i = 0; i < ref.countryList.length; i++) {
+				if(val.country == ref.countryList[i].id){
+					country = ref.countryList[i].name;
+					break;
+				}
 			}
-		});
+			for (var i = 0; i < ref.stateList.length; i++) {
+				if(val.state == ref.stateList[i].state_id){
+					state = ref.stateList[i].name;
+					break;
+				}
+			}
+			for (var i = 0; i < ref.cityList.length; i++) {
+				if(val.city == ref.cityList[i].city_id){
+					city = ref.cityList[i].name;
+					break;
+				}
+			}
+			var apiAddress = address+','+city+','+state+' '+country;
+			ref.geocoder = new google.maps.Geocoder();
+			ref.geocoder.geocode( { 'address': apiAddress}, function(results, status) {
+				if (status == 'OK') { 
+					ref.center['latitude'] = results[0].geometry.location.lat();
+					ref.center['longitude'] = results[0].geometry.location.lng();
+				}
+			});
+		}
+		
 	}
 
 

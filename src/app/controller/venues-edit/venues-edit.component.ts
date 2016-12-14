@@ -4,6 +4,8 @@ import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {CKEditorModule} from 'ng2-ckeditor';
+
 
 import {SelectModule} from 'ng2-select/ng2-select';
 
@@ -66,7 +68,7 @@ export class VenuesEditComponent implements OnInit {
 			}
 			if(res.data.state){
 				ref.getCIty(res.data.state);
-			} 
+			}
 		}, function(err){
 			console.log(err);
 		});
@@ -94,21 +96,49 @@ export class VenuesEditComponent implements OnInit {
 		var ref = this;
 		ref.apiService.cityList(id,function(res){
 			ref.cityList = res.data;
+			ref.getLatLong(ref.detailArr);
 		}, function(err){
 			console.log(err);
 		});
 	}
 
-	getLatLong(){
+	getLatLong(val:any):void{
+		console.log(val);
 		var ref = this;
-		ref.geocoder = new google.maps.Geocoder();
-		ref.geocoder.geocode( { 'address': "Australia"}, function(results, status) {
-			console.log(status);
-			if (status == 'OK') { 
-				ref.detailArr['latitude'] = results[0].geometry.location.lat();
-				ref.detailArr['longitude'] = results[0].geometry.location.lng();
+			var country = '';
+			var state ='';
+			var city = '';
+			var address = val.address;
+			for (var i = 0; i < ref.countryList.length; i++) {
+				if(val.country == ref.countryList[i].id){
+					country = ref.countryList[i].name;
+					break;
+				}
 			}
-		});
+			for (var i = 0; i < ref.stateList.length; i++) {
+				if(val.state == ref.stateList[i].state_id){
+					state = ref.stateList[i].name;
+					break;
+				}
+			}
+			console.log(state);
+			for (var i = 0; i < ref.cityList.length; i++) {
+				if(val.city == ref.cityList[i].city_id){
+					city = ref.cityList[i].name;
+					break;
+				}
+			}
+			var apiAddress = address+','+city+','+state+' '+country;
+			console.log(apiAddress);
+			ref.geocoder = new google.maps.Geocoder();
+			ref.geocoder.geocode( { 'address': apiAddress}, function(results, status) {
+				console.log(status);
+				if (status == 'OK') { 
+					ref.detailArr['latitude'] = results[0].geometry.location.lat();
+					ref.detailArr['longitude'] = results[0].geometry.location.lng();
+				}
+			});
+		
 	}
 
 	updateVenue(value:any):void{

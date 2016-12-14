@@ -50,8 +50,8 @@
                     </div>
                       <div class="form_row clearfix">
                         <label>Country</label>
-                        <select class="form-control" name="country" ngModel>
-                            <option *ngFor="let country of countryList" value="{{country.id}}" (click)="getState(country.id)" >{{country.name}}</option>
+                        <select class="form-control" name="country" ngModel (ngModelChange)="getState($event)" >
+                            <option *ngFor="let country of countryList" value="{{country.id}}" >{{country.name}}</option>
                         </select>
                         <ul class="error" *ngIf="errors['country']!=''" >
                         <li *ngFor="let org_err of errors['country']" >
@@ -64,8 +64,9 @@
 
                     <div class="form_row clearfix">
                         <label>State</label>
-                        <select class="form-control" name="state" ngModel>
-                            <option *ngFor="let state of stateList" value="{{state.state_id}}" (click)="getCIty(state.state_id)" >{{state.name}}</option>
+                        <select class="form-control" name="state" ngModel (ngModelChange)=getCIty($event)>
+                            <option *ngFor="let state of stateList" value="{{state.state_id}}">
+                            {{state.name}}</option>
                         </select>
                         <ul class="error" *ngIf="errors['state']!=''" >
                         <li *ngFor="let org_err of errors['state']" >
@@ -80,7 +81,7 @@
                         <select class="form-control" name="city" ngModel>
                             <option *ngFor="let city of cityList" value="{{city.city_id}}">{{city.name}}</option>
                         </select>
-                        <span id="user_loginInfo">{{city}}</span> 
+                         
                     </div>
                     <div class="form_row clearfix">
                         <label>Street Address</label>
@@ -93,7 +94,8 @@
 
                         </ul> 
                         <br>    
-                        <a class="btn btn-success btn-sm btn-square active add_map" (click)="getLatLong()" >Find Location</a>
+                        <a class="btn btn-success btn-sm btn-square active add_map" (click)="getLatLong(addVenueForm.value)" >Find Location</a>
+                        <br><span style="color: red;font-size: 13px;" id="user_loginInfo">{{locationErr}}</span>
                     </div>
                     <div class="form_row clearfix">
                         <label>Latitude</label>
@@ -105,8 +107,8 @@
                     </div>
                     <div *ngIf = "getLocation">
                      <sebm-google-map [latitude]="center.latitude" [longitude]="center.longitude">
-                            <sebm-google-map-marker [latitude]="center.latitude" [longitude]="center.longitude"></sebm-google-map-marker>
-                        </sebm-google-map>
+                        <sebm-google-map-marker [latitude]="center.latitude" [longitude]="center.longitude"></sebm-google-map-marker>
+                    </sebm-google-map>
                         </div>
                         <br>
                     <div class="form_row ">

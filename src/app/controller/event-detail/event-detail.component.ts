@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import {RatingModule} from "ng2-rating";
+import {CKEditorModule} from 'ng2-ckeditor';
 
 
 declare var jQuery: any;
@@ -47,11 +48,11 @@ export class EventDetailComponent implements OnInit {
     this.data['event_data']={};
     this.data['review']={};
 
-    this.selectedData = this.route.snapshot.params['id'];
-    this.event_id = this.selectedData;
-    this.getEventDetail(this.selectedData);
+    this.selectedData = params['id'];
+    this.event_id = params['id'];
+    this.getEventDetail(params['id']);
     this.popularEvent(1);
-    this.getReview(this.selectedData);
+    this.getReview(params['id']);
     this.userInformation();
       });
 

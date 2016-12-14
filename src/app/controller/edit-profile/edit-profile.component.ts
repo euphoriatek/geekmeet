@@ -296,6 +296,10 @@ export class EditProfileComponent implements OnInit {
                               });
                             }
 
+                            onChange(val){
+                              console.log(val);
+                            }
+
 
 
                           }

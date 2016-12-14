@@ -40,8 +40,8 @@
                     <div class="form_row clearfix">
                         <label>Venue Description <span class="indicates">*</span></label>
                         <textarea class="form-control" name="venue_description" rows="6" [(ngModel)]="detailArr.venue_description"></textarea>
-                         <ul class="error" *ngIf="errors['organization_description']!=''" >
-                        <li *ngFor="let org_err of errors['organization_description']" >
+                         <ul class="error" *ngIf="errors['venue_description']!=''" >
+                        <li *ngFor="let org_err of errors['venue_description']" >
                           {{org_err}}  
 
                         </li>    
@@ -81,7 +81,7 @@
 
                         </ul> 
                         <br>    
-                        <a class="btn btn-success btn-sm btn-square active add_map" (click)="getLatLong()" >Find Location</a>
+                        <a class="btn btn-success btn-sm btn-square active add_map" (click)="getLatLong(editVenueForm.value)" >Find Location</a>
                     </div>
                     <div class="form_row clearfix">
                         <label>Latitude</label>
@@ -92,8 +92,10 @@
                         <input type="text" name="longitude" [(ngModel)]="detailArr.longitude" class="form-control textfield"> 
                     </div>
                     <div>
-                       
-                </div>
+                        <sebm-google-map [latitude]="detailArr.latitude" [longitude]="detailArr.longitude">
+                            <sebm-google-map-marker [latitude]="detailArr.latitude" [longitude]="detailArr.longitude"></sebm-google-map-marker>
+                        </sebm-google-map>
+                     </div>
                         <br>
                     <div class="form_row ">
                         <button class="btn btn-info" type="submit">Save</button>
@@ -103,9 +105,7 @@
             </form>
         </div>
         <!-- #content --> 
-         <sebm-google-map [latitude]="center.latitude" [longitude]="center.longitude">
-                         <sebm-google-map-marker [latitude]="center.latitude" [longitude]="center.longitude"></sebm-google-map-marker>
-                        </sebm-google-map>
+        
 
         <!--single post type sidebar -->
         <div id="sidebar-primary" class="sidebar large-3 small-12 columns">

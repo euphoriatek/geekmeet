@@ -44,6 +44,7 @@ export class MyVenuesComponent implements OnInit {
 			ref.Total = res.data.last_page;
 			ref.currentPage = res.data.current_page;   			
 		},function(error){
+			ref.toastyService.error(error.json().message);
 			if(error.status == 401 || error.status == '401' || error.status == 400){
 				localStorage.removeItem('auth_token');				
 				ref.apiService.signinSuccess$.emit(false);
