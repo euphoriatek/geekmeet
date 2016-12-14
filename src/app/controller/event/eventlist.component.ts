@@ -20,7 +20,7 @@ export class EventListComponent implements OnInit{
   param_id:any;
   total:any;
   currentPage:any;
-
+  getToken:any;
   category:any ='';
   type:any = '';
   sort:any ='';
@@ -35,6 +35,7 @@ export class EventListComponent implements OnInit{
     // if(this.router.url == '/event'){
     //   this.eventDeafault('','current','',1);
     // }
+    this.getToken = this.apiService.getLoginToken();
     this.selectedmenu = this.route.snapshot.params['menu'];
     this.route.params.subscribe((param) => {
       this.param_id = param['menu'];

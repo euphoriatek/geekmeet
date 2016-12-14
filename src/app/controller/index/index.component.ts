@@ -3,6 +3,8 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import {Location} from '@angular/common';
 
+
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 @Component({
@@ -73,6 +75,12 @@ export class IndexComponent implements OnInit {
 		this.router.navigate(['/event_detail',id]);
 		// this.location.replaceState("/event_detail/"+id);
 		// this.router.navigateByUrl('/event_detail',id);
+	}
+
+
+	addFavorite(event_id){
+
+		console.log(event_id);
 	}
 
 

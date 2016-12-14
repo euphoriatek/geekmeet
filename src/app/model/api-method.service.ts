@@ -18,6 +18,7 @@ export class ApiMethodService {
 	constructor(private http: Http) {
 		this.loggedIn = !!localStorage.getItem('auth_token');
 		this.signinSuccess$ = new EventEmitter();
+		
 
 	}
 
@@ -107,7 +108,10 @@ export class ApiMethodService {
 		if(page==undefined){
 			page = 1;
 		}
-		this.http.post('http://2016.geekmeet.com/admin/v1/event?page='+page,eventData).map(res=>res.json())
+        let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		if(localStorage.getItem('auth_token')!=null){
+		let options = new RequestOptions({ headers: headers });	
+		this.http.post('http://2016.geekmeet.com/admin/v1/detailed_event?page='+page,eventData,options).map(res=>res.json())
 		.subscribe((res)=>{
 			if(callBack)
 			{
@@ -115,6 +119,18 @@ export class ApiMethodService {
 				callBack(res);
 			}
 		}, (error) => console.log('There was an error', error));
+		}else{
+        this.http.post('http://2016.geekmeet.com/admin/v1/event?page='+page,eventData).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				
+				callBack(res);
+			}
+		}, (error) => console.log('There was an error', error));
+
+		}
+		
 	}
 
 	//this is event category api
@@ -132,29 +148,57 @@ export class ApiMethodService {
 	// get popular event api list
 
 	popularEventApi(regdata,callBack){
-		
-		this.http.get('http://2016.geekmeet.com/admin/v1/popular_event?page='+regdata).map(res=>res.json())
-		.subscribe((res)=>{
-			if(callBack)
-			{
-				callBack(res);
-			}
-		}, (error) => console.log('There was an error', error));	
-
-	}
-
-	// 
-
-	// get upcoming event api list
-
-	upcomingEventApi(callBack){
-		this.http.get('http://2016.geekmeet.com/admin/v1/upcoming_event').map(res=>res.json())
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		if(localStorage.getItem('auth_token')!=null){
+		let options = new RequestOptions({ headers: headers });	
+		this.http.get('http://2016.geekmeet.com/admin/v1/detailed_popular_event?page='+regdata,options).map(res=>res.json())
 		.subscribe((res)=>{
 			if(callBack)
 			{
 				callBack(res);
 			}
 		}, (error) => console.log('There was an error', error));
+		}else{
+        this.http.get('http://2016.geekmeet.com/admin/v1/popular_event?page='+regdata).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => console.log('There was an error', error));
+
+		}	
+
+    }
+
+
+     
+
+	// 
+
+	// get upcoming event api list
+
+	upcomingEventApi(callBack){
+			let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		if(localStorage.getItem('auth_token')!=null){
+		let options = new RequestOptions({ headers: headers });	
+		this.http.get('http://2016.geekmeet.com/admin/v1/detailed_upcoming_event',options).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => console.log('There was an error', error));
+		}else{
+        this.http.get('http://2016.geekmeet.com/admin/v1/upcoming_event').map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => console.log('There was an error', error));
+
+		}
 	}
 
 	//
@@ -607,6 +651,32 @@ export class ApiMethodService {
 			}
 
 		}, (error) => failure(error));
+	}
+
+	// add visit
+
+	// add reply
+
+	   addVisit(value,callBack,failure){
+	    let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+	    if(localStorage.getItem('auth_token')!=null){
+	    let options = new RequestOptions({ headers: headers });
+		this.http.post('http://2016.geekmeet.com/admin/v1/user_visit',value,options).map(res =>res.json())
+		.subscribe((res) => {
+         if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
+	    }else{
+		 this.http.post('http://2016.geekmeet.com/admin/v1/add_visit',value).map(res =>res.json())
+		.subscribe((res) => {
+         if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
+        }
 	}
 	
 	
