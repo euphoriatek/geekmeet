@@ -3,6 +3,8 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import {Location} from '@angular/common';
 
+
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 @Component({

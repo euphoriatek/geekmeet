@@ -12,7 +12,7 @@ import 'rxjs/add/operator/catch';
   templateUrl: '../../view/event/event.component.html',
   styleUrls: ['../../assets/css/event/event.component.css']  
 })
-export class EventComponent {
+export class EventComponent implements OnInit{
  /* eventArr:any;
   selectedmenu:any;
   sortvalData:any;
@@ -135,6 +135,10 @@ export class EventComponent {
    changeGridTolist(status){
     this.gridview = status;
   }*/
+
+  ngOnInit() {   
+    jQuery.getScript('//www.ads4mysite.com/adserver/www/delivery/asyncjs.php');
+  }
 
   createRange(number){
     var links = [];
