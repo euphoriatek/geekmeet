@@ -3,6 +3,8 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import {Location} from '@angular/common';
 
+declare var jQuery: any;
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 @Component({
@@ -22,6 +24,7 @@ export class IndexComponent implements OnInit {
 		this.getToken = this.apiService.getLoginToken();
 		this.popularEvent(1);
 		this.upcomingEvent();
+		jQuery.getScript('//www.ads4mysite.com/adserver/www/delivery/asyncjs.php');
 	}
 
 	popularEvent(value){
