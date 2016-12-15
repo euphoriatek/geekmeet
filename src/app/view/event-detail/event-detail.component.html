@@ -70,7 +70,7 @@
 
               
                         <div class="entry-header-custom-wrap p-tb-30">
-                            <p class="date">
+                                <p class="date">
                                 <label>Start Date:</label>
                                 <span id="frontend_date_st_date" class="event_custom frontend_st_date">{{data.event_data.start_date}}</span></p>
 
@@ -78,10 +78,12 @@
                                     <label>End Date:</label>
                                     <span id="frontend_date_end_date" class="frontend_end_date frontend_datepicker event_custom">{{data.event_data.end_date}}</span>
                                 </p>
+                                <span *ngIf = "getToken">
                                 <p class="hosted">
                                     <label>Hosted By:</label>
                                     <span class="event_custom">{{data.event_data.organizer}}</span>
                                 </p>
+                                </span>
                                 <p class="audience">
                                     <label>Intended Audience:</label>
                                     <span class="event_custom">{{data.event_data.audience}} </span>
@@ -90,18 +92,21 @@
                                     <label>Time:</label>
                                     <span class="event_custom">{{data.event_data.start_time}} To {{data.event_data.end_time}}</span>
                                 </p>
+                                <span *ngIf = "getToken">
                                 <p class="address">
                                     <label>Event Location:</label>
                                     <span id="frontend_address" class="event_custom frontend_address">{{data.event_data.location}}</span>
                                 </p>
-                                <p class="website">
+                                </span>
+                                <p class="website" *ngIf="data.event_data.website!=''">
                                     <label>Website: </label>
-                                    <span class="event_custom"><a id="website" class="frontend_website " href="http://geekmeet.com">{{data.event_data.location}}</a></span>
+                                    <span class="event_custom"><a id="website" class="frontend_website " href="{{data.event_data.website}}">{{data.event_data.website}}</a></span>
                                 </p>
-                                <p class="phone ">
+                                <span *ngIf = "getToken">
+                                <p class="phone" *ngIf="data.event_data.contact_info!=''">
                                     <label>Contact Info: </label>
                                     <span id="phone" class="listing_custom frontend_phone">{{data.event_data.contact_info}}</span>
-                                </p>
+                                </p></span>
                                 <p class="fees">
                                     <label>Ticket Info: </label>
                                     <span class="event_custom frontend_reg_fees">$100</span>

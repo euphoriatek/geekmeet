@@ -31,6 +31,7 @@ export class EventDetailComponent implements OnInit {
   sub_errors:Object = {};
   deleteID:any;
   deleteType:any;
+  page:any=1;
 
 
 
@@ -51,7 +52,7 @@ export class EventDetailComponent implements OnInit {
     this.selectedData = params['id'];
     this.event_id = params['id'];
     this.getEventDetail(params['id']);
-    this.popularEvent(1);
+    this.popularEvent();
     this.getReview(params['id']);
     this.userInformation();
     this.addEventVisit(this.selectedData);
@@ -92,8 +93,15 @@ export class EventDetailComponent implements OnInit {
     this.router.navigate(['/event_detail/'+id]);   
   }
 
-  popularEvent(value){
+  popularEvent(){
     var ref = this;
+   
+        var value = {
+        'category': '',
+        'sort':'',
+        'all':false,
+        'page':ref.page
+        }
     this.apiService.popularEventApi(value,function(res){
       if(typeof(ref.data)=='undefined'){
          ref.data = {};
@@ -159,7 +167,8 @@ export class EventDetailComponent implements OnInit {
   }
 
   getEventPagination(ev_id){
-    this.popularEvent(ev_id);
+    this.page = ev_id;
+    this.popularEvent();
   }
 
   addReview(addComment:any):void{
