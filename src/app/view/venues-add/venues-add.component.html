@@ -2,150 +2,152 @@
     <div class="wrap row">
 
         <div class="breadcrumb breadcrumbs columns">
-               <div class="breadcrumb-trail">
-                <span class="trail-begin">
-                    <a [routerLink]="['/']" title="GeekMeet" rel="home" class="trail-begin">Home</a>
-                    </span><span class="sep">»</span><a [routerLink]="['/my-venues']" title="Organizations" class="trail-begin">Venue List</a> <span class="sep">»</span> <span>Add Venue</span>
-            </div>
+         <div class="breadcrumb-trail">
+            <span class="trail-begin">
+                <a [routerLink]="['/']" title="GeekMeet" rel="home" class="trail-begin">Home</a>
+            </span><span class="sep">»</span><a [routerLink]="['/my-venues']" title="Organizations" class="trail-begin">Venue List</a> <span class="sep">»</span> <span>Add Venue</span>
         </div>
-        <ng2-toasty [position]="'top-center'" ></ng2-toasty>
-        <!-- start content part-->
-        <div id="content" role="main" class="large-9 small-12 columns" jstcache="0">
-            <div class="event-add">
-                <h3>Add Venue</h3>
-            </div>
+    </div>
+    <ng2-toasty [position]="'top-center'" ></ng2-toasty>
+    <!-- start content part-->
+    <div id="content" role="main" class="large-9 small-12 columns" jstcache="0">
+        <div class="event-add">
+            <h3>Add Venue</h3>
+        </div>
+     
 
-            <form #addVenueForm="ngForm" (ngSubmit)="addVenue(addVenueForm.value)">
-                <div class="event-edit-form large-9 small-12 columns">
-                    <div class="form_row clearfix">
-                        <label>Upload Media</label>
-                        <div class="col-sm-10 -m-rl-15">
-                            <input type="file" image-upload
-                            (imageSelected)="selected($event)"
-                            [resizeOptions]="resizeOptions">
-                        </div>
-                       
+        <form #addVenueForm="ngForm" (ngSubmit)="addVenue(addVenueForm.value)">
+            <div class="event-edit-form large-9 small-12 columns">
+                <div class="form_row clearfix">
+                    <label>Upload Media</label>
+                    <div class="col-sm-10 -m-rl-15">
+                        <input type="file" image-upload
+                        (imageSelected)="selected($event)"
+                        [resizeOptions]="resizeOptions">
                     </div>
-                    <div class="form_row clearfix">
-                        <label>Venue Name<span class="indicates">*</span></label>
-                        <input type="text" name="venue_name" id="" value="" class="form-control textfield" ngModel> 
-                        <ul class="error" *ngIf="errors['venue_name']!=''" >
+
+                </div>
+                <div class="form_row clearfix">
+                    <label>Venue Name<span class="indicates">*</span></label>
+                    <input type="text" name="venue_name" id="" value="" class="form-control textfield" ngModel> 
+                    <ul class="error" *ngIf="errors['venue_name']!=''" >
                         <li *ngFor="let org_err of errors['venue_name']" >
                           {{org_err}}  
+                      </li>    
+                  </ul>                    
+              </div>
+              <div class="form_row clearfix">
+                <label>Venue Description <span class="indicates">*</span></label>
+            <ckeditor name="venue_description" [(ngModel)]="venue_description" debounce="400"></ckeditor>
+            <ul class="error" *ngIf="errors['venue_description']!=''" >
+                <li *ngFor="let org_err of errors['venue_description']" >
+                  {{org_err}}  
 
-                        </li>    
+              </li>    
 
-                        </ul>                    
-                        </div>
-                    <div class="form_row clearfix">
-                        <label>Venue Description <span class="indicates">*</span></label>
-                        <textarea class="form-control" name="venue_description" rows="6" ngModel></textarea>
-                         <ul class="error" *ngIf="errors['venue_description']!=''" >
-                        <li *ngFor="let org_err of errors['venue_description']" >
-                          {{org_err}}  
+          </ul>  
+      </div>
+      <div class="form_row clearfix">
+        <label>Country</label>
+        <select class="form-control" name="country" ngModel (ngModelChange)="getState($event)" >
+            <option *ngFor="let country of countryList" value="{{country.id}}" >{{country.name}}</option>
+        </select>
+        <ul class="error" *ngIf="errors['country']!=''" >
+            <li *ngFor="let org_err of errors['country']" >
+              {{org_err}}  
 
-                        </li>    
+          </li>    
 
-                        </ul>  
-                    </div>
-                      <div class="form_row clearfix">
-                        <label>Country</label>
-                        <select class="form-control" name="country" ngModel (ngModelChange)="getState($event)" >
-                            <option *ngFor="let country of countryList" value="{{country.id}}" >{{country.name}}</option>
-                        </select>
-                        <ul class="error" *ngIf="errors['country']!=''" >
-                        <li *ngFor="let org_err of errors['country']" >
-                          {{org_err}}  
+      </ul> 
+  </div>
 
-                        </li>    
+  <div class="form_row clearfix">
+    <label>State</label>
+    <select class="form-control" name="state" ngModel (ngModelChange)=getCIty($event)>
+        <option *ngFor="let state of stateList" value="{{state.state_id}}">
+            {{state.name}}</option>
+        </select>
+        <ul class="error" *ngIf="errors['state']!=''" >
+            <li *ngFor="let org_err of errors['state']" >
+              {{org_err}}  
 
-                        </ul> 
-                    </div>
+          </li>    
 
-                    <div class="form_row clearfix">
-                        <label>State</label>
-                        <select class="form-control" name="state" ngModel (ngModelChange)=getCIty($event)>
-                            <option *ngFor="let state of stateList" value="{{state.state_id}}">
-                            {{state.name}}</option>
-                        </select>
-                        <ul class="error" *ngIf="errors['state']!=''" >
-                        <li *ngFor="let org_err of errors['state']" >
-                          {{org_err}}  
+      </ul> 
+  </div>
+  <div class="form_row clearfix">
+    <label>City</label>
+    <select class="form-control" name="city" ngModel>
+        <option *ngFor="let city of cityList" value="{{city.city_id}}">{{city.name}}</option>
+    </select>
 
-                        </li>    
+</div>
+<div class="form_row clearfix">
+    <label>Street Address</label>
+    <textarea class="form-control" name="address" ngModel></textarea>
+    <ul class="error" *ngIf="errors['address']!=''" >
+        <li *ngFor="let org_err of errors['address']" >
+          {{org_err}}  
 
-                        </ul> 
-                    </div>
-                    <div class="form_row clearfix">
-                        <label>City</label>
-                        <select class="form-control" name="city" ngModel>
-                            <option *ngFor="let city of cityList" value="{{city.city_id}}">{{city.name}}</option>
-                        </select>
-                         
-                    </div>
-                    <div class="form_row clearfix">
-                        <label>Street Address</label>
-                        <textarea class="form-control" name="address" ngModel></textarea>
-                        <ul class="error" *ngIf="errors['address']!=''" >
-                        <li *ngFor="let org_err of errors['address']" >
-                          {{org_err}}  
+      </li>    
 
-                        </li>    
+  </ul> 
+  <br>    
+  <a class="btn btn-success btn-sm btn-square active add_map" (click)="getLatLong(addVenueForm.value)" >Find Location</a>
+  <br><span style="color: red;font-size: 13px;" id="user_loginInfo">{{locationErr}}</span>
+</div>
+<div class="form_row clearfix">
+    <label>Latitude</label>
+    <input type="text" name="latitude" [(ngModel)]="center.latitude" class="form-control textfield" >
+</div>
+<div class="form_row clearfix">
+    <label>Longitude</label>
+    <input type="text" name="longitude" [(ngModel)]="center.longitude" class="form-control textfield"> 
+</div>
+<div *ngIf = "getLocation">
+   <sebm-google-map [latitude]="center.latitude" [longitude]="center.longitude">
+    <sebm-google-map-marker [latitude]="center.latitude" [longitude]="center.longitude"></sebm-google-map-marker>
+</sebm-google-map>
+</div>
+<br>
+<div class="form_row ">
+    <button class="btn btn-info" type="submit" name="submit">Save</button>
+    <button class="btn btn-info"  [routerLink] = "['/my-venues']">Cancel</button>    
+</div>
+</div>
+</form>
+</div>
+<sebm-google-map [latitude]="center.latitude" [longitude]="center.longitude">
+    <sebm-google-map-marker [latitude]="center.latitude" [longitude]="center.longitude"></sebm-google-map-marker>
+</sebm-google-map>
+<!-- #content --> 
 
-                        </ul> 
-                        <br>    
-                        <a class="btn btn-success btn-sm btn-square active add_map" (click)="getLatLong(addVenueForm.value)" >Find Location</a>
-                        <br><span style="color: red;font-size: 13px;" id="user_loginInfo">{{locationErr}}</span>
-                    </div>
-                    <div class="form_row clearfix">
-                        <label>Latitude</label>
-                        <input type="text" name="latitude" [(ngModel)]="center.latitude" class="form-control textfield" >
-                    </div>
-                    <div class="form_row clearfix">
-                        <label>Longitude</label>
-                        <input type="text" name="longitude" [(ngModel)]="center.longitude" class="form-control textfield"> 
-                    </div>
-                    <div *ngIf = "getLocation">
-                     <sebm-google-map [latitude]="center.latitude" [longitude]="center.longitude">
-                        <sebm-google-map-marker [latitude]="center.latitude" [longitude]="center.longitude"></sebm-google-map-marker>
-                    </sebm-google-map>
-                        </div>
-                        <br>
-                    <div class="form_row ">
-                        <button class="btn btn-info" type="submit" name="submit">Save</button>
-                           <button class="btn btn-info"  [routerLink] = "['/my-venues']">Cancel</button>    
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!-- #content --> 
-
-        <!--single post type sidebar -->
-        <div id="sidebar-primary" class="sidebar large-3 small-12 columns">
-            <!-- 300x600 ad_space -->
-            <div id="templatic_text-1" class="widget templatic_text">
-                <div class="widget-wrap widget-inside">     
-                    <div class="textwidget text-center">    
-                        <a href="">
-                            <img src="app/assets/images/ads images/300x600.jpg">
-                        </a>    
-                    </div>
-                </div>
-            </div>
-
-            <!-- 300x250 ad_space -->
-            <div id="templatic_text-1" class="widget templatic_text">
-                <div class="widget-wrap widget-inside">     
-                    <div class="textwidget text-center">    
-                        <a href="">
-                            <img src="app/assets/images/ads images/300x250.jpg">
-                        </a>    
-                    </div>
-                </div>
+<!--single post type sidebar -->
+<div id="sidebar-primary" class="sidebar large-3 small-12 columns">
+    <!-- 300x600 ad_space -->
+    <div id="templatic_text-1" class="widget templatic_text">
+        <div class="widget-wrap widget-inside">     
+            <div class="textwidget text-center">    
+                <a href="">
+                    <img src="app/assets/images/ads images/300x600.jpg">
+                </a>    
             </div>
         </div>
-        <!--end single post type sidebar --> 
-        <!-- end  content part-->
     </div>
-    <!-- .wrap -->
+
+    <!-- 300x250 ad_space -->
+    <div id="templatic_text-1" class="widget templatic_text">
+        <div class="widget-wrap widget-inside">     
+            <div class="textwidget text-center">    
+                <a href="">
+                    <img src="app/assets/images/ads images/300x250.jpg">
+                </a>    
+            </div>
+        </div>
+    </div>
+</div>
+<!--end single post type sidebar --> 
+<!-- end  content part-->
+</div>
+<!-- .wrap -->
 </section>

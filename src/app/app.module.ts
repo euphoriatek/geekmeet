@@ -15,6 +15,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {ToastyModule} from 'ng2-toasty';
 import { AgmCoreModule } from 'angular2-google-maps/core';
+import { NouisliderModule } from 'ng2-nouislider';
 
 
 
@@ -95,6 +96,7 @@ import { VenueComponent } from './controller/venue/venue.component';
     FormsModule,    
     routing,
     HttpModule,
+    NouisliderModule,
     RatingModule,
     SelectModule,
     MyDatePickerModule,

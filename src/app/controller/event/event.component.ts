@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { RouterModule, Router, ActivatedRoute }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
 import { EventListComponent } from './eventlist.component';
+import { NouisliderModule } from 'ng2-nouislider';
 declare var jQuery: any;
 
 import 'rxjs/add/operator/map';
@@ -135,7 +136,7 @@ export class EventComponent implements OnInit{
    changeGridTolist(status){
     this.gridview = status;
   }*/
-
+  someRange:any;
   ngOnInit() {   
     jQuery.getScript('//www.ads4mysite.com/adserver/www/delivery/asyncjs.php');
   }

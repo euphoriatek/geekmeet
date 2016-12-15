@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
-
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {CKEditorModule} from 'ng2-ckeditor';
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 
 import {SelectModule} from 'ng2-select/ng2-select';
@@ -27,7 +28,9 @@ export class OrganizationEditComponent implements OnInit {
     resizeMaxHeight: 128,
     resizeMaxWidth: 128
   };
-  constructor(private router:Router,private route: ActivatedRoute,public apiService:ApiMethodService) { }
+  constructor(private router:Router,private route: ActivatedRoute,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { 
+    this.toastyConfig.theme = 'bootstrap';
+  }
 
   ngOnInit() {
   	this.getToken = this.apiService.getLoginToken();
@@ -49,12 +52,13 @@ export class OrganizationEditComponent implements OnInit {
 
   organizationDetail(value){
     var ref = this;
-    ref.apiService.organization_detail(value,function(res){     
+    ref.apiService.organization_detail(value,function(res){    
       ref.orgDetail = res.data;
       ref.getState(res.data.country);
       ref.getCIty(res.data.state);
       console.log(ref.orgDetail);
     }, function(error){
+      ref.toastyService.error(error.json().message);
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
         ref.apiService.signinSuccess$.emit(false);
@@ -97,9 +101,15 @@ export class OrganizationEditComponent implements OnInit {
     value['image'] = refreg.src;
     console.log(value);
     this.apiService.editOrganization(value,function(res){
+      refreg.toastyService.success(res.message); 
       refreg.router.navigate(['/my-organizations']);
     },function(err){
-      console.log(err);
+      refreg.toastyService.error(error.json().message);
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
+        refreg.apiService.signinSuccess$.emit(false);
+        refreg.router.navigate(['/index']);
+      }
       var error = err.json().errors;
       refreg.errors = error;
 

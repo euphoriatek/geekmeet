@@ -4,6 +4,7 @@ import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {CKEditorModule} from 'ng2-ckeditor';
 
 import {SelectModule} from 'ng2-select/ng2-select';
 
@@ -24,7 +25,7 @@ export class VenuesAddComponent implements OnInit {
 	locationErr:any;
 	cityList:any;
 	center:Object = {};
-	getLocation = true;
+	getLocation = false;
 	orgDetail:any = {};
 	errors:Object = {};
 	resizeOptions: ResizeOptions = {
@@ -82,6 +83,7 @@ export class VenuesAddComponent implements OnInit {
 			ref.locationErr = "Please Select Contry or State";
 		}
 		else{
+			ref.getLocation = true;
 			ref.locationErr = '';
 			var country = '';
 			var state ='';
@@ -106,6 +108,7 @@ export class VenuesAddComponent implements OnInit {
 				}
 			}
 			var apiAddress = address+','+city+','+state+' '+country;
+			console.log(apiAddress);
 			ref.geocoder = new google.maps.Geocoder();
 			ref.geocoder.geocode( { 'address': apiAddress}, function(results, status) {
 				if (status == 'OK') { 

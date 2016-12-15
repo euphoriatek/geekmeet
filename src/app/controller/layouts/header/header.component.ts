@@ -22,9 +22,9 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
     this.toastyConfig.theme = 'bootstrap';
     this.getToken = this.apiService.getLoginToken();
-        if(this.getToken){
-          this.isUserLoggedIn = true;
-        }
+    if(this.getToken){
+      this.isUserLoggedIn = true;
+    }
     apiService.signinSuccess$.subscribe(status => {
       if(status) {
         this.getToken = this.apiService.getLoginToken();
@@ -42,7 +42,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log("this is token"+this.getToken);
     this.secondmenuDeafault();
   }
 
@@ -51,20 +50,18 @@ export class HeaderComponent implements OnInit {
   }
 
   userLogout(){
-    this.getToken="";
-    this.isUserLoggedIn = false;
     var ref = this;
-    this.apiService.userLogoutApi(function(res){
+    ref.apiService.userLogoutApi(function(res){
+      ref.getToken="";
+      ref.isUserLoggedIn = false;
       console.log("this is api response"+ JSON.stringify(res));
-      var toastOptions:ToastOptions = {
-        title: "Logout.!",
-        msg: res.message,
-        showClose: true,
-        timeout: 1000,
-        theme: 'bootstrap',
-        onRemove: function(toast:ToastData) {ref.router.navigate(['/index']);}
-      };
-      ref.toastyService.success(toastOptions);
+      ref.toastyService.success(res.message);
+      if(ref.router.url=='/index'){
+        ref.router.navigate(['/']);       
+      }
+      else{
+        ref.router.navigate(['/index']);
+      } 
       
     });
   }

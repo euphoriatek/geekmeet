@@ -10,7 +10,7 @@
                     </span><span class="sep">»</span><a [routerLink]="['/my-organizations']" title="Organizations" class="trail-begin">Organization List</a> <span class="sep">»</span> <span>Organization Edit</span>
             </div>
         </div>
-
+        <ng2-toasty [position]="'top-center'" ></ng2-toasty>
         <!-- start content part-->
         <div id="content" role="main" class="large-9 small-12 columns" jstcache="0">
             <div class="event-add">
@@ -41,7 +41,7 @@
                         </div>
                     <div class="form_row clearfix">
                         <label>About the Organization<span class="indicates">*</span></label>
-                        <textarea class="form-control" name="organization_description" rows="6"  [(ngModel)]="orgDetail.organization_description"> ></textarea>
+                        <ckeditor name="organization_description" [(ngModel)]="orgDetail.organization_description" debounce="400"></ckeditor>
                          <ul class="error" *ngIf="errors['organization_description']!=''" >
                         <li *ngFor="let org_err of errors['organization_description']" >
                           {{org_err}}  
@@ -93,8 +93,8 @@
                     
 
                     <div class="form_row ">
-                        <button class="btn btn-warning" type="submit" value="Save" name="submit">Save</button>
-                           <a class="btn btn-warning"  [routerLink] = "['/my-organizations']">Cancel</a>   	
+                        <button class="btn btn-info" type="submit" value="Save" name="submit">Save</button>
+                           <a class="btn btn-info"  [routerLink] = "['/my-organizations']">Cancel</a>   	
                     </div>
                 </div>
             </form>

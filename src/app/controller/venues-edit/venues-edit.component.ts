@@ -21,6 +21,7 @@ declare const google: any;
 export class VenuesEditComponent implements OnInit {
 	src: string = "";
 	countryList:any;
+	locationFinder:any;
 	getToken:any;
 	detailArr:Object = {};
 	stateList:any;
@@ -121,7 +122,7 @@ export class VenuesEditComponent implements OnInit {
 					break;
 				}
 			}
-			console.log(state);
+
 			for (var i = 0; i < ref.cityList.length; i++) {
 				if(val.city == ref.cityList[i].city_id){
 					city = ref.cityList[i].name;
@@ -134,8 +135,12 @@ export class VenuesEditComponent implements OnInit {
 			ref.geocoder.geocode( { 'address': apiAddress}, function(results, status) {
 				console.log(status);
 				if (status == 'OK') { 
+					ref.locationFinder='';
 					ref.detailArr['latitude'] = results[0].geometry.location.lat();
 					ref.detailArr['longitude'] = results[0].geometry.location.lng();
+				}
+				else{
+					ref.locationFinder = "Can Not Find Location.!";
 				}
 			});
 		

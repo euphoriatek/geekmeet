@@ -76,19 +76,11 @@ export class MyVenuesComponent implements OnInit {
 
 	deleteVenue(){
 		var ref = this;
-		console.log(this.deleteID);
 		this.apiService.deleteVanue(this.deleteID,function(res){
-			var toastOptions:ToastOptions = {
-				title: "Delete.!",
-				msg: res.message,
-				showClose: true,
-				timeout: 1000,
-				theme: 'bootstrap',
-				onRemove: function(toast:ToastData) {ref.venueList(1);}
-			};
-			ref.toastyService.success(toastOptions);
-
+			ref.toastyService.success(res.message);
+			ref.venueList(ref.currentPage);
 		},function(error){
+			ref.toastyService.error(error.json().message);
 			if(error.status == 401 || error.status == '401' || error.status == 400){
 				localStorage.removeItem('auth_token');        
 				ref.apiService.signinSuccess$.emit(false);

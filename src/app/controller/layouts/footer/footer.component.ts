@@ -179,7 +179,13 @@ export class FooterComponent implements OnInit {
 				if(res.data.token){
 					var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
 					closeBtn.click();
+					if(ref.router.url=='/'){
 						ref.router.navigate(['/index']);
+					}
+					else{
+						ref.router.navigate(['/']);
+					}
+						
 						ref.apiService.signinSuccess$.emit(true);
 					}
 				},function(error){

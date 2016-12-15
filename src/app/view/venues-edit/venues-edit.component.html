@@ -39,7 +39,7 @@
                         </div>
                     <div class="form_row clearfix">
                         <label>Venue Description <span class="indicates">*</span></label>
-                        <textarea class="form-control" name="venue_description" rows="6" [(ngModel)]="detailArr.venue_description"></textarea>
+                        <ckeditor name="venue_description" [(ngModel)]="detailArr.venue_description" debounce="400"></ckeditor>
                          <ul class="error" *ngIf="errors['venue_description']!=''" >
                         <li *ngFor="let org_err of errors['venue_description']" >
                           {{org_err}}  
@@ -50,16 +50,16 @@
                     </div>
                       <div class="form_row clearfix">
                         <label>Country</label>
-                        <select class="form-control" name="country" [(ngModel)]=detailArr.country>
-                            <option *ngFor="let country of countryList" value="{{country.id}}" (click)="getState(country.id)" >{{country.name}}</option>
+                        <select class="form-control" name="country" [(ngModel)]=detailArr.country (ngModelChange)="getState($event)">
+                            <option *ngFor="let country of countryList" value="{{country.id}}" >{{country.name}}</option>
                         </select>
                         <span id="user_loginInfo">{{country}}</span> 
                     </div>
 
                     <div class="form_row clearfix">
                         <label>State</label>
-                        <select class="form-control" name="state" [(ngModel)]=detailArr.state>
-                            <option *ngFor="let state of stateList" value="{{state.state_id}}" (click)="getCIty(state.state_id)" >{{state.name}}</option>
+                        <select class="form-control" name="state" [(ngModel)]=detailArr.state (ngModelChange)="getCIty($event)">
+                            <option *ngFor="let state of stateList" value="{{state.state_id}}" >{{state.name}}</option>
                         </select>
                         <span id="user_loginInfo">{{state}}</span> 
                     </div>
@@ -81,7 +81,8 @@
 
                         </ul> 
                         <br>    
-                        <a class="btn btn-success btn-sm btn-square active add_map" (click)="getLatLong(editVenueForm.value)" >Find Location</a>
+                        <a class="btn btn-success btn-sm btn-square active add_map" (click)="getLatLong(editVenueForm.value)" >Find Location</a><br>
+                        <span style="color: red;font-size: 13px;" id="user_loginInfo">{{locationFinder}}</span>
                     </div>
                     <div class="form_row clearfix">
                         <label>Latitude</label>
