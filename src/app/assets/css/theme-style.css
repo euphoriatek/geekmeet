@@ -1448,6 +1448,7 @@ body #tmpl-search-results.list .hentry p,
     border-bottom: 4px solid #003a70;
     max-width: 100%;
     vertical-align: top;
+    width: 100%;
 }
 .grid .featured-c .entry{
     padding: 15px;

@@ -53,7 +53,7 @@
                                         {{events.start_date}}			<span></span>
                                     </span>
                                     <h2 class="entry-title">
-                                        <a itemprop="url" href="" [routerLink]="['/event_detail',events.event_id]" title="Disaster! A 70’s Movie…Musical!" rel="bookmark">{{events.event_title}}</a>
+                                        <a itemprop="url" href="" [routerLink]="['/event_detail',events.event_id]" title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a>
                                     </h2>
                                     <div class="listing_rating">
                                         <div class="directory_rating_row">
@@ -89,20 +89,43 @@
                                     <!-- Entry details end --> 
                                 </div>
                                 <!--Start Post Content -->
-                                <div class="entry-summary" itemprop="description"><p>{{events.event_description}} <a class="moretag" href="http://demo.templatic.com/eventum/city/new-york/event/disaster-a-70s-movie-musical/">&nbsp;Read more »</a></p></div>                                                                        <!-- End Post Content -->
+                                         
+                                                                                             <!-- End Post Content -->
                                 <div class="rev_pin">
-                                    <ul> 
-                                        <li class="favourite">
-                                            <span id="tmplfavorite_27121" class="fav fav_27121">
-                                                <a href="javascript:void(0);" data-reveal-id="tmpl_reg_login_container" id="tmpl_login_frm_27121" data-id="27121" class="addtofav  small_btn">Add to favorites</a>
-                                            </span>
-                                        </li>
 
-                                        <li class="review"> <a id="reviews_show" href="">{{events.comment_count}} &nbsp;</a></li>
+                                 <ul  *ngIf = "!getToken"> 
+                                    <li class="favourite">
 
-                                        <li class="pinpoint"><a id="pinpoint_27121" class="ping" href="">Pinpoint</a></li>               
-                                    </ul>
-                                </div>                                                                    
+                                        <span id="tmplfavorite_27121" class="fav fav_27121" >
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#loginModal" class="addtofav small_btn">Add to favorites</a>
+                                        </span>
+
+                                    </li>
+                                    <li class="review"> <a id="reviews_show" href="javascript:void(0);">{{events.comment_count}} &nbsp;</a></li>
+
+                                                  
+                                </ul>
+
+                                <ul *ngIf = "getToken"> 
+                                    <li class="favourite" *ngIf = "events.favorite==0">
+
+                                        <span id="tmplfavorite_27121" class="fav fav_27121" >
+                                         <a href="javascript:void(0);" (click)="addFavorite(events.event_id,1)" class="addtofav small_btn">Add to favorites</a>
+                                        </span>
+
+                                    </li>
+                                    
+                                    <li class="done_favourite" *ngIf = "events.favorite==1">
+                                         <span id="tmplfavorite_27121" class="fav fav_27121" *ngIf = "getToken">
+                                            <a href="javascript:void(0);" (click)="addFavorite(events.event_id,0)" class="addtofav small_btn">Remove to favorites</a>
+                                        </span>
+                                   </li>
+
+                                    <li class="review"> <a id="reviews_show" href="javascript:void(0);">{{events.comment_count}} &nbsp;</a></li>
+
+                                                  
+                                </ul>
+                            </div>                                                                     
                             </div>
                             <!-- Entry End -->
                         </div>
@@ -174,15 +197,41 @@
                                                 <a *ngIf="events.readmore==1" [routerLink]="['/event_detail',events.event_id]" >Read More</a>
                                                
                                                 </div>                                                                        <!-- End Post Content -->
-                                                <div class="rev_pin"><ul> 
-                                                        <li class="favourite">              <span id="tmplfavorite_27097" class="fav fav_27097"><a href="javascript:void(0);" data-reveal-id="tmpl_reg_login_container" id="tmpl_login_frm_27097" data-id="27097" class="addtofav  small_btn" onclick="javascript:addToFavourite('27097', 'add');">Add to favorites</a></span>
-                                                        </li>
+                                                <div class="rev_pin">
 
-                                                       
-                                                       <li class="review"> <a id="reviews_show" href="">{{events.comment_count}} &nbsp;</a></li>
+                                 <ul  *ngIf = "!getToken"> 
+                                    <li class="favourite">
 
-                                                                   
-                                                    </ul></div>                                                                    </div>
+                                        <span id="tmplfavorite_27121" class="fav fav_27121" >
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#loginModal" class="addtofav small_btn">Add to favorites</a>
+                                        </span>
+
+                                    </li>
+                                    <li class="review"> <a id="reviews_show" href="javascript:void(0);">{{events.comment_count}} &nbsp;</a></li>
+
+                                                  
+                                </ul>
+
+                                <ul *ngIf = "getToken"> 
+                                    <li class="favourite" *ngIf = "events.favorite==0">
+
+                                        <span id="tmplfavorite_27121" class="fav fav_27121" >
+                                         <a href="javascript:void(0);" (click)="addFavorite(events.event_id,1)" class="addtofav small_btn">Add to favorites</a>
+                                        </span>
+
+                                    </li>
+                                    
+                                    <li class="done_favourite" *ngIf = "events.favorite==1">
+                                         <span id="tmplfavorite_27121" class="fav fav_27121" *ngIf = "getToken">
+                                            <a href="javascript:void(0);" (click)="addFavorite(events.event_id,0)" class="addtofav small_btn">Remove to favorites</a>
+                                        </span>
+                                   </li>
+
+                                    <li class="review"> <a id="reviews_show" href="javascript:void(0);">{{events.comment_count}} &nbsp;</a></li>
+
+                                                  
+                                </ul>
+                            </div>                                                                   </div>
                                             <!-- Entry End -->
                                         </div>
                                         </article>
