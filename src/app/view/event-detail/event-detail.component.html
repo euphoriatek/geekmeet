@@ -593,86 +593,52 @@
             <h2>Related Events</h2>
 
             <div id="loop_listing_taxonomy" class="grid">                   
-                <div class="post event-72 ">  
-                    <div class="event_img"> 
-                        <a href="">
-                            <img itemprop="image" src="http://demo.templatic.com/eventum/../images/event/b21-250x165.jpg" alt="" title="b2">
-                        </a>
+                <div class="post event-72" *ngFor = "let related_events of data.relate_event_data">  
+                    <div class="event_img" (click)="gotoPage(related_events.event_id)"> 
+                        <a> 
+                                                <img src="{{related_events.featured_image}}" alt="image" title="{{related_events.title}}">
+                                            </a>
                     </div>
-                    <div class="entry"> 
-                        <!--start post type title -->
-                        <div class="event-wrapper">
-                            <div class="event-title">
-                                <h2 class="entry-title"><a itemprop="url" href="" title="Independence Day Parade" rel="bookmark">Independence Day Parade</a></h2>
-                                <div class="listing_rating">
-                                    <div class="directory_rating_row"><span class="single_rating"> <i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i> </span></div>
-                                </div>
-                            </div>
-                            <!--end post type title -->
-                            <!-- Entry details start -->
-                            <div class="entry-details">
 
-                                <p class="address" itemprop="address">Flatiron 12 W 19th St New York, NY 10011</p><p class="event_date"><span><span itemprop="startDate" content="2014-07-02T08:00">Jul 2, 2014</span> To <span itemprop="endDate" content="2015-08-31T11:00">Aug 31, 2015</span></span></p><p class="time"><span>8:00 am To 11:00 am</span></p><!--googleoff: all--><p class="phone">+91123456789</p><!--googleon: all-->     
-
-                            </div> 
-                        </div>
-
-                        <!--Start Post Content -->
-                    </div>
-                </div>
-                <div class="post event-27137 ">  
-                    <div class="event_img"> 
-                        <a href="">
-                            <img itemprop="image" src="http://demo.templatic.com/eventum/../images/event/event-(16)-250x165.jpg" alt="" title="event-(16)">
-                        </a>
-                    </div>
-                    <div class="entry"> 
-                        <!--start post type title -->
-                        <div class="event-wrapper">
-                            <div class="event-title">
-                                <h2 class="entry-title">
-                                    <a itemprop="url" href="" title="James Darren (music) &amp; Sal Richards (comedy)" rel="bookmark">James Darren (music) &amp; Sal Richards (comedy)</a>
-                                </h2>
-                                <div class="listing_rating">
-                                    <div class="directory_rating_row"><span class="single_rating"> <i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i> </span></div>
-                                </div>
-                            </div>
-                            <!--end post type title -->
-                            <!-- Entry details start -->
-                            <div class="entry-details">
-                                <p class="address" itemprop="address">222-05 56th Avenue Bayside, NY 11364</p><p class="event_date"><span><span itemprop="startDate" content="2014-07-08T15:00">Jul 8, 2014</span> To <span itemprop="endDate" content="2019-07-08T17:00">Jul 8, 2019</span></span></p><p class="time"><span>3:00 pm To 5:00 pm</span></p><!--googleoff: all--><p class="phone">+86 10 6538 5537</p><!--googleon: all-->     
-                            </div> 
-                        </div>
-
-                        <!--Start Post Content -->
-                    </div>
-                </div>
-                <div class="post event-27161 ">  
-                    <div class="event_img"> 
-                       <img itemprop="image" src="http://demo.templatic.com/eventum/../images/event/event-(19)-250x165.jpg" alt="" title="event-(19)">
                      
-                    </div>
                     <div class="entry"> 
                         <!--start post type title -->
                         <div class="event-wrapper">
                             <div class="event-title">
-                                <h2 class="entry-title">
-                                    <a itemprop="url" href="" title="Jenn Dodd Stars in “No Show: A One Woman Show”" rel="bookmark">Jenn Dodd Stars in “No Show: A One Woman Show”</a>
-                                </h2>
-                                <div class="listing_rating">
-                                    <div class="directory_rating_row"><span class="single_rating"> <i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i> </span></div>
-                                </div>
+                                <h2 class="entry-title"><a itemprop="url" href="" [routerLink]="['/event_detail',related_events.event_id]" title="{{related_events.event_title}}">{{related_events.event_title}}</a></h2>
+                               <div class="listing_rating">
+                                                            <div class="directory_rating_row">
+                                                                <span class="single_rating"> 
+                                                                    <rating [(ngModel)]="related_events.rating"
+                                                                        [readonly]="true" [float]="true">
+                                                                    </rating>
+                                                                </span>
+                                                            </div>
+                             </div>
                             </div>
                             <!--end post type title -->
                             <!-- Entry details start -->
                             <div class="entry-details">
-                                <p class="address" itemprop="address">214 W 30th St 6th Floor New York, NY 10001</p><p class="event_date"><span><span itemprop="startDate" content="2014-07-08T20:00">Jul 8, 2014</span> To <span itemprop="endDate" content="2019-07-08T22:00">Jul 8, 2019</span></span></p><p class="time"><span>8:00 pm To 10:00 pm</span></p><!--googleoff: all--><p class="phone">+86 10 6538 5537</p><!--googleon: all-->     
+
+                                 <p class="event_date">
+                                                            <span>
+                                                                <span itemprop="startDate" content="2014-07-08T22:00">{{related_events.start_date}}</span>
+                                                                To <span itemprop="endDate" content="2019-07-08T23:30">{{related_events.end_date}}</span>
+                                                            </span>
+                                </p>
+                                 <p class="time">
+                                                            <span>{{related_events.start_time}} To {{related_events.end_time}}</span>
+                                  </p>
+                                   
+
                             </div> 
                         </div>
 
                         <!--Start Post Content -->
                     </div>
                 </div>
+              
+                
             </div>    
         </div>
         <!-- #content --> 
