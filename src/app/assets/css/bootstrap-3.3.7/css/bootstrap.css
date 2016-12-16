@@ -5944,6 +5944,7 @@ button.close {
 }
 .modal-header .close {
   margin-top: -2px;
+  /*opacity: 0;*/
 }
 .modal-title {
   margin: 0;

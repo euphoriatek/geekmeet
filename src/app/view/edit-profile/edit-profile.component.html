@@ -135,7 +135,7 @@
                             <ng-select (data)="value"
                             [multiple]="true"
                             [active] = "userInfoArr.favorite_category"
-                            [items]="topicArr"
+                            [items]="keywordList"
                             (data)="refreshValue($event)"
                             (selected)="value">
                         </ng-select>

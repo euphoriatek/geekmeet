@@ -19,7 +19,8 @@ import 'rxjs/add/operator/catch';
 })
 export class EditProfileComponent implements OnInit {
   src: string = "";
-  getToken:any;  
+  getToken:any;
+  keywordList:Array<string> = [];  
   userInfoArr:Object = {};
   errors:Object = {};
   private favValue:any = [];
@@ -31,7 +32,6 @@ export class EditProfileComponent implements OnInit {
   newTopic:any;
   cityFIrst = false;
   countryFirst = false;
-  public topicArr:Array<string> = ['Cisco','Database',"Microsoft's",'Networking','Open Source','IT', 'Job'];
   private selectedDateNormal:string = '';
 
   private selectedTextNormal: string = '';
@@ -52,11 +52,27 @@ export class EditProfileComponent implements OnInit {
       this.router.navigate(['/']);
     }
     this.userInformation();
-    this.getCountryList(); 
+    this.getCountryList();
+    this.getCategoryList(); 
   }
 
   selected(imageResult: ImageResult) {
     this.src = imageResult.dataURL;
+  }
+
+  getCategoryList(){
+    var ref = this;
+    ref.apiService.categoryList(function(res){
+      ref.keywordList = res.data;
+      var arr = jQuery.makeArray( res.data );
+
+      for (var i = 0; i < arr.length; i++) {    
+        ref.keywordList.push(arr[i].category_name);
+       }
+
+    }, function(err){
+      console.log(err);
+    });    
   }
 
 
@@ -71,14 +87,11 @@ export class EditProfileComponent implements OnInit {
         ref.getCIty(res.data.state);
       }                                  
       ref.userInfoArr = res.data;
-
       ref.favValue = ref.userInfoArr['favorite_category'];
-
-      console.log(ref.userInfoArr);
       ref.selectedDateNormal = res.data.dob;
     }, function(error){
+      ref.toastyService.error(error.json().message);
       if(error.status == 401 || error.status == '401' || error.status == 400){
-        console.log("profile error");
         localStorage.removeItem('auth_token');        
         ref.apiService.signinSuccess$.emit(false);
         ref.router.navigate(['/index']);
@@ -174,7 +187,6 @@ export class EditProfileComponent implements OnInit {
             if(value['state']==-1){
               value['state']='';
             }
-            console.log(value);
             ref.apiService.updateUser(value,function(res){
               var toastOptions:ToastOptions = {
                 title: "Update.!",
@@ -201,11 +213,5 @@ export class EditProfileComponent implements OnInit {
               ref.errors = error; 
             });
           }
-
-          onChange(val){
-            console.log(val);
-          }
-
-
 
         }

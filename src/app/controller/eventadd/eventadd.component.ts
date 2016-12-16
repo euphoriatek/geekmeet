@@ -112,7 +112,7 @@ export class EventaddComponent implements OnInit {
 
     jQuery("#contactinfo").mask("(999) 999-9999");
     
-    jQuery("#event-images").fileinput({
+    jQuery("#eventImages").fileinput({
                 uploadAsync: false,
                         uploadUrl: "./my_ajax/test.php", // your upload server url
                         uploadExtraData: function() {
@@ -227,6 +227,10 @@ export class EventaddComponent implements OnInit {
     }, function(err){
       console.log(err);
     });
+  }
+
+  uploadImages(value:any){
+    console.log(value);
   }
 
   public optionSelected(value:any,type:any):void { 

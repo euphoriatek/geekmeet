@@ -32,6 +32,7 @@ export class EventDetailComponent implements OnInit {
   deleteID:any;
   deleteType:any;
   page:any=1;
+  showData:any;
 
 
 
@@ -105,6 +106,7 @@ export class EventDetailComponent implements OnInit {
     this.apiService.popularEventApi(value,function(res){
       if(typeof(ref.data)=='undefined'){
          ref.data = {};
+         ref.showData = "No Data Found.!"
       }
       
        ref.data['popular_event'] = {
@@ -113,6 +115,8 @@ export class EventDetailComponent implements OnInit {
         currentPage : res.data.current_page,     
       };
 
+    },function(error){
+      
     });
 
   }

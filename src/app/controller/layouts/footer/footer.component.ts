@@ -1,4 +1,4 @@
-import { Component, OnInit,Output, ViewContainerRef, EventEmitter, NgZone } from '@angular/core';
+import { Component, OnInit,Output, ViewContainerRef, EventEmitter, NgZone, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RouterModule, Router }   from '@angular/router';
 import { ApiMethodService } from '../../../model/api-method.service';
@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ProfileComponent } from '../../profile/profile.component';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 //import {FacebookService, FacebookLoginResponse, FacebookInitParams} from 'ng2-facebook-sdk/dist';
 // import {FacebookService, FacebookInitParams} from 'ng2-facebook-sdk/dist';
 
@@ -45,12 +46,11 @@ export class FooterComponent implements OnInit {
 	param_id:any;
 	linkedInData:any;
 
-
 	constructor(private router: Router,
 		public apiService:ApiMethodService,
 		overlay: Overlay,
 		vcRef: ViewContainerRef,
-		public modal: Modal,
+		// public modal: Modal,
 		private zone : NgZone,
 		private toastyService:ToastyService,
 		private toastyConfig: ToastyConfig

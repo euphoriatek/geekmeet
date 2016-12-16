@@ -1,10 +1,12 @@
-import { Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
 import { RouterModule, Router }   from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiMethodService } from '../../../model/api-method.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+
 
 @Component({
   selector: 'app-header',
@@ -63,6 +65,18 @@ export class HeaderComponent implements OnInit {
         ref.router.navigate(['/index']);
       } 
       
+    },function(error){
+      ref.toastyService.error(error.json().message);
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
+        ref.apiService.signinSuccess$.emit(false);
+        if(ref.router.url=='/index'){
+          ref.router.navigate(['/']);       
+        }
+        else{
+          ref.router.navigate(['/index']);
+        } 
+      }
     });
   }
 
