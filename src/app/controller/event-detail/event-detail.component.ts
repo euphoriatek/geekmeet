@@ -85,7 +85,8 @@ export class EventDetailComponent implements OnInit {
          refreg.data = {};
       }
       refreg.data['event_data'] = res.data;
-     
+      refreg.data['relate_event_data'] = res.data.related_event.data;
+      
       
     });
   }
@@ -311,6 +312,8 @@ export class EventDetailComponent implements OnInit {
 
 
   userInformation(){
+
+    if(this.getToken){
     var ref = this;
     ref.apiService.userProfile(function(res){
       // console.log(JSON.stringify(res));
@@ -322,7 +325,7 @@ export class EventDetailComponent implements OnInit {
       }
     });
   }
-
+}
   setDeleteID(id,type){
    this.deleteID = id;
    this.deleteType = type;
