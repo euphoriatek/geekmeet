@@ -6,7 +6,7 @@ import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-
+declare var jQuery:any;
 @Component({
 	selector: 'app-index',
 	templateUrl: '../../view/index/index.component.html',

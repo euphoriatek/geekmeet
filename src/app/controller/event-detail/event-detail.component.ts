@@ -379,6 +379,20 @@ export class EventDetailComponent implements OnInit {
 
   }
 
+    addFavorite(event_id,favorite){
+  var ref = this;  
+    var value = {
+    'event_id':event_id,
+    'favorite':favorite
+    }
+
+    ref.apiService.favoriteApi(value,function(res){
+    ref.getEventDetail(event_id);  
+    });
+
+    
+  }
+
 
 
   
