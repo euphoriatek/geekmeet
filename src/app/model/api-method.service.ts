@@ -723,9 +723,52 @@ export class ApiMethodService {
 			}
 		},(error) =>failure(error));
 	}
-	
-	
 
+	// forgot password
+	
+	
+  	forgotPassword(value, callBack, failure){
+		this.http.post('http://2016.geekmeet.com/admin/v1/forgot_password',value).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack){
+				callBack(res);
+			}
+		},(error) =>failure(error));
+	}
+
+	// Check forgot token
+
+	checkForgotToken(value,callBack,failure){
+      this.http.get('http://2016.geekmeet.com/admin/v1/checkForgotToken/'+value).map(res =>res.json())
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+		},(error) =>failure(error));
+     }
+
+     // Reset Password
+
+     //change Password
+
+	resetPassword(value, callBack, failure){
+		this.http.post('http://2016.geekmeet.com/admin/v1/reset_password',value).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack){
+				callBack(res);
+			}
+		},(error) =>failure(error));
+	}
+
+	contactUs(value, callBack, failure){
+		this.http.post('http://2016.geekmeet.com/admin/v1/contactUs',value).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack){
+				callBack(res);
+			}
+		},(error) =>failure(error));
+	}
 
 }
 

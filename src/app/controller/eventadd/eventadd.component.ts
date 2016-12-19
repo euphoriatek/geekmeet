@@ -1,3 +1,6 @@
+require('jquery');
+require('mydatepicker');
+console.log(jQuery);
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';

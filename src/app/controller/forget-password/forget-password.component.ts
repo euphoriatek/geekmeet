@@ -12,14 +12,25 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['../../assets/css/forget-password/forget-password.component.css']
 })
 export class ForgetPasswordComponent implements OnInit {
+   errors:any={};
 
-  constructor() { }
+  constructor(private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { }
 
   ngOnInit() {
   }
 
   resetPasswordLink(value:any):void{
-  	console.log(value);
+  	var refreg = this;
+    this.apiService.forgotPassword(value,function(res){
+      refreg.toastyService.success(res.message);
+      refreg.router.navigate(['/index']);
+    },function(error){
+      refreg.toastyService.error(error.json().message);
+      var error = error.json().errors;
+      refreg.errors = error;
+
+
+    });
   }
 
 }

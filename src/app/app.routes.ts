@@ -26,6 +26,7 @@ import { VenuesAddComponent } from './controller/venues-add/venues-add.component
 import { VenuesEditComponent } from './controller/venues-edit/venues-edit.component';
 import { VenueComponent } from './controller/venue/venue.component';
 import { ForgetPasswordComponent } from './controller/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './controller/reset-password/reset-password.component';
 
 
 
@@ -67,6 +68,7 @@ export const routes: Routes = [
       {path:'venues-edit/:id' ,component: VenuesEditComponent,data: [{id: true}]},
       {path:'venue/:id' ,component: VenueComponent,data: [{id: true}]},
       {path:'forget-password' ,component: ForgetPasswordComponent},
+      {path:'reset-password/:id' ,component: ResetPasswordComponent,data: [{id: true}]},
       {path:'' ,component: IndexComponent}
 
 ];

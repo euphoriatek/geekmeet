@@ -50,6 +50,7 @@ import { VenuesAddComponent } from './controller/venues-add/venues-add.component
 import { VenuesEditComponent } from './controller/venues-edit/venues-edit.component';
 import { VenueComponent } from './controller/venue/venue.component';
 import { ForgetPasswordComponent } from './controller/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './controller/reset-password/reset-password.component';
 
 
 
@@ -89,6 +90,7 @@ import { ForgetPasswordComponent } from './controller/forget-password/forget-pas
     VenuesEditComponent,
     VenueComponent,
     ForgetPasswordComponent,
+    ResetPasswordComponent,
 
     
 
@@ -139,6 +141,7 @@ import { ForgetPasswordComponent } from './controller/forget-password/forget-pas
 	    {path:'organization-edit' ,component: OrganizationEditComponent},
       {path:'venue' ,component: VenueComponent},
       {path:'forget-password' ,component: ForgetPasswordComponent},
+      {path:'reset-password' ,component: ResetPasswordComponent},
       {path:'' ,component: IndexComponent},
       ])
   ],

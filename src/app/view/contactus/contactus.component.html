@@ -38,21 +38,31 @@
                     <div id="supreme_contact_widget-1" class="widget contact_us">
                         <div class="widget-wrap widget-inside">			
                             <div class="widget contact_widget" id="contact_widget">
-                                <form action="" method="post" id="contact_widget_frm" name="contact_frm" class="wpcf7-form">
+                                  <form #contactUsForm="ngForm" (ngSubmit)="contactUs(contactUsForm.value)">
                                     <input type="hidden" name="contact_widget" value="1">
                                     <input type="hidden" name="request_url" value="/wordpress/wordpress/contact-us/">
                                     <div class="form_row ">
-                                        <input type="text" name="your-name" id="widget_your-name" value="" class="textfield placeholder" size="40" placeholder="Name*">
-                                        <span id="widget_your_name_Info" class="error"></span> </div>
+                                        <input type="text" name="name" id="widget_your-name" value="" class="textfield placeholder" size="40" placeholder="Name*" ngModel>
+                                         <ul class="error" *ngIf="errors['name']!=''" >
+                                         <li *ngFor="let org_err of errors['name']">{{org_err}}</li>    
+                                         </ul>  
+                                        </div>
                                     <div class="form_row ">
-                                        <input type="text" name="your-email" id="widget_your-email" value="" class="textfield placeholder" size="40" placeholder="Email*">
-                                        <span id="widget_your_emailInfo" class="error"></span> </div>
+                                        <input type="text" name="email" id="widget_your-email" value="" class="textfield placeholder" size="40" placeholder="Email*" ngModel>
+                                         <ul class="error" *ngIf="errors['email']!=''" >
+                                         <li *ngFor="let org_err of errors['email']">{{org_err}}</li>    
+                                         </ul></div>
                                     <div class="form_row ">
-                                        <input type="text" name="your-subject" id="widget_your-subject" value="" size="40" class="textfield placeholder" placeholder="Subject*">
-                                        <span id="widget_your_subjectInfo"></span> </div>
+                                        <input type="text" name="subject" id="widget_your-subject" value="" size="40" class="textfield placeholder" placeholder="Subject*" ngModel>
+                                        <ul class="error" *ngIf="errors['subject']!=''" >
+                                         <li *ngFor="let org_err of errors['subject']">{{org_err}}</li>    
+                                         </ul></div>
                                     <div class="form_row clearfix">
-                                        <textarea name="your-message" id="widget_your-message" cols="40" class="textarea textarea2 placeholder" rows="10" placeholder="Message*"></textarea>
-                                        <span id="widget_your_messageInfo" class="error"></span> </div>
+                                        <textarea name="message" id="widget_your-message" cols="40" class="textarea textarea2 placeholder" rows="10" placeholder="Message*" ngModel></textarea>
+                                        <ul class="error" *ngIf="errors['message']!=''" >
+                                         <li *ngFor="let org_err of errors['message']">{{org_err}}</li>    
+                                         </ul>
+                                          </div>
                                     <div class="clearfix">
                                         <input type="submit" value="Send" class="b_submit">
                                     </div>

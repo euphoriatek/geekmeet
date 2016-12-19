@@ -128,9 +128,15 @@
                         <ul>
                             <li class="claim_ownership">            
                                 <a href="javascript:void(0)" id="trigger_id" title="Claim For This Listing" data-reveal-id="tmpl_claim_listing" class="i_claim c_sendtofriend">Claim Ownership</a>
-                            </li><li><a class="small_btn tmpl_mail_friend" data-reveal-id="tmpl_send_to_frd" href="javascript:void(0);" id="send_friend_id" title="Mail to a friend">Send to friend</a></li><li><a class="small_btn tmpl_mail_friend" data-reveal-id="tmpl_send_inquiry" href="javascript:void(0)" title="Send Inquiry" id="send_inquiry_id">Send Inquiry</a></li>      <li id="tmplfavorite_27121" class="fav_27121 fav">
-                            <a href="javascript:void(0);" data-reveal-id="tmpl_reg_login_container" title="Add to favorites" class="addtofav" data-id="27121" onclick="javascript:addToFavourite('27121', 'add');"><i class="fa fa-heart-o"></i>Add to favorites</a>
-                        </li>
+                            </li><li><a class="small_btn tmpl_mail_friend" data-reveal-id="tmpl_send_to_frd" href="javascript:void(0);" id="send_friend_id" title="Mail to a friend">Send to friend</a></li><li><a class="small_btn tmpl_mail_friend" data-reveal-id="tmpl_send_inquiry" href="javascript:void(0)" title="Send Inquiry" id="send_inquiry_id">Send Inquiry</a></li>      
+                            <li *ngIf = "!getToken"  id="tmplfavorite_27121" class="fav_27121 fav">
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#loginModal" title="Add to favorites" class="addtofav"><i class="fa fa-heart-o"></i>Add to favorites</a>
+                            </li>
+                            <li *ngIf = "getToken">
+                            <a  *ngIf = "data.event_data.favorite==0" href="javascript:void(0);" (click)="addFavorite(data.event_data.event_id,1)" title="Add to favorites" class="addtofav"><i class="fa fa-heart-o"></i>Add to favorites</a>
+                             
+                            <a *ngIf = "data.event_data.favorite==1" href="javascript:void(0);" (click)="addFavorite(data.event_data.event_id,0)" title="Remove From favorites" class="addtofav"><i class="fa fa-heart-o"></i>Remove from favorites</a>
+                            </li>
                         <li class="print"><a id="print_id" title="Print this post" href="#print" rel="leanModal_print" class="small_btn print" onclick="tmpl_printpage()"><i class="fa fa-print" aria-hidden="true"></i>Print</a></li>      
                         <li class="add_to_my_calendar">
                             <div class="calendar">

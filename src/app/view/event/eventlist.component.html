@@ -21,9 +21,9 @@
                                     <option  value="title_desc">Title Descending</option>
                                     <option  value="stdate_low_high">Start Date low to high</option>
                                     <option  value="stdate_high_low">Start Date high to low</option>
-                                    <option  value="stdate_low_high">Reviews</option>
-                                    <option  value="stdate_high_low">Rating</option>
-                                    <option  value="random">Random</option>
+                                    <option  value="reviews">Reviews</option>
+                                    <option  value="rating">Rating</option>
+                                    
                                 </select>                                
                             </div>
                             <!-- </form> -->
@@ -117,7 +117,7 @@
                                     
                                     <li class="done_favourite" *ngIf = "events.favorite==1">
                                          <span id="tmplfavorite_27121" class="fav fav_27121" *ngIf = "getToken">
-                                            <a href="javascript:void(0);" (click)="addFavorite(events.event_id,0)" class="addtofav small_btn">Remove to favorites</a>
+                                            <a href="javascript:void(0);" (click)="addFavorite(events.event_id,0)" class="addtofav small_btn">Remove from favorites</a>
                                         </span>
                                    </li>
 

@@ -6,7 +6,7 @@ import { LoadingAnimateService } from 'ng2-loading-animate';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-declare var jQuery: any;
+
 
 @Component({
   selector: 'app-my-organizations',
