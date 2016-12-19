@@ -761,6 +761,15 @@ export class ApiMethodService {
 		},(error) =>failure(error));
 	}
 
+	contactUs(value, callBack, failure){
+		this.http.post('http://2016.geekmeet.com/admin/v1/contactUs',value).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack){
+				callBack(res);
+			}
+		},(error) =>failure(error));
+	}
+
 }
 
 
