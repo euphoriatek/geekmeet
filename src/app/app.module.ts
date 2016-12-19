@@ -16,7 +16,7 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {ToastyModule} from 'ng2-toasty';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { NouisliderModule } from 'ng2-nouislider';
-
+import { LoadingAnimateModule, LoadingAnimateService } from 'ng2-loading-animate';
 
 
 
@@ -105,8 +105,9 @@ import { ForgetPasswordComponent } from './controller/forget-password/forget-pas
     ImageUploadModule,
     CKEditorModule,
     Ng2Bs3ModalModule,
+    LoadingAnimateModule.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCbrPyDsleOvqZk84KT6YtzYcow7Nz-o_4'
+      apiKey: 'AIzaSyD-BvDe_7N5-LpgFlXgfkv44Gdez1qL7-w'
     }),
     ToastyModule.forRoot(),
     RecaptchaModule.forRoot(),
@@ -141,7 +142,7 @@ import { ForgetPasswordComponent } from './controller/forget-password/forget-pas
       {path:'' ,component: IndexComponent},
       ])
   ],
-  providers: [ApiMethodService],
+  providers: [ApiMethodService,LoadingAnimateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

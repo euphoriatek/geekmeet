@@ -3,7 +3,7 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import {Location} from '@angular/common';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
-
+import { LoadingAnimateService } from 'ng2-loading-animate';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -32,7 +32,7 @@ export class IndexComponent implements OnInit {
 	upcoming_total:any;
 	upcoming_currentPage:any;
 
-	constructor(private router: Router,public apiService:ApiMethodService,private location: Location,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
+	constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private location: Location,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
 		this.toastyConfig.theme = 'bootstrap';
 	}
 
@@ -56,11 +56,14 @@ export class IndexComponent implements OnInit {
 			'all':ref.all,
 			'page':ref.page
 		}
+		ref.loadingSvc.setValue(true);
 		this.apiService.popularEventApi(value,function(res){
+			ref.loadingSvc.setValue(false);
 			ref.popularArr = res.data.data;	
 			ref.Total = res.data.last_page;
 			ref.currentPage = res.data.current_page;  
 		},function(error){
+			ref.loadingSvc.setValue(false);
 			ref.toastyService.error(error.json().message);
 			if(error.status == 401 || error.status == '401' || error.status == 400){
 				localStorage.removeItem('auth_token');        
@@ -96,6 +99,7 @@ export class IndexComponent implements OnInit {
 
 
 	upcomingEvent(){
+		window.scrollTo(0,1800);
 		var ref = this;
 		var value = {
 			'category': ref.category,
@@ -103,11 +107,14 @@ export class IndexComponent implements OnInit {
 			'all':ref.upcoming_all,
 			'page':ref.upcoming_page
 		}
+		ref.loadingSvc.setValue(true);
 		this.apiService.upcomingEventApi(value,function(res){
+			ref.loadingSvc.setValue(false);
 			ref.upcomingArr = res.data.data;
 			ref.upcoming_total = res.data.last_page;
 			ref.upcoming_currentPage = res.data.current_page;  		
 		},function(error){
+			ref.loadingSvc.setValue(false);
 			ref.toastyService.error(error.json().message);
 			if(error.status == 401 || error.status == '401' || error.status == 400){
 				localStorage.removeItem('auth_token');        
@@ -150,8 +157,6 @@ export class IndexComponent implements OnInit {
 
 	goToEventDetail(id){
 		this.router.navigate(['/event_detail',id]);
-		// this.location.replaceState("/event_detail/"+id);
-		// this.router.navigateByUrl('/event_detail',id);
 	}
 
 
@@ -161,8 +166,9 @@ export class IndexComponent implements OnInit {
 			'event_id':event_id,
 			'favorite':favorite
 		}
-
+		ref.loadingSvc.setValue(true);
 		ref.apiService.favoriteApi(value,function(res){
+			ref.loadingSvc.setValue(false);
 			ref.popularEvent();
 			ref.upcomingEvent();	
 		});

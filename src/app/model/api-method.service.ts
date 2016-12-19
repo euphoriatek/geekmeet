@@ -103,7 +103,7 @@ export class ApiMethodService {
 
 	//this is event api
 
-	eventApi(eventData,callBack){
+	eventApi(eventData,callBack,failure){
 		var page = eventData.page;
 		if(page==undefined){
 			page = 1;
@@ -118,7 +118,7 @@ export class ApiMethodService {
 					
 					callBack(res);
 				}
-			}, (error) => console.log('There was an error', error));
+			}, (error) => failure(error));
 		}else{
 			this.http.post('http://2016.geekmeet.com/admin/v1/event?page='+page,eventData).map(res=>res.json())
 			.subscribe((res)=>{
@@ -127,7 +127,7 @@ export class ApiMethodService {
 					
 					callBack(res);
 				}
-			}, (error) => console.log('There was an error', error));
+			}, (error) => failure(error));
 
 		}
 		

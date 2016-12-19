@@ -3,6 +3,8 @@ import { RouterModule, Router }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { LoadingAnimateService } from 'ng2-loading-animate';
+
 
 @Component({
   selector: 'app-blog',
@@ -14,7 +16,7 @@ export class BlogComponent implements OnInit {
 	blogTotal:any;
 	currentPage:any;
 
-	constructor(private router:Router, public apiService:ApiMethodService) { }
+	constructor(private loadingSvc: LoadingAnimateService,private router:Router, public apiService:ApiMethodService) { }
 
   ngOnInit() {
   	this.blogDeafault(1);
@@ -23,8 +25,9 @@ export class BlogComponent implements OnInit {
 
   blogDeafault(value){
 		var ref = this;
+    ref.loadingSvc.setValue(true);
 		this.apiService.blogApi(value,function(res){
-			// console.log("this is blog api response"+ JSON.stringify(res.data.data));
+      ref.loadingSvc.setValue(false);
 			ref.blogArr = res.data.data;
             ref.blogTotal = res.data.last_page;
             ref.currentPage = res.data.current_page;   			

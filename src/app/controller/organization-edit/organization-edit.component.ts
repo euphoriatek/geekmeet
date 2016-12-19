@@ -4,6 +4,7 @@ import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import {CKEditorModule} from 'ng2-ckeditor';
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
+import { LoadingAnimateService } from 'ng2-loading-animate';
 
 import {SelectModule} from 'ng2-select/ng2-select';
 
@@ -28,7 +29,7 @@ export class OrganizationEditComponent implements OnInit {
     resizeMaxHeight: 128,
     resizeMaxWidth: 128
   };
-  constructor(private router:Router,private route: ActivatedRoute,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { 
+  constructor(private loadingSvc: LoadingAnimateService,private router:Router,private route: ActivatedRoute,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { 
     this.toastyConfig.theme = 'bootstrap';
   }
 
@@ -52,12 +53,15 @@ export class OrganizationEditComponent implements OnInit {
 
   organizationDetail(value){
     var ref = this;
-    ref.apiService.organization_detail(value,function(res){    
+    ref.loadingSvc.setValue(true);
+    ref.apiService.organization_detail(value,function(res){
+    ref.loadingSvc.setValue(false);    
       ref.orgDetail = res.data;
       ref.getState(res.data.country);
       ref.getCIty(res.data.state);
       console.log(ref.orgDetail);
     }, function(error){
+      ref.loadingSvc.setValue(false);
       ref.toastyService.error(error.json().message);
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        

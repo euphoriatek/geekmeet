@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router, ActivatedRoute }   from '@angular/router';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import { LoadingAnimateService } from 'ng2-loading-animate';
 
 
 import 'rxjs/add/operator/map';
@@ -16,7 +17,7 @@ export class ProfileComponent implements OnInit {
 	getToken:any;
 	userInfoArr:Object = {};
 
-constructor(private router:Router,private route: ActivatedRoute,private toastyService:ToastyService,public apiService:ApiMethodService,private toastyConfig: ToastyConfig) {
+constructor(private router:Router,private route: ActivatedRoute,private loadingSvc: LoadingAnimateService,private toastyService:ToastyService,public apiService:ApiMethodService,private toastyConfig: ToastyConfig) {
 		this.toastyConfig.theme = 'bootstrap';
 	}
 	ngOnInit() {
@@ -30,11 +31,13 @@ constructor(private router:Router,private route: ActivatedRoute,private toastySe
 
 	userInformation(){
 		var ref = this;
+		ref.loadingSvc.setValue(true);
 		ref.apiService.userProfile(function(res){
-			// console.log(JSON.stringify(res));
+			ref.loadingSvc.setValue(false);
 			ref.userInfoArr = res.data;
 			console.log(ref.userInfoArr);
 		}, function(error){
+			ref.loadingSvc.setValue(false);
 			ref.toastyService.error(error.json().message);
 			if(error.status == 401 || error.status == '401' || error.status == 400){
 				localStorage.removeItem('auth_token');				

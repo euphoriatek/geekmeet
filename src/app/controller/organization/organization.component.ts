@@ -3,7 +3,7 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import { EventListComponent } from '../event/eventlist.component';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
-
+import { LoadingAnimateService } from 'ng2-loading-animate';
 
 
 import 'rxjs/add/operator/map';
@@ -18,7 +18,7 @@ export class OrganizationComponent implements OnInit {
 	getToken:any; 
   detailArr:Object = {};
   
-  constructor(private router:Router,private route: ActivatedRoute,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { 
+  constructor(private loadingSvc: LoadingAnimateService,private router:Router,private route: ActivatedRoute,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { 
     this.toastyConfig.theme = 'bootstrap';
   }
 
@@ -36,9 +36,12 @@ export class OrganizationComponent implements OnInit {
 
   organizationDetail(value){
     var ref = this;
-    ref.apiService.organization_detail(value,function(res){     
+    ref.loadingSvc.setValue(false);
+    ref.apiService.organization_detail(value,function(res){
+    ref.loadingSvc.setValue(false);     
       ref.detailArr = res.data;
     }, function(error){
+      ref.loadingSvc.setValue(false);
       ref.toastyService.error(error.json().message);
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        

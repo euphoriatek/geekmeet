@@ -4,6 +4,8 @@ import { RouterModule, Router }   from '@angular/router';
 import { MyDatePickerModule } from 'mydatepicker';
 import {SelectModule} from 'ng2-select/ng2-select';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import { LoadingAnimateService } from 'ng2-loading-animate';
+
 
 declare var jQuery: any;
 
@@ -66,7 +68,7 @@ export class EventaddComponent implements OnInit {
   public audienceList:Array<string> = ['Child', 'Youngest', 'Oldest']; 
   // public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
-   constructor(private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
+   constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
     this.toastyConfig.theme = 'bootstrap';
   }
 
@@ -306,8 +308,9 @@ export class EventaddComponent implements OnInit {
     var end_time = jQuery("#end-Time").val();
     value.start_time  = start_time;
     value.end_time  = end_time;
-     
+     ref.loadingSvc.setValue(true);
      ref.apiService.addEvent(value,function(res){
+       ref.loadingSvc.setValue(false);
         var toastOptions:ToastOptions = {
           title: "Event Added!",
           msg: res.message,
@@ -324,6 +327,7 @@ export class EventaddComponent implements OnInit {
         ref.toastyService.success(toastOptions);
         ref.router.navigate(['/event']);
       },function(error){
+        ref.loadingSvc.setValue(false);
         if(error.status == 401 || error.status == '401' || error.status == 400){
           localStorage.removeItem('auth_token');        
           ref.apiService.signinSuccess$.emit(false);

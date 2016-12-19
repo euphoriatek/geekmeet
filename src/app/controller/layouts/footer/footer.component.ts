@@ -11,6 +11,7 @@ import 'rxjs/add/operator/catch';
 import { ProfileComponent } from '../../profile/profile.component';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { LoadingAnimateService } from 'ng2-loading-animate';
 //import {FacebookService, FacebookLoginResponse, FacebookInitParams} from 'ng2-facebook-sdk/dist';
 // import {FacebookService, FacebookInitParams} from 'ng2-facebook-sdk/dist';
 
@@ -50,7 +51,7 @@ export class FooterComponent implements OnInit {
 		public apiService:ApiMethodService,
 		overlay: Overlay,
 		vcRef: ViewContainerRef,
-		// public modal: Modal,
+		private loadingSvc: LoadingAnimateService,
 		private zone : NgZone,
 		private toastyService:ToastyService,
 		private toastyConfig: ToastyConfig
@@ -172,9 +173,9 @@ export class FooterComponent implements OnInit {
 
 		userSignIn(value:any):void{
 			var ref = this;
-
+			ref.loadingSvc.setValue(true);
 			this.apiService.userLoginApi(value,function(res){
-				console.log("this is api response"+ JSON.stringify(res));
+				ref.loadingSvc.setValue(false);
 				ref.toastyService.success(res.message);
 				if(res.data.token){
 					var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
@@ -189,6 +190,7 @@ export class FooterComponent implements OnInit {
 						ref.apiService.signinSuccess$.emit(true);
 					}
 				},function(error){
+					ref.loadingSvc.setValue(false);
 					if(error.status == 401 || error.status == '401' || error.status == 400){
 						ref.toastyService.error(error.json().message);
 					}

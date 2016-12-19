@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
+import { LoadingAnimateService } from 'ng2-loading-animate';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -18,7 +19,7 @@ export class BlogDetailComponent implements OnInit {
   previous:any;
 
  
-   constructor(private router:Router,private route: ActivatedRoute,private apiService: ApiMethodService) {
+   constructor(private loadingSvc: LoadingAnimateService,private router:Router,private route: ActivatedRoute,private apiService: ApiMethodService) {
 
    }
   
@@ -31,19 +32,15 @@ export class BlogDetailComponent implements OnInit {
   		
   }
 
- 
-
   getBlogDetail(value){
-    console.log(value);
     var refreg = this;
+    refreg.loadingSvc.setValue(true);
     this.apiService.BlogDetail(value,function(res){
-      
+       window.scrollTo(0,0);
+      refreg.loadingSvc.setValue(false);      
      refreg.blogDetail = res.data[0];
      refreg.next = res.next;
-     refreg.previous = res.previous;
-    
-      console.log(refreg.blogDetail.blog_title);
-      
+     refreg.previous = res.previous;      
     });
   }
 

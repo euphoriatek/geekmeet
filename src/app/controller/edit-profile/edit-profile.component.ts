@@ -6,6 +6,8 @@ import {SelectModule} from 'ng2-select/ng2-select';
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import { LoadingAnimateService } from 'ng2-loading-animate';
+
 
 declare var jQuery: any;
 
@@ -42,7 +44,7 @@ export class EditProfileComponent implements OnInit {
     resizeMaxWidth: 128
   };
 
-  constructor(private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
+  constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
     this.toastyConfig.theme = 'bootstrap';
   }
 
@@ -79,7 +81,9 @@ export class EditProfileComponent implements OnInit {
 
   userInformation(){
     var ref = this;
+    ref.loadingSvc.setValue(true);
     ref.apiService.userProfile(function(res){
+      ref.loadingSvc.setValue(false);
       if(res.data.country){
         ref.getState(res.data.country);
       }
@@ -90,6 +94,7 @@ export class EditProfileComponent implements OnInit {
       ref.favValue = ref.userInfoArr['favorite_category'];
       ref.selectedDateNormal = res.data.dob;
     }, function(error){
+      ref.loadingSvc.setValue(false);
       ref.toastyService.error(error.json().message);
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
@@ -187,7 +192,9 @@ export class EditProfileComponent implements OnInit {
             if(value['state']==-1){
               value['state']='';
             }
+            ref.loadingSvc.setValue(true);
             ref.apiService.updateUser(value,function(res){
+              ref.loadingSvc.setValue(false);
               var toastOptions:ToastOptions = {
                 title: "Update.!",
                 msg: res.message,
@@ -203,6 +210,7 @@ export class EditProfileComponent implements OnInit {
               };
               ref.toastyService.success(toastOptions);
             },function(error){
+              ref.loadingSvc.setValue(false);
               if(error.status == 401 || error.status == '401' || error.status == 400){
                 localStorage.removeItem('auth_token');        
                 ref.apiService.signinSuccess$.emit(false);

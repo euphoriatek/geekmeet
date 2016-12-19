@@ -5,7 +5,7 @@ import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import {CKEditorModule} from 'ng2-ckeditor';
-
+import { LoadingAnimateService } from 'ng2-loading-animate';
 import {SelectModule} from 'ng2-select/ng2-select';
 
 import 'rxjs/add/operator/map';
@@ -34,7 +34,7 @@ export class VenuesAddComponent implements OnInit {
 	};
 	geocoder:any;
 
-	constructor(private router:Router,private route: ActivatedRoute,private toastyService:ToastyService,public apiService:ApiMethodService,private toastyConfig: ToastyConfig) {
+	constructor(private loadingSvc: LoadingAnimateService,private router:Router,private route: ActivatedRoute,private toastyService:ToastyService,public apiService:ApiMethodService,private toastyConfig: ToastyConfig) {
 		this.toastyConfig.theme = 'bootstrap';
 	}
 
@@ -124,7 +124,9 @@ export class VenuesAddComponent implements OnInit {
 
 	addVenue(value:any):void{
 		var ref = this;
+		ref.loadingSvc.setValue(true);
 		ref.apiService.addVenue(value,function(res){
+			ref.loadingSvc.setValue(false);
 			var toastOptions:ToastOptions = {
 				title: "Add.!",
 				msg: res.message,
@@ -135,6 +137,7 @@ export class VenuesAddComponent implements OnInit {
 			};
 			ref.toastyService.success(toastOptions);
 		},function(error){
+			ref.loadingSvc.setValue(false);
 			ref.toastyService.error(error.json().message);
 			if(error.status == 401 || error.status == '401' || error.status == 400){
 				console.log("profile error");

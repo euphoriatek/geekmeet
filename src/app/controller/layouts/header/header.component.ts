@@ -6,6 +6,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { LoadingAnimateService } from 'ng2-loading-animate';
+
 
 
 @Component({
@@ -21,7 +23,7 @@ export class HeaderComponent implements OnInit {
   // @Output() onSubMenuChange = new EventEmitter<string>();
 
 
-  constructor(private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
+  constructor(private loadingSvc: LoadingAnimateService,private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
     this.toastyConfig.theme = 'bootstrap';
     this.getToken = this.apiService.getLoginToken();
     if(this.getToken){
@@ -53,10 +55,11 @@ export class HeaderComponent implements OnInit {
 
   userLogout(){
     var ref = this;
+    ref.loadingSvc.setValue(true);
     ref.apiService.userLogoutApi(function(res){
+      ref.loadingSvc.setValue(false);
       ref.getToken="";
       ref.isUserLoggedIn = false;
-      console.log("this is api response"+ JSON.stringify(res));
       ref.toastyService.success(res.message);
       if(ref.router.url=='/index'){
         ref.router.navigate(['/']);       
@@ -66,6 +69,7 @@ export class HeaderComponent implements OnInit {
       } 
       
     },function(error){
+      ref.loadingSvc.setValue(false);
       ref.toastyService.error(error.json().message);
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        

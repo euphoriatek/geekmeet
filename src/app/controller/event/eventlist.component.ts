@@ -2,6 +2,9 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { RouterModule, Router, ActivatedRoute }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
 declare var jQuery: any;
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import { LoadingAnimateService } from 'ng2-loading-animate';
+
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -29,144 +32,155 @@ export class EventListComponent implements OnInit{
 
 
   
-  constructor(private router:Router,private route: ActivatedRoute, public apiService:ApiMethodService) { }
+  constructor(private loadingSvc: LoadingAnimateService,private router:Router,private route: ActivatedRoute,private toastyConfig: ToastyConfig, public apiService:ApiMethodService,private toastyService:ToastyService) { 
+    this.toastyConfig.theme = 'bootstrap';
+  }
 
   ngOnInit() {
     // if(this.router.url == '/event'){
-    //   this.eventDeafault('','current','',1);
-    // }
-    this.getToken = this.apiService.getLoginToken();
-    this.selectedmenu = this.route.snapshot.params['menu'];
-    this.route.params.subscribe((param) => {
-      this.param_id = param['menu'];
-      this.category = param['menu'];
-      this.onSubMenuchange(param['menu'],'current');
-    })
-  }
+      //   this.eventDeafault('','current','',1);
+      // }
+      this.getToken = this.apiService.getLoginToken();
+      this.selectedmenu = this.route.snapshot.params['menu'];
+      this.route.params.subscribe((param) => {
+        this.param_id = param['menu'];
+        this.category = param['menu'];
+        this.onSubMenuchange(param['menu'],'current');
+      })
+    }
 
- ngAfterViewInit() {
-    //to initiate sort dropdown on first view load
-    
+    ngAfterViewInit() {
+      //to initiate sort dropdown on first view load
 
-       setTimeout(_ => {
-      
-      jQuery(".sort_options select,#searchform select,#submit_form select,.search_filter select,.tmpl_search_property select,.widget_location_nav select,#srchevent select,#header_location .location_nav select,.horizontal_location_nav select,.widget select").not("#tevolution_location_map select").each(function() {
-        if (0 == jQuery(this).parent().find(".select-wrap").length && "js-cat-basic-multiple select2-hidden-accessible" != jQuery(this).prop("className") && "js-sub-cat-basic-multiple select2-hidden-accessible" != jQuery(this).prop("className")) {
+
+      setTimeout(_ => {
+
+        jQuery(".sort_options select,#searchform select,#submit_form select,.search_filter select,.tmpl_search_property select,.widget_location_nav select,#srchevent select,#header_location .location_nav select,.horizontal_location_nav select,.widget select").not("#tevolution_location_map select").each(function() {
+          if (0 == jQuery(this).parent().find(".select-wrap").length && "js-cat-basic-multiple select2-hidden-accessible" != jQuery(this).prop("className") && "js-sub-cat-basic-multiple select2-hidden-accessible" != jQuery(this).prop("className")) {
             jQuery(this).wrap("<div class='select-wrap'></div>");
             jQuery(".peoplelisting li").wrapInner("<div class='peopleinfo-wrap'></div>");
-        }
-        var a = jQuery(this).attr("title");
-        if ("multiple" != jQuery(this).attr("multiple")) {
+          }
+          var a = jQuery(this).attr("title");
+          if ("multiple" != jQuery(this).attr("multiple")) {
             var a = jQuery("option:selected", this).text();
             jQuery(this).css({
-                "z-index": 10,
-                opacity: 0,
-                "-khtml-appearance": "none"
+              "z-index": 10,
+              opacity: 0,
+              "-khtml-appearance": "none"
             }).after('<span class="select">' + a + "</span>").change(function() {
-                var val = jQuery("option:selected", this).text();
-                jQuery(this).next().text(val);
+              var val = jQuery("option:selected", this).text();
+              jQuery(this).next().text(val);
             });
-        }
-    });
-     
-    }, 1000);
-  }
+          }
+        });
+
+      }, 1000);
+    }
 
     eventDeafault(category,type,sort,page){
-    var ref = this;
-    this.category = category;
-    this.type = type; 
-    this.sort = sort;
-    this.page = page; 
-    var eventArrData = {
-      "category": category,
-      "type":type,
-      "sort":sort,
-      "all": "false",
-      "page":page
-    }
-    ref.apiService.eventApi(eventArrData,function(res){
-       ref.eventArr = res.data.data;
-       if(ref.eventArr == [] || ref.eventArr == ''){
-         ref.showData = "No Data Found.!"
-       }
-       else{
-         ref.showData = '';
-       }
-       ref.total =     res.data.last_page;
-       ref.currentPage = res.data.current_page;
-
-    });
-  }
-
-  onSubMenuchange(category,type){
-    this.category = category;
-    var category = this.category;
-    var sort = this.sort;
-    var type = type;
-    var page = this.page;
-    this.eventDeafault(category,type,sort,page);  
-  }
-
-
-  sortEventsData(sort){
-     this.sort = sort;
-    var category = this.category;
-    var sort = this.sort;
-    var type = this.type;
-    var page = this.page;
-   this.eventDeafault(category,type,sort,page);
-  }
-
-  typeOfEvent(type,index){
-    this.selectedIndex = index;
-    this.type = type;
-    var category = this.category;
-    var sort = this.sort;
-    var type = this.type;
-    var page = this.page;
-   this.eventDeafault(category,type,sort,page);
-  }
-
- 
-
-  getEventPagination(page){
-     this.page = page;
-    var category = this.category;
-    var sort = this.sort;
-    var type = this.type;
-    var page = this.page;
-   this.eventDeafault(category,type,sort,page);  
-  }
-
-   changeGridTolist(status){
-    this.gridview = status;
-  }
-
-  createRange(number){
-    var links = [];
-    for(var i = 1; i <= number; i++){
-      links.push(i);
-    }
-    
-    return links;
-  }
-
-
-  addFavorite(event_id,favorite){
-  var ref = this;  
-    var value = {
-    'event_id':event_id,
-    'favorite':favorite
+      var ref = this;
+      this.category = category;
+      this.type = type; 
+      this.sort = sort;
+      this.page = page; 
+      var eventArrData = {
+        "category": category,
+        "type":type,
+        "sort":sort,
+        "all": "false",
+        "page":page
+      }
+      ref.loadingSvc.setValue(true);
+      ref.apiService.eventApi(eventArrData,function(res){
+        ref.loadingSvc.setValue(false);
+        ref.eventArr = res.data.data;
+        if(ref.eventArr == [] || ref.eventArr == ''){
+          ref.showData = "No Data Found.!"
+        }
+        else{
+          ref.showData = '';
+        }
+        ref.total =     res.data.last_page;
+        ref.currentPage = res.data.current_page;
+      },function(error){
+        ref.loadingSvc.setValue(false);
+        ref.toastyService.error(error.json().message);
+        if(error.status == 401 || error.status == '401' || error.status == 400){
+          localStorage.removeItem('auth_token');        
+          ref.apiService.signinSuccess$.emit(false);
+          ref.router.navigate(['/index']);
+        }
+      });
     }
 
-    ref.apiService.favoriteApi(value,function(res){
-      ref.eventDeafault(ref.category,ref.type,ref.sort,ref.page); 
-    });
+    onSubMenuchange(category,type){
+      this.category = category;
+      var category = this.category;
+      var sort = this.sort;
+      var type = type;
+      var page = this.page;
+      this.eventDeafault(category,type,sort,page);  
+    }
 
-    
+
+    sortEventsData(sort){
+      this.sort = sort;
+      var category = this.category;
+      var sort = this.sort;
+      var type = this.type;
+      var page = this.page;
+      this.eventDeafault(category,type,sort,page);
+    }
+
+    typeOfEvent(type,index){
+      this.selectedIndex = index;
+      this.type = type;
+      var category = this.category;
+      var sort = this.sort;
+      var type = this.type;
+      var page = this.page;
+      this.eventDeafault(category,type,sort,page);
+    }
+
+
+
+    getEventPagination(page){
+      this.page = page;
+      var category = this.category;
+      var sort = this.sort;
+      var type = this.type;
+      var page = this.page;
+      this.eventDeafault(category,type,sort,page);  
+    }
+
+    changeGridTolist(status){
+      this.gridview = status;
+    }
+
+    createRange(number){
+      var links = [];
+      for(var i = 1; i <= number; i++){
+        links.push(i);
+      }
+
+      return links;
+    }
+
+
+    addFavorite(event_id,favorite){
+      var ref = this;  
+      var value = {
+        'event_id':event_id,
+        'favorite':favorite
+      }
+
+      ref.apiService.favoriteApi(value,function(res){
+        ref.eventDeafault(ref.category,ref.type,ref.sort,ref.page); 
+      });
+
+
+    }
+
+
+
   }
-
-
-
-}

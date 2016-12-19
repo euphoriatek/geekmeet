@@ -5,6 +5,8 @@ import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import {CKEditorModule} from 'ng2-ckeditor';
+import { LoadingAnimateService } from 'ng2-loading-animate';
+
 
 
 import {SelectModule} from 'ng2-select/ng2-select';
@@ -39,7 +41,7 @@ export class VenuesEditComponent implements OnInit {
 		resizeMaxWidth: 128
 	};
 
-	constructor(private router:Router,private route: ActivatedRoute,private toastyService:ToastyService,public apiService:ApiMethodService,private toastyConfig: ToastyConfig) {
+	constructor(private loadingSvc: LoadingAnimateService,private router:Router,private route: ActivatedRoute,private toastyService:ToastyService,public apiService:ApiMethodService,private toastyConfig: ToastyConfig) {
 		this.toastyConfig.theme = 'bootstrap';
 	}
 
@@ -62,7 +64,9 @@ export class VenuesEditComponent implements OnInit {
 
 	venueDetail(id){
 		var ref = this;
-		ref.apiService.showVenueDetails(id,function(res){     
+		ref.loadingSvc.setValue(true); 
+		ref.apiService.showVenueDetails(id,function(res){  
+			ref.loadingSvc.setValue(false);    
 			ref.detailArr = res.data;
 			if(res.data.country){
 				ref.getState(res.data.country);
@@ -70,8 +74,14 @@ export class VenuesEditComponent implements OnInit {
 			if(res.data.state){
 				ref.getCIty(res.data.state);
 			}
-		}, function(err){
-			console.log(err);
+		}, function(error){
+			ref.loadingSvc.setValue(false); 
+			ref.toastyService.error(error.json().message);
+			if(error.status == 401 || error.status == '401' || error.status == 400){
+				localStorage.removeItem('auth_token');        
+				ref.apiService.signinSuccess$.emit(false);
+				ref.router.navigate(['/index']);
+			}
 		});
 	}
 
@@ -106,50 +116,52 @@ export class VenuesEditComponent implements OnInit {
 	getLatLong(val:any):void{
 		console.log(val);
 		var ref = this;
-			var country = '';
-			var state ='';
-			var city = '';
-			var address = val.address;
-			for (var i = 0; i < ref.countryList.length; i++) {
-				if(val.country == ref.countryList[i].id){
-					country = ref.countryList[i].name;
-					break;
-				}
+		var country = '';
+		var state ='';
+		var city = '';
+		var address = val.address;
+		for (var i = 0; i < ref.countryList.length; i++) {
+			if(val.country == ref.countryList[i].id){
+				country = ref.countryList[i].name;
+				break;
 			}
-			for (var i = 0; i < ref.stateList.length; i++) {
-				if(val.state == ref.stateList[i].state_id){
-					state = ref.stateList[i].name;
-					break;
-				}
+		}
+		for (var i = 0; i < ref.stateList.length; i++) {
+			if(val.state == ref.stateList[i].state_id){
+				state = ref.stateList[i].name;
+				break;
 			}
+		}
 
-			for (var i = 0; i < ref.cityList.length; i++) {
-				if(val.city == ref.cityList[i].city_id){
-					city = ref.cityList[i].name;
-					break;
-				}
+		for (var i = 0; i < ref.cityList.length; i++) {
+			if(val.city == ref.cityList[i].city_id){
+				city = ref.cityList[i].name;
+				break;
 			}
-			var apiAddress = address+','+city+','+state+' '+country;
-			console.log(apiAddress);
-			ref.geocoder = new google.maps.Geocoder();
-			ref.geocoder.geocode( { 'address': apiAddress}, function(results, status) {
-				console.log(status);
-				if (status == 'OK') { 
-					ref.locationFinder='';
-					ref.detailArr['latitude'] = results[0].geometry.location.lat();
-					ref.detailArr['longitude'] = results[0].geometry.location.lng();
-				}
-				else{
-					ref.locationFinder = "Can Not Find Location.!";
-				}
-			});
+		}
+		var apiAddress = address+','+city+','+state+' '+country;
+		console.log(apiAddress);
+		ref.geocoder = new google.maps.Geocoder();
+		ref.geocoder.geocode( { 'address': apiAddress}, function(results, status) {
+			console.log(status);
+			if (status == 'OK') { 
+				ref.locationFinder='';
+				ref.detailArr['latitude'] = results[0].geometry.location.lat();
+				ref.detailArr['longitude'] = results[0].geometry.location.lng();
+			}
+			else{
+				ref.locationFinder = "Can Not Find Location.!";
+			}
+		});
 		
 	}
 
 	updateVenue(value:any):void{
 		var ref = this;
+		ref.loadingSvc.setValue(true);
 		value['vanue_id'] = ref.venueId;
 		ref.apiService.updateVenue(value,function(res){
+			ref.loadingSvc.setValue(false);
 			var toastOptions:ToastOptions = {
 				title: "Update.!",
 				msg: res.message,
@@ -160,9 +172,9 @@ export class VenuesEditComponent implements OnInit {
 			};
 			ref.toastyService.success(toastOptions);
 		},function(error){
+			ref.loadingSvc.setValue(false);
 			ref.toastyService.error(error.json().message);
 			if(error.status == 401 || error.status == '401' || error.status == 400){
-				console.log("profile error");
 				localStorage.removeItem('auth_token');        
 				ref.apiService.signinSuccess$.emit(false);
 				ref.router.navigate(['/index']);

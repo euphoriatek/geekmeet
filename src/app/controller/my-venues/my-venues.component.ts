@@ -7,6 +7,8 @@ import 'rxjs/add/operator/catch';
 import { DeleteModelComponent } from '../delete-model/delete-model.component';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import { LoadingAnimateService } from 'ng2-loading-animate';
+
 
 
 @Component({
@@ -21,10 +23,11 @@ export class MyVenuesComponent implements OnInit {
 	currentPage:Object;
 	getToken:any;
 	deleteID:any;
+	showData:any;
 
 
 
-	constructor(private router:Router,private route: ActivatedRoute,private toastyService:ToastyService,public apiService:ApiMethodService,private toastyConfig: ToastyConfig) {
+	constructor(private loadingSvc: LoadingAnimateService,private router:Router,private route: ActivatedRoute,private toastyService:ToastyService,public apiService:ApiMethodService,private toastyConfig: ToastyConfig) {
 		this.toastyConfig.theme = 'bootstrap';
 	}
 	ngOnInit() {
@@ -38,12 +41,21 @@ export class MyVenuesComponent implements OnInit {
 
 	venueList(value){
 		var ref = this;
+		ref.loadingSvc.setValue(true);
 		this.apiService.showVenueList(value,function(res){
+			ref.loadingSvc.setValue(false);
 			window.scrollTo(0, 0);
 			ref.venueArr = res.data.data;
 			ref.Total = res.data.last_page;
-			ref.currentPage = res.data.current_page;   			
+			ref.currentPage = res.data.current_page;
+			if(ref.venueArr == [] || ref.venueArr == ''){
+				ref.showData = "No Data Found.!"
+			}
+			else{
+				ref.showData = '';
+			}   			
 		},function(error){
+			ref.loadingSvc.setValue(false);
 			ref.toastyService.error(error.json().message);
 			if(error.status == 401 || error.status == '401' || error.status == 400){
 				localStorage.removeItem('auth_token');				
@@ -76,10 +88,13 @@ export class MyVenuesComponent implements OnInit {
 
 	deleteVenue(){
 		var ref = this;
+		ref.loadingSvc.setValue(true);
 		this.apiService.deleteVanue(this.deleteID,function(res){
+			ref.loadingSvc.setValue(false);
 			ref.toastyService.success(res.message);
 			ref.venueList(ref.currentPage);
 		},function(error){
+			ref.loadingSvc.setValue(false);
 			ref.toastyService.error(error.json().message);
 			if(error.status == 401 || error.status == '401' || error.status == 400){
 				localStorage.removeItem('auth_token');        

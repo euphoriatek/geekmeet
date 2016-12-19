@@ -3,7 +3,7 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
-
+import { LoadingAnimateService } from 'ng2-loading-animate';
 
 import {SelectModule} from 'ng2-select/ng2-select';
 
@@ -27,7 +27,7 @@ export class OrganizationAddComponent implements OnInit {
     resizeMaxWidth: 128
   };
 
-  constructor(private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { 
+  constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { 
     this.toastyConfig.theme = 'bootstrap';
   }
 
@@ -72,13 +72,16 @@ export class OrganizationAddComponent implements OnInit {
 
   addOrganization(value:any):void{
     var refreg = this;
+    refreg.loadingSvc.setValue(true);
     console.log("this is update of user profile");
     console.log(value);
     value['image'] = refreg.src;
     this.apiService.addOrganization(value,function(res){
+      refreg.loadingSvc.setValue(false);
       refreg.toastyService.success(res.message);
       refreg.router.navigate(['/my-organizations']);
     },function(error){
+      refreg.loadingSvc.setValue(false);
       refreg.toastyService.error(error.json().message);
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        

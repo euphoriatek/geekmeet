@@ -3,6 +3,7 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import {RatingModule} from "ng2-rating";
 import {CKEditorModule} from 'ng2-ckeditor';
+import { LoadingAnimateService } from 'ng2-loading-animate';
 
 
 declare var jQuery: any;
@@ -37,7 +38,7 @@ export class EventDetailComponent implements OnInit {
 
 
  
-  constructor(private route: ActivatedRoute,private apiService: ApiMethodService,private router: Router) {
+  constructor(private loadingSvc: LoadingAnimateService,private route: ActivatedRoute,private apiService: ApiMethodService,private router: Router) {
   }
 
   ngOnInit() {
@@ -79,16 +80,16 @@ export class EventDetailComponent implements OnInit {
   }
 
   getEventDetail(value){
- 
     var refreg = this;
+    refreg.loadingSvc.setValue(true);
     this.apiService.EventDetail(value,function(res){
+      window.scrollTo(0,0);
+      refreg.loadingSvc.setValue(false);
       if(typeof(refreg.data)=='undefined'){
          refreg.data = {};
       }
       refreg.data['event_data'] = res.data;
-      refreg.data['relate_event_data'] = res.data.related_event.data;
-      
-      
+      refreg.data['relate_event_data'] = res.data.related_event.data;   
     });
   }
   gotoPage(id){
@@ -184,11 +185,14 @@ export class EventDetailComponent implements OnInit {
     var value = addComment.value;
     value.event_id = this.event_id;
     var refreg = this;
+    refreg.loadingSvc.setValue(true);
     refreg.apiService.addReview(value,function(res){
+      refreg.loadingSvc.setValue(false);
        refreg.getReview(refreg.event_id);
        addComment.reset();
        
       },function(error){
+        refreg.loadingSvc.setValue(false);
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
         refreg.apiService.signinSuccess$.emit(false);

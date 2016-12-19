@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule, Router }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import { LoadingAnimateService } from 'ng2-loading-animate';
 
-// import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 declare var jQuery: any;
@@ -20,7 +20,7 @@ export class MyOrganizationsComponent implements OnInit {
   getToken:any;
   deleteID:any;
 
-  constructor(private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
+  constructor(private loadingSvc: LoadingAnimateService,private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
     this.toastyConfig.theme = 'bootstrap';
 
   }
@@ -36,11 +36,14 @@ export class MyOrganizationsComponent implements OnInit {
 
   OrganizationList(value){
     var ref = this;
+    ref.loadingSvc.setValue(true);
     this.apiService.organizationList(value,function(res){
+      ref.loadingSvc.setValue(false);
       ref.organizationArr = res.data.data;
       ref.Total = res.data.last_page;
       ref.currentPage = res.data.current_page;   			
     },function(error){
+      ref.loadingSvc.setValue(false);
       if(error.status == 401 || error.status == '401' || error.status == 400){
         console.log("profile error");
         localStorage.removeItem('auth_token');        
@@ -69,11 +72,13 @@ export class MyOrganizationsComponent implements OnInit {
 
   deleteOrg(){
     var ref = this;
-    console.log(this.deleteID);
+    ref.loadingSvc.setValue(true);
     this.apiService.organizationDelete(this.deleteID,function(res){
+      ref.loadingSvc.setValue(false);
       ref.toastyService.success(res.message);
       ref.OrganizationList(ref.currentPage);        
     },function(error){
+      ref.loadingSvc.setValue(false);
       ref.toastyService.error(error.json().message);
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
