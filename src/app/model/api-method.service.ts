@@ -770,6 +770,20 @@ export class ApiMethodService {
 		},(error) =>failure(error));
 	}
 
+		//send to friend
+
+	sendToFriend(value, callBack, failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.post('http://2016.geekmeet.com/admin/v1/send_friend',value,options).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack){
+				callBack(res);
+			}
+		},(error) =>failure(error));
+	}
+
+
 }
 
 
