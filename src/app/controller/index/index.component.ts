@@ -100,7 +100,7 @@ export class IndexComponent implements OnInit {
 
 
 	upcomingEvent(){
-		window.scrollTo(0,1800);
+		// window.scrollTo(0,1800);
 		var ref = this;
 		var value = {
 			'category': ref.category,

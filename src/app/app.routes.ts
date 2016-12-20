@@ -27,6 +27,10 @@ import { VenuesEditComponent } from './controller/venues-edit/venues-edit.compon
 import { VenueComponent } from './controller/venue/venue.component';
 import { ForgetPasswordComponent } from './controller/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './controller/reset-password/reset-password.component';
+import { MyEventsComponent } from './controller/my-events/my-events.component';
+import { EventEditComponent } from './controller/event-edit/event-edit.component';
+
+
 
 
 
@@ -49,7 +53,7 @@ export const routes: Routes = [
       {path:'contactus' ,component: ContactusComponent},
       {path:'index' ,component: IndexComponent},
       {path:'event/:menu' ,component: EventComponent,data:[{menu:true}]},
-      // {path:'event' ,component: EventComponent},
+      {path:'my-events' ,component: MyEventsComponent},
       {path:'profile' ,component: ProfileComponent},
       {path:'groups' ,component: GroupsComponent},
       {path:'organization/:id' ,component: OrganizationComponent,data: [{id: true}]},
@@ -69,6 +73,7 @@ export const routes: Routes = [
       {path:'venue/:id' ,component: VenueComponent,data: [{id: true}]},
       {path:'forget-password' ,component: ForgetPasswordComponent},
       {path:'reset-password/:id' ,component: ResetPasswordComponent,data: [{id: true}]},
+      {path:'event-edit/:id' ,component: EventEditComponent,data: [{id: true}]},
       {path:'' ,component: IndexComponent}
 
 ];

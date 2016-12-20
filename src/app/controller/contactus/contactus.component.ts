@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import { LoadingAnimateService } from 'ng2-loading-animate';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -13,7 +14,7 @@ import 'rxjs/add/operator/catch';
 })
 export class ContactusComponent implements OnInit {
   errors:any={};
-  constructor(private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService, private toastyConfig: ToastyConfig) { 
+  constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService, private toastyConfig: ToastyConfig) { 
      this.toastyConfig.theme = 'bootstrap';
   }
   
@@ -23,11 +24,13 @@ export class ContactusComponent implements OnInit {
 
   contactUs(value){
   var ref = this;
-    console.log(value);
+  ref.loadingSvc.setValue(true);
     ref.apiService.contactUs(value,function(res){
+      ref.loadingSvc.setValue(false);
       ref.toastyService.success(res.message);
       ref.router.navigate(['/']);
     },function(error){
+      ref.loadingSvc.setValue(false);
       ref.toastyService.error(error.json().message);
       var error = error.json().errors;
       ref.errors = error;

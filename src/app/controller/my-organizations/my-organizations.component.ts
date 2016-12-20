@@ -38,6 +38,7 @@ export class MyOrganizationsComponent implements OnInit {
     var ref = this;
     ref.loadingSvc.setValue(true);
     this.apiService.organizationList(value,function(res){
+      window.scrollTo(0,0);
       ref.loadingSvc.setValue(false);
       ref.organizationArr = res.data.data;
       ref.Total = res.data.last_page;
@@ -45,7 +46,6 @@ export class MyOrganizationsComponent implements OnInit {
     },function(error){
       ref.loadingSvc.setValue(false);
       if(error.status == 401 || error.status == '401' || error.status == 400){
-        console.log("profile error");
         localStorage.removeItem('auth_token');        
         ref.apiService.signinSuccess$.emit(false);
         ref.router.navigate(['/index']);

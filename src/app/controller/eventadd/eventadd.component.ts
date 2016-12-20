@@ -1,6 +1,6 @@
-require('jquery');
+/*require('jquery');
 require('mydatepicker');
-console.log(jQuery);
+console.log(jQuery);*/
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
@@ -44,6 +44,7 @@ export class EventaddComponent implements OnInit {
   audience:string;
   start_time:string;
   end_time:string;
+  imageArr:Array<string> = []; 
 
   title:any;
   description:any;
@@ -117,14 +118,94 @@ export class EventaddComponent implements OnInit {
 
     jQuery("#contactinfo").mask("(999) 999-9999");
     
+     // Upload Image       
+    jQuery("#attach_ids").val('');
+    var base_url = jQuery("#base_url").val();
     jQuery("#eventImages").fileinput({
-                uploadAsync: false,
-                        uploadUrl: "./my_ajax/test.php", // your upload server url
-                        uploadExtraData: function() {
-                        return {                      
-                        };
-                        }
-                });
+            uploadUrl: "http://2016.geekmeet.com/admin/v1/upload_images",
+            uploadAsync: true,
+            overwriteInitial: false,
+            showUpload: false,
+            showRemove: false,
+            resizeImage: true,
+            allowedFileExtensions:['gif', 'png','jpg','jpeg']                              
+    });
+
+    var ref = this;
+    var $image = jQuery('#eventImages');
+        $image.on('fileuploaded', function (event, data, previewId, index) {
+        console.log('uploaded');
+        var form = data.form, files = data.files, extra = data.extra,
+        response = data.response, reader = data.reader;
+        var ids = jQuery("#attach_ids").val();
+        console.log(ids);
+        ref.imageArr = [];
+        if (ids != '')
+        { ref.imageArr.push(ids); }
+
+        ref.imageArr.push(response);
+
+        jQuery("#attach_ids").val(ref.imageArr);
+        jQuery("#pre_ids").val(ref.imageArr);
+        jQuery("#" + previewId).attr("response_id", response);
+        }).on("filebatchselected", function (event, files) {
+        $image.fileinput("upload");
+        });
+                 
+        // delete Image
+
+        jQuery(document).on("click", ".kv-file-remove", function ()   {
+        jQuery(this).attr("disabled", "disabled");
+            var del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+            ref.delete_image(del_id);
+        });
+
+        jQuery(document).on("click", ".file-upload-indicator", function ()   {
+            if (jQuery(this).hasClass('yellow')){
+            var status = 0;
+            } else{
+              var status = 1;
+            }
+
+            var featured_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+            var res = ref.featured_image(featured_id, status);
+            if (res){
+            jQuery(this).addClass('yellow');
+            } else{
+            jQuery(this).removeClass('yellow')
+            }
+        });
+
+       // delete Image on load
+
+      var pre_ids = jQuery("#pre_ids").val();
+      if (pre_ids != '') {
+          ref.delete_image(pre_ids);
+      }
+
+    jQuery('body').find("#cancel").click(function () {
+    var url = jQuery(this).attr('data-href');
+    var pre_ids = jQuery("#pre_ids").val();
+    if (pre_ids != '') {
+    jQuery.ajax({
+    type: 'POST',
+      url: "http://2016.geekmeet.com/admin/v1/remove_image",
+      data: {id: pre_ids},
+      success: function (data) {
+      },
+      complete:function(){
+      window.location.href = '/event';
+      }
+    });
+    } else{
+       window.location.href = '/event'; }
+    });
+
+
+
+
+
+
 
   }
 
@@ -235,6 +316,7 @@ export class EventaddComponent implements OnInit {
   }
 
   uploadImages(value:any){
+    console.log('here');
     console.log(value);
   }
 
@@ -309,9 +391,12 @@ export class EventaddComponent implements OnInit {
     console.log(value);   
     var start_time = jQuery("#start-Time").val();
     var end_time = jQuery("#end-Time").val();
+    var upload_images = jQuery("#attach_ids").val();
     value.start_time  = start_time;
     value.end_time  = end_time;
-     ref.loadingSvc.setValue(true);
+    value.event_images  = upload_images;     
+    ref.loadingSvc.setValue(true);
+
      ref.apiService.addEvent(value,function(res){
        ref.loadingSvc.setValue(false);
         var toastOptions:ToastOptions = {
@@ -353,6 +438,54 @@ export class EventaddComponent implements OnInit {
         ref.contact = errors.contact_info;  
       });
   }
+
+  delete_image(ids){
+      var ref = this;
+      jQuery.ajax({
+        type: 'POST',
+        url: "http://2016.geekmeet.com/admin/v1/remove_image",
+        data: {id: ids},
+        success: function (data) {
+          var res = jQuery.parseJSON(data)
+          if (res.status == 1) {
+            var attchstr = jQuery('body').find("#attach_ids").val();
+            var new_string = ref.remove(attchstr, ids);
+            ref.imageArr = []; ref.imageArr.push(new_string);
+            jQuery('body').find("#attach_ids").val('');
+            jQuery('body').find("#attach_ids").val(ref.imageArr);
+          }
+        }
+      });
+      return 1;
+    }
+
+    featured_image(ids, status){
+
+      jQuery.ajax({
+        type: 'POST',
+        url: "http://2016.geekmeet.com/admin/v1/set_featured_image",
+        data: {id: ids, status:status},
+        success: function (data) {
+          var res = jQuery.parseJSON(data)
+          if (res.status == 1) {
+          return 1;
+          } else{
+          return 0;
+          }
+        }
+      });
+      return status;
+    }
+
+    remove(string, to_remove)
+    {
+      if (string != '' && typeof string != 'undefined') {
+      var elements = string.split(",");
+      var remove_index = elements.indexOf(to_remove);
+      elements.splice(remove_index, 1); var result = elements.join(",");
+      return result;
+      }
+    }
  
  
 }
