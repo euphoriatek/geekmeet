@@ -1,6 +1,6 @@
-require('jquery');
-require('mydatepicker');
-console.log(jQuery);
+// require('jquery');
+// require('mydatepicker');
+// console.log(jQuery);
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
@@ -285,7 +285,7 @@ export class EventaddComponent implements OnInit {
       }  
       else
       {
-        this.endTextNormal = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
+        this.endTextNormal = 'Formatted: ' + event.formatted + ' -   epoc timestamp: ' + event.epoc;
         this.endDateNormal = event.formatted;
       }    
       this.border = '1px solid #CCC';

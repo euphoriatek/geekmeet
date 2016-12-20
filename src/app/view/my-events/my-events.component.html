@@ -1,0 +1,161 @@
+<section id="main" class="clearfix">
+	<div class="wrap row">
+		<div class="breadcrumb breadcrumbs columns">
+			<div class="breadcrumb-trail">
+				<span class="trail-begin">
+					<a [routerLink]="['/']" title="GeekMeet" rel="home" class="trail-begin">Home</a></span> <span class="sep">»</span> <span class="trail-end">My Event's</span>
+				</div>
+				<ng2-toasty [position]="'top-center'" ></ng2-toasty>
+
+				<!-- start content part-->
+				
+				<div id="content" role="main" class="col-md-12 col-sm-12 columns">
+					<h1 class="loop-title org_btn">Event <a class="btn btn-warning pull-right" href="" [routerLink]="['/eventadd']">Add Event</a>
+					<div class="tev_sorting_option pull-right" style="margin-right: 25px;">
+                            <div class="select-wrap">
+                                <select (change) = "sortEventsData($event.target.value)" id="event_sortby" class="tev_options_sel" style="z-index: 10;float: left;background-color: #003A70;color: #ffffff">
+                                    <option value = "" selected="selected">Sort By</option>
+                                    <option  value="title_asc">Title Ascending</option>
+                                    <option  value="title_desc">Title Descending</option>
+                                    <option  value="stdate_low_high">Start Date low to high</option>
+                                    <option  value="stdate_high_low">Start Date high to low</option>
+                                    <option  value="reviews">Reviews</option>
+                                    <option  value="rating">Rating</option>
+                                </select>                                
+                            </div>
+                        </div></h1></div>
+					<section id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  list">
+
+						<!-- inside loop div start -->
+						<article class="post" *ngFor = "let list_event of eventArr">
+							<div class="listing_img" style="width: 30%;margin-right: 0%;">
+								<a href="" [routerLink]="['/event_detail',list_event.event_id]"> 
+									<img src="{{list_event.featured_image}}" alt="image" title="{{list_event.title}}" style="width: 80%;">
+								</a>
+							</div>
+
+							<!-- Entry Start -->
+							<div class="entry">
+								<div class="event-wrapper"> 
+									<!-- Entry title start -->
+									<div class="entry-title" >
+										<div style="float: right;">
+										<label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/event-edit',list_event.event_id]">Edit Event</a></label>
+											<label class="org_btn"><a class="btn btn-xs primary" href="javascript:void(0)" (click)="modal_id.open('sm');setDeleteID(list_event.event_id);">Delete</a></label>
+										</div>
+										<div class="event-title">       
+											<h2 class="entry-title">
+
+												<a itemprop="url" href="" [routerLink]="['/event_detail',list_event.event_id]" title="{{list_event.event_title}}" rel="bookmark">{{list_event.event_title}}</a></h2>
+
+												<!-- <div class="listing_rating">
+													<div class="directory_rating_row">
+														<span class="single_rating"> 
+															<rating [(ngModel)]="list_event.rating"
+															[readonly]="true" [float]="true">
+														</rating>
+													</span>
+												</div>
+											</div> -->
+										</div>
+
+										<!-- Entry title end --> 
+
+										<!-- Entry details start -->
+										<div class="entry-details">
+
+											<p class="address" itemprop="address" *ngIf = "getToken">{{list_event.location}}</p>
+											<p class="event_date">
+												<span>
+													<span itemprop="startDate" content="2014-07-08T15:30"> {{list_event.start_date}}</span>
+													To <span itemprop="endDate" content="2019-07-08T17:30"> {{list_event.end_date}}</span>
+												</span>
+											</p>
+											<p class="time">
+												<span>
+													<span itemprop="startDate" content="2014-07-08T22:00">{{list_event.start_time}}</span>
+													To <span itemprop="endDate" content="2019-07-08T23:30">{{list_event.end_time}}</span>
+												</span>
+											</p>
+											<span *ngIf = "getToken">
+												<p class="phone"  *ngIf = "list_event.contact_info!='' ">
+
+													{{list_event.contact_info}}</p>
+												</span>     <!--googleoff: all-->
+
+											</div>
+											<!-- Entry details end --> 
+										</div>
+
+										<!-- End Post Content -->
+										<div class="rev_pin">
+											<ul  *ngIf = "!getToken"> 
+												<li class="favourite">
+
+													<span id="tmplfavorite_27121" class="fav fav_27121" >
+														<a href="javascript:void(0);" data-toggle="modal" data-target="#loginModal" class="addtofav small_btn">Add to favorites</a>
+													</span>
+
+												</li>
+											</ul>
+
+											<ul *ngIf = "getToken"> 
+												<li class="favourite" *ngIf = "list_event.favorite==0">
+
+													<span id="tmplfavorite_27121" class="fav fav_27121" >
+														<a href="javascript:void(0);" (click)="addFavorite(list_event.event_id,1)" class="addtofav small_btn">Add to favorites</a>
+													</span>
+
+												</li>
+
+												<li class="done_favourite" *ngIf = "list_event.favorite==1">
+													<span id="tmplfavorite_27121" class="fav fav_27121" *ngIf = "getToken">
+														<a href="javascript:void(0);" (click)="addFavorite(list_event.event_id,0)" class="addtofav small_btn">Remove to favorites</a>
+													</span>
+												</li>
+
+												<ul> 
+												<div class="listing_rating" style="float: left;">
+													<div class="directory_rating_row">
+														<span class="single_rating"> 
+															<rating [(ngModel)]="list_event.rating"
+															[readonly]="true" [float]="true">
+														</rating>
+													</span>
+												</div>
+											</div>
+											</ul>
+											</ul> 
+										</div>   
+									</div>
+									<!-- Entry End -->
+								</div>
+
+							</article>
+
+							<!-- inside loop div start -->
+							<div class="postpagination_776778595 postpagination clearfix">
+								<div class="pagination" *ngFor="let object of createRange(Total)">
+									<a  class="page-numbers" href="javascript:void(0)" [ngClass]="{'active': object==currentPage}" (click)="getEventPagination(object)" > {{object}} </a>
+								</div>
+							</div>
+						</section>
+
+
+
+
+
+
+
+					</div></div>
+				</section>
+				<modal #modal_id>
+					<modal-header [show-close]="true">
+						<h4 class="modal-title">Are you sure!</h4>
+					</modal-header>
+
+					<modal-footer>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteOrg()">Ok</button>
+					</modal-footer>
+				</modal>

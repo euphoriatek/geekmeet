@@ -1,0 +1,202 @@
+<!-- <app-header></app-header> -->
+
+<section id="main" class="clearfix" jstcache="0">
+    <div class="wrap row" jstcache="0">
+
+        <div class="breadcrumb breadcrumbs columns">
+            <div class="breadcrumb-trail">
+                <span class="trail-begin">
+                    <a [routerLink]="['/']" title="GeekMeet" rel="home" class="trail-begin">Home</a></span> <span class="sep">»</span> <span><a [routerLink]="['/my-events']">My Event's</a></span><span class="sep">»</span> <span>Edit Event</span>
+            </div>
+        </div>
+
+        <!-- start content part-->
+        <div id="content" role="main" class="large-9 small-12 columns" jstcache="0">
+            <div class="event-add">
+                <h3>Event Add</h3>
+            </div>
+            <ng2-toasty [position]="'top-center'" ></ng2-toasty>
+            <form name="event-add" id="event-add" #addEventForm="ngForm" (ngSubmit)="submitEvent(addEventForm.value)">    
+                <div class="event-edit-form large-6 small-12 columns">
+                    <div class="form_row clearfix">
+                        <label>Event Title<span class="indicates">*</span></label>
+                        <input type="text" [(ngModel)]="showEventArr.event_title" id="event-title" name="event_title" value="" class="form-control textfield" > 
+                        <span class="errfield">{{title}}</span>  
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Event Description<span class="indicates">*</span></label>
+                        <textarea [(ngModel)]="showEventArr.event_description" name="event_description" id="event-description" value="" rows="5" cols="6" class="textfield" style="height: 194px;" > </textarea>
+                        <span class="errfield">{{description}}</span> 
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Start Date<span class="indicates">*</span></label>                                         
+                        <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event,'start')" [selDate]="startDateNormal"></my-date-picker>
+                        <input type="hidden" name="start_date" [(ngModel)]="startDateNormal" >
+                        <span class="errfield">{{startDate}}</span> 
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Start Time<span class="indicates">*</span></label>
+                        <input type="text" id="eventstart-time" class="form-control"> 
+                        <input type="hidden" id="start-Time" name="start-Time">                      
+                        <span class="errfield">{{startTime}}</span>                        
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>End Date<span class="indicates">*</span></label>                       
+                        <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event,'end')" [selDate]="endDateNormal"></my-date-picker>
+                        <input type="hidden" name="end_date" [(ngModel)]="endDateNormal"> 
+                        <span class="errfield">{{endDate}}</span> 
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>End Time<span class="indicates">*</span></label>                        
+                        <input type="text" id="eventend-time" class="form-control"> 
+                        <input type="hidden" id="end-Time" name="end-Time">       
+                        <span class="errfield">{{end_timeErr}}</span> 
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Website<span class="indicates">*</span></label>
+                        <input type="url" [(ngModel)]="showEventArr.website" name="website" id="website" value="" class="form-control textfield" > 
+                        <span class="errfield">{{websiteErr}}</span> 
+                    </div>
+
+                </div>
+
+                <div class="event-edit-form large-6 small-12 columns">
+                    <div class="form_row clearfix">
+                        <label>Country<span class="indicates">*</span></label>                        
+                      
+                         <ng-select name="countryList" (data)="countryArr"                                                      
+                            [items]="countryArr"
+                            (selected)="getState($event)"
+                            placeholder="No country selected">
+                        </ng-select>
+                        <input type="hidden" id="country" name="country" [(ngModel)]="country">    
+                        <span class="errfield">{{countryErr}}</span>
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>State<span class="indicates">*</span></label>                        
+                       
+                        <ng-select name="stateList" (data)="stateList"                                                      
+                            [items]="stateList"
+                            (selected)="getCIty($event)"
+                            placeholder="No state selected">
+                        </ng-select>
+                        <input type="hidden" id="state" name="state" [(ngModel)]="state"> 
+                        <span class="errfield">{{stateErr}}</span> 
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>City<span class="indicates">*</span></label>                        
+                       
+                        <ng-select name="cityList" (data)="cityList"                                                      
+                            [items]="cityList"
+                            (selected)="optionSelected($event,'city')"
+                            placeholder="No city selected">
+                        </ng-select>
+                        <input type="hidden" id="city" name="city" [(ngModel)]="city"> 
+                        <span class="errfield">{{cityErr}}</span>
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Organization<span class="indicates">*</span></label>
+                        
+                         <ng-select name="organizationList" (data)="organizationList"                                                       
+                            [items]="organizationList"
+                            (selected)="optionSelected($event,'organization')"
+                            placeholder="No organization selected">
+                        </ng-select>
+                        <input type="hidden" id="organization" name="organizers" [(ngModel)]="organizers">  
+                        <span class="errfield">{{organizationErr}}</span>                   
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Location<span class="indicates">*</span></label>
+                        
+                        <ng-select name="locationList" (data)="venueList"                                                       
+                            [items]="venueList"
+                            (selected)="optionSelected($event,'location')"
+                            placeholder="No location selected">
+                        </ng-select>
+                        <input type="hidden" id="location" name="location" [(ngModel)]="location">       
+                        <span class="errfield">{{locationErr}}</span>                
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Intended Audience:</label>
+                        <div class="">                                            
+                            <ng-select (data)="optionSelected($event,'audience')"
+                            [multiple]="true"                            
+                            [items]="audienceList">                            
+                            </ng-select>
+                           <input type="hidden" id="audience" name="audience" [(ngModel)]="audience">
+                        </div>
+                    </div>    
+                    <div class="form_row clearfix">
+                        <label>Contact Info<span class="indicates">*</span></label>
+                        <input type="tel" [(ngModel)]="showEventArr.contact_info"  name="contact_info" value="" class="form-control textfield">
+                        <span class="errfield">{{contact}}</span>                          
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Event Purpose</label>
+                        <input type="text" [(ngModel)]="showEventArr.purpose" id="purpose" name="purpose" value="" class="form-control textfield">
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Event Keywords</label>
+                        <div class="">
+                                         
+                            <ng-select (data)="optionSelected($event,'keyword')"
+                            [multiple]="true"                            
+                            [items]="keywordList">                            
+                            </ng-select>
+                           <input type="hidden" id="keyword" name="keyword" [(ngModel)]="keyword">
+                        </div>
+                    </div>
+                    <!--<div class="form_row clearfix">
+                        <label>Upload Images</label>
+                        <input type="file" name="event-images" id="event-images" value="" class="form-control textfield"> 
+                        <input id="event-images" name="event-images[]" type="file" class="file" data-preview-file-type="text" multiple>
+                    </div>-->
+                </div>
+                <div class="col-sm-12">
+                    <!-- <div class="form_row clearfix">
+                        <label>Upload Images</label> -->
+                        <!--<input type="file" name="event-images" id="event-images" value="" class="form-control textfield"> 
+                        <input id="event-images" name="event-images[]" type="file" class="file" data-preview-file-type="text" multiple>-->
+                        <!-- <input id="eventImages" (ngModelChange)="uploadImages($event)" name="eventImages" [(ngModel)]="eventImages" type="file" multiple>
+                    </div> -->
+                    <div class="form_row ">                         
+                        <button class="btn btn-info" type="submit" value="Save" name="submit">Save</button>                          
+                        <button class="btn btn-info" type="reset" value="Cancel" name="reset">Cancel</button>
+                    </div>                    
+                </div>
+            </form>
+        </div>
+        <!-- #content --> 
+
+        <!--single post type sidebar -->
+        <div id="sidebar-primary" class="sidebar large-3 small-12 columns">
+            <!-- 300x600 ad_space -->
+            <div id="templatic_text-1" class="widget templatic_text">
+                <div class="widget-wrap widget-inside">     
+                    <div class="textwidget text-center">    
+                        <a href="">
+                            <img src="app/assets/images/ads images/300x600.jpg">
+                        </a>    
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 300x150 ad_space -->
+            <div id="templatic_text-1" class="widget templatic_text">
+                <div class="widget-wrap widget-inside">     
+                    <div class="textwidget text-center">    
+                        <a href="">
+                            <img src="app/assets/images/ads images/300x150.jpg">
+                        </a>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end single post type sidebar --> 
+        <!-- end  content part-->
+    </div>
+    <!-- .wrap -->
+</section>
+
+<!-- <app-footer></app-footer> -->
+
