@@ -83,6 +83,7 @@ export class IndexComponent implements OnInit {
 	getPopularGridView(){
 		var ref = this;
 		ref.all = false;
+		ref.page = 1;
 		ref.view_type = "chronological"
 		ref.events = "Popular Events";
 		this.popularEvent();
@@ -151,6 +152,8 @@ export class IndexComponent implements OnInit {
 		var ref = this;
 		ref.upcoming_heading = "Upcoming Events";
 		ref.upcoming_all = false;
+		ref.upcoming_page = 1;
+		console.log(ref.upcoming_page);
 		this.upcomingEvent();
 	}
 

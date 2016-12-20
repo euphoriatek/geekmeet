@@ -81,9 +81,10 @@ export class EventDetailComponent implements OnInit {
 
   getEventDetail(value){
     var refreg = this;
+  
     refreg.loadingSvc.setValue(true);
     this.apiService.EventDetail(value,function(res){
-      window.scrollTo(0,0);
+      
       refreg.loadingSvc.setValue(false);
       if(typeof(refreg.data)=='undefined'){
          refreg.data = {};
@@ -395,6 +396,24 @@ export class EventDetailComponent implements OnInit {
     });
 
     
+  }
+
+  sendFriend(value){
+      var refreg = this;  
+      value.event_id = this.event_id;
+      refreg.apiService.sendToFriend(value,function(res){
+        var closeBtn = <HTMLElement>document.getElementById("send_btn_close");
+        closeBtn.click();
+      },function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
+        refreg.apiService.signinSuccess$.emit(false);
+        refreg.router.navigate(['/index']);
+      }
+      var error = error.json().errors;
+      refreg.errors = error;
+     });
+
   }
 
 

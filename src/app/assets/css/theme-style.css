@@ -2507,7 +2507,7 @@ input[type="week"] {
 .form_row label {
     color: #333;
     font-size: 16px;
-    line-height: 25px;
+    line-height: 33px;
     font-weight: normal;
 }
 input.input-text:focus,

@@ -126,9 +126,16 @@
                     </div>  
                     <div class="claim-post-wraper">
                         <ul>
-                            <li class="claim_ownership">            
-                                <a href="javascript:void(0)" id="trigger_id" title="Claim For This Listing" data-reveal-id="tmpl_claim_listing" class="i_claim c_sendtofriend">Claim Ownership</a>
-                            </li><li><a class="small_btn tmpl_mail_friend" data-reveal-id="tmpl_send_to_frd" href="javascript:void(0);" id="send_friend_id" title="Mail to a friend">Send to friend</a></li><li><a class="small_btn tmpl_mail_friend" data-reveal-id="tmpl_send_inquiry" href="javascript:void(0)" title="Send Inquiry" id="send_inquiry_id">Send Inquiry</a></li>      
+                           
+                            <li>
+
+                             <a *ngIf = "getToken" class="small_btn tmpl_mail_friend"  data-toggle="modal" data-target="#sendEvent" data-reveal-id="tmpl_send_to_frd" href="javascript:void(0);" id="send_friend_id" title="Mail to a friend">Invite a Friend</a>
+
+                             <a *ngIf = "!getToken" class="small_btn tmpl_mail_friend"  data-toggle="modal" data-target="#loginModal" data-reveal-id="tmpl_send_to_frd" href="javascript:void(0);" id="send_friend_id" title="Mail to a friend">Invite a Friend</a>
+
+                            </li>
+
+                                 
                             <li *ngIf = "!getToken"  id="tmplfavorite_27121" class="fav_27121 fav">
                             <a href="javascript:void(0);" data-toggle="modal" data-target="#loginModal" title="Add to favorites" class="addtofav"><i class="fa fa-heart-o"></i>Add to favorites</a>
                             </li>
@@ -380,7 +387,7 @@
                                 </small>
                             </h3>
                             <p class="alert">You must be <a data-toggle="modal" data-target="#loginModal" title="Log in">logged in</a> to post a comment.</p><!-- .alert -->        
-                        </div><!-- #respond -->
+                        </div>
 
                         <div id="respond" class="comment-respond" *ngIf = "getToken">
                             <h3 id="reply-title" class="comment-reply-title">Add a Review</h3>
@@ -433,7 +440,7 @@
                                                </span>
                                                
                                             </div>
-                                            <div *ngIf = "getToken">
+                                            <div *ngIf = "getToken" class="edit_section">
                                             <span class="views"> <a  (click)="ShowHideBox(review.event_review_id)" href="javascript:void(0)">reply</a>
                                             </span>&nbsp;
                                             <span class="views" *ngIf="review.review_given_by==login_user"> <a   href="javascript:void(0)" (click)="ShowHideEditBox(review.event_review_id)">edit</a>
@@ -512,7 +519,7 @@
                                                             <abbr class="comment-time" title="{{reply.time}}">{{reply.time}}</abbr>
                                                         </span> 
                                                     </div> 
-                                                    <div *ngIf = "getToken">
+                                                    <div *ngIf = "getToken" class="edit_section">
                                                      <span class="views"> <a  (click)="ShowHideReplyBox(review.event_review_id,reply.review_reply_id)" href="javascript:void(0)">reply</a>
                                                     </span>&nbsp;
                                             <span class="views" *ngIf="reply.reply_by==login_user"> <a   href="javascript:void(0)" (click)="ShowHideReplyEditBox(review.event_review_id,reply.review_reply_id)">edit</a>
@@ -714,26 +721,37 @@
 
             <!-- .wrap -->
 
-            <div style="background-color: transparent;" class="modal fade" id="comment" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+            <div class="modal fade" id="sendEvent" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
               <div class="modal-dialog" style="width: 390px;" >
                 <div class="modal-content">
-                    <div class="modal-header" id="comment">
-                        <button id="comment" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                        <h3 class="modal-title" id="lineModalLabel">Reply</h3>
-                    </div>
-                    <div class="modal-body">
-                        <label>Commenddt :</label>
-                        <textarea id="comment" name="comment" placeholder="Message" cols="100%" rows="10" tabindex="4" style="width:360px; height: 154px;"></textarea>
-                       <!--  <label>Rating :</label>
-                        <div class="container" style="width: 300px;margin: 0;padding: 0;">
-                            <rating [(ngModel)]="starsCount"></rating>
-                        </div> -->
-                        <button class="btn btn-info" type="submit" style="margin: 20px 0px 10px 0px; ">Submit Reply</button>
-                    </div>
+                   <div class="modal-header">
+        <button type="button" id="send_btn_close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Invite a Friend</h4>
+              </div>  
+               <form #sendFriendForm="ngForm" (ngSubmit)="sendFriend(sendFriendForm.value)">
+                <div class="modal-body">
+                <div class="form_row clearfix">
+                    <label>Email <span class="indicates">*</span> </label>
+                    <input type="text" name="sender_email" ngModel>
+                    <ul class="error" *ngIf="errors['sender_email']!=''" >
+                        <li *ngFor="let org_err of errors['sender_email']" >
+                          {{org_err}}  
 
+                    </li> 
+                    </ul>  
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit"  class="btn btn-primary">Send</button>
+                    </div> 
+                    </form>
                 </div>
             </div>
-        </div>
+           </div>
+
+
+    
     </section>
     <!-- <app-footer></app-footer> -->
 <!-- <modal #delete_modal>
