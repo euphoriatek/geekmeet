@@ -8,6 +8,7 @@ import { LoadingAnimateService } from 'ng2-loading-animate';
 
 
 declare var jQuery: any;
+declare var gapi;
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -36,12 +37,20 @@ export class EventDetailComponent implements OnInit {
   page:any=1;
   showData:any;
   form:any;
+  private promise: Promise<string>;
+
+  
+  private clientID = '417186839635-gpfuh48dia4jh670s7d22sbc8pl918g5.apps.googleusercontent.com'  
+  private userEmail = "prateek.j1991@gmail.com"; //your calendar Id  
+  private userTimeZone = "London";  
+  private scope = "https://www.googleapis.com/auth/calendar";
 
 
 
   constructor(private loadingSvc: LoadingAnimateService,private toastyService:ToastyService, private toastyConfig: ToastyConfig,private route: ActivatedRoute,private apiService: ApiMethodService,private router: Router) {
     this.toastyConfig.theme = 'bootstrap';
   }
+
 
   ngOnInit() {
     this.getToken = this.apiService.getLoginToken();
@@ -61,7 +70,6 @@ export class EventDetailComponent implements OnInit {
       this.userInformation();
       this.addEventVisit(this.selectedData);
     });
-
 
     
   }
@@ -429,12 +437,12 @@ export class EventDetailComponent implements OnInit {
 
   attendEvent(){
     var value = {
-    'event_id':this.event_id,
+      'event_id':this.event_id,
     }
     var refreg = this;
     refreg.apiService.addAttendence(value,function(res){
-     refreg.getEventDetail(refreg.event_id);    
-     },function(error){
+      refreg.getEventDetail(refreg.event_id);    
+    },function(error){
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
         refreg.apiService.signinSuccess$.emit(false);
@@ -446,8 +454,86 @@ export class EventDetailComponent implements OnInit {
 
   }
 
+  addCalender() {  
+    gapi.auth.authorize({client_id: this.clientID, scope: this.scope, immediate: false}, this.handleAuthResult.bind(this));
+    return false;
+  }
+
+  handleAuthResult(authResult) {  
+    console.log("Authentication result:");
+    console.log(authResult);
+    var ref = this;   
+    var event_data =  ref.data['event_data'];
+
+    var promise:Promise<string> = new Promise((resolve, reject) => {
+      if (authResult  && !authResult.error) {
+
+        gapi.client.load('calendar', 'v3', function () {
+
+          var today = new Date();
+
+          var request = gapi.client.calendar.events.insert({
+            "calendarId":"primary",
+            "summary": event_data.event_title,
+            "description": event_data.event_description,
+            "start": {
+              "dateTime": event_data.start_datetime
+            },
+            "end": {
+              "dateTime": event_data.end_datetime
+            },
+            "creator": {
+              "displayName": event_data.first_name +' '+event_data.last_name
+            },
+            "organizer": {
+              "displayName": event_data.organizer
+            },
+            "location": event_data.location,
+            "htmlLink": event_data.website,
+            "reminders": {
+              "useDefault": false,
+              "overrides": [
+              {
+                "method": "email",
+                "minutes": 1440
+              },
+              {
+                "method": "popup",
+                "minutes": 10
+              }
+              ]
+            },
+
+          });
+          request.execute(function (resp) {
+
+            if(resp.error) {
+              reject('Event could not add to your google calender something went wrong');
+
+            }else{
+             
+              resolve('Event add to your google calender');
+            }
+          }.bind(this));
+
+        }.bind(this));
+
+      } else  {
+          reject(authResult.error);
+      }
+    });
+
+    promise.then(result =>{
+      setTimeout(function(){
+        console.log(ref);
+        ref.toastyService.success(result);
+       },1000);
+      
+    },err=>{
+      ref.toastyService.error(err);
+    });
 
 
-  
+  }
 }
 

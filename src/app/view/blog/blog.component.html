@@ -48,9 +48,9 @@
                             <abbr class="published" title="{{blog.create_date}}">{{blog.create_date}}</abbr> 
                             <a class="comments-link" href="" title="Comment on Reservation and Booking System + Multilevel Category Selection">Leave a response</a> 
                         </div>			
-                        <div class="entry-summary" [innerHTML]="blog.blog_content">
-                          				  
-                        </div>
+                        <p class="entry-summary" [innerHTML]="blog.blog_content"></p>G
+                        <a *ngIf="blog.read_more==1" [routerLink]="['/blog_detail',blog.blog_id]" >Read More</a> 				  
+                        
                         <!-- .entry-summary -->
 
                         <!-- #post -->

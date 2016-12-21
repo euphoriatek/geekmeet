@@ -154,36 +154,17 @@
                              
                             <a *ngIf = "data.event_data.favorite==1" href="javascript:void(0);" (click)="addFavorite(data.event_data.event_id,0)" title="Remove From favorites" class="addtofav"><i class="fa fa-heart-o"></i>Remove from favorites</a>
                             </li>
-                        <li class="print"><a id="print_id" title="Print this post" href="#print" rel="leanModal_print" class="small_btn print" onclick="tmpl_printpage()"><i class="fa fa-print" aria-hidden="true"></i>Print</a></li>      
+                        <li class="print"><a id="print_id" title="Print this post" href="#print" rel="leanModal_print" class="small_btn print" onclick="tmpl_printpage()"><i class="fa fa-print" aria-hidden="true"></i>Print</a></li> 
+
+
                         <li class="add_to_my_calendar">
                             <div class="calendar">
-                                <a href="javascript:void(0);" class="calendar_show small_btn"><span>Add to my calendar</span></a>     
-                                <div id="addtocalendar" class="addtocalendar" style="visibility: hidden;">
-                                    <ul>
-                                        <li class="i_google">
-                                            <a href="http://www.google.com/calendar/event?action=TEMPLATE&amp;text=Disaster%21+A+70%26%238217%3Bs+Movie%26%238230%3BMusical%21&amp;dates=20140708T220000/20190708T233000&amp;sprop=website:http://demo.templatic.com/eventum&amp;details=&amp;location=308 West 46th Street New York, NY 10036&amp;trp=true" target="_blank">
-                                                <i class="fa fa-google"></i> Google Calendar 
-                                            </a> 
-                                        </li>
-                                        <li class="i_calendar">
-                                            <a href="http://demo.templatic.com/eventum/wp-content/themes/Directory/cache/event-27121.ics">
-                                                <i class="fa fa-calendar"></i> Outlook Calendar
-                                            </a> 
-                                        </li>
-                                        <li class="i_calendar">
-                                            <a href="http://demo.templatic.com/eventum/wp-content/themes/Directory/cache/event-27121.ics">
-                                                <i class="fa fa-calendar"></i> iCal Calendar 
-                                            </a> 
-                                        </li>
-                                        <li class="i_yahoo">
-                                            <a href="http://calendar.yahoo.com/?v=60&amp;view=d&amp;type=20&amp;title=Disaster!+A+70’s+Movie…Musical!&amp;st=20140708T220000&amp;et=20190708T233000&amp;desc=For+details,+link+http://demo.templatic.com/eventum/city/new-york/event/disaster-a-70s-movie-musical/ - &amp;in_loc=308+West+46th+Street+New+York,+NY+10036" target="_blank">
-                                                <i class="fa fa-yahoo"></i> Yahoo! Calendar
-                                            </a> 
-                                        </li>                    
-                                    </ul>
-                                </div>
+                                <a *ngIf = "getToken" class="calendar_show small_btn" (click)="addCalender()"><span>Add to my calendar</span></a> 
+
+                                <a *ngIf = "!getToken" class="calendar_show small_btn" data-toggle="modal" data-target="#loginModal"><span>Add to my calendar</span></a>     
+                               
                             </div>
-                        </li>
+                       </li>
                     </ul>
                 </div>
                
