@@ -4,6 +4,7 @@ import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import { MyDatePickerModule } from 'mydatepicker';
 import {SelectModule} from 'ng2-select/ng2-select';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+import {CKEditorModule} from 'ng2-ckeditor';
 import { LoadingAnimateService } from 'ng2-loading-animate';
 
 
@@ -19,7 +20,12 @@ import 'rxjs/add/operator/catch';
 	encapsulation: ViewEncapsulation.None,  
 })
 export class EventEditComponent implements OnInit {
-
+	defaultCountry:Array<Object>=[];
+	defaultState:Array<Object>=[];
+	defaultCity:Array<Object>=[];
+	defaultOrg:Array<Object>=[];
+	defaultVenue:Array<Object>=[];
+	errors:Object = {};
 	getToken:any;
 	userInfoArr:Object = {};
 	topic:any;
@@ -45,18 +51,14 @@ export class EventEditComponent implements OnInit {
 	title:any;
 	description:any;
 	startDate:any;
-	start_timeErr:any;
 	endDate:any;
-	end_timeErr:any;
-	websiteErr:any;
-	countryErr:any;
-	stateErr:any;
-	cityErr:any;
-	organizationErr:any;
-	locationErr:any;
 	contact:any;
 	selectedData:any;
 	showEventArr:Array<string> = [];
+	countryId:Array<string> = [];
+	stateId:Array<string> = [];
+	cityId:Array<string> = [];
+	orgId:Array<string> = [];
 
 	private startDateNormal:string = '';
 	private startTextNormal: string = '';
@@ -93,8 +95,7 @@ export class EventEditComponent implements OnInit {
 		this.route.params.subscribe(params => {
 			this.selectedData = params['id'];
 			this.event_id = params['id'];
-			this.getEventDetail(params['id']);
-			this.getCountryList();  
+			this.getEventDetail(params['id']); 
 			this.getVenueList();
 			this.getOrganizationList();
 			this.getCategoryList();
@@ -108,9 +109,19 @@ export class EventEditComponent implements OnInit {
 		this.apiService.eventEdit(value,function(res){
 			window.scrollTo(0,0);
 			refreg.loadingSvc.setValue(false);
+			refreg.countryId = res.data.country;
+			refreg.getCountryList();
+			refreg.stateId = res.data.state;
+			refreg.cityId = res.data.city;
+			refreg.organizers = res.data.organizers;
+			refreg.defaultVenue = [res.data.venue_name];
 			refreg.showEventArr = res.data;
-			refreg.getState(res.country);
-
+			refreg.city = res.data.city;
+			refreg.location = res.data.venue_id;
+			refreg.keyword = res.data.category_id.join(',');
+			refreg.audience = res.data.audience.join(',');
+			refreg.endDateNormal = res.data.end_date;
+			refreg.startDateNormal = res.data.start_date;
 		},function(error){
 
 		});
@@ -156,7 +167,10 @@ export class EventEditComponent implements OnInit {
 			} 
 
 			jQuery.each( res.data , function( key, value ) {   
-				var valueid =  value.organization_id.toString();    
+				var valueid =  value.organization_id.toString();
+				if(valueid === ref.organizers){
+					ref.defaultOrg = [value.organization_name]
+				}    
 				var  item = {id:valueid, text:value.organization_name};       
 				ref.organizationList.push(item);   
 			});
@@ -200,9 +214,15 @@ export class EventEditComponent implements OnInit {
 
 	getCountryList(){
 		var ref = this;
+		ref.loadingSvc.setValue(true);
 		ref.apiService.countryList(function(res){
-			jQuery.each( res.data , function( key, value ) {   
-				var valueid =  value.id.toString();    
+			ref.loadingSvc.setValue(false);
+			jQuery.each( res.data , function( key, value ) {				
+				var valueid =  value.id.toString();
+				if(valueid === ref.countryId){
+					ref.defaultCountry = [value.name];
+					ref.getState(value);
+				}   
 				var  item = {id:valueid, text:value.name};       
 				ref.countryArr.push(item);   
 			});
@@ -214,11 +234,17 @@ export class EventEditComponent implements OnInit {
 
 	public getState(value:any):void {    
 		var ref = this;
+		ref.defaultState=[];
 		ref.country = value.id;
+		ref.loadingSvc.setValue(true);
 		ref.apiService.stateList(value.id,function(res){
-
+			ref.loadingSvc.setValue(false);
 			jQuery.each( res.data , function( key, value ) {   
-				var valueid =  value.state_id.toString();    
+				var valueid =  value.state_id.toString();
+				if(valueid === ref.stateId){
+					ref.defaultState = [value.name];
+					ref.getCIty(value);
+				}    
 				var  item = {id:valueid, text:value.name};       
 				ref.stateList.push(item);   
 			});
@@ -232,17 +258,29 @@ export class EventEditComponent implements OnInit {
 
 	public getCIty(value:any):void {   
 		var ref = this;
-		ref.state = value.id;
-		ref.apiService.cityList(value.id,function(res){
-
+		ref.defaultCity=[];
+		var data;
+		if(value.id){
+			data=value.id;
+			ref.state = value.id;
+		}
+		else{
+			data=value.state_id;
+			ref.state=value.state_id;
+		}
+		ref.loadingSvc.setValue(true);
+		ref.apiService.cityList(data,function(res){
+			ref.loadingSvc.setValue(false);
 			jQuery.each( res.data , function( key, value ) {   
-				var valueid =  value.city_id.toString();    
+				var valueid =  value.city_id.toString();
+				if(valueid === ref.cityId){
+					ref.defaultCity = [value.name];
+				}    
 				var  item = {id:valueid, text:value.name};       
 				ref.cityList.push(item);   
 			});
 
 			ref.cityList = jQuery.makeArray( ref.cityList );
-			console.log(ref.cityList);
 
 		}, function(err){
 			console.log(err);
@@ -254,7 +292,7 @@ export class EventEditComponent implements OnInit {
 	}
 
 	public optionSelected(value:any,type:any):void { 
-
+		console.log(value);
 		switch (type) {
 			case "city":
 			this.city = value.id;
@@ -320,12 +358,12 @@ export class EventEditComponent implements OnInit {
 
 	submitEvent(value:any):void{
 		var ref = this;
-		console.log("submit add event");    
-		console.log(value);   
+		console.log(value);
+		value['event_id']=  ref.selectedData; 
 		var start_time = jQuery("#start-Time").val();
 		var end_time = jQuery("#end-Time").val();
-		value.start_time  = start_time;
 		value.end_time  = end_time;
+		value.start_time  = start_time;
 		ref.loadingSvc.setValue(true);
 		ref.apiService.updateEvent(value,function(res){
 			ref.loadingSvc.setValue(false);
@@ -339,7 +377,7 @@ export class EventEditComponent implements OnInit {
 
 				},
 				onRemove: function(toast:ToastData) {
-					ref.router.navigate(['/eventadd']);
+					ref.router.navigate(['/my-events']);
 				}
 			};
 			ref.toastyService.success(toastOptions);
@@ -352,20 +390,8 @@ export class EventEditComponent implements OnInit {
 				ref.router.navigate(['/index']);
 			}
 			ref.toastyService.error(error.json().message);
-			var errors = error.json().errors;
-			ref.title = errors.event_title;
-			ref.description = errors.event_description;
-			ref.startDate = errors.start_date;
-			ref.start_timeErr = errors.start_time;
-			ref.endDate = errors.end_date;
-			ref.end_timeErr = errors.end_time;
-			ref.websiteErr = errors.website;
-			ref.countryErr = errors.country;
-			ref.stateErr = errors.state;
-			ref.cityErr = errors.city;
-			ref.organizationErr = errors.organizers;
-			ref.locationErr = errors.location;
-			ref.contact = errors.contact_info;  
+			var error = error.json().errors;
+              ref.errors = error; 
 		});
 	}
 
