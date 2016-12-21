@@ -52,17 +52,17 @@
                         <input type="text" id="eventend-time" class="form-control"> 
                         <input type="hidden" id="end-Time" name="end-Time">       
                         <span class="errfield">{{end_timeErr}}</span> 
-                    </div>
-                    <div class="form_row clearfix">
-                        <label>Website<span class="indicates">*</span></label>
-                        <input type="url" [(ngModel)]="website" name="website" id="website" value="" class="form-control textfield" > 
-                        <span class="errfield">{{websiteErr}}</span> 
-                    </div>
+                    </div>              
 
                 </div>
 
                 <div class="event-edit-form large-6 small-12 columns">
-                    <div class="form_row clearfix">
+                     <div class="form_row clearfix">
+                        <label>Website<span class="indicates">*</span></label>
+                        <input type="url" [(ngModel)]="website" name="website" id="website" value="" class="form-control textfield" > 
+                        <span class="errfield">{{websiteErr}}</span> 
+                    </div>
+                   <!-- <div class="form_row clearfix">
                         <label>Country<span class="indicates">*</span></label>                        
                       
                          <ng-select name="countryList" (data)="countryArr"                                                      
@@ -94,7 +94,7 @@
                         </ng-select>
                         <input type="hidden" id="city" name="city" [(ngModel)]="city"> 
                         <span class="errfield">{{cityErr}}</span>
-                    </div>
+                    </div> -->
                     <div class="form_row clearfix">
                         <label>Organization<span class="indicates">*</span></label>
                         
@@ -146,19 +146,14 @@
                             </ng-select>
                            <input type="hidden" id="keyword" name="keyword" [(ngModel)]="keyword">
                         </div>
-                    </div>
-                    <!--<div class="form_row clearfix">
-                        <label>Upload Images</label>
-                        <input type="file" name="event-images" id="event-images" value="" class="form-control textfield"> 
-                        <input id="event-images" name="event-images[]" type="file" class="file" data-preview-file-type="text" multiple>
-                    </div>-->
+                    </div>                  
                 </div>
                 <div class="col-sm-12">
                     <div class="form_row clearfix">
-                        <label>Upload Images</label>
-                        <!--<input type="file" name="event-images" id="event-images" value="" class="form-control textfield"> 
-                        <input id="event-images" name="event-images[]" type="file" class="file" data-preview-file-type="text" multiple>-->
-                        <input id="eventImages" (ngModelChange)="uploadImages($event)" name="eventImages" [(ngModel)]="eventImages" type="file" multiple>
+                        <label>Upload Images</label>                        
+                        <input id="eventImages" (ngModelChange)="uploadImages($event)" name="images" [(ngModel)]="eventImages" type="file" multiple>
+                         <input type="hidden" id="attach_ids" name="image_id"> 
+                         <input type="hidden" id="pre_ids"> 
                     </div>
                     <div class="form_row ">                         
                         <button class="btn btn-info" type="submit" value="Save" name="submit">Save</button>                          

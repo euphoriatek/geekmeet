@@ -427,6 +427,25 @@ export class EventDetailComponent implements OnInit {
 
   }
 
+  attendEvent(){
+    var value = {
+    'event_id':this.event_id,
+    }
+    var refreg = this;
+    refreg.apiService.addAttendence(value,function(res){
+     refreg.getEventDetail(refreg.event_id);    
+     },function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
+        refreg.apiService.signinSuccess$.emit(false);
+        refreg.router.navigate(['/index']);
+      }
+      var error = error.json().errors;
+      refreg.errors = error;
+    });
+
+  }
+
 
 
   

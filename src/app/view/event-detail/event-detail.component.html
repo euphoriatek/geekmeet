@@ -118,9 +118,19 @@
                         <img alt="" src="http://0.gravatar.com/avatar/?s=60&amp;r=g" srcset="http://0.gravatar.com/avatar/?s=120&amp;r=g 2x" class="avatar avatar-60 photo avatar-default" height="60" width="60">  
                         <span id="attend_event_27121" class="fav">
                             <span class="span_msg">
-                                <a href="http://demo.templatic.com/eventum/author/"></a> are you going to attend <strong>{{data.event_data.event_title}}</strong>? <br>         
-                                <a href="javascript:void(0);" class="addtofav b_review attending" data-reveal-id="tmpl_reg_login_container" onclick="javascript:addTo_AttendEvent(27121, 'add');">Yes, I am&nbsp;</a>
-                                <span id="attended_persons" class="attended_persons">No one is attending yet.</span>
+                             are you going to attend <strong>{{data.event_data.event_title}}</strong>? <br>
+                                   <div *ngIf = "!getToken">
+                                   <a  href="javascript:void(0);" class="addtofav b_review attending" data-toggle="modal" data-target="#loginModal">Yes, I am&nbsp;</a>
+                                   </div>
+                                   <div *ngIf = "getToken">
+                                   <a *ngIf="(data.event_data.own_status==0)" (click)="attendEvent()" href="javascript:void(0);" class="addtofav b_review attending" >Yes, I am&nbsp;</a>
+                                   <a *ngIf="(data.event_data.own_status>0)" href="javascript:void(0);" class="addtofav b_review attending" >Yes. I am going&nbsp;</a>
+                                   </div>
+
+                                <span *ngIf="(data.event_data.total_attendance==0)" id="attended_persons" class="attended_persons">No one is attending yet.</span>
+
+
+                                <span *ngIf="(data.event_data.total_attendance!=0)" id="attended_persons" class="attended_persons">{{data.event_data.total_attendance}} person attending this event.</span>
                             </span>
                         </span>
                     </div>  
