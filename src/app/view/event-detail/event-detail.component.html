@@ -728,7 +728,7 @@
         <button type="button" id="send_btn_close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Invite a Friend</h4>
               </div>  
-               <form #sendFriendForm="ngForm" (ngSubmit)="sendFriend(sendFriendForm.value)">
+               <form #sendFriendForm="ngForm" (ngSubmit)="sendFriend(sendFriendForm)">
                 <div class="modal-body">
                 <div class="form_row clearfix">
                     <label>Email <span class="indicates">*</span> </label>
