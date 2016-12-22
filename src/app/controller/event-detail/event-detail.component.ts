@@ -36,6 +36,7 @@ export class EventDetailComponent implements OnInit {
   deleteType:any;
   page:any=1;
   showData:any;
+  form:any;
   private promise: Promise<string>;
 
   
@@ -399,8 +400,10 @@ export class EventDetailComponent implements OnInit {
       'event_id':event_id,
       'favorite':favorite
     }
-
+    ref.loadingSvc.setValue(true);
     ref.apiService.favoriteApi(value,function(res){
+      ref.loadingSvc.setValue(false);
+      ref.toastyService.success(res.message);
       ref.getEventDetail(event_id);  
     });
 
