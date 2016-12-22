@@ -16,7 +16,7 @@ import 'rxjs/add/operator/catch';
 @Component({
 	selector: 'app-event-edit',
 	templateUrl: '../../view/event-edit/event-edit.component.html',
-	styleUrls: ['../../assets/css/event-edit/event-edit.component.css'],
+	styleUrls: ['../../assets/css/event-edit/event-edit.component.css','../../assets/css/eventadd/fileinput.min.css'],
 	encapsulation: ViewEncapsulation.None,  
 })
 export class EventEditComponent implements OnInit {
@@ -31,6 +31,7 @@ export class EventEditComponent implements OnInit {
 	topic:any;
 	value:any;
 	countryList:any;
+	imageArr:Array<string> = []; 
 	countryArr:Array<Object> = [];
 	stateList:Array<Object> = [];
 	cityList:Array<Object> = [];
@@ -59,6 +60,8 @@ export class EventEditComponent implements OnInit {
 	stateId:Array<string> = [];
 	cityId:Array<string> = [];
 	orgId:Array<string> = [];
+	imagePreview:any;
+	imageLink:any;
 
 	private startDateNormal:string = '';
 	private startTextNormal: string = '';
@@ -110,7 +113,7 @@ export class EventEditComponent implements OnInit {
 			window.scrollTo(0,0);
 			refreg.loadingSvc.setValue(false);
 			refreg.countryId = res.data.country;
-			refreg.getCountryList();
+			// refreg.getCountryList();
 			refreg.stateId = res.data.state;
 			refreg.cityId = res.data.city;
 			refreg.organizers = res.data.organizers;
@@ -122,13 +125,23 @@ export class EventEditComponent implements OnInit {
 			refreg.audience = res.data.audience.join(',');
 			refreg.endDateNormal = res.data.end_date;
 			refreg.startDateNormal = res.data.start_date;
+			refreg.imagePreview = res.data.images;
+			refreg.imageLink = res.data.attachment;
+			refreg.afterGetData();
 		},function(error){
-
+			refreg.loadingSvc.setValue(false);
+			refreg.toastyService.error(error.json().message);
+			if(error.status == 401 || error.status == '401' || error.status == 400){
+				localStorage.removeItem('auth_token');        
+				refreg.apiService.signinSuccess$.emit(false);
+				refreg.router.navigate(['/index']);
+			}
 		});
 	}
 
 
-	ngAfterViewInit() {
+	afterGetData() {
+		var ref= this;
 
 		jQuery('#eventstart-time, #eventend-time').timepicker({
 			showSeconds: true
@@ -141,19 +154,94 @@ export class EventEditComponent implements OnInit {
 
 		jQuery('#eventend-time').on('change', function(){               
 			var endTime = jQuery(this).val();            
-			jQuery("#end-Time").val(endTime); 
+			jQuery("#end-Time").val(endTime);
 		});
 
 		jQuery("#contactinfo").mask("(999) 999-9999");
 
+		jQuery("#attach_ids").val('');
+		var base_url = jQuery("#base_url").val();
 		jQuery("#eventImages").fileinput({
-			uploadAsync: false,
-			uploadUrl: "./my_ajax/test.php", // your upload server url
-			uploadExtraData: function() {
-				return {                      
-				};
+			uploadUrl: "http://2016.geekmeet.com/admin/v1/upload_images",
+			uploadAsync: true,
+			overwriteInitial: true,
+			showUpload: false,
+			showRemove: false,
+			resizeImage: true,
+			allowedFileExtensions:['gif', 'png','jpg','jpeg'],
+			initialPreview:ref.imagePreview,
+			initialPreviewConfig:ref.imageLink                             
+		});
+
+		var ref = this;
+		var $image = jQuery('#eventImages');
+		$image.on('fileuploaded', function (event, data, previewId, index) {
+			console.log('uploaded');
+			var form = data.form, files = data.files, extra = data.extra,
+			response = data.response, reader = data.reader;
+			var ids = jQuery("#attach_ids").val();
+			console.log(ids);
+			ref.imageArr = [];
+			if (ids != '')
+				{ ref.imageArr.push(ids); }
+
+			ref.imageArr.push(response);
+
+			jQuery("#attach_ids").val(ref.imageArr);
+			jQuery("#pre_ids").val(ref.imageArr);
+			jQuery("#" + previewId).attr("response_id", response);
+		}).on("filebatchselected", function (event, files) {
+			$image.fileinput("upload");
+		});
+
+		// delete Image
+
+		jQuery(document).on("click", ".kv-file-remove", function ()   {
+			jQuery(this).attr("disabled", "disabled");
+			var del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+			ref.delete_image(del_id);
+		});
+
+		jQuery(document).on("click", ".file-upload-indicator", function ()   {
+			if (jQuery(this).hasClass('yellow')){
+				var status = 0;
+			} else{
+				var status = 1;
+			}
+
+			var featured_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+			var res = ref.featured_image(featured_id, status);
+			if (res){
+				jQuery(this).addClass('yellow');
+			} else{
+				jQuery(this).removeClass('yellow')
 			}
 		});
+
+		// delete Image on load
+
+		var pre_ids = jQuery("#pre_ids").val();
+		if (pre_ids != '') {
+			ref.delete_image(pre_ids);
+		}
+
+		jQuery('body').find("#cancel").click(function () {
+			var url = jQuery(this).attr('data-href');
+			var pre_ids = jQuery("#pre_ids").val();
+			if (pre_ids != '') {
+				jQuery.ajax({
+					type: 'POST',
+					url: "http://2016.geekmeet.com/admin/v1/remove_image",
+					data: {id: pre_ids},
+					success: function (data) {
+					},
+					complete:function(){
+						window.location.href = '/event';
+					}
+				});
+			} else{
+				window.location.href = '/event'; }
+			});
 
 	}
 
@@ -329,7 +417,6 @@ export class EventEditComponent implements OnInit {
 
 
 	onDateChanged(event:any, type) {
-		console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
 		if(event.formatted !== '') {
 			if(type=='start')
 			{
@@ -344,57 +431,119 @@ export class EventEditComponent implements OnInit {
 			this.border = '1px solid #CCC';
 		}
 		else {
-			if(type=='start')
-				{this.startTextNormal = '';}
-			else
-				{this.endTextNormal = '';} 
-			this.border = 'none';
-		}
-	}
-
-	timechange(event:any) {
-		console.log(event);
-	}
-
-	submitEvent(value:any):void{
-		var ref = this;
-		console.log(value);
-		value['event_id']=  ref.selectedData; 
-		var start_time = jQuery("#start-Time").val();
-		var end_time = jQuery("#end-Time").val();
-		value.end_time  = end_time;
-		value.start_time  = start_time;
-		ref.loadingSvc.setValue(true);
-		ref.apiService.updateEvent(value,function(res){
-			ref.loadingSvc.setValue(false);
-			var toastOptions:ToastOptions = {
-				title: "Event Added!",
-				msg: res.message,
-				showClose: true,
-				timeout: 1000,
-				theme: 'bootstrap',
-				onAdd: (toast:ToastData) => {
-
-				},
-				onRemove: function(toast:ToastData) {
-					ref.router.navigate(['/my-events']);
-				}
-			};
-			ref.toastyService.success(toastOptions);
-			ref.router.navigate(['/event']);
-		},function(error){
-			ref.loadingSvc.setValue(false);
-			if(error.status == 401 || error.status == '401' || error.status == 400){
-				localStorage.removeItem('auth_token');        
-				ref.apiService.signinSuccess$.emit(false);
-				ref.router.navigate(['/index']);
+			if(type=='start'){
+				this.startTextNormal = '';
+				this.startDateNormal='';
 			}
-			ref.toastyService.error(error.json().message);
-			var error = error.json().errors;
-              ref.errors = error; 
-		});
+				else{
+					this.endTextNormal = '';
+					this.endDateNormal = '';
+				} 
+				this.border = 'none';
+			}
+		}
+
+		timechange(event:any) {
+		}
+
+		submitEvent(value:any):void{
+			var ref = this;
+			console.log(value);
+			value['event_id']=  ref.selectedData; 
+			var start_time = jQuery("#start-Time").val();
+			var end_time = jQuery("#end-Time").val();
+			var upload_images = jQuery("#attach_ids").val();
+			if(end_time){
+				value.end_time  = end_time;
+			}else{
+				value.end_time = ref.showEventArr['end_time'];
+			}
+			if(start_time){
+				value.start_time  = start_time;
+			}else{
+				value.start_time = ref.showEventArr['start_time'];
+			}
+			value.image_id	= upload_images;
+			ref.loadingSvc.setValue(true);
+			ref.apiService.updateEvent(value,function(res){
+				ref.loadingSvc.setValue(false);
+				var toastOptions:ToastOptions = {
+					title: "Event Update!",
+					msg: res.message,
+					showClose: true,
+					timeout: 1000,
+					theme: 'bootstrap',
+					onAdd: (toast:ToastData) => {
+
+					},
+					onRemove: function(toast:ToastData) {
+						ref.router.navigate(['/my-events']);
+					}
+				};
+				ref.toastyService.success(toastOptions);
+				ref.router.navigate(['/event']);
+			},function(error){
+				ref.loadingSvc.setValue(false);
+				if(error.status == 401 || error.status == '401' || error.status == 400){
+					localStorage.removeItem('auth_token');        
+					ref.apiService.signinSuccess$.emit(false);
+					ref.router.navigate(['/index']);
+				}
+				ref.toastyService.error(error.json().message);
+				var error = error.json().errors;
+				ref.errors = error; 
+			});
+		}
+
+
+		delete_image(ids){
+			var ref = this;
+			jQuery.ajax({
+				type: 'POST',
+				url: "http://2016.geekmeet.com/admin/v1/remove_image",
+				data: {id: ids},
+				success: function (data) {
+					var res = jQuery.parseJSON(data)
+					if (res.status == 1) {
+						var attchstr = jQuery('body').find("#attach_ids").val();
+						var new_string = ref.remove(attchstr, ids);
+						ref.imageArr = []; ref.imageArr.push(new_string);
+						jQuery('body').find("#attach_ids").val('');
+						jQuery('body').find("#attach_ids").val(ref.imageArr);
+					}
+				}
+			});
+			return 1;
+		}
+
+		featured_image(ids, status){
+
+			jQuery.ajax({
+				type: 'POST',
+				url: "http://2016.geekmeet.com/admin/v1/set_featured_image",
+				data: {id: ids, status:status},
+				success: function (data) {
+					var res = jQuery.parseJSON(data)
+					if (res.status == 1) {
+						return 1;
+					} else{
+						return 0;
+					}
+				}
+			});
+			return status;
+		}
+
+		remove(string, to_remove)
+		{
+			if (string != '' && typeof string != 'undefined') {
+				var elements = string.split(",");
+				var remove_index = elements.indexOf(to_remove);
+				elements.splice(remove_index, 1); var result = elements.join(",");
+				return result;
+			}
+		}
+
+
 	}
-
-
-}
 
