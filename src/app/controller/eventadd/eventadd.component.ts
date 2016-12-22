@@ -6,11 +6,14 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import { MyDatePickerModule } from 'mydatepicker';
 import {SelectModule} from 'ng2-select/ng2-select';
+import { AgmCoreModule } from 'angular2-google-maps/core';
+import {CKEditorModule} from 'ng2-ckeditor';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
 
 
 declare var jQuery: any;
+declare const google: any;
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -59,6 +62,21 @@ export class EventaddComponent implements OnInit {
   organizationErr:any;
   locationErr:any;
   contact:any;
+  
+  geocoder:any;
+  errors:Object = {};  
+  center:Object = {
+    latitude:51.678418,
+    longitude:7.809007
+  };  
+  venueArr:Object = {};
+   
+  locationFinder:any;
+  getLocation = true;
+  resizeOptions: Object = {
+    resizeMaxHeight: 128,
+    resizeMaxWidth: 128
+  };
   
   private startDateNormal:string = '';
   private startTextNormal: string = '';
@@ -117,6 +135,7 @@ export class EventaddComponent implements OnInit {
     });
 
     jQuery("#contactinfo").mask("(999) 999-9999");
+
     
      // Upload Image       
     jQuery("#attach_ids").val('');
@@ -202,7 +221,17 @@ export class EventaddComponent implements OnInit {
     });
 
 
+    jQuery(document).on('click', '#add_more', function(){
+    var obj = jQuery(document).find("#add_more_div").clone();
+            console.log(jQuery(document).find("#add_more_div"));
+            jQuery(obj).removeAttr('hidden');
+            jQuery(obj).removeAttr('id');
+            jQuery(obj).appendTo("#images_div");
+    });
 
+    jQuery(document).on('click', '#remove_image', function(){
+        jQuery(this).parents('.form-group').remove();
+    });  
 
 
 
@@ -486,6 +515,85 @@ export class EventaddComponent implements OnInit {
       return result;
       }
     }
+
+   getLatLong(val:any):void{
+   
+    var ref = this;
+    
+    if(val.address == undefined){
+      ref.toastyService.error("Please provide address");
+    }
+    else{ 
+        var country = jQuery("#countryList .ui-select-match-text").text();
+        var state = jQuery("#stateList .ui-select-match-text").text();
+        var city = jQuery("#cityList .ui-select-match-text").text();
+        var address = val.address;
+        
+        var apiAddress = val.address+','+city+','+state+','+country;
+        console.log(apiAddress);
+        ref.geocoder = new google.maps.Geocoder();
+        ref.geocoder.geocode( { 'address': apiAddress}, function(results, status) {
+          console.log(status);
+          if (status == 'OK') { 
+            ref.locationFinder='';
+            ref.venueArr['latitude'] = results[0].geometry.location.lat();
+            ref.venueArr['longitude'] = results[0].geometry.location.lng();      
+            //ref.geocoder.triggerResize();      
+            jQuery(".map_div").show();
+          }
+          else{
+            ref.locationFinder = "Can Not Find Location.!";
+          }
+        });
+     }  
+   }
+   
+    submitLocation(value:any):void{
+    var ref = this;
+    console.log("submit add location");    
+    console.log(value);       
+
+    /* ref.apiService.addEvent(value,function(res){
+       ref.loadingSvc.setValue(false);
+        var toastOptions:ToastOptions = {
+          title: "Event Added!",
+          msg: res.message,
+          showClose: true,
+          timeout: 1000,
+          theme: 'bootstrap',
+          onAdd: (toast:ToastData) => {
+
+          },
+          onRemove: function(toast:ToastData) {
+            ref.router.navigate(['/eventadd']);
+          }
+        };
+        ref.toastyService.success(toastOptions);
+        ref.router.navigate(['/event']);
+      },function(error){
+        ref.loadingSvc.setValue(false);
+        if(error.status == 401 || error.status == '401' || error.status == 400){
+          localStorage.removeItem('auth_token');        
+          ref.apiService.signinSuccess$.emit(false);
+          ref.router.navigate(['/index']);
+        }
+        ref.toastyService.error(error.json().message);
+        var errors = error.json().errors;
+        ref.title = errors.event_title;
+        ref.description = errors.event_description;
+        ref.startDate = errors.start_date;
+        ref.start_timeErr = errors.start_time;
+        ref.endDate = errors.end_date;
+        ref.end_timeErr = errors.end_time;
+        ref.websiteErr = errors.website;
+        ref.countryErr = errors.country;
+        ref.stateErr = errors.state;
+        ref.cityErr = errors.city;
+        ref.organizationErr = errors.organizers;
+        ref.locationErr = errors.location;
+        ref.contact = errors.contact_info;  
+      });*/
+  }
  
  
 }
