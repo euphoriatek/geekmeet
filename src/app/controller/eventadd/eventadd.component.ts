@@ -423,7 +423,7 @@ export class EventaddComponent implements OnInit {
     var upload_images = jQuery("#attach_ids").val();
     value.start_time  = start_time;
     value.end_time  = end_time;
-    value.event_images  = upload_images;     
+    value.image_id = upload_images;     
     ref.loadingSvc.setValue(true);
 
      ref.apiService.addEvent(value,function(res){

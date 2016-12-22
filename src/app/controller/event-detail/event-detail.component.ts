@@ -3,10 +3,12 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import {RatingModule} from "ng2-rating";
 import {CKEditorModule} from 'ng2-ckeditor';
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
 
 
 declare var jQuery: any;
+
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -34,12 +36,21 @@ export class EventDetailComponent implements OnInit {
   deleteType:any;
   page:any=1;
   showData:any;
+  form:any;
+  private promise: Promise<string>;
+
+  
+  private clientID = '417186839635-gpfuh48dia4jh670s7d22sbc8pl918g5.apps.googleusercontent.com'  
+  private userEmail = "prateek.j1991@gmail.com"; //your calendar Id  
+  private userTimeZone = "London";  
+  private scope = "https://www.googleapis.com/auth/calendar";
 
 
 
- 
-  constructor(private loadingSvc: LoadingAnimateService,private route: ActivatedRoute,private apiService: ApiMethodService,private router: Router) {
+  constructor(private loadingSvc: LoadingAnimateService,private toastyService:ToastyService, private toastyConfig: ToastyConfig,private route: ActivatedRoute,private apiService: ApiMethodService,private router: Router) {
+    this.toastyConfig.theme = 'bootstrap';
   }
+
 
   ngOnInit() {
     this.getToken = this.apiService.getLoginToken();
@@ -47,36 +58,35 @@ export class EventDetailComponent implements OnInit {
       this.isUserLoggedIn = true;
     }
     this.route.params.subscribe(params => {
-    this.data['popular_event']={};
-    this.data['event_data']={};
-    this.data['review']={};
+      this.data['popular_event']={};
+      this.data['event_data']={};
+      this.data['review']={};
 
-    this.selectedData = params['id'];
-    this.event_id = params['id'];
-    this.getEventDetail(params['id']);
-    this.popularEvent();
-    this.getReview(params['id']);
-    this.userInformation();
-    this.addEventVisit(this.selectedData);
+      this.selectedData = params['id'];
+      this.event_id = params['id'];
+      this.getEventDetail(params['id']);
+      this.popularEvent();
+      this.getReview(params['id']);
+      this.userInformation();
+      this.addEventVisit(this.selectedData);
     });
 
-   
     
   }
 
   ngAfterViewInit() {
- setTimeout(_ => {
-        jQuery(document).find('.flexslider').flexslider({
-          animation: "slide",
-          smoothHeight: true, 
-          animationLoop: false,
-          start: function (slider) {
-              jQuery('.event_detail_module').removeClass('loading');
-          }
-        });
-     
+    setTimeout(_ => {
+      jQuery(document).find('.flexslider').flexslider({
+        animation: "slide",
+        smoothHeight: true, 
+        animationLoop: false,
+        start: function (slider) {
+          jQuery('.event_detail_module').removeClass('loading');
+        }
+      });
+
     }, 1000);
-   
+
   }
 
   getEventDetail(value){
@@ -84,10 +94,10 @@ export class EventDetailComponent implements OnInit {
 
     refreg.loadingSvc.setValue(true);
     this.apiService.EventDetail(value,function(res){
-      
+
       refreg.loadingSvc.setValue(false);
       if(typeof(refreg.data)=='undefined'){
-         refreg.data = {};
+        refreg.data = {};
       }
       refreg.data['event_data'] = res.data;
       refreg.data['relate_event_data'] = res.data.related_event.data;   
@@ -99,27 +109,27 @@ export class EventDetailComponent implements OnInit {
 
   popularEvent(){
     var ref = this;
-   
-        var value = {
-        'category': '',
-        'sort':'',
-        'all':false,
-        'page':ref.page
-        }
+
+    var value = {
+      'category': '',
+      'sort':'',
+      'all':false,
+      'page':ref.page
+    }
     this.apiService.popularEventApi(value,function(res){
       if(typeof(ref.data)=='undefined'){
-         ref.data = {};
-         ref.showData = "No Data Found.!"
+        ref.data = {};
+        ref.showData = "No Data Found.!"
       }
       
-       ref.data['popular_event'] = {
+      ref.data['popular_event'] = {
         popularArr : res.data.data,
         popularTotal : res.data.last_page,
         currentPage : res.data.current_page,     
       };
 
     },function(error){
-      
+
     });
 
   }
@@ -129,38 +139,38 @@ export class EventDetailComponent implements OnInit {
     var ref = this;
     this.apiService.getReview(value,function(res){
       if(typeof(ref.data)=='undefined'){
-         ref.data = {};
+        ref.data = {};
       }
       
-        ref.data['review'] = {
+      ref.data['review'] = {
         review : res.data.review,
         review_count : res.data.review_count
       };
 
       for(var i=0; i<res.data.review_count;i++){
-       var review_index = res.data.review[i]; 
-       ref.reply_box[review_index.event_review_id] = false; 
-       ref.edit_box[review_index.event_review_id] = false; 
-       ref.errors[review_index.event_review_id] = false;
+        var review_index = res.data.review[i]; 
+        ref.reply_box[review_index.event_review_id] = false; 
+        ref.edit_box[review_index.event_review_id] = false; 
+        ref.errors[review_index.event_review_id] = false;
 
-       for(var j=0;j<(review_index.reply.length);j++){
-        if(ref.sub_reply_box[review_index.event_review_id]==undefined){
-         ref.sub_reply_box[review_index.event_review_id] = {}; 
+        for(var j=0;j<(review_index.reply.length);j++){
+          if(ref.sub_reply_box[review_index.event_review_id]==undefined){
+            ref.sub_reply_box[review_index.event_review_id] = {}; 
+          } 
+          if(ref.edit_reply_box[review_index.event_review_id]==undefined){
+            ref.edit_reply_box[review_index.event_review_id] = {}; 
+          } 
+          if(ref.sub_errors[review_index.event_review_id]==undefined){
+            ref.sub_errors[review_index.event_review_id] = {}; 
+          } 
+          ref.sub_reply_box[review_index.event_review_id][review_index.reply[j].review_reply_id] = false; 
+          ref.edit_reply_box[review_index.event_review_id][review_index.reply[j].review_reply_id] = false; 
+          ref.sub_errors[review_index.event_review_id][review_index.reply[j].review_reply_id] = false;
         } 
-        if(ref.edit_reply_box[review_index.event_review_id]==undefined){
-         ref.edit_reply_box[review_index.event_review_id] = {}; 
-        } 
-        if(ref.sub_errors[review_index.event_review_id]==undefined){
-         ref.sub_errors[review_index.event_review_id] = {}; 
-        } 
-        ref.sub_reply_box[review_index.event_review_id][review_index.reply[j].review_reply_id] = false; 
-        ref.edit_reply_box[review_index.event_review_id][review_index.reply[j].review_reply_id] = false; 
-        ref.sub_errors[review_index.event_review_id][review_index.reply[j].review_reply_id] = false;
-       } 
       }
 
 
-     });
+    });
 
   }
 
@@ -179,177 +189,177 @@ export class EventDetailComponent implements OnInit {
   }
 
   addReview(addComment:any):void{
-      this.getToken = this.apiService.getLoginToken();
+    this.getToken = this.apiService.getLoginToken();
     if(!(this.getToken)){
       this.getReview(this.selectedData);
     }else{
-    var value = addComment.value;
-    value.event_id = this.event_id;
-    var refreg = this;
-    refreg.loadingSvc.setValue(true);
-    refreg.apiService.addReview(value,function(res){
-      refreg.loadingSvc.setValue(false);
-       refreg.getReview(refreg.event_id);
-       addComment.reset();
-       
+      var value = addComment.value;
+      value.event_id = this.event_id;
+      var refreg = this;
+      refreg.loadingSvc.setValue(true);
+      refreg.apiService.addReview(value,function(res){
+        refreg.loadingSvc.setValue(false);
+        refreg.getReview(refreg.event_id);
+        addComment.reset();
+
       },function(error){
         refreg.loadingSvc.setValue(false);
-      if(error.status == 401 || error.status == '401' || error.status == 400){
-        localStorage.removeItem('auth_token');        
-        refreg.apiService.signinSuccess$.emit(false);
-        refreg.router.navigate(['/index']);
-      }
-      var error = error.json().errors;
-      refreg.errors = error;
-    });
+        if(error.status == 401 || error.status == '401' || error.status == 400){
+          localStorage.removeItem('auth_token');        
+          refreg.apiService.signinSuccess$.emit(false);
+          refreg.router.navigate(['/index']);
+        }
+        var error = error.json().errors;
+        refreg.errors = error;
+      });
 
-    
+
     }
   }
 
-     
-    addReply(value:any,review_id:any,reply_id):void{
-      this.getToken = this.apiService.getLoginToken();
-     if(!(this.getToken)){
+
+  addReply(value:any,review_id:any,reply_id):void{
+    this.getToken = this.apiService.getLoginToken();
+    if(!(this.getToken)){
       this.getReview(this.selectedData);
     }else{
-    var input = {
-    reply:value, 
-    review_id:review_id
-    };
-   
-    var refreg = this;
-    refreg.apiService.addReply(input,function(res){
-       refreg.getReview(refreg.event_id);
+      var input = {
+        reply:value, 
+        review_id:review_id
+      };
+
+      var refreg = this;
+      refreg.apiService.addReply(input,function(res){
+        refreg.getReview(refreg.event_id);
       },function(error){
-      if(error.status == 401 || error.status == '401' || error.status == 400){
-        localStorage.removeItem('auth_token');        
-        refreg.apiService.signinSuccess$.emit(false);
-        refreg.router.navigate(['/index']);
-      }
-      var error = error.json().errors;
-      if(reply_id!=false){
-      refreg.sub_errors[review_id][reply_id] = error;
-      }else{
-      refreg.errors[review_id] = error;
+        if(error.status == 401 || error.status == '401' || error.status == 400){
+          localStorage.removeItem('auth_token');        
+          refreg.apiService.signinSuccess$.emit(false);
+          refreg.router.navigate(['/index']);
+        }
+        var error = error.json().errors;
+        if(reply_id!=false){
+          refreg.sub_errors[review_id][reply_id] = error;
+        }else{
+          refreg.errors[review_id] = error;
+        }
+
+      });
     }
-
-    });
-   }
   }
 
 
-     editReview(value:any,review_id:any):void{
-      this.getToken = this.apiService.getLoginToken();
-     if(!(this.getToken)){
+  editReview(value:any,review_id:any):void{
+    this.getToken = this.apiService.getLoginToken();
+    if(!(this.getToken)){
       this.getReview(this.selectedData);
     }else{
-    var input = {
-    event_review:value, 
-    review_id:review_id
-    };
-    
-    var refreg = this;
-    refreg.apiService.editReview(input,function(res){
-       refreg.getReview(refreg.event_id);
+      var input = {
+        event_review:value, 
+        review_id:review_id
+      };
+
+      var refreg = this;
+      refreg.apiService.editReview(input,function(res){
+        refreg.getReview(refreg.event_id);
       },function(error){
-      if(error.status == 401 || error.status == '401' || error.status == 400){
-        localStorage.removeItem('auth_token');        
-        refreg.apiService.signinSuccess$.emit(false);
-        refreg.router.navigate(['/index']);
-      }
-      var error = error.json().errors;
-      refreg.errors[review_id] = error;
-    });
-   }
+        if(error.status == 401 || error.status == '401' || error.status == 400){
+          localStorage.removeItem('auth_token');        
+          refreg.apiService.signinSuccess$.emit(false);
+          refreg.router.navigate(['/index']);
+        }
+        var error = error.json().errors;
+        refreg.errors[review_id] = error;
+      });
+    }
   }
 
 
 
-     editReply(value:any, review_reply_id:any,review_id):void{
-      this.getToken = this.apiService.getLoginToken();
-     if(!(this.getToken)){
+  editReply(value:any, review_reply_id:any,review_id):void{
+    this.getToken = this.apiService.getLoginToken();
+    if(!(this.getToken)){
       this.getReview(this.selectedData);
     }else{
-    var input = {
-    reply:value, 
-    review_reply_id:review_reply_id
-    };
-    
-    var refreg = this;
-    refreg.apiService.editReply(input,function(res){
-       refreg.getReview(refreg.event_id);
+      var input = {
+        reply:value, 
+        review_reply_id:review_reply_id
+      };
+
+      var refreg = this;
+      refreg.apiService.editReply(input,function(res){
+        refreg.getReview(refreg.event_id);
       },function(error){
-      if(error.status == 401 || error.status == '401' || error.status == 400){
-        localStorage.removeItem('auth_token');        
-        refreg.apiService.signinSuccess$.emit(false);
-        refreg.router.navigate(['/index']);
-      }
-      var error = error.json().errors;
-      refreg.sub_errors[review_id][review_reply_id] = error;
-    });
-   }
+        if(error.status == 401 || error.status == '401' || error.status == 400){
+          localStorage.removeItem('auth_token');        
+          refreg.apiService.signinSuccess$.emit(false);
+          refreg.router.navigate(['/index']);
+        }
+        var error = error.json().errors;
+        refreg.sub_errors[review_id][review_reply_id] = error;
+      });
+    }
   }
 
   ShowHideBox(review_event_id){
-  this.reply_box[review_event_id] = !this.reply_box[review_event_id];
-  if(this.reply_box[review_event_id]){
-  this.edit_box[review_event_id] = false;  
-  }
+    this.reply_box[review_event_id] = !this.reply_box[review_event_id];
+    if(this.reply_box[review_event_id]){
+      this.edit_box[review_event_id] = false;  
+    }
   }
 
   ShowHideEditBox(review_event_id){
-  this.edit_box[review_event_id] = !this.edit_box[review_event_id];
-  if(this.edit_box[review_event_id]){
-  this.reply_box[review_event_id] = false;  
-  }
+    this.edit_box[review_event_id] = !this.edit_box[review_event_id];
+    if(this.edit_box[review_event_id]){
+      this.reply_box[review_event_id] = false;  
+    }
   }
 
   ShowHideReplyBox(review_event_id,reply_id){
-  this.sub_reply_box[review_event_id][reply_id] = !this.sub_reply_box[review_event_id][reply_id];
-  if(this.sub_reply_box[review_event_id][reply_id]){
-  this.edit_reply_box[review_event_id][reply_id] = false;  
-  }
+    this.sub_reply_box[review_event_id][reply_id] = !this.sub_reply_box[review_event_id][reply_id];
+    if(this.sub_reply_box[review_event_id][reply_id]){
+      this.edit_reply_box[review_event_id][reply_id] = false;  
+    }
   }
 
   ShowHideReplyEditBox(review_event_id,reply_id){
-  this.edit_reply_box[review_event_id][reply_id] = !this.edit_reply_box[review_event_id][reply_id];
-  if(this.edit_reply_box[review_event_id][reply_id]){
-  this.sub_reply_box[review_event_id][reply_id] = false;  
-  }
+    this.edit_reply_box[review_event_id][reply_id] = !this.edit_reply_box[review_event_id][reply_id];
+    if(this.edit_reply_box[review_event_id][reply_id]){
+      this.sub_reply_box[review_event_id][reply_id] = false;  
+    }
   }
 
 
   userInformation(){
 
     if(this.getToken){
-    var ref = this;
-    ref.apiService.userProfile(function(res){
-      // console.log(JSON.stringify(res));
-      ref.login_user = res.data.user_id;
-      
-    }, function(error){
-      if(error.status == 401 || error.status == '401' || error.status == 400){
-       ref.login_user = false;
-      }
-    });
+      var ref = this;
+      ref.apiService.userProfile(function(res){
+        // console.log(JSON.stringify(res));
+        ref.login_user = res.data.user_id;
+
+      }, function(error){
+        if(error.status == 401 || error.status == '401' || error.status == 400){
+          ref.login_user = false;
+        }
+      });
+    }
   }
-}
   setDeleteID(id,type){
-   this.deleteID = id;
-   this.deleteType = type;
+    this.deleteID = id;
+    this.deleteType = type;
   }
 
 
-    delete(){
+  delete(){
     var ref = this;
     var value = {
-     'delete_id':ref.deleteID,
-     'type':ref.deleteType
+      'delete_id':ref.deleteID,
+      'type':ref.deleteType
     };
     
     this.apiService.commentDelete(value,function(res){
-    ref.getReview(ref.event_id);
+      ref.getReview(ref.event_id);
     },function(error){
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
@@ -361,15 +371,15 @@ export class EventDetailComponent implements OnInit {
 
 
   addEventVisit(event_id){
-   
+
     var value = {
-    'event_id':this.event_id,
-    'visit_count':1,
+      'event_id':this.event_id,
+      'visit_count':1,
     }
     var refreg = this;
     refreg.apiService.addVisit(value,function(res){
-       
-      },function(error){
+
+    },function(error){
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
         refreg.apiService.signinSuccess$.emit(false);
@@ -384,27 +394,36 @@ export class EventDetailComponent implements OnInit {
 
   }
 
-    addFavorite(event_id,favorite){
-  var ref = this;  
+  addFavorite(event_id,favorite){
+    var ref = this;  
     var value = {
-    'event_id':event_id,
-    'favorite':favorite
+      'event_id':event_id,
+      'favorite':favorite
     }
-
+    ref.loadingSvc.setValue(true);
     ref.apiService.favoriteApi(value,function(res){
-    ref.getEventDetail(event_id);  
+      ref.loadingSvc.setValue(false);
+      ref.toastyService.success(res.message);
+      ref.getEventDetail(event_id);  
     });
 
     
   }
 
-  sendFriend(value){
-      var refreg = this;  
-      value.event_id = this.event_id;
-      refreg.apiService.sendToFriend(value,function(res){
-        var closeBtn = <HTMLElement>document.getElementById("send_btn_close");
-        closeBtn.click();
-      },function(error){
+  sendFriend(sendFriendForm:any):void{
+    var refreg = this;
+    var value = sendFriendForm.value;
+    refreg.loadingSvc.setValue(true);  
+    value.event_id = this.event_id;
+    refreg.apiService.sendToFriend(value,function(res){
+      refreg.loadingSvc.setValue(false);
+      refreg.toastyService.success(res.message);
+      var closeBtn = <HTMLElement>document.getElementById("send_btn_close");
+      closeBtn.click();
+      sendFriendForm.reset();
+    },function(error){
+      refreg.loadingSvc.setValue(false);
+      refreg.toastyService.error(error.json().message);
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
         refreg.apiService.signinSuccess$.emit(false);
@@ -412,18 +431,18 @@ export class EventDetailComponent implements OnInit {
       }
       var error = error.json().errors;
       refreg.errors = error;
-     });
+    });
 
   }
 
   attendEvent(){
     var value = {
-    'event_id':this.event_id,
+      'event_id':this.event_id,
     }
     var refreg = this;
     refreg.apiService.addAttendence(value,function(res){
-     refreg.getEventDetail(refreg.event_id);    
-     },function(error){
+       refreg.toastyService.success(res.message);    
+    },function(error){
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
         refreg.apiService.signinSuccess$.emit(false);
@@ -435,8 +454,23 @@ export class EventDetailComponent implements OnInit {
 
   }
 
+  addCalender(event_id) {  
+      var refreg = this;
+        refreg.loadingSvc.setValue(true); 
+      refreg.apiService.addCalender(event_id,function(res){
+     refreg.toastyService.success(res.message);   
+       refreg.loadingSvc.setValue(false); 
+    },function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
+        refreg.apiService.signinSuccess$.emit(false);
+        refreg.router.navigate(['/index']);
+      }
+       refreg.toastyService.error(error.json().message);
+        refreg.loadingSvc.setValue(false); 
+    });
+  }
 
 
-  
 }
 
