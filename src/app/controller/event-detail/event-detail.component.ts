@@ -8,7 +8,7 @@ import { LoadingAnimateService } from 'ng2-loading-animate';
 
 
 declare var jQuery: any;
-declare var gapi;
+
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -438,7 +438,7 @@ export class EventDetailComponent implements OnInit {
     }
     var refreg = this;
     refreg.apiService.addAttendence(value,function(res){
-      refreg.getEventDetail(refreg.event_id);    
+       refreg.toastyService.success(res.message);    
     },function(error){
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
@@ -451,86 +451,23 @@ export class EventDetailComponent implements OnInit {
 
   }
 
-  addCalender() {  
-    gapi.auth.authorize({client_id: this.clientID, scope: this.scope, immediate: false}, this.handleAuthResult.bind(this));
-    return false;
-  }
-
-  handleAuthResult(authResult) {  
-    console.log("Authentication result:");
-    console.log(authResult);
-    var ref = this;   
-    var event_data =  ref.data['event_data'];
-
-    var promise:Promise<string> = new Promise((resolve, reject) => {
-      if (authResult  && !authResult.error) {
-
-        gapi.client.load('calendar', 'v3', function () {
-
-          var today = new Date();
-
-          var request = gapi.client.calendar.events.insert({
-            "calendarId":"primary",
-            "summary": event_data.event_title,
-            "description": event_data.event_description,
-            "start": {
-              "dateTime": event_data.start_datetime
-            },
-            "end": {
-              "dateTime": event_data.end_datetime
-            },
-            "creator": {
-              "displayName": event_data.first_name +' '+event_data.last_name
-            },
-            "organizer": {
-              "displayName": event_data.organizer
-            },
-            "location": event_data.location,
-            "htmlLink": event_data.website,
-            "reminders": {
-              "useDefault": false,
-              "overrides": [
-              {
-                "method": "email",
-                "minutes": 1440
-              },
-              {
-                "method": "popup",
-                "minutes": 10
-              }
-              ]
-            },
-
-          });
-          request.execute(function (resp) {
-
-            if(resp.error) {
-              reject('Event could not add to your google calender something went wrong');
-
-            }else{
-             
-              resolve('Event add to your google calender');
-            }
-          }.bind(this));
-
-        }.bind(this));
-
-      } else  {
-          reject(authResult.error);
+  addCalender(event_id) {  
+      var refreg = this;
+        refreg.loadingSvc.setValue(true); 
+      refreg.apiService.addCalender(event_id,function(res){
+     refreg.toastyService.success(res.message);   
+       refreg.loadingSvc.setValue(false); 
+    },function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
+        refreg.apiService.signinSuccess$.emit(false);
+        refreg.router.navigate(['/index']);
       }
+       refreg.toastyService.error(error.json().message);
+        refreg.loadingSvc.setValue(false); 
     });
-
-    promise.then(result =>{
-      setTimeout(function(){
-        console.log(ref);
-        ref.toastyService.success(result);
-       },1000);
-      
-    },err=>{
-      ref.toastyService.error(err);
-    });
-
-
   }
+
+
 }
 

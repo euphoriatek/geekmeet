@@ -159,7 +159,7 @@
 
                         <li class="add_to_my_calendar">
                             <div class="calendar">
-                                <a *ngIf = "getToken" class="calendar_show small_btn" (click)="addCalender()"><span>Add to my calendar</span></a> 
+                                <a *ngIf = "getToken" class="calendar_show small_btn" (click)="addCalender(data.event_data.event_id)"><span>Add to my calendar</span></a> 
 
                                 <a *ngIf = "!getToken" class="calendar_show small_btn" data-toggle="modal" data-target="#loginModal"><span>Add to my calendar</span></a>     
                                
