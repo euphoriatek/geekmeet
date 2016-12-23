@@ -31,6 +31,7 @@ export class IndexComponent implements OnInit {
 	currentPage:any;
 	upcoming_total:any;
 	upcoming_currentPage:any;
+	currentPos:any;
 
 	constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private location: Location,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
 		this.toastyConfig.theme = 'bootstrap';
@@ -40,15 +41,12 @@ export class IndexComponent implements OnInit {
 		this.getToken = this.apiService.getLoginToken();
 		this.getPopularGridView();
 		this.latestUpcomingEvents();
-		// var bodyRect = document.getElementById("main").getBoundingClientRect();
-		// console.log(bodyRect);
 	}
 
 
 
 
 	popularEvent(){
-		window.scrollTo(0, 500);
 		var ref = this;
 		var value = {
 			'category': ref.category,
@@ -128,6 +126,7 @@ export class IndexComponent implements OnInit {
 				} 
 			}
 		});
+
 	}
 
 
@@ -194,6 +193,7 @@ export class IndexComponent implements OnInit {
 		ref.events = "All Popular Events";
 		ref.all = true;
 		ref.page = page_no;
+		window.scrollTo(0,500);
 		this.popularEvent();
 	}
 
@@ -202,6 +202,7 @@ export class IndexComponent implements OnInit {
 		ref.events = "All Upcoming Events";
 		ref.upcoming_all = true;
 		ref.upcoming_page = page_no;
+		// window.scrollTo(0,-1000);
 		this.upcomingEvent();
 	}
 

@@ -1,0 +1,13 @@
+.views {
+    border-right: 2px solid rgba(0, 0, 0, 0.2);
+    margin-right: 8px;
+    padding-right: 8px;
+}
+.comment-wrap .views:nth-child(3) {
+    border-right: 0px solid rgba(0, 0, 0, 0.2)!important;
+}
+
+.star-icon[_ngcontent-pic-11] {
+    font-size: 35px !important;
+   
+}

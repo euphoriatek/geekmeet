@@ -13,7 +13,7 @@
 					<h1 class="loop-title org_btn">Event <a class="btn btn-warning pull-right" href="" [routerLink]="['/eventadd']">Add Event</a>
 					<div class="tev_sorting_option pull-right" style="margin-right: 25px;">
                             <div class="select-wrap">
-                                <select (change) = "sortEventsData($event.target.value)" id="event_sortby" class="tev_options_sel" style="z-index: 10;float: left;background-color: #003A70;color: #ffffff">
+                                <select (change) = "sortEventsData($event.target.value)" id="event_sortby" class="tev_options_sel" style="z-index: 10;float: left;">
                                     <option value = "" selected="selected">Sort By</option>
                                     <option  value="title_asc">Title Ascending</option>
                                     <option  value="title_desc">Title Descending</option>

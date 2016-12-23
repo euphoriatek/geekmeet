@@ -62,6 +62,7 @@ export class EventEditComponent implements OnInit {
 	orgId:Array<string> = [];
 	imagePreview:any;
 	imageLink:any;
+	imageId:any;
 
 	private startDateNormal:string = '';
 	private startTextNormal: string = '';
@@ -114,19 +115,23 @@ export class EventEditComponent implements OnInit {
 			refreg.loadingSvc.setValue(false);
 			refreg.countryId = res.data.country;
 			// refreg.getCountryList();
-			refreg.stateId = res.data.state;
-			refreg.cityId = res.data.city;
+			// refreg.stateId = res.data.state;
+			// refreg.cityId = res.data.city;
 			refreg.organizers = res.data.organizers;
 			refreg.defaultVenue = [res.data.venue_name];
 			refreg.showEventArr = res.data;
-			refreg.city = res.data.city;
+			// refreg.city = res.data.city;
 			refreg.location = res.data.venue_id;
 			refreg.keyword = res.data.category_id.join(',');
 			refreg.audience = res.data.audience.join(',');
 			refreg.endDateNormal = res.data.end_date;
 			refreg.startDateNormal = res.data.start_date;
+			if(res.data.image_id!=''){
 			refreg.imagePreview = res.data.images;
-			refreg.imageLink = res.data.attachment;
+			var Link = res.data.attachment;
+			refreg.imageLink = Link.replace(/\\/g, "");
+			refreg.imageArr.push(res.data.image_id);
+			}
 			refreg.afterGetData();
 		},function(error){
 			refreg.loadingSvc.setValue(false);
@@ -161,19 +166,20 @@ export class EventEditComponent implements OnInit {
 
 		jQuery("#attach_ids").val('');
 		var base_url = jQuery("#base_url").val();
+		var urlVal = ref.imageLink;
+		console.log(urlVal);
 		jQuery("#eventImages").fileinput({
 			uploadUrl: "http://2016.geekmeet.com/admin/v1/upload_images",
 			uploadAsync: true,
-			overwriteInitial: true,
+			overwriteInitial: false,
 			showUpload: false,
 			showRemove: false,
 			resizeImage: true,
 			allowedFileExtensions:['gif', 'png','jpg','jpeg'],
 			initialPreview:ref.imagePreview,
-			initialPreviewConfig:ref.imageLink                             
+			initialPreviewConfig:JSON.parse(urlVal) 
 		});
 
-		var ref = this;
 		var $image = jQuery('#eventImages');
 		$image.on('fileuploaded', function (event, data, previewId, index) {
 			console.log('uploaded');
@@ -196,11 +202,27 @@ export class EventEditComponent implements OnInit {
 
 		// delete Image
 
-		jQuery(document).on("click", ".kv-file-remove", function ()   {
-			jQuery(this).attr("disabled", "disabled");
-			var del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
-			ref.delete_image(del_id);
-		});
+		// jQuery(document).on("click", ".kv-file-remove", function ()   {
+		// 	debugger;
+		// 	jQuery(this).attr("disabled", "disabled");
+		// 	var del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+		// 	ref.delete_image(del_id);
+		// });
+
+
+		jQuery(document).on("click", ".kv-file-remove", function () {
+             var delete_id = jQuery(this).attr('data-key');
+            if (typeof delete_id != 'undefined') {
+            var del_id = delete_id;
+           }
+          else
+       {
+        del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+        }
+         ref.delete_image(del_id);
+    });
+
+
 
 		jQuery(document).on("click", ".file-upload-indicator", function ()   {
 			if (jQuery(this).hasClass('yellow')){
@@ -446,7 +468,7 @@ export class EventEditComponent implements OnInit {
 		timechange(event:any) {
 		}
 
-		submitEvent(value:any):void{
+		updateEvent(value:any):void{
 			var ref = this;
 			console.log(value);
 			value['event_id']=  ref.selectedData; 
