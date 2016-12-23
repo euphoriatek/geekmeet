@@ -39,6 +39,7 @@
     "ng2-notifications": "^0.3.0",
     "ng2-notify": "^1.4.0",
     "ng2-nouislider": "^1.4.1",
+    "ng2-pagination": "^1.0.1",
     "ng2-popup": "^0.3.2",
     "ng2-rating": "0.0.6",
     "ng2-recaptcha": "^1.4.0",

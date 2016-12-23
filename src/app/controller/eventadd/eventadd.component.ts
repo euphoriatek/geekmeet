@@ -1,12 +1,13 @@
 /*require('jquery');
 require('mydatepicker');
 console.log(jQuery);*/
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild  } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import { MyDatePickerModule } from 'mydatepicker';
 import {SelectModule} from 'ng2-select/ng2-select';
 import { AgmCoreModule } from 'angular2-google-maps/core';
+import { SebmGoogleMap } from 'angular2-google-maps/core';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
@@ -25,7 +26,9 @@ import 'rxjs/add/operator/catch';
    encapsulation: ViewEncapsulation.None,  
 })
 export class EventaddComponent implements OnInit {
- 
+  
+   @ViewChild('myMap') mymap: SebmGoogleMap
+
   getToken:any;
   userInfoArr:Object = {};
   topic:any;
@@ -48,6 +51,7 @@ export class EventaddComponent implements OnInit {
   start_time:string;
   end_time:string;
   imageArr:Array<string> = []; 
+  venue_image:Array<string> = []; 
 
   title:any;
   description:any;
@@ -64,7 +68,7 @@ export class EventaddComponent implements OnInit {
   contact:any;
   
   geocoder:any;
-  errors:Object = {};  
+  venueErrors:Object = {};  
   center:Object = {
     latitude:51.678418,
     longitude:7.809007
@@ -537,8 +541,8 @@ export class EventaddComponent implements OnInit {
           if (status == 'OK') { 
             ref.locationFinder='';
             ref.venueArr['latitude'] = results[0].geometry.location.lat();
-            ref.venueArr['longitude'] = results[0].geometry.location.lng();      
-            //ref.geocoder.triggerResize();      
+            ref.venueArr['longitude'] = results[0].geometry.location.lng();                 
+            ref.mymap.triggerResize();      
             jQuery(".map_div").show();
           }
           else{
@@ -548,15 +552,21 @@ export class EventaddComponent implements OnInit {
      }  
    }
    
-    submitLocation(value:any):void{
+   submitLocation(value:any):void{
     var ref = this;
-    console.log("submit add location");    
-    console.log(value);       
+    
+    jQuery( "#images_div input[type=file]" ).each(function() {
+      var image = jQuery(this).val();
+      if(image != '')
+        {ref.venue_image.push();}       
+    });
+    
+    value.venue_image = ref.venue_image;
 
-    /* ref.apiService.addEvent(value,function(res){
+     ref.apiService.addVenue(value,function(res){
        ref.loadingSvc.setValue(false);
         var toastOptions:ToastOptions = {
-          title: "Event Added!",
+          title: "Location Added!",
           msg: res.message,
           showClose: true,
           timeout: 1000,
@@ -569,7 +579,7 @@ export class EventaddComponent implements OnInit {
           }
         };
         ref.toastyService.success(toastOptions);
-        ref.router.navigate(['/event']);
+        ref.router.navigate(['/eventadd']);
       },function(error){
         ref.loadingSvc.setValue(false);
         if(error.status == 401 || error.status == '401' || error.status == 400){
@@ -578,21 +588,9 @@ export class EventaddComponent implements OnInit {
           ref.router.navigate(['/index']);
         }
         ref.toastyService.error(error.json().message);
-        var errors = error.json().errors;
-        ref.title = errors.event_title;
-        ref.description = errors.event_description;
-        ref.startDate = errors.start_date;
-        ref.start_timeErr = errors.start_time;
-        ref.endDate = errors.end_date;
-        ref.end_timeErr = errors.end_time;
-        ref.websiteErr = errors.website;
-        ref.countryErr = errors.country;
-        ref.stateErr = errors.state;
-        ref.cityErr = errors.city;
-        ref.organizationErr = errors.organizers;
-        ref.locationErr = errors.location;
-        ref.contact = errors.contact_info;  
-      });*/
+        var error = error.json().errors;
+        //ref.venueErrors = error;        
+      });
   }
  
  
