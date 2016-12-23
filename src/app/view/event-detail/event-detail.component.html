@@ -69,7 +69,7 @@
 
 
               
-                        <div class="entry-header-custom-wrap p-tb-30">
+                        <div class="entry-header-custom-wrap p-tb-30" id="event_td">
                                 <p class="date">
                                 <label>Start Date:</label>
                                 <span id="frontend_date_st_date" class="event_custom frontend_st_date">{{data.event_data.start_date}}</span></p>
@@ -154,7 +154,13 @@
                              
                             <a *ngIf = "data.event_data.favorite==1" href="javascript:void(0);" (click)="addFavorite(data.event_data.event_id,0)" title="Remove From favorites" class="addtofav"><i class="fa fa-heart-o"></i>Remove from favorites</a>
                             </li>
-                        <li class="print"><a id="print_id" title="Print this post" href="#print" rel="leanModal_print" class="small_btn print" onclick="tmpl_printpage()"><i class="fa fa-print" aria-hidden="true"></i>Print</a></li> 
+                        <li class="print">
+
+                        <a *ngIf = "getToken" id="print_id" title="Print this event" href="javascript:void(0)" rel="leanModal_print" class="small_btn print" (click)="print(data.event_data.event_id)"><i class="fa fa-print" aria-hidden="true"></i>Print</a>
+
+                         <a *ngIf = "!getToken" data-toggle="modal" data-target="#loginModal" title="Print this event" href="javascript:void(0)" class="small_btn print"><i class="fa fa-print" aria-hidden="true"></i>Print</a>
+
+                        </li> 
 
 
                         <li class="add_to_my_calendar">
