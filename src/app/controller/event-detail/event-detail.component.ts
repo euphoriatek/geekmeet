@@ -471,6 +471,44 @@ export class EventDetailComponent implements OnInit {
     });
   }
 
+  print(event_id){
+     var refreg = this;
+        refreg.loadingSvc.setValue(true); 
+        refreg.apiService.printApi(event_id,function(res){
+       refreg.Popup(res.data);   
+       refreg.loadingSvc.setValue(false); 
+      },function(error){
+      if(error.status == 401 || error.status == '401' || error.status == 400){
+        localStorage.removeItem('auth_token');        
+        refreg.apiService.signinSuccess$.emit(false);
+        refreg.router.navigate(['/index']);
+      }
+       refreg.toastyService.error(error.json().message);
+        refreg.loadingSvc.setValue(false); 
+    });
+ 
+
+  }
+
+
+     Popup(data)
+            {
+              
+                var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+                mywindow.document.write(data);
+                mywindow.document.close(); // necessary for IE >= 10
+                mywindow.focus(); // necessary for IE >= 10
+                setTimeout(function() {
+                    mywindow.print();
+                    mywindow.close();
+//        window.close();
+                }, 1000);
+
+                return true;
+
+            }
+
+
 
 }
 
