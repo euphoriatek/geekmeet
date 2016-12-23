@@ -13,7 +13,7 @@
         <!-- start content part-->
         <div id="content" role="main" class="large-9 small-12 columns" jstcache="0">
             <div class="event-add">
-                <h3>Event Add</h3>
+                <h3>Edit Event</h3>
             </div>
             <ng2-toasty [position]="'top-center'" ></ng2-toasty>
             <form name="event-add" id="event-add" #addEventForm="ngForm" (ngSubmit)="submitEvent(addEventForm.value)">    
@@ -23,14 +23,6 @@
                         <input type="text" [(ngModel)]="showEventArr.event_title" id="event-title" name="event_title" value="" class="form-control textfield" > 
                        <ul class="error" *ngIf="errors['event_title']!=''" >
                                 <li *ngFor="let org_err of errors['event_title']">{{org_err}}</li>    
-                            </ul>
-                    </div>
-                    <div class="form_row clearfix">
-                        <label>Event Description<span class="indicates">*</span></label>
-                       <!--  <textarea [(ngModel)]="showEventArr.event_description" name="event_description" id="event-description" value="" rows="5" cols="6" class="textfield" style="height: 194px;" > </textarea> -->
-                        <ckeditor name="event_description" [(ngModel)]="showEventArr.event_description" debounce="400"></ckeditor>
-                        <ul class="error" *ngIf="errors['event_description']!=''" >
-                                <li *ngFor="let org_err of errors['event_description']">{{org_err}}</li>    
                             </ul>
                     </div>
                     <div class="form_row clearfix">
@@ -76,7 +68,7 @@
                 </div>
 
                 <div class="event-edit-form large-6 small-12 columns">
-                    <div class="form_row clearfix">
+                    <!-- <div class="form_row clearfix">
                         <label>Country<span class="indicates">*</span></label>                        
                       
                          <ng-select name="countryList" (data)="countryArr"                                                      
@@ -117,7 +109,7 @@
                         <ul class="error" *ngIf="errors['city']!=''" >
                                 <li *ngFor="let org_err of errors['city']">{{org_err}}</li>    
                             </ul> 
-                    </div>
+                    </div> -->
                     <div class="form_row clearfix">
                         <label>Organization<span class="indicates">*</span></label>
                         
@@ -134,13 +126,14 @@
                     </div>
                     <div class="form_row clearfix">
                         <label>Location<span class="indicates">*</span></label>
-                        
+                        <div style="width: 350px; float: left;">
                         <ng-select name="locationList" (data)="location"                                                       
                             [items]="venueList"
                             (selected)="optionSelected($event,'location')"
                             [active]="defaultVenue"
                             placeholder="No location selected">
                         </ng-select>
+                        </div><a class="btn btn-success  btn-sm btn-square active pull-right add_button" style="line-height: 1.6;"><span class="glyphicon glyphicon-plus" area-hidden="true"></span> </a>
                         <input type="hidden" id="location" name="location" [(ngModel)]="location">       
                         <ul class="error" *ngIf="errors['venue_name']!=''" >
                                 <li *ngFor="let org_err of errors['venue_name']">{{org_err}}</li>    
@@ -187,14 +180,21 @@
                     </div>-->
                 </div>
                 <div class="col-sm-12">
-                    <!-- <div class="form_row clearfix">
-                        <label>Upload Images</label> -->
-                        <!--<input type="file" name="event-images" id="event-images" value="" class="form-control textfield"> 
-                        <input id="event-images" name="event-images[]" type="file" class="file" data-preview-file-type="text" multiple>-->
-                        <!-- <input id="eventImages" (ngModelChange)="uploadImages($event)" name="eventImages" [(ngModel)]="eventImages" type="file" multiple>
-                    </div> -->
+                    <div class="form_row clearfix">
+                        <label>Event Description<span class="indicates">*</span></label>
+                        <ckeditor name="event_description" [(ngModel)]="showEventArr.event_description" debounce="400"></ckeditor>
+                        <ul class="error" *ngIf="errors['event_description']!=''" >
+                            <li *ngFor="let org_err of errors['event_description']">{{org_err}}</li>    
+                        </ul>
+                    </div>
+                     <div class="form_row clearfix">
+                        <label>Upload Images</label>                        
+                        <input id="eventImages" (ngModelChange)="uploadImages($event)" name="images" [(ngModel)]="eventImages" type="file" multiple>
+                         <input type="hidden" id="attach_ids" name="image_id"> 
+                         <input type="hidden" id="pre_ids"> 
+                    </div>
                     <div class="form_row ">                         
-                        <button class="btn btn-info" type="submit" value="Save" name="submit">Save</button>                          
+                        <button class="btn btn-info" type="submit" value="Save" name="submit">Save</button>                  
                         <button class="btn btn-info"  [routerLink]="['/my-events']" >Cancel</button>
                     </div>                    
                 </div>
