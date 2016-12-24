@@ -203,7 +203,7 @@
                                     <label for="message-text" class="control-label">Image</label>
                                 </div>
                                 <div class="col-md-5">
-                                    <input type="file" name="venue_image[]" class="form-control">                                   
+                                    <input type="file" image-upload name="venue_image[]" (imageSelected)="selected($event)" class="form-control">                              
                                 </div>
                                 <div class="col-md-2 col-sm-1 col-xs-2">
                                     <button class="btn btn-success btn-xs btn-square" id="add_more" type="button"><span aria-hidden="true" class="fa fa-plus">Add More</span>
@@ -317,9 +317,8 @@
                     <div class="col-md-2 col-md-offset-1">
                         <label for="message-text" class="control-label"></label>
                     </div>
-                    <div class="col-md-6 col-md-offset-1">
-                        <input type="file" name="venue_image[]" class="form-control">
-                        <ul class="parsley-errors-list"></ul>
+                    <div class="col-md-6 col-md-offset-1">                        
+                        <input type="file" name="venue_image[]" image-upload (imageSelected)="selected($event)" class="form-control">                                    
                     </div>
                     <div class="col-md-2 col-sm-1 col-xs-2">
                         <button class="btn btn-danger btn-xs btn-square" id="remove_image" type="button"><span aria-hidden="true" class="fa fa-minus"></span>

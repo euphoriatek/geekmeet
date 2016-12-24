@@ -11,6 +11,7 @@ import { SebmGoogleMap } from 'angular2-google-maps/core';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
+import { ImageResult} from 'ng2-imageupload';
 
 
 declare var jQuery: any;
@@ -51,7 +52,7 @@ export class EventaddComponent implements OnInit {
   start_time:string;
   end_time:string;
   imageArr:Array<string> = []; 
-  venue_image:Array<string> = []; 
+  venue_image:Array<string> = [];
 
   title:any;
   description:any;
@@ -121,6 +122,16 @@ export class EventaddComponent implements OnInit {
     this.getCategoryList();
   }
 
+  selected(imageResult: ImageResult) {
+    /*console.log(imageResult);
+     var imgName = imageResult.file.name;    
+     var imgData = [];
+     imgData[imgName] = imageResult.dataURL; */   
+     this.venue_image.push(imageResult.dataURL);
+     console.log(this.venue_image);
+  }
+
+
   
   ngAfterViewInit() {
   
@@ -140,7 +151,10 @@ export class EventaddComponent implements OnInit {
 
     jQuery("#contactinfo").mask("(999) 999-9999");
 
-    
+    /*jQuery("#images_div input[type=file]").on('change',function(){
+       this.readThis(jQuery(this)).done(function(base64Data){ jQuery(this).next('.b64').innerHtml(base64Data); });
+     });
+    */
      // Upload Image       
     jQuery("#attach_ids").val('');
     var base_url = jQuery("#base_url").val();
@@ -555,13 +569,17 @@ export class EventaddComponent implements OnInit {
    submitLocation(value:any):void{
     var ref = this;
     
-    jQuery( "#images_div input[type=file]" ).each(function() {
-      var image = jQuery(this).val();
+    /*jQuery( "#images_div input[type=file]" ).each(function() {
+      //console.log(jQuery(this).prop("files"));      
+      var image = jQuery(this).val()      
       if(image != '')
-        {ref.venue_image.push();}       
-    });
+      {       
+        ref.venue_image.push(image);              
+      }       
+    });*/
+    console.log(ref.venue_image);
     
-    value.venue_image = ref.venue_image;
+    value.images = ref.venue_image;
 
      ref.apiService.addVenue(value,function(res){
        ref.loadingSvc.setValue(false);
@@ -579,6 +597,7 @@ export class EventaddComponent implements OnInit {
           }
         };
         ref.toastyService.success(toastOptions);
+        this.modal.close();
         ref.router.navigate(['/eventadd']);
       },function(error){
         ref.loadingSvc.setValue(false);
@@ -589,9 +608,27 @@ export class EventaddComponent implements OnInit {
         }
         ref.toastyService.error(error.json().message);
         var error = error.json().errors;
-        //ref.venueErrors = error;        
+        ref.venueErrors = error;        
       });
   }
+
+  
+/*changeListener($event) : void {
+  this.readThis($event.target);
+}*/
+
+readThis(inputValue: any): void {
+  var file:File = inputValue.files[0];
+  console.log(inputValue.files);
+  var myReader:FileReader = new FileReader();
+  var image;
+  myReader.onloadend = (e) => {
+    image = myReader.result;        
+  }
+  myReader.readAsDataURL(file);  
+}
+
+
  
  
 }
