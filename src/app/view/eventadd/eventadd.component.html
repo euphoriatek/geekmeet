@@ -24,11 +24,11 @@
                         <input type="text" [(ngModel)]="event_title" id="event-title" name="event_title" value="" class="form-control textfield" > 
                         <span class="errfield">{{title}}</span>  
                     </div>
-                    <div class="form_row clearfix">
+                    <!--<div class="form_row clearfix">
                         <label>Event Description<span class="indicates">*</span></label>
                         <textarea [(ngModel)]="event_description" name="event_description" id="event-description" value="" rows="5" cols="6" class="textfield" style="height: 194px;" > </textarea>
                         <span class="errfield">{{description}}</span> 
-                    </div>
+                    </div>-->
                     <div class="form_row clearfix">
                         <label>Start Date<span class="indicates">*</span></label>                                         
                         <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event,'start')" [selDate]="startDateNormal"></my-date-picker>
@@ -52,16 +52,16 @@
                         <input type="text" id="eventend-time" class="form-control"> 
                         <input type="hidden" id="end-Time" name="end-Time">       
                         <span class="errfield">{{end_timeErr}}</span> 
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Website<span class="indicates">*</span></label>
+                        <input type="url" [(ngModel)]="website" name="website" id="website" value="" class="form-control textfield" > 
+                        <span class="errfield">{{websiteErr}}</span> 
                     </div>              
 
                 </div>
 
-                <div class="event-edit-form large-6 small-12 columns">
-                     <div class="form_row clearfix">
-                        <label>Website<span class="indicates">*</span></label>
-                        <input type="url" [(ngModel)]="website" name="website" id="website" value="" class="form-control textfield" > 
-                        <span class="errfield">{{websiteErr}}</span> 
-                    </div>
+                <div class="event-edit-form large-6 small-12 columns">                     
                    <!-- <div class="form_row clearfix">
                         <label>Country<span class="indicates">*</span></label>                        
                       
@@ -95,7 +95,7 @@
                         <input type="hidden" id="city" name="city" [(ngModel)]="city"> 
                         <span class="errfield">{{cityErr}}</span>
                     </div> -->
-                    <div class="form_row clearfix">
+                    <div class="form_row clearfix" style="width: 385px">
                         <label>Organization<span class="indicates">*</span></label>
                         
                          <ng-select name="organizationList" (data)="organizationList"                                                       
@@ -109,19 +109,21 @@
                     <div class="form_row clearfix">
                         <label>Location<span class="indicates">*</span></label>
                         
-                        <ng-select name="locationList" (data)="venueList"                                                       
-                            [items]="venueList"
-                            (selected)="optionSelected($event,'location')"
-                            placeholder="No location selected">
-                        </ng-select>
-                        <input type="hidden" id="location" name="location" [(ngModel)]="location">       
-                        <span class="errfield">{{locationErr}}</span>                
+                        <div style="width: 350px; float: left;">
+                            <ng-select name="locationList" (data)="venueList"                                                       
+                                [items]="venueList"
+                                (selected)="optionSelected($event,'location')"
+                                placeholder="No location selected">
+                            </ng-select>
+                            <input type="hidden" id="location" name="location" [(ngModel)]="location">       
+                            <span class="errfield">{{locationErr}}</span>  
+                        </div>   
+                        <a (click)="modal.open();" class="btn btn-success  btn-sm btn-square active pull-right add_button" style="line-height: 1.6;">
+                            <span area-hidden="true" class="glyphicon glyphicon-plus"></span>
+                         </a>           
                     </div>
-                    <!--<div class='pull-right'>
-                        <button (click)="modal.open();" class="btn btn-success  btn-sm btn-square active pull-right add_button" type="button" title="add location"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
-                        </button>                           
-                    </div>-->
-                    <div class="form_row clearfix">
+                   
+                    <div class="form_row clearfix" style="width: 385px">
                         <label>Intended Audience:</label>
                         <div class="">                                            
                             <ng-select (data)="optionSelected($event,'audience')"
@@ -140,7 +142,7 @@
                         <label>Event Purpose</label>
                         <input type="text" [(ngModel)]="purpose" id="purpose" name="purpose" value="" class="form-control textfield">
                     </div>
-                    <div class="form_row clearfix">
+                    <div class="form_row clearfix" style="width: 385px">
                         <label>Event Keywords</label>
                         <div class="">
                                          
@@ -153,6 +155,12 @@
                     </div>                  
                 </div>
                 <div class="col-sm-12">
+                     <div class="form_row clearfix">
+                        <label>Event Description<span class="indicates">*</span></label>
+                        <ckeditor name="event_description" [(ngModel)]="event_description" debounce="400"></ckeditor>
+                        <span class="errfield">{{description}}</span> 
+                    </div>
+
                     <div class="form_row clearfix">
                         <label>Upload Images</label>                        
                         <input id="eventImages" (ngModelChange)="uploadImages($event)" name="images" [(ngModel)]="eventImages" type="file" multiple>
@@ -174,9 +182,9 @@
                             <div class="col-md-3 col-md-offset-1">
                                 <label class="control-label">Name *</label>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-7" style="width: 348px">
                                 <input type="text" [(ngModel)]="venue_name" name="venue_name" class="form-control" id='venue_name'>
-                                 <span class="errfield">{{venue_nameErr}}</span>                              
+                                 <span class="errfield">{{venueErrors.venue_name}}</span>                              
                             </div>
                         </div>
 
@@ -185,8 +193,7 @@
                                 <label for="message-text" class="control-label">Description</label>
                             </div>
                             <div class="col-md-7">
-                                <textarea class="form-control" [(ngModel)]="venue_description" name="venue_description" id='venue_description'></textarea>
-                                 <span class="errfield">{{venue_descriptionErr}}</span> 
+                                <textarea class="form-control" [(ngModel)]="venue_description" name="venue_description" id='venue_description'></textarea>      
                             </div>
                         </div>                    
 
@@ -196,8 +203,7 @@
                                     <label for="message-text" class="control-label">Image</label>
                                 </div>
                                 <div class="col-md-5">
-                                    <input type="file" name="venue_image[]" class="form-control">
-                                    <ul class="parsley-errors-list"></ul>
+                                    <input type="file" name="venue_image[]" class="form-control">                                   
                                 </div>
                                 <div class="col-md-2 col-sm-1 col-xs-2">
                                     <button class="btn btn-success btn-xs btn-square" id="add_more" type="button"><span aria-hidden="true" class="fa fa-plus">Add More</span>
@@ -217,7 +223,7 @@
                             placeholder="No country selected">
                             </ng-select>
                             <input type="hidden" id="country" name="country" [(ngModel)]="country">    
-                            <span class="errfield">{{countryErr}}</span>
+                            <span class="errfield">{{venueErrors.country}}</span> 
                         </div>
                     </div>
                     
@@ -232,7 +238,7 @@
                                 placeholder="No state selected">
                                </ng-select>
                                <input type="hidden" id="state" name="state" [(ngModel)]="state"> 
-                               <span class="errfield">{{stateErr}}</span>   
+                               <span class="errfield">{{venueErrors.state}}</span> 
                             </div>
                     </div>
 
@@ -247,7 +253,7 @@
                             placeholder="No city selected">
                            </ng-select>
                            <input type="hidden" id="city" name="city" [(ngModel)]="city"> 
-                           <span class="errfield">{{cityErr}}</span>
+                           <span class="errfield">{{venueErrors.city}}</span>
                         </div>
                     </div>
                     
@@ -257,7 +263,7 @@
                             </div>
                             <div class="col-md-6">
                                 <textarea class="form-control" [(ngModel)]="address" name="address" id='address'>address</textarea>
-                                <span class="errfield">{{addressErr}}</span>
+                                <span class="errfield">{{venueErrors.address}}</span>
                             </div>
                             <button class="btn btn-success  btn-xs btn-square active add_map" (click)="getLatLong(addLocationForm.value);" type="button">
                                 <span aria-hidden="true" class="fa fa-location-arrow"></span>
@@ -270,7 +276,7 @@
                             </div>
                             <div class="col-md-7">
                                 <input type="text" [(ngModel)]="venueArr.latitude" name="latitude" class="form-control" id='latitude'>
-                                <span class="errfield">{{latitudeErr}}</span>
+                                <span class="errfield">{{venueErrors.latitude}}</span>
                             </div>
                         </div>
                      
@@ -280,7 +286,7 @@
                             </div>
                             <div class="col-md-7">
                                 <input type="text" [(ngModel)]="venueArr.longitude" name="longitude" class="form-control" id='longitude'>
-                                <span class="errfield">{{longitudeErr}}</span>
+                                <span class="errfield">{{venueErrors.longitude}}</span>
                             </div>
                         </div>      
                                
@@ -290,7 +296,7 @@
                                 <label for="message-text" class="control-label">Map</label>
                             </div>
                             <div class="col-md-7">                           
-                            <sebm-google-map [latitude]="venueArr.latitude" [longitude]="venueArr.longitude">
+                            <sebm-google-map [latitude]="venueArr.latitude" [longitude]="venueArr.longitude" #myMap>
                                 <sebm-google-map-marker [latitude]="venueArr.latitude" [longitude]="venueArr.longitude"></sebm-google-map-marker>
                             </sebm-google-map>
                             </div>
