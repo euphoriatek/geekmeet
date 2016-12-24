@@ -1,5 +1,5 @@
-<section id="main" class="clearfix">
-    <div class="wrap row">
+<section id="main" class="clearfix" jstcache="0">
+    <div class="wrap row" jstcache="0">
 
         <div class="breadcrumb breadcrumbs columns">
                <div class="breadcrumb-trail">
@@ -17,15 +17,7 @@
 
             <form #editVenueForm="ngForm" (ngSubmit)="updateVenue(editVenueForm.value)">
                 <div class="event-edit-form large-9 small-12 columns">
-                    <div class="form_row clearfix">
-                        <label>Upload Media</label>
-                        <div class="col-sm-10 -m-rl-15">
-                            <input type="file" image-upload
-                            (imageSelected)="selected($event)"
-                            [resizeOptions]="resizeOptions">
-                        </div>
-                       
-                    </div>
+                    
                     <div class="form_row clearfix">
                         <label>Venue Name<span class="indicates">*</span></label>
                         <input type="text" name="venue_name" id="" [(ngModel)]="detailArr.venue_name" class="form-control textfield"> 
@@ -98,6 +90,14 @@
                         </sebm-google-map>
                      </div>
                         <br>
+
+                        <div class="form_row clearfix">
+                            <label>Upload Images</label>                        
+                            <input id="eventImages" (ngModelChange)="uploadImages($event)" name="images" [(ngModel)]="eventImages" type="file" data-preview-file-type="text" multiple>
+                            <input type="hidden" id="attach_ids" name="image_id" value="{{imageArr}}"> 
+                            <input type="hidden" id="pre_ids"> 
+                        </div>
+                    
                     <div class="form_row ">
                         <button class="btn btn-info" type="submit">Save</button>
                            <button class="btn btn-info"  [routerLink] = "['/my-venues']">Cancel</button>    

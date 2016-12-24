@@ -15,8 +15,7 @@ declare var jQuery: any;
 @Component({
 	selector: 'app-venues-add',
 	templateUrl: '../../view/venues-add/venues-add.component.html',
-	styleUrls: ['../../assets/css/venues-add/venues-add.component.css']
-	// encapsulation: ViewEncapsulation.None, 
+	styleUrls: ['../../assets/css/venues-add/venues-add.component.css','../../assets/css/venues-add/fileinput.min.css']
 })
 export class VenuesAddComponent implements OnInit {
 	src: string = "";
@@ -45,37 +44,14 @@ export class VenuesAddComponent implements OnInit {
 		if(!(this.getToken)){
 			this.router.navigate(['/']);
 		}
-		var s = document.createElement("script");
-		s.type = "text/javascript";
-		s.src = "../../app/assets/js/jquery/maskedinput.min.js"; 
 		var s1 = document.createElement("script");
 		s1.type = "text/javascript";
 		s1.src = "../../app/assets/js/jquery/fileinput.min.js";
-
-		jQuery("head").append(s);
 		jQuery("head").append(s1);
 		this.getCountryList();
 	}
 
-	ngAfterViewInit() {
-  
-    jQuery('#eventstart-time, #eventend-time').timepicker({
-        showSeconds: true
-    });
-
-    jQuery('#eventstart-time').on('change', function(){           
-        var startTime = jQuery(this).val();            
-        jQuery("#start-Time").val(startTime);       
-    });
-
-    jQuery('#eventend-time').on('change', function(){               
-        var endTime = jQuery(this).val();            
-        jQuery("#end-Time").val(endTime); 
-    });
-
-    jQuery("#contactinfo").mask("(999) 999-9999");
-
-    
+	ngAfterViewInit() { 
      // Upload Image       
     jQuery("#attach_ids").val('');
     var base_url = jQuery("#base_url").val();
@@ -257,6 +233,8 @@ export class VenuesAddComponent implements OnInit {
 
 	addVenue(value:any):void{
 		var ref = this;
+		var upload_images = jQuery("#attach_ids").val();
+		value.venue_image = upload_images;
 		ref.loadingSvc.setValue(true);
 		ref.apiService.addVenue(value,function(res){
 			ref.loadingSvc.setValue(false);
