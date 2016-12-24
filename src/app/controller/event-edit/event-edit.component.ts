@@ -166,7 +166,12 @@ export class EventEditComponent implements OnInit {
 
 		jQuery("#attach_ids").val('');
 		var base_url = jQuery("#base_url").val();
-		var urlVal = ref.imageLink;
+		var urlVal;
+		if(ref.imageLink){
+			urlVal = JSON.parse(ref.imageLink)
+		}else{
+			urlVal = [];
+		}
 		console.log(urlVal);
 		jQuery("#eventImages").fileinput({
 			uploadUrl: "http://2016.geekmeet.com/admin/v1/upload_images",
@@ -177,7 +182,7 @@ export class EventEditComponent implements OnInit {
 			resizeImage: true,
 			allowedFileExtensions:['gif', 'png','jpg','jpeg'],
 			initialPreview:ref.imagePreview,
-			initialPreviewConfig:JSON.parse(urlVal) 
+			initialPreviewConfig:urlVal
 		});
 
 		var $image = jQuery('#eventImages');
@@ -264,6 +269,19 @@ export class EventEditComponent implements OnInit {
 			} else{
 				window.location.href = '/event'; }
 			});
+
+
+		// jQuery("body").find(".file-preview-thumbnails .file-upload-indicator").each(function () {
+  //   var featured_image = jQuery(this).parents('.file-preview-initial').find('img').attr('featured_image');
+  //           jQuery(this).attr('data-key', jQuery(this).parent('.file-actions').find(".kv-file-remove").attr("data-key"));
+  //           if (featured_image == 1){
+  //   jQuery(this).addClass('yellow');
+  //           jQuery(this).html('<i class="fa fa-star fa-2"></i>');
+  //   } else{
+  //   jQuery(this).removeClass('yellow');
+  //           jQuery(this).html('<i class="fa fa-star fa-2"></i>');
+  //   }
+  //   })
 
 	}
 
@@ -529,7 +547,10 @@ export class EventEditComponent implements OnInit {
 					if (res.status == 1) {
 						var attchstr = jQuery('body').find("#attach_ids").val();
 						var new_string = ref.remove(attchstr, ids);
-						ref.imageArr = []; ref.imageArr.push(new_string);
+						console.log(new_string);
+						ref.imageArr = []; 
+						ref.imageArr.push(new_string);
+						console.log(ref.imageArr);
 						jQuery('body').find("#attach_ids").val('');
 						jQuery('body').find("#attach_ids").val(ref.imageArr);
 					}

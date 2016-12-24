@@ -57,10 +57,10 @@ export class MyEventsComponent implements OnInit {
 		}
 		this.apiService.eventApi(eventArrData,function(res){
 			window.scrollTo(0,0);
-			ref.loadingSvc.setValue(false);
 			ref.eventArr = res.data.data;
 			ref.Total = res.data.last_page;
-			ref.currentPage = res.data.current_page;   			
+			ref.currentPage = res.data.current_page;
+			ref.loadingSvc.setValue(false);   			
 		},function(error){
 			ref.loadingSvc.setValue(false);
 			ref.toastyService.error(error.json().message);

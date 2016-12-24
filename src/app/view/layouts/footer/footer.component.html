@@ -130,8 +130,8 @@
         <div class="modal-body">
             <form name="popup_login"  #form="ngForm" (ngSubmit)="userSignIn(form.value)">
                 <div class="form_row clearfix">
-                    <label>Username <span class="indicates">*</span> </label>
-                    <input type="text" (click)="usernameErr =''" name="username" id="user_login" size="20" class="textfield" ngModel>
+                    <label>Email <span class="indicates">*</span> </label>
+                    <input type="text" (click)="usernameErr =''" name="email" id="user_login" size="20" class="textfield" ngModel>
                     <span id="user_loginInfo">{{usernameErr}}</span> 
                 </div>
                 <div class="form_row clearfix">
