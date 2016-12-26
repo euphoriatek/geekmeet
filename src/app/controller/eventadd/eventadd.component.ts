@@ -69,7 +69,7 @@ export class EventaddComponent implements OnInit {
   contact:any;
   
   geocoder:any;
-  venueErrors:Object = {};  
+  errors:Object = {};  
   center:Object = {
     latitude:51.678418,
     longitude:7.809007
@@ -615,7 +615,7 @@ export class EventaddComponent implements OnInit {
         }
         ref.toastyService.error(error.json().message);
         var error = error.json().errors;
-        ref.venueErrors = error;        
+        ref.errors = error;        
       });
   }
 

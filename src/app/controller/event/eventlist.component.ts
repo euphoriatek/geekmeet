@@ -29,6 +29,8 @@ export class EventListComponent implements OnInit{
   sort:any ='';
   page:any = 1;
   showData:any;
+  code:any;
+  range:any;
 
 
   
@@ -77,18 +79,22 @@ export class EventListComponent implements OnInit{
       }, 1000);
     }
 
-    eventDeafault(category,type,sort,page){
+    eventDeafault(){
       var ref = this;
-      this.category = category;
-      this.type = type; 
-      this.sort = sort;
-      this.page = page; 
+      var category = this.category;
+      var type = this.type; 
+      var sort = this.sort;
+      var page = this.page;
+      var postal_code = this.code;
+      var range = this.range; 
       var eventArrData = {
         "category": category,
         "type":type,
         "sort":sort,
         "all": "false",
-        "page":page
+        "page":page,
+        "search":postal_code,
+        "redius":range
       }
       ref.loadingSvc.setValue(true);
       ref.apiService.eventApi(eventArrData,function(res){
@@ -119,7 +125,7 @@ export class EventListComponent implements OnInit{
       var sort = this.sort;
       var type = type;
       var page = this.page;
-      this.eventDeafault(category,type,sort,page);  
+      this.eventDeafault();  
     }
 
 
@@ -129,7 +135,7 @@ export class EventListComponent implements OnInit{
       var sort = this.sort;
       var type = this.type;
       var page = this.page;
-      this.eventDeafault(category,type,sort,page);
+      this.eventDeafault();
     }
 
     typeOfEvent(type,index){
@@ -139,7 +145,7 @@ export class EventListComponent implements OnInit{
       var sort = this.sort;
       var type = this.type;
       var page = this.page;
-      this.eventDeafault(category,type,sort,page);
+      this.eventDeafault();
     }
 
 
@@ -150,7 +156,7 @@ export class EventListComponent implements OnInit{
       var sort = this.sort;
       var type = this.type;
       var page = this.page;
-      this.eventDeafault(category,type,sort,page);  
+      this.eventDeafault();  
     }
 
     changeGridTolist(status){
@@ -167,6 +173,13 @@ export class EventListComponent implements OnInit{
     }
 
 
+    searchByZipCode(code,range){
+      this.code = code;
+      this.range = range;
+      this.eventDeafault();
+    }
+
+
     addFavorite(event_id,favorite){
       var ref = this;  
       var value = {
@@ -175,7 +188,7 @@ export class EventListComponent implements OnInit{
       }
 
       ref.apiService.favoriteApi(value,function(res){
-        ref.eventDeafault(ref.category,ref.type,ref.sort,ref.page); 
+        ref.eventDeafault(); 
       });
 
 

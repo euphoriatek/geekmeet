@@ -1,8 +1,10 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild,Input } from '@angular/core';
 import { RouterModule, Router, ActivatedRoute }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
 import { EventListComponent } from './eventlist.component';
 import { NouisliderModule } from 'ng2-nouislider';
+import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
+
 declare var jQuery: any;
 
 import 'rxjs/add/operator/map';
@@ -14,6 +16,13 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['../../assets/css/event/event.component.css']  
 })
 export class EventComponent implements OnInit{
+  currntRange:any = 300;
+  @ViewChild(EventListComponent) event: EventListComponent;
+  
+    constructor(private toastyService:ToastyService,private toastyConfig: ToastyConfig,private router:Router,private route: ActivatedRoute, public apiService:ApiMethodService) { 
+    this.toastyConfig.theme = 'bootstrap';
+  }
+
  /* eventArr:any;
   selectedmenu:any;
   sortvalData:any;
@@ -29,7 +38,6 @@ export class EventComponent implements OnInit{
   page:any = 1;
 
 
-  constructor(private router:Router,private route: ActivatedRoute, public apiService:ApiMethodService) { }
 
   ngOnInit() {
     if(this.router.url == '/event'){
@@ -139,6 +147,27 @@ export class EventComponent implements OnInit{
   someRange:any;
   ngOnInit() {   
     jQuery.getScript('//www.ads4mysite.com/adserver/www/delivery/asyncjs.php');
+  }
+
+  outputUpdate(range){
+    var ref = this;
+    
+    ref.currntRange = range;
+    console.log(ref.currntRange);
+  }
+
+  searchZipCodeEvent(value:any):void{
+    if(value.code){
+      if(value.range==''){
+        value.range=this.currntRange;
+        this.currntRange = this.currntRange;
+      }
+      this.event.searchByZipCode(value.code,value.range);
+    }
+    else{
+      this.toastyService.error("Please Provoide Zipcode.!");
+    }
+    
   }
 
   createRange(number){

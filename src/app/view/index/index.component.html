@@ -5,16 +5,9 @@
             <div class="search_nearby_widget what_fld_search">
                 <!--<div class="title-subtitle">Create an Events Portal easily using this theme.<span> Search through 1500 events</span></div>-->            
                 <form name="searchform_1748020477" method="get" class="searchform_1748020477 allinone" id="searchform" action="#" style="position:relative;">
-                    <input name="post_type" value="event" type="hidden">
-                    <input name="mkey[]" value="all" type="hidden">
+                    <input value="" name="s" id="search_near-557435365" class="searchpost placeholder" placeholder="What do you want to do today?" size="100" type="text" #search_text>
 
-                    <input name="custom_cat" value="" type="hidden">
-                    <input value="" name="s" id="search_near-557435365" class="searchpost placeholder" placeholder="What do you want to do today?" size="100" type="text">
-
-                    <input name="t" value="acebef955d" type="hidden">
-                    <input name="t" value="acebef955d" type="hidden">
-                    <input name="relation" class="sgo" value="OR" type="hidden">
-                    <input class="sgo" value="Search" type="submit">
+                    <input class="sgo" value="Search" type="submit" (click)="search(search_text.value)">
                 </form>
             </div>
         </div>
@@ -45,6 +38,7 @@
                                 </div>    
                                 <!-- widget_loop_taxonomy_wrap START -->
                                 <section id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  grid" *ngIf="view_type=='chronological'">
+                                 <p>{{showData}}</p>
                                     <!-- inside loop div start -->
                                     <article id="event_27121" class="post large-4 medium-4 small-6 xsmall-12 columns post" *ngFor = "let events of popularArr">
                                              <div class="listing_img" (click)="goToEventDetail(events.event_id)">
@@ -146,6 +140,7 @@
 
 
                                 <section id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  list" *ngIf="view_type=='list'">
+                                   <p>{{showData}}</p>
                                     <!-- inside loop div start -->
                                     <article class="post" *ngFor = "let list_event of popularArr">
                                              <div class="listing_img">
@@ -284,6 +279,7 @@
                                 </div>    
                                 <!-- widget_loop_taxonomy_wrap START -->
                                 <section id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  list">
+                                   <p>{{showUpcomingData}}</p>
                                     <!-- inside loop div start -->
                                     <article class="post" *ngFor = "let upcomingevents of upcomingArr">
                                              <div class="listing_img">

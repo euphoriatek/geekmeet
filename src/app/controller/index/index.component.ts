@@ -32,6 +32,8 @@ export class IndexComponent implements OnInit {
 	upcoming_total:any;
 	upcoming_currentPage:any;
 	currentPos:any;
+	showData:any = '';
+	showUpcomingData:any = '';
 
 	constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private location: Location,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
 		this.toastyConfig.theme = 'bootstrap';
@@ -58,6 +60,12 @@ export class IndexComponent implements OnInit {
 		this.apiService.popularEventApi(value,function(res){
 			ref.loadingSvc.setValue(false);
 			ref.popularArr = res.data.data;	
+			   if(ref.popularArr == [] || ref.popularArr == ''){
+          ref.showData = "No Data Found.!"
+        }
+        else{
+          ref.showData = '';
+        }
 			ref.Total = res.data.last_page;
 			ref.currentPage = res.data.current_page;  
 		},function(error){
@@ -110,6 +118,12 @@ export class IndexComponent implements OnInit {
 		this.apiService.upcomingEventApi(value,function(res){
 			ref.loadingSvc.setValue(false);
 			ref.upcomingArr = res.data.data;
+				   if(ref.upcomingArr == [] || ref.upcomingArr == ''){
+          ref.showUpcomingData = "No Data Found.!"
+        }
+        else{
+          ref.showUpcomingData = '';
+        }
 			ref.upcoming_total = res.data.last_page;
 			ref.upcoming_currentPage = res.data.current_page;  		
 		},function(error){
@@ -204,6 +218,12 @@ export class IndexComponent implements OnInit {
 		ref.upcoming_page = page_no;
 		// window.scrollTo(0,-1000);
 		this.upcomingEvent();
+	}
+
+
+	search(value){
+     this.router.navigate(['/search',value]);
+
 	}
 
 
