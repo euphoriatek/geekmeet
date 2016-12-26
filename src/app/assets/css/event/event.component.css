@@ -1,6 +1,12 @@
+@import "~nouislider/distribute/nouislider.min.css";
+
 .postpagination a {
     font-weight: bold;
     height: 36px !important;
     line-height: 35px !important;
     width: 36px !important;
+}
+#zipcodeErr{
+	color: red;
+	font-size: 13px;
 }

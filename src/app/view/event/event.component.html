@@ -7,20 +7,20 @@
                 <span class="trail-begin">
                     <a [routerLink]="['/']" title="home" rel="home" class="trail-begin">Home</a>
                 </span> 
-               <span class="sep">»</span> <span class="trail-end">
-               <a [routerLink]="['/event']" title="Events"> Events {{Category_name}}</a>
-               </span>
-            </div>
+                <span class="sep">»</span> <span class="trail-end">
+                <a [routerLink]="['/event']" title="Events"> Events {{Category_name}}</a>
+            </span>
         </div>
+    </div>
 
-        <div id="content" class="contentarea large-9 small-12 columns ">
-            <h1 class="loop-title">Events <a class="btn btn-warning pull-right" href="" [routerLink]="['/eventadd']">Add Event</a></h1>
+    <div id="content" class="contentarea large-9 small-12 columns ">
+        <h1 class="loop-title">Events <a class="btn btn-warning pull-right" href="" [routerLink]="['/eventadd']">Add Event</a></h1>
 
-            <!-- 728x90 ad_space -->
-            <div id="templatic_text-1" class="widget templatic_text">
-                <div class="widget-wrap widget-inside">		
-                    <div class="textwidget text-center">	
-					   <iframe scrolling="no" width="100%" height="100" src="http://2016.geekmeet.com/banner.php?title=event-728x90"></iframe>	
+        <!-- 728x90 ad_space -->
+        <div id="templatic_text-1" class="widget templatic_text">
+            <div class="widget-wrap widget-inside">		
+                <div class="textwidget text-center">	
+                    <iframe scrolling="no" width="100%" height="100" src="http://2016.geekmeet.com/banner.php?title=event-728x90"></iframe>	
                        <!-- <a href="">                            
                             <img src="app/assets/images/ads images/728x90.jpg">
                             <ins data-revive-zoneid="7" data-revive-id="be6186b004d5136eb9e247010ad156eb"></ins>
@@ -219,77 +219,76 @@
                 </div>
                     
 
-                    <!-End loop taxonomy page -->
-                </div>
+                <!-End loop taxonomy page -->
+            </div>
 
 
 
 
-                <!--taxonomy  sidebar -->
-                <aside id="sidebar-primary" class="sidebar large-3 small-12 columns">
-                    <div id="directory_mile_range_widget-3" class="widget search_miles_range">
-                        <div class="search_nearby_widget">
-                            <h3 class="widget-title">Search Nearby Miles Range</h3>
-                            <form method="get" id="searchform" action="">
-                                <input type="hidden" class="miles_range_post_type" name="post_type" value="event">
-                                <div class="search_range">
-                                    <input style="width: 85%" type="text" name="range_address" id="range_address" value="" class="range_address location placeholder ui-autocomplete-input" placeholder="Enter your Postal Code" autocomplete="off">
-                                    <a class="btn btn-default btn-sm btn-square active pull-right add_button"><span class="glyphicon glyphicon-search" area-hidden="true"></span> </a>
-                                    
-                                    <label>Mile range:</label>
-                                    <input type="text" name="radius" id="radius_range" value="500" style="border:0; font-weight:bold;" readonly="readonly">
-                                    <!-- <nouislider name="someRange" [connect]="true" [min]="0" [max]="15" [(ngModel)]="someRange"></nouislider> -->
-                                </div>
-                                <div id="radius-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+            <!--taxonomy  sidebar -->
+            <aside id="sidebar-primary" class="sidebar large-3 small-12 columns">
+                <div id="directory_mile_range_widget-3" class="widget search_miles_range">
+                    <div class="search_nearby_widget">
+                        <h3 class="widget-title">Search Nearby Miles Range</h3>
+                        <form #zipcodeForm="ngForm" (ngSubmit)="searchZipCodeEvent(zipcodeForm.value)">
+                            <div class="search_range">
+                                <input type="text" name="code" id="range_address" value="" class="range_address location placeholder ui-autocomplete-input" placeholder="Enter your Postal Code" autocomplete="off" ngModel>
+                                <label>Mile range: </label><label>{{currntRange}}</label>
+                                <input style="width: 85%;float: left;" id="slider1" type="range" min="0" max="500" step="100" name="range" (ngModelChange)="outputUpdate($event)" ngModel />
+                                 <button type="submit" class="btn btn-default btn-sm btn-square active pull-right add_button" (click)="searchZipCodeEvent()"><span class="glyphicon glyphicon-search" area-hidden="true"></span> </button>
+                                <!--   <input type="text" name="radius" id="radius_range" value="500" style="border:0; font-weight:bold;" readonly="readonly"> -->
+                                <!--  <nouislider name="someRange" [connect]="true" [min]="0" [max]="15" [(ngModel)]="someRange"></nouislider> -->
+                                <!--  <md-slider min="1" max="5"></md-slider> -->
+                            </div>
+                                <!-- <div id="radius-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                                     <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 100%;"></div>
                                     <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 0%;"></span>
                                     <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 100%;"></span>
-                                </div>
+                                </div> -->
                             </form>
                         </div>
                     </div>
-
-                    <!-- 300x250 ad_space -->
-                    <div id="templatic_text-1" class="widget templatic_text">
-                        <div class="widget-wrap widget-inside">		
-                            <div class="textwidget text-center">	
-                                <a href="">
-                                    <img src="app/assets/images/ads images/300x250.jpg">
-                                </a>	
-                            </div>
-                        </div>
+            <!-- 300x250 ad_space -->
+            <div id="templatic_text-1" class="widget templatic_text">
+                <div class="widget-wrap widget-inside">		
+                    <div class="textwidget text-center">	
+                        <a href="">
+                            <img src="app/assets/images/ads images/300x250.jpg">
+                        </a>	
                     </div>
-
-                    <!-- 300x600 ad_space -->
-                    <div id="templatic_text-1" class="widget templatic_text">
-                        <div class="widget-wrap widget-inside">		
-                            <div class="textwidget text-center">	
-                                <a href="">
-                                    <img src="app/assets/images/ads images/300x600.jpg">
-                                </a>	
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- 300x150 ad_space -->
-                    <div id="templatic_text-1" class="widget templatic_text">
-                        <div class="widget-wrap widget-inside">		
-                            <div class="textwidget text-center">	
-                                <a href="">
-                                    <img src="app/assets/images/ads images/300x150.jpg">
-                                </a>	
-                            </div>
-                        </div>
-                    </div>
-
-                </aside>
-                <!--end taxonomy sidebar -->
+                </div>
             </div>
-            <!-- .wrap -->
+
+            <!-- 300x600 ad_space -->
+            <div id="templatic_text-1" class="widget templatic_text">
+                <div class="widget-wrap widget-inside">		
+                    <div class="textwidget text-center">	
+                        <a href="">
+                            <img src="app/assets/images/ads images/300x600.jpg">
+                        </a>	
+                    </div>
+                </div>
+            </div>
 
 
-        </section>
+            <!-- 300x150 ad_space -->
+            <div id="templatic_text-1" class="widget templatic_text">
+                <div class="widget-wrap widget-inside">		
+                    <div class="textwidget text-center">	
+                        <a href="">
+                            <img src="app/assets/images/ads images/300x150.jpg">
+                        </a>	
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+        <!--end taxonomy sidebar -->
+    </div>
+    <!-- .wrap -->
+
+
+</section>
 
 
         <!-- <app-footer></app-footer> -->

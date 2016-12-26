@@ -29,6 +29,8 @@ export class EventListComponent implements OnInit{
   sort:any ='';
   page:any = 1;
   showData:any;
+  code:any;
+  range:any;
 
 
   
@@ -82,13 +84,17 @@ export class EventListComponent implements OnInit{
       var category = this.category;
       var type = this.type; 
       var sort = this.sort;
-      var page = this.page; 
+      var page = this.page;
+      var postal_code = this.code;
+      var range = this.range; 
       var eventArrData = {
         "category": category,
         "type":type,
         "sort":sort,
         "all": "false",
-        "page":page
+        "page":page,
+        "search":postal_code,
+        "redius":range
       }
       ref.loadingSvc.setValue(true);
       ref.apiService.eventApi(eventArrData,function(res){
@@ -164,6 +170,13 @@ export class EventListComponent implements OnInit{
       }
 
       return links;
+    }
+
+
+    searchByZipCode(code,range){
+      this.code = code;
+      this.range = range;
+      this.eventDeafault();
     }
 
 
