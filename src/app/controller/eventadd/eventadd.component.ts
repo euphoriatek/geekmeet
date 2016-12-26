@@ -66,7 +66,8 @@ export class EventaddComponent implements OnInit {
   cityErr:any;
   organizationErr:any;
   locationErr:any;
-  contact:any;
+  contact:any;  
+  venueErrors:Object = {};
   
   geocoder:any;
   errors:Object = {};  
@@ -684,7 +685,7 @@ readImage(inputValue: any) {
   removeLocationData(){
     this.file_srcs = [];  
     jQuery('.map_div').hide();
-    this.venueErrors = {};
+    //this.venueErrors = {};
   }  
 
   
