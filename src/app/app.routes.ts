@@ -29,6 +29,7 @@ import { ForgetPasswordComponent } from './controller/forget-password/forget-pas
 import { ResetPasswordComponent } from './controller/reset-password/reset-password.component';
 import { MyEventsComponent } from './controller/my-events/my-events.component';
 import { EventEditComponent } from './controller/event-edit/event-edit.component';
+import { SearchComponent } from './controller/search/search.component';
 
 
 

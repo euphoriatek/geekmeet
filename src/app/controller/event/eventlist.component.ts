@@ -77,12 +77,12 @@ export class EventListComponent implements OnInit{
       }, 1000);
     }
 
-    eventDeafault(category,type,sort,page){
+    eventDeafault(){
       var ref = this;
-      this.category = category;
-      this.type = type; 
-      this.sort = sort;
-      this.page = page; 
+      var category = this.category;
+      var type = this.type; 
+      var sort = this.sort;
+      var page = this.page; 
       var eventArrData = {
         "category": category,
         "type":type,
@@ -119,7 +119,7 @@ export class EventListComponent implements OnInit{
       var sort = this.sort;
       var type = type;
       var page = this.page;
-      this.eventDeafault(category,type,sort,page);  
+      this.eventDeafault();  
     }
 
 
@@ -129,7 +129,7 @@ export class EventListComponent implements OnInit{
       var sort = this.sort;
       var type = this.type;
       var page = this.page;
-      this.eventDeafault(category,type,sort,page);
+      this.eventDeafault();
     }
 
     typeOfEvent(type,index){
@@ -139,7 +139,7 @@ export class EventListComponent implements OnInit{
       var sort = this.sort;
       var type = this.type;
       var page = this.page;
-      this.eventDeafault(category,type,sort,page);
+      this.eventDeafault();
     }
 
 
@@ -150,7 +150,7 @@ export class EventListComponent implements OnInit{
       var sort = this.sort;
       var type = this.type;
       var page = this.page;
-      this.eventDeafault(category,type,sort,page);  
+      this.eventDeafault();  
     }
 
     changeGridTolist(status){
@@ -175,7 +175,7 @@ export class EventListComponent implements OnInit{
       }
 
       ref.apiService.favoriteApi(value,function(res){
-        ref.eventDeafault(ref.category,ref.type,ref.sort,ref.page); 
+        ref.eventDeafault(); 
       });
 
 
