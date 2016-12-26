@@ -75,6 +75,7 @@ export const routes: Routes = [
       {path:'forget-password' ,component: ForgetPasswordComponent},
       {path:'reset-password/:id' ,component: ResetPasswordComponent,data: [{id: true}]},
       {path:'event-edit/:id' ,component: EventEditComponent,data: [{id: true}]},
+      {path:'search/:id' ,component: SearchComponent,data: [{id: true}]},
       {path:'' ,component: IndexComponent}
 
 ];
