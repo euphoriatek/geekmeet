@@ -271,17 +271,17 @@ export class EventEditComponent implements OnInit {
 			});
 
 
-		// jQuery("body").find(".file-preview-thumbnails .file-upload-indicator").each(function () {
-  //   var featured_image = jQuery(this).parents('.file-preview-initial').find('img').attr('featured_image');
-  //           jQuery(this).attr('data-key', jQuery(this).parent('.file-actions').find(".kv-file-remove").attr("data-key"));
-  //           if (featured_image == 1){
-  //   jQuery(this).addClass('yellow');
-  //           jQuery(this).html('<i class="fa fa-star fa-2"></i>');
-  //   } else{
-  //   jQuery(this).removeClass('yellow');
-  //           jQuery(this).html('<i class="fa fa-star fa-2"></i>');
-  //   }
-  //   })
+		jQuery("body").find(".file-preview-thumbnails .file-upload-indicator").each(function () {
+    var featured_image = jQuery(this).parents('.file-preview-initial').find('img').attr('featured_image');
+            jQuery(this).attr('data-key', jQuery(this).parent('.file-actions').find(".kv-file-remove").attr("data-key"));
+            if (featured_image == 1){
+    jQuery(this).addClass('yellow');
+            jQuery(this).html('<i class="fa fa-star fa-2"></i>');
+    } else{
+    jQuery(this).removeClass('yellow');
+            jQuery(this).html('<i class="fa fa-star fa-2"></i>');
+    }
+    })
 
 	}
 
@@ -507,21 +507,8 @@ export class EventEditComponent implements OnInit {
 			ref.loadingSvc.setValue(true);
 			ref.apiService.updateEvent(value,function(res){
 				ref.loadingSvc.setValue(false);
-				var toastOptions:ToastOptions = {
-					title: "Event Update!",
-					msg: res.message,
-					showClose: true,
-					timeout: 1000,
-					theme: 'bootstrap',
-					onAdd: (toast:ToastData) => {
-
-					},
-					onRemove: function(toast:ToastData) {
-						ref.router.navigate(['/my-events']);
-					}
-				};
-				ref.toastyService.success(toastOptions);
-				ref.router.navigate(['/event']);
+				ref.toastyService.success(res.message);
+				ref.router.navigate(['/my-events']);
 			},function(error){
 				ref.loadingSvc.setValue(false);
 				if(error.status == 401 || error.status == '401' || error.status == 400){

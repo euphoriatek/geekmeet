@@ -1,3 +1,13 @@
 .sebm-google-map-container {
-			height: 300px;
-		}
+	height: 300px;
+}
+.glyphicon.glyphicon-menu-hamburger{
+	display: none;
+}
+.yellow {
+	color: #ffce12;
+}
+.kv-file-content{
+	height: 160px;
+	width: 200px;
+}

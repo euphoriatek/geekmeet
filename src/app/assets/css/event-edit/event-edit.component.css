@@ -10,10 +10,17 @@
 .modal{
 	position: sticky;
 }
+.glyphicon.glyphicon-menu-hamburger{
+	display: none;
+}
 .modal-header{
 margin-bottom: 20px;
 }
 .sebm-google-map-container {
 	height: 300px;
+}
+.kv-file-content{
+	height: 160px;
+	width: 200px;
 }
 
