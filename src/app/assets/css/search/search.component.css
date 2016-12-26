@@ -1,0 +1,13 @@
+ .icon_img{
+  height: 30px !important;
+  width: 30px !important;
+ }
+
+ .widget-twocolumn ul > li > a, .widget-twocolumn ul > li > span {
+    float: left;
+    margin: 0 0 0 0 !important;
+    max-width: 60px;
+    position: static;
+    width: 20%;
+}
+        

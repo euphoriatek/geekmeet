@@ -1,3 +1,86 @@
-<p>
-  search works!
-</p>
+<section id="main" class="clearfix">
+    <div class="wrap row">
+       
+        <!-- #content -->
+        <aside id="sidebar-front_page" class="front-page-sidebar sidebar large-12 small-12 columns">
+
+           <header _ngcontent-obu-8="" class="page-header extra-search-criteria-title"><h3 _ngcontent-obu-8="">Search Result</h3></header>
+            <div id="templatic_popular_post_technews-3" class="widget widget-twocolumn popular_posts">
+                <div class="widget-wrap widget-inside" *ngIf="!empty">
+                   
+                    <ul class="listingview clearfix list" id="list_168817222">
+                        <li class="clearfix"   *ngFor = "let events of event">
+                            <a href="" [routerLink] = "['/event_detail',events.event_id]" title="{{events.event_title}}" class="link_img" data-rel="">
+                              <img src="app/assets/images/event.png" class="icon_img"></a>
+                             <div class="post_data">
+                                <h3>
+                                    <a href="" [routerLink] = "['/event_detail',events.event_id]" title="{{events.event_title}}">{{events.event_title}}</a>
+                                </h3>
+                               
+                            </div>
+                             <div class="pull-right" *ngIf="events.owner">
+						    <label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/event-edit',events.event_id]">Edit Event</a></label>
+					        </div>
+                               
+                         
+                        </li>
+                        <li class="clearfix"  *ngFor = "let blogs of blog">
+                            <a  href="" [routerLink] = "['/blog_detail',blogs.blog_id]" title="{{blogs.blog_title}}" class="link_img" data-rel="">
+                              <img src="app/assets/images/blog.png" class="icon_img">
+                            </a>
+                            <div class="post_data">
+                                <h3>
+                                    <a [routerLink] = "['/blog_detail',blogs.blog_id]" title="{{blogs.blog_title}}">{{blogs.blog_title}}</a>
+                                </h3>
+                               
+                            </div>
+                        </li>
+
+                           <li class="clearfix"  *ngFor = "let organizations of organization">
+                            <a href="" [routerLink] = "['/organization',organizations.organization_id]" title="{{organizations.organization_name}}" class="link_img" data-rel="">
+                                  <img src="app/assets/images/organization.png" class="icon_img">
+                            </a>
+                            <div class="post_data">
+                                <h3>
+                                    <a href="" [routerLink] = "['/organization',organizations.organization_id]" title="{{organizations.organization_name}}">{{organizations.organization_name}}</a>
+                                </h3>
+                                
+                            </div>
+                            <div class="pull-right ">
+						    <label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/organization-edit',organizations.organization_id]">Edit Organization</a></label>
+					        </div>	
+                        </li>
+
+                             <li class="clearfix"  *ngFor = "let venues of venue">
+                            <a  href="" [routerLink] = "['/venue',venues.venue_id]" title="{{venues.venue_name}}" class="link_img" data-rel="">
+                                <img src="app/assets/images/map.png" class="icon_img">
+                            </a>
+                            <div class="post_data">
+                                <h3>
+                                    <a href="" [routerLink] = "['/venue',venues.venue_id]" title="{{venues.venue_name}}">{{venues.venue_name}}</a>
+                                </h3>
+                                
+                            </div>
+                             <div class="pull-right ">
+						    <label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/venues-edit',venues.venue_id]">Edit Venue</a></label>
+					        </div>
+                
+                        </li>
+                     
+                     
+                        
+                      
+                    </ul>
+                     
+                </div>
+                <div class="widget-wrap widget-inside" *ngIf="empty">
+                <h4 style="text-align: center;">No Result Found</h4>
+                </div>
+            </div>
+
+
+
+        </aside>
+    </div>
+    <!-- .wrap -->
+</section>

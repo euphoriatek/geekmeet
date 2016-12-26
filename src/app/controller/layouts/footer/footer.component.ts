@@ -258,5 +258,10 @@ export class FooterComponent implements OnInit {
 			});
 		}
 
+		search(value){
+     this.router.navigate(['/search',value]);
+
+	}
+
 
 	}

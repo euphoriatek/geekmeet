@@ -889,10 +889,35 @@ export class ApiMethodService {
 			}, (error) => failure(error));
 		
 	}
+
+	searchData(value,callBack){
+
+        let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		if(localStorage.getItem('auth_token')!=null){
+			let options = new RequestOptions({ headers: headers });	
+			this.http.post('http://2016.geekmeet.com/admin/v1/search_for_user',value,options).map(res=>res.json())
+			.subscribe((res)=>{
+				if(callBack)
+				{
+					callBack(res);
+				}
+			}, (error) => console.log('There was an error', error));
+		}else{
+			this.http.post('http://2016.geekmeet.com/admin/v1/search',value).map(res=>res.json())
+			.subscribe((res)=>{
+				if(callBack)
+				{
+					callBack(res);
+				}
+			}, (error) => console.log('There was an error', error));
+
+		}	
+	}
+  }
 		
 
 
-}
+
 
 
 

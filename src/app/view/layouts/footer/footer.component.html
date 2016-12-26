@@ -4,21 +4,15 @@
             <div class="widget-wrap widget-inside">
                 <div class="search_nearby_widget what_fld_search">
                     <form name="searchform_11879" method="get" class="searchform_11879 allinone" id="searchform" action="" style="position:relative;">
-                        <input type="hidden" name="post_type" value="event">
-                        <input type="hidden" name="mkey[]" value="cats">
-                        <input type="hidden" name="mkey[]" value="tags">
-                        <input type="hidden" name="mkey[]" value="category">
-                        <input type="hidden" name="mkey[]" value="post_excerpt">
-                        <input type="hidden" name="mkey[]" value="address">
+                       
 
-                        <input type="hidden" name="custom_cat" value="">
-                        <input type="text" value="" name="s" id="search_near-550" class="searchpost placeholder" placeholder="Looking For ..." size="100">
+                       
+                        <input type="text" value="" name="s" id="search_near-550" class="searchpost placeholder" placeholder="Looking For ..." size="100" #search_text>
 
-                        <input type="hidden" name="t" value="cbe8166a06">
-                        <input type="hidden" name="t" value="cbe8166a06">
-                        <input type="hidden" name="relation" class="sgo" value="OR">
-                        <input type="submit" class="sgo" value="Search">
-                        <input type="hidden" name="search_in_city" class="sgo" value="1">
+                        
+                      
+                        <input class="sgo" value="Search" type="submit" (click)="search(search_text.value)">
+                        
                         <!--<ul id="search-result" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all" style="display:none;"></ul>-->
                     </form>
                 </div>

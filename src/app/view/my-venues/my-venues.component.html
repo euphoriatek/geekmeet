@@ -18,7 +18,7 @@
 				<div class="form-group organization_div row"  *ngFor = "let venue of venueArr">
 					<div class="col-md-8">
 					  <div class="venue-logo col-sm-6" style="width: 30%;">
-						<img src="{{venue.images[0].image_url}}"  title="{{venue.images.image_title}}" style="width: 270px; height: 150px;">
+						<img src="{{venue.images[0].image_url}}"  title="{{venue.images[0].image_title}}" style="width: 270px; height: 150px;">
 					</div>
                    <div class="right_box form-horizontal col-sm-6">
                    <h2> <a [routerLink]="['/venue',venue.venue_id]">{{venue.venue_name}}</a></h2>

@@ -222,7 +222,7 @@ export class IndexComponent implements OnInit {
 
 
 	search(value){
-      console.log(value);
+     this.router.navigate(['/search',value]);
 
 	}
 
