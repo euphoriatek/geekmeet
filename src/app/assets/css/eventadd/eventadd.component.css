@@ -16,4 +16,9 @@ margin-bottom: 20px;
 .sebm-google-map-container {
 	height: 300px;
 }
-
+.preview_images{
+	 float: left;
+    height: 80px;
+    padding: 5px;
+    width: 80px;
+}

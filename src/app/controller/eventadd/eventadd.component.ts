@@ -1,7 +1,7 @@
 /*require('jquery');
 require('mydatepicker');
 console.log(jQuery);*/
-import { Component, OnInit, ViewEncapsulation, ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import { MyDatePickerModule } from 'mydatepicker';
@@ -11,7 +11,7 @@ import { SebmGoogleMap } from 'angular2-google-maps/core';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
-import { ImageResult} from 'ng2-imageupload';
+//import { ImageResult} from 'ng2-imageupload';
 
 
 declare var jQuery: any;
@@ -94,8 +94,9 @@ export class EventaddComponent implements OnInit {
 
   public audienceList:Array<string> = ['Child', 'Youngest', 'Oldest']; 
   // public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public file_srcs: string[] = [];  
 
-   constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
+  constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService, private toastyConfig: ToastyConfig, private changeDetectorRef: ChangeDetectorRef) {
     this.toastyConfig.theme = 'bootstrap';
   }
 
@@ -112,7 +113,7 @@ export class EventaddComponent implements OnInit {
      var s1 = document.createElement("script");
      s1.type = "text/javascript";
      s1.src = "../../app/assets/js/jquery/fileinput.min.js";
-
+    
      jQuery("head").append(s);
      jQuery("head").append(s1);
 
@@ -122,14 +123,14 @@ export class EventaddComponent implements OnInit {
     this.getCategoryList();
   }
 
-  selected(imageResult: ImageResult) {
-    /*console.log(imageResult);
+  /*selected(imageResult: ImageResult) {
+    console.log(imageResult);
      var imgName = imageResult.file.name;    
      var imgData = [];
-     imgData[imgName] = imageResult.dataURL; */   
+     imgData[imgName] = imageResult.dataURL;    
      this.venue_image.push(imageResult.dataURL);
      console.log(this.venue_image);
-  }
+  }*/
 
 
   
@@ -570,8 +571,14 @@ export class EventaddComponent implements OnInit {
     var ref = this;
     
     /*jQuery( "#images_div input[type=file]" ).each(function() {
-      //console.log(jQuery(this).prop("files"));      
-      var image = jQuery(this).val()      
+      console.log(jQuery(this).prop("files"));  
+      var inputValue = jQuery(this); 
+       console.log(inputValue.context);
+       
+       //var b64 = jQuery.base64('encodeURI', this.value);     
+       //console.log(b64); 
+       
+      var image = jQuery(this).val();      
       if(image != '')
       {       
         ref.venue_image.push(image);              
@@ -579,7 +586,7 @@ export class EventaddComponent implements OnInit {
     });*/
     console.log(ref.venue_image);
     
-    value.images = ref.venue_image;
+    value.images = ref.file_srcs;
 
      ref.apiService.addVenue(value,function(res){
        ref.loadingSvc.setValue(false);
@@ -615,7 +622,7 @@ export class EventaddComponent implements OnInit {
   
 /*changeListener($event) : void {
   this.readThis($event.target);
-}*/
+}
 
 readThis(inputValue: any): void {
   var file:File = inputValue.files[0];
@@ -623,12 +630,63 @@ readThis(inputValue: any): void {
   var myReader:FileReader = new FileReader();
   var image;
   myReader.onloadend = (e) => {
-    image = myReader.result;        
+    image = myReader.result;  
+    console.log(image);      
   }
   myReader.readAsDataURL(file);  
 }
 
+readImage(inputValue: any) {
+  console.log(inputValue);
+    if ( inputValue.files && inputValue.files[0] ) {
+        var FR= new FileReader();
+        FR.onload = function(e) {            
+             //e.target.result;
+             console.log(e);
+        };       
+        FR.readAsDataURL( inputValue.files[0] );
+    }
+} */
 
- 
+ fileChange(input){
+    this.readFiles(input.files);
+  }
+
+  readFile(file, reader, callback){
+    // Set a callback funtion to fire after the file is fully loaded
+    reader.onload = () => {
+      // callback with the results
+      callback(reader.result);
+    }
+
+    // Read the file
+    reader.readAsDataURL(file);
+  }
+
+  readFiles(files, index=0){
+    // Create the file reader
+    let reader = new FileReader();
+
+    // If there is a file
+    if (index in files){
+      // Start reading this file
+      this.readFile(files[index], reader, (result) =>{
+        // After the callback fires do:
+        this.file_srcs.push(result);
+        this.readFiles(files, index+1);// Read the next file;
+      });
+    }else{
+      // When all files are done This forces a change detection
+      this.changeDetectorRef.detectChanges();
+    }
+  }
+
+  removeLocationData(){
+    this.file_srcs = [];  
+    jQuery('.map_div').hide();
+    this.venueErrors = {};
+  }  
+
+  
  
 }

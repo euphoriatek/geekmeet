@@ -176,7 +176,7 @@
 
             <modal #modal> 
             <modal-header><h4 class="modal-title">Add Location</h4></modal-header>             
-                    <form name="location-add" id="location-add" #addLocationForm="ngForm" (ngSubmit)="submitLocation(addLocationForm.value)">  
+                    <form name="location-add" id="location-add" #addLocationForm="ngForm" (ngSubmit)="submitLocation(addLocationForm.value);addLocationForm.reset();removeLocationData();">  
                       
                        <div class="form-group col-md-12">
                             <div class="col-md-3 col-md-offset-1">
@@ -203,12 +203,20 @@
                                     <label for="message-text" class="control-label">Image</label>
                                 </div>
                                 <div class="col-md-5">
-                                    <input type="file" image-upload name="venue_image[]" (imageSelected)="selected($event)" class="form-control">                              
+                                    <!--<input type="file" image-upload name="venue_image[]" (imageSelected)="selected($event)" class="form-control">-->
+                                    <input type="file" class="form-control" multiple (change)="fileChange(input)" #input />                             
                                 </div>
-                                <div class="col-md-2 col-sm-1 col-xs-2">
+                                 
+                                <!--<div class="col-md-2 col-sm-1 col-xs-2">
                                     <button class="btn btn-success btn-xs btn-square" id="add_more" type="button"><span aria-hidden="true" class="fa fa-plus">Add More</span>
-                                    </button></div>
+                                    </button></div>-->
 
+                            </div>
+
+                            <div class="form-group col-md-8" style="float: right;">
+                                <div class="preview_images" *ngFor="let file_src of file_srcs; let i = index">  
+                                  <img [attr.src]='file_src' alt=""/>                                 
+                                </div>
                             </div>
                        </div>                    
 
@@ -304,7 +312,7 @@
 
                         <div class="clearfix"></div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="addLocationForm.reset();removeLocationData();modal.dismiss();">Cancel</button>
                             <!--<button type="button" class="btn btn-primary" (click)="modal.close()">Save</button>-->  
                             <button class="btn btn-info" type="submit" value="Save" name="venue_submit">Save</button>  
                         </div>
@@ -313,8 +321,8 @@
                     
                 </modal>
 
-                <div class="form-group col-md-12"  id="add_more_div" hidden="">
-                    <div class="col-md-2 col-md-offset-1">
+                <!-- <div class="form-group col-md-12"  id="add_more_div" hidden="">
+                   <div class="col-md-2 col-md-offset-1">
                         <label for="message-text" class="control-label"></label>
                     </div>
                     <div class="col-md-6 col-md-offset-1">                        
@@ -323,7 +331,7 @@
                     <div class="col-md-2 col-sm-1 col-xs-2">
                         <button class="btn btn-danger btn-xs btn-square" id="remove_image" type="button"><span aria-hidden="true" class="fa fa-minus"></span>
                         </button></div>
-                </div>
+                </div>-->
 
         </div>
         <!-- #content --> 
