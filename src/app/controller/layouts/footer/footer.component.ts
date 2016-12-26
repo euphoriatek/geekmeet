@@ -12,8 +12,7 @@ import { ProfileComponent } from '../../profile/profile.component';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { LoadingAnimateService } from 'ng2-loading-animate';
-//import {FacebookService, FacebookLoginResponse, FacebookInitParams} from 'ng2-facebook-sdk/dist';
-// import {FacebookService, FacebookInitParams} from 'ng2-facebook-sdk/dist';
+import {FacebookService, FacebookLoginResponse, FacebookInitParams} from 'ng2-facebook-sdk/dist';
 
 declare const FB: any;
 declare const IN: any;
@@ -58,13 +57,13 @@ export class FooterComponent implements OnInit {
 		){ 
 
 
-		// overlay.defaultViewContainer = vcRef;
-		// FB.init({
-		// 	appId      : '1840931362816112',
-		// 	cookie     : false, 
-		// 	xfbml      : true,  
-		// 	version    : 'v2.8' 
-		// });
+		overlay.defaultViewContainer = vcRef;
+		FB.init({
+			appId      : '1840931362816112',
+			cookie     : false, 
+			xfbml      : true,  
+			version    : 'v2.8' 
+		});
 
 		// this.zone.run(() => {
 			// 	this.proxy(this.OnLinkedInFrameworkLoad, this);

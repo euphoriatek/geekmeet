@@ -141,13 +141,13 @@ export class VenuesEditComponent implements OnInit {
 
 			ref.imageArr.push(response);
 			var pre_ids = jQuery("#pre_ids").val();
-               
-                        if (pre_ids != ''){
-                        ref.pre_arr.push(pre_ids);
-                    }
-                   
-                    ref.pre_arr.push(response);
-                     console.log("thids is "+ref.pre_arr);
+			
+			if (pre_ids != ''){
+				ref.pre_arr.push(pre_ids);
+			}
+			
+			ref.pre_arr.push(response);
+			console.log("thids is "+ref.pre_arr);
 			jQuery("#attach_ids").val(ref.imageArr);
 			jQuery("#pre_ids").val(ref.pre_arr);
 			jQuery("#" + previewId).attr("response_id", response);
@@ -199,185 +199,185 @@ export class VenuesEditComponent implements OnInit {
 
 			// var pre_ids = jQuery("#pre_ids").val();
 			// if (pre_ids != '') {
-			// 	ref.delete_image(pre_ids);
-			// }
+				// 	ref.delete_image(pre_ids);
+				// }
 
-			jQuery('body').find("#cancel").click(function () {
-				var url = jQuery(this).attr('data-href');
-				var pre_ids = jQuery("#pre_ids").val();
-				if (pre_ids != '') {
-					jQuery.ajax({
-						type: 'POST',
-						url: "http://2016.geekmeet.com/admin/v1/remove_image",
-						data: {id: pre_ids},
-						success: function (data) {
-						},
-						complete:function(){
-							window.location.href = '/event';
-						}
-					});
-				} else{
-					window.location.href = '/event'; }
-				});
-
-
-			// jQuery("body").find(".file-preview-thumbnails .file-upload-indicator").each(function () {
-				//   var featured_image = jQuery(this).parents('.file-preview-initial').find('img').attr('featured_image');
-				//           jQuery(this).attr('data-key', jQuery(this).parent('.file-actions').find(".kv-file-remove").attr("data-key"));
-				//           if (featured_image == 1){
-					//   jQuery(this).addClass('yellow');
-					//           jQuery(this).html('<i class="fa fa-star fa-2"></i>');
-					//   } else{
-						//   jQuery(this).removeClass('yellow');
-						//           jQuery(this).html('<i class="fa fa-star fa-2"></i>');
-						//   }
-						//   })
-
-					}
-
-					getCountryList(){
-						var ref = this;
-						ref.apiService.countryList(function(res){
-							ref.countryList = res.data;
-						}, function(err){
-							console.log(err);
-						});
-					}
-
-					getState(id){
-						var ref = this;
-						ref.apiService.stateList(id,function(res){
-							ref.stateList = res.data;
-						}, function(err){
-							console.log(err);
-						});
-					}
-
-					getCIty(id){
-						var ref = this;
-						ref.apiService.cityList(id,function(res){
-							ref.cityList = res.data;
-							ref.getLatLong(ref.detailArr);
-						}, function(err){
-							console.log(err);
-						});
-					}
-
-					getLatLong(val:any):void{
-						console.log(val);
-						var ref = this;
-						var country = '';
-						var state ='';
-						var city = '';
-						var address = val.address;
-						for (var i = 0; i < ref.countryList.length; i++) {
-							if(val.country == ref.countryList[i].id){
-								country = ref.countryList[i].name;
-								break;
-							}
-						}
-						for (var i = 0; i < ref.stateList.length; i++) {
-							if(val.state == ref.stateList[i].state_id){
-								state = ref.stateList[i].name;
-								break;
-							}
-						}
-
-						for (var i = 0; i < ref.cityList.length; i++) {
-							if(val.city == ref.cityList[i].city_id){
-								city = ref.cityList[i].name;
-								break;
-							}
-						}
-						var apiAddress = address+','+city+','+state+' '+country;
-						console.log(apiAddress);
-						ref.geocoder = new google.maps.Geocoder();
-						ref.geocoder.geocode( { 'address': apiAddress}, function(results, status) {
-							console.log(status);
-							if (status == 'OK') { 
-								ref.locationFinder='';
-								ref.detailArr['latitude'] = results[0].geometry.location.lat();
-								ref.detailArr['longitude'] = results[0].geometry.location.lng();
-							}
-							else{
-								ref.locationFinder = "Can Not Find Location.!";
-							}
-						});
-
-					}
-
-					updateVenue(value:any):void{
-						var ref = this;
-						ref.loadingSvc.setValue(true);
-						value['vanue_id'] = ref.venueId;
-						var upload_images = jQuery("#attach_ids").val();
-						value.venue_image	= upload_images;
-						ref.apiService.updateVenue(value,function(res){
-							ref.loadingSvc.setValue(false);
-							ref.toastyService.success(res.message);
-							ref.router.navigate(['/my-venues']);
-						},function(error){
-							ref.loadingSvc.setValue(false);
-							ref.toastyService.error(error.json().message);
-							if(error.status == 401 || error.status == '401' || error.status == 400){
-								localStorage.removeItem('auth_token');        
-								ref.apiService.signinSuccess$.emit(false);
-								ref.router.navigate(['/index']);
-							}
-							var error = error.json().errors;
-							ref.errors = error;
-						});	
-					}
-
-					delete_image(ids){
-						var ref = this;
+				jQuery('body').find("#cancel").click(function () {
+					var url = jQuery(this).attr('data-href');
+					var pre_ids = jQuery("#pre_ids").val();
+					if (pre_ids != '') {
 						jQuery.ajax({
 							type: 'POST',
 							url: "http://2016.geekmeet.com/admin/v1/remove_image",
-							data: {id: ids},
+							data: {id: pre_ids},
 							success: function (data) {
-								var res = jQuery.parseJSON(data)
-								if (res.status == 1) {
-									var attchstr = jQuery('body').find("#attach_ids").val();
-									var new_string = ref.remove(attchstr, ids);
-									console.log(new_string);
-									ref.imageArr = []; 
-									ref.imageArr.push(new_string);
-									console.log(ref.imageArr);
-									jQuery('body').find("#attach_ids").val('');
-									jQuery('body').find("#attach_ids").val(ref.imageArr);
-								}
+							},
+							complete:function(){
+								window.location.href = '/event';
 							}
 						});
-						return 1;
-					}
+					} else{
+						window.location.href = '/event'; }
+					});
 
-					featured_image(ids, status){
 
-						jQuery.ajax({
-							type: 'POST',
-							url: "http://2016.geekmeet.com/admin/v1/set_featured_image",
-							data: {id: ids, status:status},
-							success: function (data) {
-								var res = jQuery.parseJSON(data)
-								if (res.status == 1) {
-									return 1;
-								} else{
-									return 0;
-								}
-							}
-						});
-						return status;
-					}
+				jQuery("body").find(".file-preview-thumbnails .file-upload-indicator").each(function () {
+					  var featured_image = jQuery(this).parents('.file-preview-initial').find('img').attr('featured_image');
+					          jQuery(this).attr('data-key', jQuery(this).parent('.file-actions').find(".kv-file-remove").attr("data-key"));
+					          if (featured_image == 1){
+						  jQuery(this).addClass('yellow');
+						          jQuery(this).html('<i class="fa fa-star fa-2"></i>');
+						  } else{
+							  jQuery(this).removeClass('yellow');
+							          jQuery(this).html('<i class="fa fa-star fa-2"></i>');
+							  }
+							  })
 
-					remove(string, to_remove)
-					{
-						if (string != '' && typeof string != 'undefined') {
-							var elements = string.split(",");
-							var remove_index = elements.indexOf(to_remove);
-							elements.splice(remove_index, 1); var result = elements.join(",");
-							return result;
 						}
-					}
 
-				}
+						getCountryList(){
+							var ref = this;
+							ref.apiService.countryList(function(res){
+								ref.countryList = res.data;
+							}, function(err){
+								console.log(err);
+							});
+						}
+
+						getState(id){
+							var ref = this;
+							ref.apiService.stateList(id,function(res){
+								ref.stateList = res.data;
+							}, function(err){
+								console.log(err);
+							});
+						}
+
+						getCIty(id){
+							var ref = this;
+							ref.apiService.cityList(id,function(res){
+								ref.cityList = res.data;
+								ref.getLatLong(ref.detailArr);
+							}, function(err){
+								console.log(err);
+							});
+						}
+
+						getLatLong(val:any):void{
+							console.log(val);
+							var ref = this;
+							var country = '';
+							var state ='';
+							var city = '';
+							var address = val.address;
+							for (var i = 0; i < ref.countryList.length; i++) {
+								if(val.country == ref.countryList[i].id){
+									country = ref.countryList[i].name;
+									break;
+								}
+							}
+							for (var i = 0; i < ref.stateList.length; i++) {
+								if(val.state == ref.stateList[i].state_id){
+									state = ref.stateList[i].name;
+									break;
+								}
+							}
+
+							for (var i = 0; i < ref.cityList.length; i++) {
+								if(val.city == ref.cityList[i].city_id){
+									city = ref.cityList[i].name;
+									break;
+								}
+							}
+							var apiAddress = address+','+city+','+state+' '+country;
+							console.log(apiAddress);
+							ref.geocoder = new google.maps.Geocoder();
+							ref.geocoder.geocode( { 'address': apiAddress}, function(results, status) {
+								console.log(status);
+								if (status == 'OK') { 
+									ref.locationFinder='';
+									ref.detailArr['latitude'] = results[0].geometry.location.lat();
+									ref.detailArr['longitude'] = results[0].geometry.location.lng();
+								}
+								else{
+									ref.locationFinder = "Can Not Find Location.!";
+								}
+							});
+
+						}
+
+						updateVenue(value:any):void{
+							var ref = this;
+							ref.loadingSvc.setValue(true);
+							value['vanue_id'] = ref.venueId;
+							var upload_images = jQuery("#attach_ids").val();
+							value.venue_image	= upload_images;
+							ref.apiService.updateVenue(value,function(res){
+								ref.loadingSvc.setValue(false);
+								ref.toastyService.success(res.message);
+								ref.router.navigate(['/my-venues']);
+							},function(error){
+								ref.loadingSvc.setValue(false);
+								ref.toastyService.error(error.json().message);
+								if(error.status == 401 || error.status == '401' || error.status == 400){
+									localStorage.removeItem('auth_token');        
+									ref.apiService.signinSuccess$.emit(false);
+									ref.router.navigate(['/index']);
+								}
+								var error = error.json().errors;
+								ref.errors = error;
+							});	
+						}
+
+						delete_image(ids){
+							var ref = this;
+							jQuery.ajax({
+								type: 'POST',
+								url: "http://2016.geekmeet.com/admin/v1/remove_image",
+								data: {id: ids},
+								success: function (data) {
+									var res = jQuery.parseJSON(data)
+									if (res.status == 1) {
+										var attchstr = jQuery('body').find("#attach_ids").val();
+										var new_string = ref.remove(attchstr, ids);
+										console.log(new_string);
+										ref.imageArr = []; 
+										ref.imageArr.push(new_string);
+										console.log(ref.imageArr);
+										jQuery('body').find("#attach_ids").val('');
+										jQuery('body').find("#attach_ids").val(ref.imageArr);
+									}
+								}
+							});
+							return 1;
+						}
+
+						featured_image(ids, status){
+
+							jQuery.ajax({
+								type: 'POST',
+								url: "http://2016.geekmeet.com/admin/v1/set_featured_image",
+								data: {id: ids, status:status},
+								success: function (data) {
+									var res = jQuery.parseJSON(data)
+									if (res.status == 1) {
+										return 1;
+									} else{
+										return 0;
+									}
+								}
+							});
+							return status;
+						}
+
+						remove(string, to_remove)
+						{
+							if (string != '' && typeof string != 'undefined') {
+								var elements = string.split(",");
+								var remove_index = elements.indexOf(to_remove);
+								elements.splice(remove_index, 1); var result = elements.join(",");
+								return result;
+							}
+						}
+
+					}
