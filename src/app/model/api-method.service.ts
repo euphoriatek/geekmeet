@@ -913,6 +913,16 @@ export class ApiMethodService {
 
 		}	
 	}
+
+
+	activateNow(value, callBack, failure){
+		this.http.get('http://2016.geekmeet.com/admin/v1/activate_account/'+value).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack){
+				callBack(res);
+			}
+		},(error) =>failure(error));
+	}
   }
 		
 
