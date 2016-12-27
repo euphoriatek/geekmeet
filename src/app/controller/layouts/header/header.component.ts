@@ -20,17 +20,22 @@ export class HeaderComponent implements OnInit {
   getToken:any;
   menuArr:any;
   isUserLoggedIn:any = false;
+  user_name:any;
   // @Output() onSubMenuChange = new EventEmitter<string>();
 
 
   constructor(private loadingSvc: LoadingAnimateService,private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
     this.toastyConfig.theme = 'bootstrap';
+    this.user_name = localStorage.getItem('user_name');
     this.getToken = this.apiService.getLoginToken();
     if(this.getToken){
       this.isUserLoggedIn = true;
+
+      
     }
     apiService.signinSuccess$.subscribe(status => {
       if(status) {
+         this.user_name = localStorage.getItem('user_name');
         this.getToken = this.apiService.getLoginToken();
         if(this.getToken){
           this.isUserLoggedIn = true;
@@ -58,6 +63,7 @@ export class HeaderComponent implements OnInit {
     ref.loadingSvc.setValue(true);
     ref.apiService.userLogoutApi(function(res){
       ref.loadingSvc.setValue(false);
+      localStorage.removeItem('user_name');
       ref.getToken="";
       ref.isUserLoggedIn = false;
       ref.toastyService.success(res.message);

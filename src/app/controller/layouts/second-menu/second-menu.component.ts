@@ -35,10 +35,12 @@ export class SecondMenuComponent implements OnInit {
 	getEventByCategory(value, index){
 		var ref= this;
 		ref.selectedIndex = index;
-		console.log(ref.router.url);
-		console.log(value);
 		if(ref.router.url!="/"){
-			this.router.navigate(['/event',value]);
+			if(ref.router.url=='/index'){
+				this.onMenuChange.emit(value);
+			}else{
+				this.router.navigate(['/event',value]);
+			}
 		}
 		else{
 			this.onMenuChange.emit(value);

@@ -36,6 +36,7 @@
                                             <ul id="menu-submit-event" class="nav-menu">
                                                 <li *ngIf = "getToken" id="menu-item-9371" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9371"><a class="text-white" href=""[routerLink]="['/eventadd']">Submit Event <i class="fa fa-plus"></i></a></li>
                                                  <li *ngIf = "!getToken" id="menu-item-9371" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9371"><a class="text-white" href="" data-toggle="modal" data-target="#loginModal">Submit Event <i class="fa fa-plus"></i></a></li>
+                                                  <li *ngIf = "getToken" id="menu-item-9371" class="menu-item menu-item-type-post_type menu-item-object-page"><a class="text-white">welcome ! {{user_name}}</a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -95,6 +96,7 @@
                                 <ul id="menu-primary-items" class="primary_menu clearfix">
                                     <li class=""><a [routerLink]="['/event']">Events</a>
                                         <ul class="sub-menu">
+                                        <li><a [routerLink]="['/event']">All</a></li>
                                             <li class="" *ngFor = "let submenu of menuArr; let index = index" (click)="submenuClick(submenu.category_name,index)" ><a>{{submenu.category_name}}</a></li>
                                         </ul>
                                     </li>

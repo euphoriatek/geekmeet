@@ -151,18 +151,12 @@ export class EventComponent implements OnInit{
 
   outputUpdate(range){
     var ref = this;
-    
     ref.currntRange = range;
-    console.log(ref.currntRange);
   }
 
   searchZipCodeEvent(value:any):void{
     if(value.code){
-      if(value.range==''){
-        value.range=this.currntRange;
-        this.currntRange = this.currntRange;
-      }
-      this.event.searchByZipCode(value.code,value.range);
+      this.event.searchByZipCode(value.code);
     }
     else{
       this.toastyService.error("Please Provoide Zipcode.!");

@@ -146,7 +146,11 @@ export class IndexComponent implements OnInit {
 
 	onchange(event){  
 		var ref =this;
-		ref.category = event;
+		if(event=='all'){
+			ref.category='';
+		}else{
+			ref.category = event;
+		}
 		this.popularEvent();
 		this.upcomingEvent();
 	}
