@@ -8,7 +8,8 @@
 	font-weight: normal;
 }
 .modal{
-	position: sticky;
+	height: 1500px;   
+    position: absolute;
 }
 .modal-header{
 margin-bottom: 20px;

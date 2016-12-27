@@ -135,7 +135,7 @@
                     </div>    
                     <div class="form_row clearfix">
                         <label>Contact Info<span class="indicates">*</span></label>
-                        <input type="tel" [(ngModel)]="contact_info"  name="contact_info" value="" class="form-control textfield">
+                        <input type="tel" [(ngModel)]="contact_info" id="contactinfo"  name="contact_info" value="" class="form-control textfield">
                         <span class="errfield">{{contact}}</span>                          
                     </div>
                     <div class="form_row clearfix">
@@ -314,7 +314,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal" (click)="addLocationForm.reset();removeLocationData();modal.dismiss();">Cancel</button>
                             <!--<button type="button" class="btn btn-primary" (click)="modal.close()">Save</button>-->  
-                            <button class="btn btn-info" type="submit" value="Save" name="venue_submit">Save</button>  
+                            <button class="btn btn-info" type="submit" value="Save" id="venue_submit" name="venue_submit">Save</button>  
                         </div>
                   
                     </form>                       

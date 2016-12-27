@@ -108,7 +108,7 @@ export class EventaddComponent implements OnInit {
     }
    
      // adding script for phone mask
-     var s = document.createElement("script");
+     /*var s = document.createElement("script");
      s.type = "text/javascript";
      s.src = "../../app/assets/js/jquery/maskedinput.min.js"; 
      var s1 = document.createElement("script");
@@ -116,7 +116,7 @@ export class EventaddComponent implements OnInit {
      s1.src = "../../app/assets/js/jquery/fileinput.min.js";
     
      jQuery("head").append(s);
-     jQuery("head").append(s1);
+     jQuery("head").append(s1);*/
 
     this.getCountryList();  
     this.getVenueList();
@@ -158,7 +158,7 @@ export class EventaddComponent implements OnInit {
      });
     */
      // Upload Image       
-    jQuery("#attach_ids").val('');
+   jQuery("#attach_ids").val('');
     var base_url = jQuery("#base_url").val();
     jQuery("#eventImages").fileinput({
             uploadUrl: "http://2016.geekmeet.com/admin/v1/upload_images",
@@ -191,36 +191,13 @@ export class EventaddComponent implements OnInit {
         $image.fileinput("upload");
         });
                  
-        // delete Image
-
-        jQuery(document).on("click", ".kv-file-remove", function ()   {
-        jQuery(this).attr("disabled", "disabled");
-            var del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
-            ref.delete_image(del_id);
-        });
-
-        jQuery(document).on("click", ".file-upload-indicator", function ()   {
-            if (jQuery(this).hasClass('yellow')){
-            var status = 0;
-            } else{
-              var status = 1;
-            }
-
-            var featured_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
-            var res = ref.featured_image(featured_id, status);
-            if (res){
-            jQuery(this).addClass('yellow');
-            } else{
-            jQuery(this).removeClass('yellow')
-            }
-        });
-
+       
        // delete Image on load
 
-      var pre_ids = jQuery("#pre_ids").val();
+      /*var pre_ids = jQuery("#pre_ids").val();
       if (pre_ids != '') {
           ref.delete_image(pre_ids);
-      }
+      }*/
 
     jQuery('body').find("#cancel").click(function () {
     var url = jQuery(this).attr('data-href');
@@ -241,7 +218,7 @@ export class EventaddComponent implements OnInit {
     });
 
 
-    jQuery(document).on('click', '#add_more', function(){
+    /*jQuery(document).on('click', '#add_more', function(){
     var obj = jQuery(document).find("#add_more_div").clone();
             console.log(jQuery(document).find("#add_more_div"));
             jQuery(obj).removeAttr('hidden');
@@ -251,7 +228,7 @@ export class EventaddComponent implements OnInit {
 
     jQuery(document).on('click', '#remove_image', function(){
         jQuery(this).parents('.form-group').remove();
-    });  
+    }); */ 
 
 
 
@@ -488,54 +465,7 @@ export class EventaddComponent implements OnInit {
       });
   }
 
-  delete_image(ids){
-      var ref = this;
-      jQuery.ajax({
-        type: 'POST',
-        url: "http://2016.geekmeet.com/admin/v1/remove_image",
-        data: {id: ids},
-        success: function (data) {
-          var res = jQuery.parseJSON(data)
-          if (res.status == 1) {
-            var attchstr = jQuery('body').find("#attach_ids").val();
-            var new_string = ref.remove(attchstr, ids);
-            ref.imageArr = []; ref.imageArr.push(new_string);
-            jQuery('body').find("#attach_ids").val('');
-            jQuery('body').find("#attach_ids").val(ref.imageArr);
-          }
-        }
-      });
-      return 1;
-    }
-
-    featured_image(ids, status){
-
-      jQuery.ajax({
-        type: 'POST',
-        url: "http://2016.geekmeet.com/admin/v1/set_featured_image",
-        data: {id: ids, status:status},
-        success: function (data) {
-          var res = jQuery.parseJSON(data)
-          if (res.status == 1) {
-          return 1;
-          } else{
-          return 0;
-          }
-        }
-      });
-      return status;
-    }
-
-    remove(string, to_remove)
-    {
-      if (string != '' && typeof string != 'undefined') {
-      var elements = string.split(",");
-      var remove_index = elements.indexOf(to_remove);
-      elements.splice(remove_index, 1); var result = elements.join(",");
-      return result;
-      }
-    }
-
+  
    getLatLong(val:any):void{
    
     var ref = this;
@@ -586,6 +516,7 @@ export class EventaddComponent implements OnInit {
       }       
     });*/
     console.log(ref.venue_image);
+    jQuery( "#venue_submit" ).prop("disabled",true);
     
     value.images = ref.file_srcs;
 
@@ -616,7 +547,8 @@ export class EventaddComponent implements OnInit {
         }
         ref.toastyService.error(error.json().message);
         var error = error.json().errors;
-        ref.errors = error;        
+        ref.venueErrors = error;
+        jQuery( "#venue_submit" ).prop("disabled",false);        
       });
   }
 
