@@ -30,6 +30,7 @@ import { ResetPasswordComponent } from './controller/reset-password/reset-passwo
 import { MyEventsComponent } from './controller/my-events/my-events.component';
 import { EventEditComponent } from './controller/event-edit/event-edit.component';
 import { SearchComponent } from './controller/search/search.component';
+import { ActivateNowComponent } from './controller/activate-now/activate-now.component';
 
 
 
@@ -76,6 +77,7 @@ export const routes: Routes = [
       {path:'reset-password/:id' ,component: ResetPasswordComponent,data: [{id: true}]},
       {path:'event-edit/:id' ,component: EventEditComponent,data: [{id: true}]},
       {path:'search/:id' ,component: SearchComponent,data: [{id: true}]},
+      {path:'activate-now/:id' ,component: ActivateNowComponent,data: [{id: true}]},
       {path:'' ,component: IndexComponent}
 
 ];

@@ -55,6 +55,7 @@ import { ResetPasswordComponent } from './controller/reset-password/reset-passwo
 import { MyEventsComponent } from './controller/my-events/my-events.component';
 import { EventEditComponent } from './controller/event-edit/event-edit.component';
 import { SearchComponent } from './controller/search/search.component';
+import { ActivateNowComponent } from './controller/activate-now/activate-now.component';
 
 
 
@@ -98,6 +99,7 @@ import { SearchComponent } from './controller/search/search.component';
   MyEventsComponent,
   EventEditComponent,
   SearchComponent,
+  ActivateNowComponent,
 
 
 
@@ -151,6 +153,7 @@ import { SearchComponent } from './controller/search/search.component';
     {path:'reset-password' ,component: ResetPasswordComponent},
     {path:'my-events' ,component: MyEventsComponent},
     {path:'event-edit' ,component: EventEditComponent},
+     {path:'activate-now' ,component: ActivateNowComponent},
     {path:'' ,component: IndexComponent},
     ])
   ],

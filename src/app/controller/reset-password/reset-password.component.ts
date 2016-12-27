@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
+import { LoadingAnimateService } from 'ng2-loading-animate';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -14,7 +15,7 @@ import 'rxjs/add/operator/catch';
 export class ResetPasswordComponent implements OnInit {
   forgot_token:any = '';
   errors:any={};
-  constructor(private router: Router,private route: ActivatedRoute,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { }
+  constructor(private loadingSvc: LoadingAnimateService,private router: Router,private route: ActivatedRoute,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { }
 
   ngOnInit() {
   	this.route.params.subscribe(params => {
@@ -28,7 +29,9 @@ export class ResetPasswordComponent implements OnInit {
 
     checkForgotToken(value){
 		var ref = this;
-    ref.apiService.checkForgotToken(value,function(res){     
+    ref.loadingSvc.setValue(true);
+    ref.apiService.checkForgotToken(value,function(res){
+    ref.loadingSvc.setValue(false);     
 			console.log(res);
 			
 		}, function(error){
@@ -39,8 +42,10 @@ export class ResetPasswordComponent implements OnInit {
 
   resetPassword(value){
     var ref = this;
+     ref.loadingSvc.setValue(true);
     value.token = this.forgot_token;
     ref.apiService.resetPassword(value,function(res){
+       ref.loadingSvc.setValue(false);
       ref.toastyService.success(res.message);
       ref.router.navigate(['/']);
     },function(error){
