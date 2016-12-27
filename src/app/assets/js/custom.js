@@ -173,4 +173,92 @@ function invite_form() {
     jQuery(".invite-user #invite-popup").show();
 }
 
+
+   
+
+    //        Image Plugin;
+
+    var arr = new Array();
+    
+    // delete Image
+
+    jQuery(document).on("click", ".kv-file-remove", function ()   {
+        jQuery(this).attr("disabled", "disabled");
+        var del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+        delete_image(del_id);
+    });
+            
+    // delete Image on load
+    /*var pre_ids = jQuery("#pre_ids").val();
+    if (pre_ids != '') {
+        delete_image(pre_ids);
+    }*/
+
+    jQuery(document).on("click", ".file-upload-indicator", function ()   {
+          console.log('featured click');
+            if (jQuery(this).hasClass('yellow')){
+            var status = 0;
+            } else{
+              var status = 1;
+            }
+
+            var featured_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+            var res = featured_image(featured_id, status);
+            if (res){
+            jQuery(this).addClass('yellow');
+            } else{
+            jQuery(this).removeClass('yellow')
+            }
+    });
+
+function featured_image(ids, status){
+
+      jQuery.ajax({
+        type: 'POST',
+        url: "http://2016.geekmeet.com/admin/v1/set_featured_image",
+        data: {id: ids, status:status},
+        success: function (data) {
+          var res = jQuery.parseJSON(data)
+          if (res.status == 1) {
+          return 1;
+          } else{
+          return 0;
+          }
+        }
+      });
+      return status;
+    }
+
+    function delete_image(ids){      
+      jQuery.ajax({
+        type: 'POST',
+        url: "http://2016.geekmeet.com/admin/v1/remove_image",
+        data: {id: ids},
+        success: function (data) {
+          var res = jQuery.parseJSON(data)
+          if (res.status == 1) {
+            var attchstr = jQuery('body').find("#attach_ids").val();
+            var new_string = remove(attchstr, ids);
+            arr = []; arr.push(new_string);
+            jQuery('body').find("#attach_ids").val('');
+            jQuery('body').find("#attach_ids").val(arr);
+          }
+        }
+      });
+      return 1;
+    }
+
+    
+
+    function remove(string, to_remove)
+    {
+      if (string != '' && typeof string != 'undefined') {
+      var elements = string.split(",");
+      var remove_index = elements.indexOf(to_remove);
+      elements.splice(remove_index, 1); var result = elements.join(",");
+      return result;
+      }
+    }
+
+
  
