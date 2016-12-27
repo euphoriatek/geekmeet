@@ -516,6 +516,7 @@ export class EventaddComponent implements OnInit {
       }       
     });*/
     console.log(ref.venue_image);
+    jQuery( "#venue_submit" ).prop("disabled",true);
     
     value.images = ref.file_srcs;
 
@@ -546,7 +547,8 @@ export class EventaddComponent implements OnInit {
         }
         ref.toastyService.error(error.json().message);
         var error = error.json().errors;
-        ref.errors = error;        
+        ref.venueErrors = error;
+        jQuery( "#venue_submit" ).prop("disabled",false);        
       });
   }
 
