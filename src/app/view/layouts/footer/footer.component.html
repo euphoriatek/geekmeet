@@ -163,37 +163,49 @@
                 <li><a rel="nofollow" class="linkedin" (click)="OnLinkedInFrameworkLoad()"> LinkedIn</a></li>
             </ul>
             <p class="login_sep">OR</p>
-            <form name="popup_register" id="popup_register" enctype="multipart/form-data" #regForm="ngForm" (ngSubmit)="userSignUp(regForm.value)">
+            <form name="popup_register" id="popup_register" enctype="multipart/form-data" #regForm="ngForm" (ngSubmit)="userSignUp(regForm)">
 
                 <div class="form_row clearfix">
                     <label>First Name <span class="indicates">*</span> </label>
                     <input name="first_name" type="text" id="user_name" class="textfield" value="" ngModel>
-                    <span id="user_loginInfo">{{first_name}}</span>
+                    <ul class="error" *ngIf="errors['first_name']!=''" >
+                            <li *ngFor="let org_err of errors['first_name']">{{org_err}}</li>    
+                        </ul> 
                 </div>
                 <div class="form_row clearfix">
                     <label>Last Name <span class="indicates">*</span> </label>
                     <input name="last_name" type="text" id="user_name" class="textfield" value="" ngModel>
-                    <span id="user_loginInfo">{{last_name}}</span>
+                    <ul class="error" *ngIf="errors['last_name']!=''" >
+                            <li *ngFor="let org_err of errors['last_name']">{{org_err}}</li>    
+                        </ul> 
                 </div>
                 <div class="form_row clearfix">
                     <label>Username <span class="indicates">*</span> </label>
                     <input name="username" type="text" id="user_name" class="textfield" value="" ngModel>
-                    <span id="user_loginInfo">{{user_name}}</span>
+                    <ul class="error" *ngIf="errors['username']!=''" >
+                            <li *ngFor="let org_err of errors['username']">{{org_err}}</li>    
+                        </ul> 
                 </div>
                 <div class="form_row clearfix">
                     <label>Email <span class="indicates">*</span> </label>
                     <input name="email" type="text" id="user_email" class="textfield" value="" ngModel>
-                    <span id="user_loginInfo">{{useremail}}</span>
+                    <ul class="error" *ngIf="errors['email']!=''" >
+                            <li *ngFor="let org_err of errors['email']">{{org_err}}</li>    
+                        </ul> 
                 </div>
                 <div class="form_row clearfix">
                     <label> Password <span class="indicates">*</span> </label>
                     <input type="password" name="password" id="user_pass" class="textfield" value="" ngModel>
-                    <span id="user_passInfo">{{userPass}}</span> 
+                    <ul class="error" *ngIf="errors['password']!=''" >
+                            <li *ngFor="let org_err of errors['password']">{{org_err}}</li>    
+                        </ul>  
                 </div>   
                 <div class="form_row clearfix">
                     <label> Confirm Password <span class="indicates">*</span> </label>
                     <input type="password" name="password_confirmation" id="user_cpass" class="textfield" value="" ngModel>
-                    <span id="user_passInfo">{{usercnfpass}}</span> 
+                    <ul class="error" *ngIf="errors['password_confirmation']!=''" >
+                            <li *ngFor="let org_err of errors['password_confirmation']">{{org_err}}</li>    
+                        </ul>  
                 </div>  
                 <div class="form_row clearfix">
                     <label> Captcha <span class="indicates">*</span> </label>

@@ -116,7 +116,7 @@
 
 
 	/*grid system*/
-	.row { width:100%; max-width:1230px; margin:0 auto }
+	.row { width:100%; max-width:1350px; margin:0 auto }
 	.row:before, .row:after { content: " "; display: table; }
 	.row:after { clear: both; }
 	.row.collapse > .column, .row.collapse > .columns { padding-left: 0; padding-right: 0; }

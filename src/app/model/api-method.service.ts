@@ -77,6 +77,7 @@ export class ApiMethodService {
 			if(res.status == "success"){
 				this.getTokenValue = "";
 				localStorage.removeItem('auth_token');
+				localStorage.removeItem('user_name');
 				this.loggedIn = false;
 			}
 			if(callBack){
@@ -306,6 +307,7 @@ export class ApiMethodService {
 		let options = new RequestOptions({ headers: headers });
 		this.http.get('http://2016.geekmeet.com/admin/v1/profile',options).map(res =>res.json())
 		.subscribe((res) => {
+			localStorage.setItem('user_name', res.data.first_name);
 			if(callBack)
 			{
 				callBack(res);

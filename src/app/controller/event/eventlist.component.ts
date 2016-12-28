@@ -18,7 +18,7 @@ export class EventListComponent implements OnInit{
   eventArr:any;
   selectedmenu:any;
   sortvalData:any;
-  selectedIndex = 1;
+  selectedIndex:any = 1;
   gridview=true;
   param_id:any;
   total:any;
@@ -30,7 +30,6 @@ export class EventListComponent implements OnInit{
   page:any = 1;
   showData:any;
   code:any;
-  range:any;
 
 
   
@@ -86,15 +85,14 @@ export class EventListComponent implements OnInit{
       var sort = this.sort;
       var page = this.page;
       var postal_code = this.code;
-      var range = this.range; 
+      console.log(this.selectedIndex);
       var eventArrData = {
         "category": category,
         "type":type,
         "sort":sort,
         "all": "false",
         "page":page,
-        "search":postal_code,
-        "redius":range
+        "search":postal_code
       }
       ref.loadingSvc.setValue(true);
       ref.apiService.eventApi(eventArrData,function(res){
@@ -106,7 +104,7 @@ export class EventListComponent implements OnInit{
         else{
           ref.showData = '';
         }
-        ref.total =     res.data.last_page;
+        ref.total =  res.data.last_page;
         ref.currentPage = res.data.current_page;
       },function(error){
         ref.loadingSvc.setValue(false);
@@ -120,31 +118,25 @@ export class EventListComponent implements OnInit{
     }
 
     onSubMenuchange(category,type){
-      this.category = category;
-      var category = this.category;
-      var sort = this.sort;
-      var type = type;
-      var page = this.page;
+      if(category=='all'){
+        this.category ='';
+      }else{
+        this.category = category;
+      }
+      this.code='';
       this.eventDeafault();  
     }
 
 
     sortEventsData(sort){
       this.sort = sort;
-      var category = this.category;
-      var sort = this.sort;
-      var type = this.type;
-      var page = this.page;
       this.eventDeafault();
     }
 
     typeOfEvent(type,index){
       this.selectedIndex = index;
       this.type = type;
-      var category = this.category;
-      var sort = this.sort;
-      var type = this.type;
-      var page = this.page;
+      this.code='';
       this.eventDeafault();
     }
 
@@ -152,10 +144,6 @@ export class EventListComponent implements OnInit{
 
     getEventPagination(page){
       this.page = page;
-      var category = this.category;
-      var sort = this.sort;
-      var type = this.type;
-      var page = this.page;
       this.eventDeafault();  
     }
 
@@ -173,10 +161,13 @@ export class EventListComponent implements OnInit{
     }
 
 
-    searchByZipCode(code,range){
-      this.code = code;
-      this.range = range;
-      this.eventDeafault();
+    searchByZipCode(code){
+      var ref = this;
+      ref.code = code;
+      ref.type = '';
+      ref.sort = '';
+      ref.selectedIndex = -1;
+      ref.eventDeafault();
     }
 
 

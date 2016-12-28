@@ -18,6 +18,7 @@ declare const FB: any;
 declare const IN: any;
 declare var Auth0Lock;
 declare var proxy:any;
+declare var jQuery: any;
 @Component({
 	selector: 'app-footer',
 	templateUrl: '../../../view/layouts/footer/footer.component.html',
@@ -45,8 +46,12 @@ export class FooterComponent implements OnInit {
 	last_name:any;
 	param_id:any;
 	linkedInData:any;
+
 	menuArr:any;
 	blogArr:any;
+
+	errors:Object = {};
+
 
 	constructor(private router: Router,
 		public apiService:ApiMethodService,
@@ -189,40 +194,45 @@ export class FooterComponent implements OnInit {
 					else{
 						ref.router.navigate(['/']);
 					}
-						
+					ref.apiService.userProfile(function(res){
 						ref.apiService.signinSuccess$.emit(true);
-					}
-				},function(error){
-					ref.loadingSvc.setValue(false);
-					if(error.status == 401 || error.status == '401' || error.status == 400){
-						ref.toastyService.error(error.json().message);
-					}
-					var errors = error.json().errors;
-					var cred = JSON.parse(error._body);
-					console.log(JSON.stringify(cred.error));
-					ref.passwordErr = errors.password;
-					ref.usernameErr = errors.username;
+					}, function(error){
+					});
+				}
+			},function(error){
+				ref.loadingSvc.setValue(false);
+				if(error.status == 401 || error.status == '401' || error.status == 400){
 					ref.toastyService.error(error.json().message);
-				});
+				}
+				var errors = error.json().errors;
+				var cred = JSON.parse(error._body);
+				console.log(JSON.stringify(cred.error));
+				ref.passwordErr = errors.password;
+				ref.usernameErr = errors.username;
+				ref.toastyService.error(error.json().message);
+			});
 
 		}
 
 
 
-		userSignUp(value:any):void{
+		userSignUp(userData:any):void{
 			var refreg = this;
+			var value = userData.value;
+			refreg.loadingSvc.setValue(true);
 			this.apiService.userRegistrationApi(value,function(res){
+				refreg.loadingSvc.setValue(false);
+				refreg.toastyService.success(res.message);
 				console.log("this is api response"+ JSON.stringify(res));
 				refreg.router.navigate(['/index']);
 				var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
 				closeBtn.click();
+				userData.reset();
 			},function(error){
+				refreg.loadingSvc.setValue(false);
+				refreg.toastyService.error(error.json().message);
 				var errors = error.json().errors;
-				refreg.user_name = errors.username;
-				refreg.useremail = errors.email;
-				refreg.userPass = errors.password;
-				refreg.usercnfpass = errors.password_confirmation;
-
+				refreg.errors = errors; 
 			});
 		}
 
@@ -237,35 +247,69 @@ export class FooterComponent implements OnInit {
 		}
 
 		closeModal(){
-			this.user_name = "";
-			this.useremail = "";
-			this.userPass = "";
-			this.usercnfpass = "";
-			this.passwordErr = "";
-			this.usernameErr = "";
+			jQuery('form').find('input[type=text], input[type=password], input[type=number], input[type=email], textarea').val('');
+			this.errors = {};
 		}
 
 
 		userSocialLogin(fbUserInfo){
 			var ref = this;
+			ref.loadingSvc.setValue(true);
 			ref.apiService.socialLogin(fbUserInfo,function(res){
-				console.log("this is api response"+ JSON.stringify(res));
+				// ref.toastyService.success(res.message);
+				ref.loadingSvc.setValue(false);
 				if(res.data.token){
-					ref.router.navigate(['/index']);
-					ref.apiService.signinSuccess$.emit(true);
+				ref.router.navigate(['/index']);
+				ref.apiService.signinSuccess$.emit(true);
 				}
 				var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
 				closeBtn.click();
+
 			},function(error){
 				console.log(error);
 			});
 		}
 
+		// userSocialLogin(fbUserInfo){
+		// 	var ref = this;
+		// 	ref.loadingSvc.setValue(true);
+		// 	ref.apiService.socialLogin(fbUserInfo,function(res){
+		// 		ref.toastyService.success(res.message);
+		// 		ref.loadingSvc.setValue(false);
+		// 		if(res.data.token){
+		// 			var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
+		// 			closeBtn.click();
+		// 			ref.apiService.userProfile(function(res){
+		// 				ref.apiService.signinSuccess$.emit(true);						
+		// 			}, function(error){
+		// 				ref.loadingSvc.setValue(false);
+		// 			});
+		// 			if(ref.router.url=='/'){
+		// 				ref.router.navigate(['/index']);
+		// 			}
+		// 			else{
+		// 				ref.router.navigate(['/']);
+		// 			}
+					
+		// 		}
+		// 	},function(error){
+		// 		console.log(error);
+		// 	});
+		// }
+
+
+
+
 		search(value){
+
 	 if(value!=''){		
      this.router.navigate(['/search',value]);
      }
 	}
+
+
+		
+
 
 
 	 secondmenuDeafault(){
