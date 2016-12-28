@@ -50,10 +50,10 @@ export class VenuesEditComponent implements OnInit {
 
 	ngOnInit() {
 		// @ViewChild('myMap') mymap: SebmGoogleMap
-		var s1 = document.createElement("script");
+		/*var s1 = document.createElement("script");
 		s1.type = "text/javascript";
 		s1.src = "../../app/assets/js/jquery/fileinput.min.js";
-		jQuery("head").append(s1);
+		jQuery("head").append(s1);*/
 
 		this.getToken = this.apiService.getLoginToken();
 		if(!(this.getToken)){
@@ -165,7 +165,7 @@ export class VenuesEditComponent implements OnInit {
 			// });
 
 
-			jQuery(document).on("click", ".kv-file-remove", function () {
+			/*jQuery(document).on("click", ".kv-file-remove", function () {
 				var delete_id = jQuery(this).attr('data-key');
 				if (typeof delete_id != 'undefined') {
 					var del_id = delete_id;
@@ -193,7 +193,7 @@ export class VenuesEditComponent implements OnInit {
 				} else{
 					jQuery(this).removeClass('yellow')
 				}
-			});
+			});*/
 
 			// delete Image on load
 
@@ -231,7 +231,7 @@ export class VenuesEditComponent implements OnInit {
 							  jQuery(this).removeClass('yellow');
 							          jQuery(this).html('<i class="fa fa-star fa-2"></i>');
 							  }
-							  })
+							  });
 
 						}
 
@@ -329,7 +329,7 @@ export class VenuesEditComponent implements OnInit {
 							});	
 						}
 
-						delete_image(ids){
+						/*delete_image(ids){
 							var ref = this;
 							jQuery.ajax({
 								type: 'POST',
@@ -378,6 +378,6 @@ export class VenuesEditComponent implements OnInit {
 								elements.splice(remove_index, 1); var result = elements.join(",");
 								return result;
 							}
-						}
+						}*/
 
 					}
