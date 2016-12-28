@@ -29,6 +29,8 @@ export class BlogComponent implements OnInit {
           this.category = param['category'];
            this.blogDeafault();
 
+       }else{
+         this.blogDeafault(); 
        }
       });
      

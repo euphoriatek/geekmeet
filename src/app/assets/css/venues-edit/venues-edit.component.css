@@ -11,3 +11,6 @@
 	height: 160px;
 	width: 200px;
 }
+.venue_uploader .file-upload-indicator{
+	display: none !important;
+}

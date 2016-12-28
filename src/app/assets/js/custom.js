@@ -184,10 +184,18 @@ function invite_form() {
 
     jQuery(document).on("click", ".kv-file-remove", function ()   {
         jQuery(this).attr("disabled", "disabled");
+        var delete_id = jQuery(this).attr('data-key');
+                if (typeof delete_id != 'undefined') {
+                    var del_id = delete_id;
+                }
+                else
+                {
+                    del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+                }
         var del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
         delete_image(del_id);
     });
-            
+               
     // delete Image on load
     /*var pre_ids = jQuery("#pre_ids").val();
     if (pre_ids != '') {
@@ -218,7 +226,7 @@ function featured_image(ids, status){
         url: "http://2016.geekmeet.com/admin/v1/set_featured_image",
         data: {id: ids, status:status},
         success: function (data) {
-          var res = jQuery.parseJSON(data)
+          var res = jQuery.parseJSON(data);
           if (res.status == 1) {
           return 1;
           } else{
@@ -235,7 +243,7 @@ function featured_image(ids, status){
         url: "http://2016.geekmeet.com/admin/v1/remove_image",
         data: {id: ids},
         success: function (data) {
-          var res = jQuery.parseJSON(data)
+          var res = jQuery.parseJSON(data);
           if (res.status == 1) {
             var attchstr = jQuery('body').find("#attach_ids").val();
             var new_string = remove(attchstr, ids);

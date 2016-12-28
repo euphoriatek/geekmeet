@@ -25,7 +25,7 @@ export class EventListComponent implements OnInit{
   currentPage:any;
   getToken:any;
   category:any ='';
-  type:any = '';
+  type:any = 'current';
   sort:any ='';
   showData:any;
   code:any;
