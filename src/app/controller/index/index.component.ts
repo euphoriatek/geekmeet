@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ChangeDetectionStrategy} from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import {Location} from '@angular/common';
@@ -34,6 +34,7 @@ export class IndexComponent implements OnInit {
 	currentPos:any;
 	showData:any = '';
 	showUpcomingData:any = '';
+	per_page:any;
 
 	constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private location: Location,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
 		this.toastyConfig.theme = 'bootstrap';
@@ -66,7 +67,8 @@ export class IndexComponent implements OnInit {
         else{
           ref.showData = '';
         }
-			ref.Total = res.data.last_page;
+			ref.Total = res.data.total;
+			ref.per_page = res.data.per_page;
 			ref.currentPage = res.data.current_page;  
 		},function(error){
 			ref.loadingSvc.setValue(false);

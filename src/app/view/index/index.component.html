@@ -142,7 +142,7 @@
                                 <section id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  list" *ngIf="view_type=='list'">
                                    <p>{{showData}}</p>
                                     <!-- inside loop div start -->
-                                    <article class="post" *ngFor = "let list_event of popularArr">
+                                    <article class="post" *ngFor = "let list_event of popularArr  | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: Total}">
                                              <div class="listing_img">
                                             <a href="" [routerLink]="['/event_detail',list_event.event_id]"> 
                                                <img src="{{list_event.featured_image}}" alt="image" title="{{list_event.title}}">
@@ -239,11 +239,9 @@
                                         </div>
                                     </article>
                                     <!-- inside loop div start -->
-                                 <div class="postpagination_776778595 postpagination clearfix">
-                                <div class="pagination" *ngFor="let object of createRange(Total)">
-                                <a  class="page-numbers" href="javascript:void(0)" [ngClass]="{'active': object==currentPage}" (click)="eventPagination(object)" > {{object}} </a>
-                                </div>
-                                </div>
+                                 <div class="has-text-centered" style="text-align: center;border-bottom: none;">
+                                        <pagination-controls  (pageChange)="eventPagination($event)" id="server"></pagination-controls>
+                                    </div>
                                 </section>
                                 <!-- widget_loop_taxonomy_wrap eND --> 
                             </div>

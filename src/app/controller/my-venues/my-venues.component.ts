@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule, Router, ActivatedRoute }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -19,13 +19,12 @@ import { LoadingAnimateService } from 'ng2-loading-animate';
 export class MyVenuesComponent implements OnInit {
 
 	venueArr:any;
-	Total:Object;
-	currentPage:Object;
+	Total:number;
+	currentPage:number;
 	getToken:any;
 	deleteID:any;
 	showData:any;
-
-
+	per_page:any;
 
 	constructor(private loadingSvc: LoadingAnimateService,private router:Router,private route: ActivatedRoute,private toastyService:ToastyService,public apiService:ApiMethodService,private toastyConfig: ToastyConfig) {
 		this.toastyConfig.theme = 'bootstrap';
@@ -46,8 +45,9 @@ export class MyVenuesComponent implements OnInit {
 			ref.loadingSvc.setValue(false);
 			window.scrollTo(0, 0);
 			ref.venueArr = res.data.data;
-			ref.Total = res.data.last_page;
+			ref.Total = res.data.total;
 			ref.currentPage = res.data.current_page;
+			ref.per_page = res.data.per_page;
 			if(ref.venueArr == [] || ref.venueArr == ''){
 				ref.showData = "No Data Found.!"
 			}

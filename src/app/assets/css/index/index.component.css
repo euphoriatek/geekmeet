@@ -14,3 +14,7 @@
 .add_to_fev{
 	color:red !important;
 }
+#server .pagination-previous {
+    border-bottom: medium none !important;
+}
+#server ul li  { border:none !important;}

@@ -11,42 +11,42 @@
 				
 				<div id="content" role="main" class="col-md-12 col-sm-12 columns">
 					<h1 class="loop-title org_btn">Event <a class="btn btn-warning pull-right" href="" [routerLink]="['/eventadd']">Add Event</a>
-					<div class="tev_sorting_option pull-right" style="margin-right: 25px;">
-                            <div class="select-wrap">
-                                <select (change) = "sortEventsData($event.target.value)" id="event_sortby" class="tev_options_sel" style="z-index: 10;float: left;">
-                                    <option value = "" selected="selected">Sort By</option>
-                                    <option  value="title_asc">Title Ascending</option>
-                                    <option  value="title_desc">Title Descending</option>
-                                    <option  value="stdate_low_high">Start Date low to high</option>
-                                    <option  value="stdate_high_low">Start Date high to low</option>
-                                    <option  value="reviews">Reviews</option>
-                                    <option  value="rating">Rating</option>
-                                </select>                                
-                            </div>
-                        </div></h1></div>
-					<section id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  list">
-
-						<!-- inside loop div start -->
-						<article class="post" *ngFor = "let list_event of eventArr">
-							<div class="listing_img" style="width: 30%;margin-right: 0%;">
-								<a href="" [routerLink]="['/event_detail',list_event.event_id]"> 
-									<img src="{{list_event.featured_image}}" alt="image" title="{{list_event.title}}" style="width: 80%;">
-								</a>
+						<div class="tev_sorting_option pull-right" style="margin-right: 25px;">
+							<div class="select-wrap">
+								<select (change) = "sortEventsData($event.target.value)" id="event_sortby" class="tev_options_sel" style="z-index: 10;float: left;">
+									<option value = "" selected="selected">Sort By</option>
+									<option  value="title_asc">Title Ascending</option>
+									<option  value="title_desc">Title Descending</option>
+									<option  value="stdate_low_high">Start Date low to high</option>
+									<option  value="stdate_high_low">Start Date high to low</option>
+									<option  value="reviews">Reviews</option>
+									<option  value="rating">Rating</option>
+								</select>                                
 							</div>
+						</div></h1></div>
+						<section id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  list">
 
-							<!-- Entry Start -->
-							<div class="entry">
-								<div class="event-wrapper"> 
-									<!-- Entry title start -->
-									<div class="entry-title" >
-										<div style="float: right;">
-										<label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/event-edit',list_event.event_id]">Edit Event</a></label>
-											<label class="org_btn"><a class="btn btn-xs primary" href="javascript:void(0)" (click)="modal_id.open('sm');setDeleteID(list_event.event_id);">Delete</a></label>
-										</div>
-										<div class="event-title">       
-											<h2 class="entry-title">
+							<!-- inside loop div start -->
+							<article class="post" *ngFor = "let list_event of eventArr | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: Total}">
+								<div class="listing_img" style="width: 30%;margin-right: 0%;">
+									<a href="" [routerLink]="['/event_detail',list_event.event_id]"> 
+										<img src="{{list_event.featured_image}}" alt="image" title="{{list_event.title}}" style="width: 80%;">
+									</a>
+								</div>
 
-												<a itemprop="url" href="" [routerLink]="['/event_detail',list_event.event_id]" title="{{list_event.event_title}}" rel="bookmark">{{list_event.event_title}}</a></h2>
+								<!-- Entry Start -->
+								<div class="entry">
+									<div class="event-wrapper"> 
+										<!-- Entry title start -->
+										<div class="entry-title" >
+											<div style="float: right;">
+												<label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/event-edit',list_event.event_id]">Edit Event</a></label>
+												<label class="org_btn"><a class="btn btn-xs primary" href="javascript:void(0)" (click)="modal_id.open('sm');setDeleteID(list_event.event_id);">Delete</a></label>
+											</div>
+											<div class="event-title">       
+												<h2 class="entry-title">
+
+													<a itemprop="url" href="" [routerLink]="['/event_detail',list_event.event_id]" title="{{list_event.event_title}}" rel="bookmark">{{list_event.event_title}}</a></h2>
 
 												<!-- <div class="listing_rating">
 													<div class="directory_rating_row">
@@ -115,30 +115,33 @@
 												</li>
 
 												<ul> 
-												<div class="listing_rating" style="float: left;">
-													<div class="directory_rating_row">
-														<span class="single_rating"> 
-															<rating [(ngModel)]="list_event.rating"
-															[readonly]="true" [float]="true">
-														</rating>
-													</span>
+													<div class="listing_rating" style="float: left;">
+														<div class="directory_rating_row">
+															<span class="single_rating"> 
+																<rating [(ngModel)]="list_event.rating"
+																[readonly]="true" [float]="true">
+															</rating>
+														</span>
+													</div>
 												</div>
-											</div>
 											</ul>
-											</ul> 
-										</div>   
-									</div>
-									<!-- Entry End -->
+										</ul> 
+									</div>   
 								</div>
+								<!-- Entry End -->
+							</div>
 
-							</article>
+						</article>
 
-							<!-- inside loop div start -->
-							<div class="postpagination_776778595 postpagination clearfix">
+						<!-- inside loop div start -->
+						<div class="has-text-centered" style="text-align: center;">
+							<pagination-controls  (pageChange)="getEventPagination($event)" id="server"></pagination-controls>
+						</div>
+							<!-- <div class="postpagination_776778595 postpagination clearfix">
 								<div class="pagination" *ngFor="let object of createRange(Total)">
 									<a  class="page-numbers" href="javascript:void(0)" [ngClass]="{'active': object==currentPage}" (click)="getEventPagination(object)" > {{object}} </a>
 								</div>
-							</div>
+							</div> -->
 						</section>
 
 
