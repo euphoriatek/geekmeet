@@ -221,7 +221,7 @@ export class VenuesEditComponent implements OnInit {
 					});
 
 
-				jQuery("body").find(".file-preview-thumbnails .file-upload-indicator").each(function () {
+				/*jQuery("body").find(".file-preview-thumbnails .file-upload-indicator").each(function () {
 					  var featured_image = jQuery(this).parents('.file-preview-initial').find('img').attr('featured_image');
 					          jQuery(this).attr('data-key', jQuery(this).parent('.file-actions').find(".kv-file-remove").attr("data-key"));
 					          if (featured_image == 1){
@@ -231,7 +231,7 @@ export class VenuesEditComponent implements OnInit {
 							  jQuery(this).removeClass('yellow');
 							          jQuery(this).html('<i class="fa fa-star fa-2"></i>');
 							  }
-							  });
+							  });*/
 
 						}
 
