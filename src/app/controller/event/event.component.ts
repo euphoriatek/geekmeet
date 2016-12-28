@@ -144,9 +144,18 @@ export class EventComponent implements OnInit{
    changeGridTolist(status){
     this.gridview = status;
   }*/
+
+
   someRange:any;
+  showHeader:any;
   ngOnInit() {   
     jQuery.getScript('//www.ads4mysite.com/adserver/www/delivery/asyncjs.php');
+    this.route.params.subscribe((param) => {
+      this.showHeader = param['menu'];
+    })
+    if(this.showHeader==''){
+        this.showHeader ='All';
+      }
   }
 
   outputUpdate(range){
@@ -154,9 +163,12 @@ export class EventComponent implements OnInit{
     ref.currntRange = range;
   }
 
-  searchZipCodeEvent(value:any):void{
+  searchZipCodeEvent(zipcodeData:any):void{
+    var value = zipcodeData.value;
     if(value.code){
       this.event.searchByZipCode(value.code);
+      zipcodeData.reset();
+      this.showHeader = ""
     }
     else{
       this.toastyService.error("Please Provoide Zipcode.!");

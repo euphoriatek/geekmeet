@@ -8,8 +8,8 @@
                     <a [routerLink]="['/']" title="home" rel="home" class="trail-begin">Home</a>
                 </span> 
                 <span class="sep">»</span> <span class="trail-end">
-                <a [routerLink]="['/event']" title="Events"> Events {{Category_name}}</a>
-            </span>
+                <a [routerLink]="['/event']" title="Events"> Events</a>
+            </span><span class="sep">»</span> <span class="trail-end">{{showHeader}}</span>
         </div>
     </div>
 
@@ -230,7 +230,7 @@
                 <div id="directory_mile_range_widget-3" class="widget search_miles_range">
                     <div class="search_nearby_widget">
                         <h3 class="widget-title">Search Nearby Miles Range</h3>
-                        <form #zipcodeForm="ngForm" (ngSubmit)="searchZipCodeEvent(zipcodeForm.value)">
+                        <form #zipcodeForm="ngForm" (ngSubmit)="searchZipCodeEvent(zipcodeForm)">
                             <div class="search_range">
                                 <input type="text" name="code" id="range_address" value="" class="range_address location placeholder ui-autocomplete-input" placeholder="Enter your Postal Code" autocomplete="off" ngModel>
                                 <label>Mile range: </label><label>{{currntRange}}</label>
