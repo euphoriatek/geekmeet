@@ -50,7 +50,7 @@ import { ActivateNowComponent } from './controller/activate-now/activate-now.com
 export const routes: Routes = [
       {path:'header' ,component: HeaderComponent},
       {path:'footer' ,component: FooterComponent},
-      {path:'blog' ,component: BlogComponent},
+      {path:'blog/:category' ,component: BlogComponent,data: [{id: true}]},
       {path:'sponsors' ,component: SponsorsComponent},
       {path:'contactus' ,component: ContactusComponent},
       {path:'index' ,component: IndexComponent},

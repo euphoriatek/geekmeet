@@ -90,7 +90,20 @@ export class ApiMethodService {
 	//this is blog api when user not logged in
 
 	blogApi(regdata,callBack){
-		this.http.get('http://2016.geekmeet.com/admin/v1/blog?page='+regdata).map(res=>res.json())
+		var page = regdata.page;
+		this.http.post('http://2016.geekmeet.com/admin/v1/blog?page='+page,regdata).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => console.log('There was an error', error));
+	}
+
+	// blog category 
+
+	BlogCategoryApi(callBack){
+		this.http.get('http://2016.geekmeet.com/admin/v1/blog_category').map(res=>res.json())
 		.subscribe((res)=>{
 			if(callBack)
 			{
@@ -890,7 +903,7 @@ export class ApiMethodService {
 		
 	}
 
-	searchData(value,callBack){
+	searchData(value,callBack,failure){
 
         let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		if(localStorage.getItem('auth_token')!=null){
@@ -901,7 +914,7 @@ export class ApiMethodService {
 				{
 					callBack(res);
 				}
-			}, (error) => console.log('There was an error', error));
+			}, (error) => failure(error));
 		}else{
 			this.http.post('http://2016.geekmeet.com/admin/v1/search',value).map(res=>res.json())
 			.subscribe((res)=>{
@@ -909,7 +922,7 @@ export class ApiMethodService {
 				{
 					callBack(res);
 				}
-			}, (error) => console.log('There was an error', error));
+			}, (error) => failure(error));
 
 		}	
 	}

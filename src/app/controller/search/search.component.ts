@@ -41,7 +41,7 @@ export class SearchComponent implements OnInit {
     }
 
     this.apiService.searchData(value,function(res){
-          window.scrollTo(0,0);
+      window.scrollTo(0,0);
       refreg.loadingSvc.setValue(false);
       if(res.data.event!=[]){
       refreg.event = res.data.event;
@@ -67,6 +67,9 @@ export class SearchComponent implements OnInit {
       refreg.empty = true;	
       }
 
+    },function(error){
+       refreg.loadingSvc.setValue(false);
+      refreg.empty = true;  
     });
 
   }

@@ -222,8 +222,9 @@ export class IndexComponent implements OnInit {
 
 
 	search(value){
-     this.router.navigate(['/search',value]);
-
+	 if(value!=''){
+       this.router.navigate(['/search',value]);
+     }
 	}
 
 
