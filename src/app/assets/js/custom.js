@@ -190,9 +190,9 @@ function invite_form() {
                 }
                 else
                 {
-                    del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+                    var del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
                 }
-        var del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+        //var del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
         delete_image(del_id);
     });
                
@@ -210,7 +210,15 @@ function invite_form() {
               var status = 1;
             }
 
-            var featured_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+             var featured = jQuery(this).attr('data-key');
+                if (typeof featured != 'undefined') {
+                    var featured_id = featured;
+                }
+                else
+                {
+                   var featured_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+                }
+            
             var res = featured_image(featured_id, status);
             if (res){
             jQuery(this).addClass('yellow');
