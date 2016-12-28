@@ -7,6 +7,9 @@
                 <span class="trail-begin">
                     <a [routerLink]="['/']" title="GeekMeet" rel="home" class="trail-begin">Home</a></span> <span class="sep">»</span> 
                 <span>Blog</span>
+                <span class="sep">»</span> 
+                <span *ngIf="category!=''">{{category}}</span>
+                <span *ngIf="category==''">All</span>
             </div>
         </div>
 
@@ -48,7 +51,7 @@
                             <abbr class="published" title="{{blog.create_date}}">{{blog.create_date}}</abbr> 
                             <a class="comments-link" href="" title="Comment on Reservation and Booking System + Multilevel Category Selection">Leave a response</a> 
                         </div>			
-                        <p class="entry-summary" [innerHTML]="blog.blog_content"></p>G
+                        <p class="entry-summary" [innerHTML]="blog.blog_content"></p>
                         <a *ngIf="blog.read_more==1" [routerLink]="['/blog_detail',blog.blog_id]" >Read More</a> 				  
                         
                         <!-- .entry-summary -->
