@@ -8,3 +8,6 @@ Author URI:    http://templatic.com/
 Template: Directory
 */
 @import url(../Directory/css/admin_style.css);
+#server .pagination-previous {
+    border-bottom: medium none !important;
+}

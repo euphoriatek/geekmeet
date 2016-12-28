@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule, Router }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
@@ -23,6 +23,7 @@ export class MyEventsComponent implements OnInit {
 	type:any;
 	sort:any;
 	page:any;
+	per_page:any;
 
 
 	constructor(private loadingSvc: LoadingAnimateService,private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
@@ -58,7 +59,8 @@ export class MyEventsComponent implements OnInit {
 		this.apiService.eventApi(eventArrData,function(res){
 			window.scrollTo(0,0);
 			ref.eventArr = res.data.data;
-			ref.Total = res.data.last_page;
+			ref.Total = res.data.total;
+			ref.per_page = res.data.per_page;
 			ref.currentPage = res.data.current_page;
 			ref.loadingSvc.setValue(false);   			
 		},function(error){

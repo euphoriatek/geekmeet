@@ -116,6 +116,8 @@ export class EditProfileComponent implements OnInit {
 
   getState(id){
     var ref = this;
+    ref.cityList=[];
+    console.log(ref.cityList);
     ref.countryFirst = false;
     ref.cityFIrst = true;                      
     ref.userInfoArr['state'] = -1;

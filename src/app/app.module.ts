@@ -17,7 +17,7 @@ import {ToastyModule} from 'ng2-toasty';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { NouisliderModule } from 'ng2-nouislider';
 import { LoadingAnimateModule, LoadingAnimateService } from 'ng2-loading-animate';
-
+import {Ng2PaginationModule} from 'ng2-pagination';
 
 
 
@@ -116,6 +116,7 @@ import { ActivateNowComponent } from './controller/activate-now/activate-now.com
   ImageUploadModule,
   CKEditorModule,
   Ng2Bs3ModalModule,
+  Ng2PaginationModule,
   LoadingAnimateModule.forRoot(),
   AgmCoreModule.forRoot({
     apiKey: 'AIzaSyD-BvDe_7N5-LpgFlXgfkv44Gdez1qL7-w'
