@@ -215,7 +215,7 @@ export class EventEditComponent implements OnInit {
 		// });
 
 
-		jQuery(document).on("click", ".kv-file-remove", function () {
+		/*jQuery(document).on("click", ".kv-file-remove", function () {
              var delete_id = jQuery(this).attr('data-key');
             if (typeof delete_id != 'undefined') {
             var del_id = delete_id;
@@ -243,14 +243,14 @@ export class EventEditComponent implements OnInit {
 			} else{
 				jQuery(this).removeClass('yellow')
 			}
-		});
+		});*/
 
 		// delete Image on load
 
-		var pre_ids = jQuery("#pre_ids").val();
+		/*var pre_ids = jQuery("#pre_ids").val();
 		if (pre_ids != '') {
 			ref.delete_image(pre_ids);
-		}
+		}*/
 
 		jQuery('body').find("#cancel").click(function () {
 			var url = jQuery(this).attr('data-href');
@@ -523,7 +523,7 @@ export class EventEditComponent implements OnInit {
 		}
 
 
-		delete_image(ids){
+		/*delete_image(ids){
 			var ref = this;
 			jQuery.ajax({
 				type: 'POST',
@@ -572,7 +572,7 @@ export class EventEditComponent implements OnInit {
 				elements.splice(remove_index, 1); var result = elements.join(",");
 				return result;
 			}
-		}
+		}*/
 
 
 	}

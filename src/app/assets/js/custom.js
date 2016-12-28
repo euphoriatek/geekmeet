@@ -243,7 +243,7 @@ function featured_image(ids, status){
         url: "http://2016.geekmeet.com/admin/v1/remove_image",
         data: {id: ids},
         success: function (data) {
-          var res = jQuery.parseJSON(data)
+          var res = jQuery.parseJSON(data);
           if (res.status == 1) {
             var attchstr = jQuery('body').find("#attach_ids").val();
             var new_string = remove(attchstr, ids);
