@@ -50,9 +50,7 @@
                         <div class="widget-wrap widget-inside">
                             <h3 class="widget-title">Blog Categories</h3>
                             <ul class="xoxo categories">
-                                <li class="cat-item cat-item-7"><a href="#">Eventum</a></li>
-                                <li class="cat-item cat-item-6"><a href="#">News</a></li>
-                                <li class="cat-item cat-item-1"><a href="#">Uncategorized</a></li>
+                               <li class="" *ngFor = "let blog_cat of blogArr; let index = index" (click)="blogCategoryClick(blog_cat.blog_category_name,index)" ><a>{{blog_cat.blog_category_name}}</a></li>
                             </ul>
                             <!-- .xoxo .categories -->
                         </div>
@@ -60,10 +58,7 @@
                     <div id="hybrid-archives-1" class="widget archives">
                         <div class="widget-wrap widget-inside">
                             <h3 class="widget-title">Event Categories</h3>
-                            <li><a href="#">Networking</a></li>
-                            <li><a href="#">Open Source</a></li>
-                            <li><a href="#">User Groups</a></li>
-                            <li><a href="#">Databases</a></li>
+                             <li class="" *ngFor = "let submenu of menuArr; let index = index" (click)="submenuClick(submenu.category_name,index)" ><a>{{submenu.category_name}}</a></li>
                         </div>
                     </div>
                     <div id="hybrid-pages-1" class="widget pages">

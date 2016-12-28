@@ -46,7 +46,12 @@ export class FooterComponent implements OnInit {
 	last_name:any;
 	param_id:any;
 	linkedInData:any;
+
+	menuArr:any;
+	blogArr:any;
+
 	errors:Object = {};
+
 
 	constructor(private router: Router,
 		public apiService:ApiMethodService,
@@ -130,6 +135,8 @@ export class FooterComponent implements OnInit {
 
 			var script = document.createElement("script");
 			document.body.appendChild(script);
+			this.secondmenuDeafault();
+			this.blogCategory();
 		}
 		OnLinkedInFrameworkLoad(){
 			var ref = this;
@@ -294,9 +301,41 @@ export class FooterComponent implements OnInit {
 
 
 		search(value){
-			this.router.navigate(['/search',value]);
 
-		}
+	 if(value!=''){		
+     this.router.navigate(['/search',value]);
+     }
+	}
+
+
+		
+
+
+
+	 secondmenuDeafault(){
+    var ref = this;
+    this.apiService.SecondMenuApi(function(res){
+      ref.menuArr = res.data;
+    });
+  }
+
+   submenuClick(menu,index){
+    this.router.navigate(['/event',menu]);
+  }
+
+
+	blogCategory(){
+    var ref = this;
+    this.apiService.BlogCategoryApi(function(res){
+      ref.blogArr = res.data;
+    });
+  }
+
+    blogCategoryClick(menu,index){
+    console.log(menu);	
+    this.router.navigate(['/blog',menu]);
+  }
+
 
 
 	}
