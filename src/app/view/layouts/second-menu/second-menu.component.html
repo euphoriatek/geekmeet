@@ -4,18 +4,18 @@
             <div id="menu-secondary" class="menu-container clearfix">
                 <nav role="navigation" class="wrap">
                     <!-- #menu-secondary-title -->
-                    <div id="menu-secondary-title">
+                    <div id="menu-secondary-title" #com1>
                         Menu    
                     </div>
                     <div class="menu">
+                                            {{returnIndex()}}
+
                         <ul id="menu-secondary-items" class="mega">
                             <!-- <li  *ngFor = "let category of menuArr let index = index"><a href="">{{category.category_name}}</a></li> -->
-                            <li><a (click)="getEventByCategory('all',-1)">All</a></li>
-                            <li [ngClass] = "{'current-menu-item current_page_item':(index==selectedIndex)}"  *ngFor="let category of menuArr; let index = index" >
+                            <li [ngClass] = "{'current-menu-item current_page_item':(-1==returnIndex())}"><a (click)="getEventByCategory('all',-1)">All</a></li>
+                            <li [ngClass] = "{'current-menu-item current_page_item':(index==returnIndex())}"  *ngFor="let category of menuArr; let index = index" >
                             <a href="javascript:void(0)" (click)="getEventByCategory(category.category_name,index)">{{category.category_name}}</a>
-                            </li>
-
-                         
+                            </li>                         
                         </ul>
                     </div>  
                 </nav>
