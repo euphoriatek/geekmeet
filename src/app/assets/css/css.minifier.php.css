@@ -7335,6 +7335,7 @@ img,
 }
 .error {
     color: red;
+    margin: 0 0 0 15px !important;
 }
 #loop_listing_archive .post .listing_img .featured_tag,
 #loop_listing_taxonomy .post .listing_img .featured_tag,
