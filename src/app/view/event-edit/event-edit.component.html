@@ -133,7 +133,8 @@
                             [active]="defaultVenue"
                             placeholder="No location selected">
                         </ng-select>
-                        </div><a class="btn btn-success  btn-sm btn-square active pull-right add_button" (click)="modal.open()" style="line-height: 1.6;"><span class="glyphicon glyphicon-plus" area-hidden="true"></span> </a>
+                        </div><!--<a class="btn btn-success  btn-sm btn-square active pull-right add_button" (click)="modal.open()" style="line-height: 1.6;"><span class="glyphicon glyphicon-plus" area-hidden="true"></span> </a>-->
+                        <app-venueadd></app-venueadd>
                         <input type="hidden" id="location" name="location" [(ngModel)]="location">       
                         <ul class="error" *ngIf="errors['venue_name']!=''" >
                                 <li *ngFor="let org_err of errors['venue_name']">{{org_err}}</li>    

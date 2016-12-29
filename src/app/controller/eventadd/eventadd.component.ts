@@ -6,12 +6,12 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import { MyDatePickerModule } from 'mydatepicker';
 import {SelectModule} from 'ng2-select/ng2-select';
-import { AgmCoreModule } from 'angular2-google-maps/core';
-import { SebmGoogleMap } from 'angular2-google-maps/core';
+//import { AgmCoreModule } from 'angular2-google-maps/core';
+//import { SebmGoogleMap } from 'angular2-google-maps/core';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
-//import { ImageResult} from 'ng2-imageupload';
+import { VenueaddComponent } from './venueadd.component';
 
 
 declare var jQuery: any;
@@ -28,23 +28,23 @@ import 'rxjs/add/operator/catch';
 })
 export class EventaddComponent implements OnInit {
   
-   @ViewChild('myMap') mymap: SebmGoogleMap
+  // @ViewChild('myMap') mymap: SebmGoogleMap
 
   getToken:any;
   userInfoArr:Object = {};
   topic:any;
   value:any;
-  countryList:any;
-  countryArr:Array<Object> = [];
-  stateList:Array<Object> = [];
-  cityList:Array<Object> = [];
+  //countryList:any;
+  //countryArr:Array<Object> = [];
+  //stateList:Array<Object> = [];
+  //cityList:Array<Object> = [];
   categoryList:any;
   organizationList:Array<Object> = [];
   venueList:Array<Object> = [];
   keywordList:Array<string> = [];
-  country: string;
-  state: string;
-  city: string;
+  //country: string;
+  //state: string;
+  //city: string;
   location: string;
   organizers:string;
   keyword:string;
@@ -52,7 +52,7 @@ export class EventaddComponent implements OnInit {
   start_time:string;
   end_time:string;
   imageArr:Array<string> = []; 
-  venue_image:Array<string> = [];
+  //venue_image:Array<string> = [];
 
   title:any;
   description:any;
@@ -61,13 +61,13 @@ export class EventaddComponent implements OnInit {
   endDate:any;
   end_timeErr:any;
   websiteErr:any;
-  countryErr:any;
-  stateErr:any;
-  cityErr:any;
+  //countryErr:any;
+  //stateErr:any;
+  //cityErr:any;
   organizationErr:any;
   locationErr:any;
   contact:any;  
-  venueErrors:Object = {};
+  //venueErrors:Object = {};
   
   geocoder:any;
   errors:Object = {};  
@@ -95,7 +95,7 @@ export class EventaddComponent implements OnInit {
 
   public audienceList:Array<string> = ['Child', 'Youngest', 'Oldest']; 
   // public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-  public file_srcs: string[] = [];  
+  //public file_srcs: string[] = [];  
 
   constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService, private toastyConfig: ToastyConfig, private changeDetectorRef: ChangeDetectorRef) {
     this.toastyConfig.theme = 'bootstrap';
@@ -118,7 +118,7 @@ export class EventaddComponent implements OnInit {
      jQuery("head").append(s);
      jQuery("head").append(s1);*/
 
-    this.getCountryList();  
+    //this.getCountryList();  
     this.getVenueList();
     this.getOrganizationList();
     this.getCategoryList();
@@ -287,7 +287,7 @@ export class EventaddComponent implements OnInit {
     });    
   } 
 
-  getCountryList(){
+  /*getCountryList(){
     var ref = this;
     ref.apiService.countryList(function(res){
       
@@ -339,7 +339,7 @@ export class EventaddComponent implements OnInit {
     }, function(err){
       console.log(err);
     });
-  }
+  }*/
 
   uploadImages(value:any){
     console.log('here');
@@ -349,9 +349,9 @@ export class EventaddComponent implements OnInit {
   public optionSelected(value:any,type:any):void { 
        
     switch (type) {
-      case "city":
-       this.city = value.id;
-        break;    
+      //case "city":
+       //this.city = value.id;
+       // break;    
       case "organization":
        this.organizers = value.id;
         break;   
@@ -456,9 +456,9 @@ export class EventaddComponent implements OnInit {
         ref.endDate = errors.end_date;
         ref.end_timeErr = errors.end_time;
         ref.websiteErr = errors.website;
-        ref.countryErr = errors.country;
-        ref.stateErr = errors.state;
-        ref.cityErr = errors.city;
+        //ref.countryErr = errors.country;
+        //ref.stateErr = errors.state;
+        //ref.cityErr = errors.city;
         ref.organizationErr = errors.organizers;
         ref.locationErr = errors.location;
         ref.contact = errors.contact_info;  
@@ -466,7 +466,7 @@ export class EventaddComponent implements OnInit {
   }
 
   
-   getLatLong(val:any):void{
+   /*getLatLong(val:any):void{
    
     var ref = this;
     
@@ -501,7 +501,7 @@ export class EventaddComponent implements OnInit {
    submitLocation(value:any):void{
     var ref = this;
     
-    /*jQuery( "#images_div input[type=file]" ).each(function() {
+   jQuery( "#images_div input[type=file]" ).each(function() {
       console.log(jQuery(this).prop("files"));  
       var inputValue = jQuery(this); 
        console.log(inputValue.context);
@@ -514,7 +514,7 @@ export class EventaddComponent implements OnInit {
       {       
         ref.venue_image.push(image);              
       }       
-    });*/
+    });
     console.log(ref.venue_image);
     jQuery( "#venue_submit" ).prop("disabled",true);
     jQuery( "#venue_cancel" ).prop("disabled",true);
@@ -552,36 +552,8 @@ export class EventaddComponent implements OnInit {
         jQuery( "#venue_submit" ).prop("disabled",false);
         jQuery( "#venue_cancel" ).prop("disabled",false);        
       });
-  }
+  }*  
 
-  
-/*changeListener($event) : void {
-  this.readThis($event.target);
-}
-
-readThis(inputValue: any): void {
-  var file:File = inputValue.files[0];
-  console.log(inputValue.files);
-  var myReader:FileReader = new FileReader();
-  var image;
-  myReader.onloadend = (e) => {
-    image = myReader.result;  
-    console.log(image);      
-  }
-  myReader.readAsDataURL(file);  
-}
-
-readImage(inputValue: any) {
-  console.log(inputValue);
-    if ( inputValue.files && inputValue.files[0] ) {
-        var FR= new FileReader();
-        FR.onload = function(e) {            
-             //e.target.result;
-             console.log(e);
-        };       
-        FR.readAsDataURL( inputValue.files[0] );
-    }
-} */
 
  fileChange(input){
     this.readFiles(input.files);
@@ -620,7 +592,7 @@ readImage(inputValue: any) {
     this.file_srcs = [];  
     jQuery('.map_div').hide();
     //this.venueErrors = {};
-  }  
+  }  */
 
   
  

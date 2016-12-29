@@ -118,9 +118,10 @@
                             <input type="hidden" id="location" name="location" [(ngModel)]="location">       
                             <span class="errfield">{{locationErr}}</span>  
                         </div>   
-                        <a (click)="modal.open();" class="btn btn-success  btn-sm btn-square active pull-right add_button" style="line-height: 1.6;">
+                        <!--<a (click)="modal.open();" class="btn btn-success  btn-sm btn-square active pull-right add_button" style="line-height: 1.6;">
                             <span area-hidden="true" class="glyphicon glyphicon-plus"></span>
-                         </a>           
+                         </a>--> 
+                         <app-venueadd></app-venueadd>          
                     </div>
                    
                     <div class="form_row clearfix" style="width: 385px">
@@ -174,7 +175,7 @@
                 </div>
             </form>
 
-            <modal #modal> 
+            <!--<modal #modal> 
             <modal-header><h4 class="modal-title">Add Location</h4></modal-header>             
                     <form name="location-add" id="location-add" #addLocationForm="ngForm" (ngSubmit)="submitLocation(addLocationForm.value);addLocationForm.reset();removeLocationData();">  
                       
@@ -203,13 +204,11 @@
                                     <label for="message-text" class="control-label">Image</label>
                                 </div>
                                 <div class="col-md-5">
-                                    <!--<input type="file" image-upload name="venue_image[]" (imageSelected)="selected($event)" class="form-control">-->
+                                    
                                     <input type="file" class="form-control" multiple (change)="fileChange(input)" #input />                             
                                 </div>
                                  
-                                <!--<div class="col-md-2 col-sm-1 col-xs-2">
-                                    <button class="btn btn-success btn-xs btn-square" id="add_more" type="button"><span aria-hidden="true" class="fa fa-plus">Add More</span>
-                                    </button></div>-->
+                               
 
                             </div>
 
@@ -313,13 +312,13 @@
                         <div class="clearfix"></div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" id="venue_cancel" data-dismiss="modal" (click)="addLocationForm.reset();removeLocationData();modal.dismiss();">Cancel</button>
-                            <!--<button type="button" class="btn btn-primary" (click)="modal.close()">Save</button>-->  
+                           
                             <button class="btn btn-info" type="submit" value="Save" id="venue_submit" name="venue_submit">Save</button>  
                         </div>
                   
                     </form>                       
                     
-                </modal>
+                </modal>-->
 
                 <!-- <div class="form-group col-md-12"  id="add_more_div" hidden="">
                    <div class="col-md-2 col-md-offset-1">

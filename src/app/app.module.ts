@@ -43,6 +43,7 @@ import { TermConditionComponent } from './controller/term-condition/term-conditi
 import { EventDetailComponent } from './controller/event-detail/event-detail.component';
 import { BlogDetailComponent } from './controller/blog-detail/blog-detail.component';
 import { EventListComponent } from './controller/event/eventlist.component';
+import { VenueaddComponent } from './controller/eventadd/venueadd.component';
 import { MyOrganizationsComponent } from './controller/my-organizations/my-organizations.component';
 import { OrganizationEditComponent } from './controller/organization-edit/organization-edit.component';
 import { DeleteModelComponent } from './controller/delete-model/delete-model.component';
@@ -100,7 +101,7 @@ import { ActivateNowComponent } from './controller/activate-now/activate-now.com
   EventEditComponent,
   SearchComponent,
   ActivateNowComponent,
-
+  VenueaddComponent,
 
 
   ],

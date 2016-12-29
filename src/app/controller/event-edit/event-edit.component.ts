@@ -6,6 +6,7 @@ import {SelectModule} from 'ng2-select/ng2-select';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import {CKEditorModule} from 'ng2-ckeditor';
 import { LoadingAnimateService } from 'ng2-loading-animate';
+import { VenueaddComponent } from '../eventadd/venueadd.component';
 
 
 declare var jQuery: any;
