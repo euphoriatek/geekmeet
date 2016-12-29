@@ -35,8 +35,8 @@
             <!--Start loop taxonomy page-->
 
             <section *ngIf="gridview" id="loop_event_taxonomy" class="search_result_listing grid" style="display: block;">
-            <p>{{showData}}</p>
-                <article id="event_27121" class="post" *ngFor = "let events of eventArr">
+            <h4 style="text-align: center;">{{showData}}</h4>
+                <article id="event_27121" class="post" *ngFor = "let events of eventArr | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: total}">
                     <div class="listing_img">
                         <a href="" [routerLink]="['/event_detail',events.event_id]"> 
                             <img src="{{events.featured_image}}" alt="image" title="event-(13)">
@@ -135,7 +135,7 @@
 
                 <section *ngIf="!gridview" id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  list">
                                     <!-- inside loop div start -->
-                                         <article class="post" *ngFor = "let events of eventArr">
+                                         <article class="post" *ngFor = "let events of eventArr | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: total}">
                                         <div class="listing_img">
                                             <a [routerLink]="['/event_detail',events.event_id]"> 
                                             <img src="{{events.featured_image}}" alt="image" title="{{events.event_title}}">
@@ -239,9 +239,11 @@
                                     
                                 </section>
                    
-
-                <div class="postpagination_776778595 postpagination clearfix">
+                                <div class="has-text-centered" style="text-align: center;">
+                                    <pagination-controls  (pageChange)="getEventPagination($event)" id="server"></pagination-controls>
+                                </div>
+                <!-- div class="postpagination_776778595 postpagination clearfix">
                     <div class="pagination" *ngFor="let object of createRange(total)">
                         <a  class="page-numbers" href="javascript:void(0)" [ngClass]="{'active': object==currentPage}" (click)="getEventPagination(object)" > {{object}} </a>
                     </div>
-                </div>
+                </div> -->

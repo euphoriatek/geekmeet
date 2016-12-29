@@ -35,7 +35,7 @@
                 <!-- .loop-meta -->
 
                 <!-- article start -->
-                <div class="post" *ngFor = "let blog of blogArr">
+                <div class="post" *ngFor = "let blog of blogArr  | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: Total}">
                     <div class="listing_img">
                         <img src="{{blog.thumb}}" alt="image">
                         
@@ -67,11 +67,14 @@
             
            
 
-                <div class="postpagination_776778595 postpagination clearfix">
+                <!-- <div class="postpagination_776778595 postpagination clearfix">
                 <div class="pagination" *ngFor="let object of createRange(blogTotal)">
                 <a  class="page-numbers" href="javascript:void(0)" [ngClass]="{'active': object==currentPage}" (click)="getBlogPagination(object)" > {{object}} </a>
                 </div>
-                </div>
+                </div> -->
+                <div class="has-text-centered" style="text-align: center;">
+                            <pagination-controls  (pageChange)="getBlogPagination($event)" id="server"></pagination-controls>
+                        </div>
 
         </section>
 

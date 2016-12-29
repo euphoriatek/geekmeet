@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit,ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule, Router, ActivatedRoute }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
 declare var jQuery: any;
@@ -27,9 +27,9 @@ export class EventListComponent implements OnInit{
   category:any ='';
   type:any = 'current';
   sort:any ='';
-  page:any = 1;
   showData:any;
   code:any;
+  per_page:any;
 
 
   
@@ -83,9 +83,8 @@ export class EventListComponent implements OnInit{
       var category = this.category;
       var type = this.type; 
       var sort = this.sort;
-      var page = this.page;
+      var page = this.currentPage;
       var postal_code = this.code;
-      console.log(this.selectedIndex);
       var eventArrData = {
         "category": category,
         "type":type,
@@ -98,14 +97,16 @@ export class EventListComponent implements OnInit{
       ref.apiService.eventApi(eventArrData,function(res){
         ref.loadingSvc.setValue(false);
         ref.eventArr = res.data.data;
+        console.log(ref.eventArr);
         if(ref.eventArr == [] || ref.eventArr == ''){
           ref.showData = "No Data Found.!"
         }
         else{
           ref.showData = '';
         }
-        ref.total =  res.data.last_page;
+        ref.total =  res.data.total;
         ref.currentPage = res.data.current_page;
+        ref.per_page = res.data.per_page;
       },function(error){
         ref.loadingSvc.setValue(false);
         ref.toastyService.error(error.json().message);
@@ -143,7 +144,8 @@ export class EventListComponent implements OnInit{
 
 
     getEventPagination(page){
-      this.page = page;
+      window.scrollTo(0,300);
+      this.currentPage = page;
       this.eventDeafault();  
     }
 
@@ -162,12 +164,12 @@ export class EventListComponent implements OnInit{
 
 
     searchByZipCode(code){
-      var ref = this;
-      ref.code = code;
-      ref.type = '';
-      ref.sort = '';
-      ref.selectedIndex = -1;
-      ref.eventDeafault();
+      this.currentPage = 1;
+      this.code = code;
+      this.type = '';
+      this.sort = '';
+      this.selectedIndex = -1;
+      this.eventDeafault();
     }
 
 

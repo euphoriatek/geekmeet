@@ -13,8 +13,9 @@ import { LoadingAnimateService } from 'ng2-loading-animate';
 })
 export class BlogComponent implements OnInit {
 	blogArr:any;
-	blogTotal:any;
+	Total:any;
 	currentPage:any;
+  per_page:any;
   category:any='';
   page:any = 1;
   empty_data:any =false;
@@ -50,7 +51,8 @@ export class BlogComponent implements OnInit {
             window.scrollTo(0,0);
             ref.loadingSvc.setValue(false);
             ref.blogArr = res.data.data;
-            ref.blogTotal = res.data.last_page;
+            ref.Total = res.data.total;
+            ref.per_page = res.data.per_page;
             ref.currentPage = res.data.current_page;
        ref.empty_data = false;
        if(res.data.data.length<1){

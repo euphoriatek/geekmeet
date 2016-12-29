@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, Input} from '@angular/core';
 import { RouterModule, Router }   from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiMethodService } from '../../../model/api-method.service';
@@ -21,7 +21,6 @@ export class HeaderComponent implements OnInit {
   menuArr:any;
   isUserLoggedIn:any = false;
   user_name:any;
-  // @Output() onSubMenuChange = new EventEmitter<string>();
 
 
   constructor(private loadingSvc: LoadingAnimateService,private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
@@ -98,6 +97,9 @@ export class HeaderComponent implements OnInit {
   }
 
   submenuClick(menu,index){
+    var ref= this;
+    var data = ref.apiService.getIndexFunc();
+    data.indexSelection(index);
     this.router.navigate(['/event',menu]);
   }
 }

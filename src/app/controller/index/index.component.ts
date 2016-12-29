@@ -44,6 +44,10 @@ export class IndexComponent implements OnInit {
 		this.getToken = this.apiService.getLoginToken();
 		this.getPopularGridView();
 		this.latestUpcomingEvents();
+		var data = this.apiService.getIndexFunc();
+		if(typeof data!= 'undefined'){
+			data.indexSelection(-1);
+		}
 	}
 
 

@@ -10,6 +10,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class ApiMethodService {
 	loginToken:any;
+	getIndex:any;
 	getTokenValue:any;
 	private storage: any;
 	private loggedIn = false;
@@ -28,6 +29,13 @@ export class ApiMethodService {
 
 	isLoggedIn() {
 		return this.loggedIn;
+	}
+	testFunction(index){
+		this.getIndex = index;
+	}
+	getIndexFunc(){
+		return this.getIndex;
+
 	}
 
 

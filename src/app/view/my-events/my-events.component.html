@@ -82,7 +82,6 @@
 
 													{{list_event.contact_info}}</p>
 												</span>     <!--googleoff: all-->
-
 											</div>
 											<!-- Entry details end --> 
 										</div>
@@ -97,6 +96,7 @@
 													</span>
 
 												</li>
+												 <li class="review"> <a id="reviews_show" href="javascript:void(0);">{{list_event.comment_count}} &nbsp;</a></li>
 											</ul>
 
 											<ul *ngIf = "getToken"> 
@@ -107,7 +107,8 @@
 													</span>
 
 												</li>
-
+												<li class="review"> <a id="reviews_show" href="javascript:void(0);">{{list_event.comment_count}} &nbsp;</a></li>
+												
 												<li class="done_favourite" *ngIf = "list_event.favorite==1">
 													<span id="tmplfavorite_27121" class="fav fav_27121" *ngIf = "getToken">
 														<a href="javascript:void(0);" (click)="addFavorite(list_event.event_id,0)" class="addtofav small_btn">Remove to favorites</a>
