@@ -320,6 +320,7 @@ export class FooterComponent implements OnInit {
   }
 
    submenuClick(menu,index){
+   	window.scrollTo(0,0);
     this.router.navigate(['/event',menu]);
   }
 
