@@ -439,9 +439,11 @@ export class EventDetailComponent implements OnInit {
     var value = {
       'event_id':this.event_id,
     }
+
     var refreg = this;
     refreg.apiService.addAttendence(value,function(res){
-       refreg.toastyService.success(res.message);    
+      console.log(refreg.event_id);  
+       refreg.getEventDetail(refreg.event_id);   
     },function(error){
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        

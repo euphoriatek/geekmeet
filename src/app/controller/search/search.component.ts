@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
    blog:Object;
    organization:Object;
    venue:Object;
-   empty:any = false;
+   empty:any;
 
   constructor(private loadingSvc: LoadingAnimateService,private toastyService:ToastyService, private toastyConfig: ToastyConfig,private route: ActivatedRoute,private apiService: ApiMethodService,private router: Router) { }
 
@@ -43,30 +43,35 @@ export class SearchComponent implements OnInit {
     this.apiService.searchData(value,function(res){
       window.scrollTo(0,0);
       refreg.loadingSvc.setValue(false);
-      if(res.data.event!=[]){
-      refreg.event = res.data.event;
+      if(res.data.event==[]){
+      refreg.empty = true;
       }else{
-      refreg.empty = true;	
+      refreg.event = res.data.event;  
+      refreg.empty = false;	
       }
 
-      if(res.data.blog!=[]){
-      refreg.blog =  res.data.blog;
+      if(res.data.blog==[]){
+      refreg.blog =  true;
       }else{
-      refreg.empty = true;	
+      refreg.blog =  res.data.blog;  
+      refreg.empty = false;	
       }
 
-      if(res.data.organization!=[]){
-      refreg.organization =  res.data.organization;
+      if(res.data.organization==[]){
+      refreg.empty = true;
       }else{
-      refreg.empty = true;	
+       refreg.blog =  res.data.blog;  
+      refreg.empty = false;  
+     	
       }
 
-      if(res.data.venue!=[]){
-       refreg.venue =  res.data.venue;  
+      if(res.data.venue==[]){
+       refreg.empty = true;  
       }else{
-      refreg.empty = true;	
+      refreg.venue =  res.data.venue;  
+      refreg.empty = false;	
       }
-
+   
     },function(error){
        refreg.loadingSvc.setValue(false);
       refreg.empty = true;  
