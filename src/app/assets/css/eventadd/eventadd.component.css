@@ -7,11 +7,11 @@
 #location-add label{
 	font-weight: normal;
 }
-.modal{
+.home .modal{
 	height: 1500px;   
     position: absolute;
 }
-.modal-header{
+.home .modal-header{
 margin-bottom: 20px;
 }
 .sebm-google-map-container {
