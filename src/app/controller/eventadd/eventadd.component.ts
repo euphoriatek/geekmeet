@@ -414,9 +414,10 @@ export class EventaddComponent implements OnInit {
   submitEvent(value:any):void{
     var ref = this;
     console.log("submit add event");    
-    console.log(value);   
-    var start_time = jQuery("#start-Time").val();
-    var end_time = jQuery("#end-Time").val();
+    console.log(value); 
+
+    var start_time = jQuery('#eventstart-time').val();
+    var end_time = jQuery("#eventend-time").val();
     var upload_images = jQuery("#attach_ids").val();
     value.start_time  = start_time;
     value.end_time  = end_time;
