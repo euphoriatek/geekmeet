@@ -1,13 +1,8 @@
-/*require('jquery');
-require('mydatepicker');
-console.log(jQuery);*/
 import { Component, OnInit, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import { MyDatePickerModule } from 'mydatepicker';
 import {SelectModule} from 'ng2-select/ng2-select';
-//import { AgmCoreModule } from 'angular2-google-maps/core';
-//import { SebmGoogleMap } from 'angular2-google-maps/core';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
@@ -34,17 +29,12 @@ export class EventaddComponent implements OnInit {
   userInfoArr:Object = {};
   topic:any;
   value:any;
-  //countryList:any;
-  //countryArr:Array<Object> = [];
-  //stateList:Array<Object> = [];
-  //cityList:Array<Object> = [];
+  
   categoryList:any;
   organizationList:Array<Object> = [];
   venueList:Array<Object> = [];
   keywordList:Array<string> = [];
-  //country: string;
-  //state: string;
-  //city: string;
+  
   location: string;
   organizers:string;
   keyword:string;
@@ -52,8 +42,7 @@ export class EventaddComponent implements OnInit {
   start_time:string;
   end_time:string;
   imageArr:Array<string> = []; 
-  //venue_image:Array<string> = [];
-
+ 
   title:any;
   description:any;
   startDate:any;
@@ -61,14 +50,11 @@ export class EventaddComponent implements OnInit {
   endDate:any;
   end_timeErr:any;
   websiteErr:any;
-  //countryErr:any;
-  //stateErr:any;
-  //cityErr:any;
+  
   organizationErr:any;
   locationErr:any;
   contact:any;  
-  //venueErrors:Object = {};
-  
+    
   geocoder:any;
   errors:Object = {};  
   center:Object = {
@@ -94,9 +80,7 @@ export class EventaddComponent implements OnInit {
   private myDatePickerNormalOptions = { selectionTxtFontSize: '14px'};
 
   public audienceList:Array<string> = ['Child', 'Youngest', 'Oldest']; 
-  // public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-  //public file_srcs: string[] = [];  
-
+  
   constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService, private toastyConfig: ToastyConfig, private changeDetectorRef: ChangeDetectorRef) {
     this.toastyConfig.theme = 'bootstrap';
   }
@@ -107,34 +91,12 @@ export class EventaddComponent implements OnInit {
       this.router.navigate(['/']);
     }
    
-     // adding script for phone mask
-     /*var s = document.createElement("script");
-     s.type = "text/javascript";
-     s.src = "../../app/assets/js/jquery/maskedinput.min.js"; 
-     var s1 = document.createElement("script");
-     s1.type = "text/javascript";
-     s1.src = "../../app/assets/js/jquery/fileinput.min.js";
-    
-     jQuery("head").append(s);
-     jQuery("head").append(s1);*/
-
-    //this.getCountryList();  
     this.getVenueList();
     this.getOrganizationList();
     this.getCategoryList();
   }
 
-  /*selected(imageResult: ImageResult) {
-    console.log(imageResult);
-     var imgName = imageResult.file.name;    
-     var imgData = [];
-     imgData[imgName] = imageResult.dataURL;    
-     this.venue_image.push(imageResult.dataURL);
-     console.log(this.venue_image);
-  }*/
-
-
-  
+    
   ngAfterViewInit() {
   
     jQuery('#eventstart-time, #eventend-time').timepicker({
@@ -153,10 +115,7 @@ export class EventaddComponent implements OnInit {
 
     jQuery("#contactinfo").mask("(999) 999-9999");
 
-    /*jQuery("#images_div input[type=file]").on('change',function(){
-       this.readThis(jQuery(this)).done(function(base64Data){ jQuery(this).next('.b64').innerHtml(base64Data); });
-     });
-    */
+  
      // Upload Image       
    jQuery("#attach_ids").val('');
     var base_url = jQuery("#base_url").val();
@@ -191,13 +150,7 @@ export class EventaddComponent implements OnInit {
         $image.fileinput("upload");
         });
                  
-       
-       // delete Image on load
-
-      /*var pre_ids = jQuery("#pre_ids").val();
-      if (pre_ids != '') {
-          ref.delete_image(pre_ids);
-      }*/
+      
 
     jQuery('body').find("#cancel").click(function () {
     var url = jQuery(this).attr('data-href');
@@ -217,22 +170,7 @@ export class EventaddComponent implements OnInit {
        window.location.href = '/event'; }
     });
 
-
-    /*jQuery(document).on('click', '#add_more', function(){
-    var obj = jQuery(document).find("#add_more_div").clone();
-            console.log(jQuery(document).find("#add_more_div"));
-            jQuery(obj).removeAttr('hidden');
-            jQuery(obj).removeAttr('id');
-            jQuery(obj).appendTo("#images_div");
-    });
-
-    jQuery(document).on('click', '#remove_image', function(){
-        jQuery(this).parents('.form-group').remove();
-    }); */ 
-
-
-
-
+   
   }
 
   
@@ -287,60 +225,7 @@ export class EventaddComponent implements OnInit {
     });    
   } 
 
-  /*getCountryList(){
-    var ref = this;
-    ref.apiService.countryList(function(res){
-      
-      jQuery.each( res.data , function( key, value ) {   
-      var valueid =  value.id.toString();    
-      var  item = {id:valueid, text:value.name};       
-      ref.countryArr.push(item);   
-      });
-
-     ref.countryArr = jQuery.makeArray( ref.countryArr );
-      
-    }, function(err){
-      console.log(err);
-    });
-  }
   
-  public getState(value:any):void {    
-    var ref = this;
-    ref.country = value.id;
-    ref.apiService.stateList(value.id,function(res){
-    
-      jQuery.each( res.data , function( key, value ) {   
-      var valueid =  value.state_id.toString();    
-      var  item = {id:valueid, text:value.name};       
-      ref.stateList.push(item);   
-      });
-
-     ref.stateList = jQuery.makeArray( ref.stateList );
-
-    }, function(err){
-      console.log(err);
-    });
-  }
-
-   public getCIty(value:any):void {   
-    var ref = this;
-    ref.state = value.id;
-    ref.apiService.cityList(value.id,function(res){
-     
-      jQuery.each( res.data , function( key, value ) {   
-      var valueid =  value.city_id.toString();    
-      var  item = {id:valueid, text:value.name};       
-      ref.cityList.push(item);   
-      });
-
-     ref.cityList = jQuery.makeArray( ref.cityList );
-     console.log(ref.cityList);
-
-    }, function(err){
-      console.log(err);
-    });
-  }*/
-
   uploadImages(value:any){
     console.log('here');
     console.log(value);
@@ -348,10 +233,7 @@ export class EventaddComponent implements OnInit {
 
   public optionSelected(value:any,type:any):void { 
        
-    switch (type) {
-      //case "city":
-       //this.city = value.id;
-       // break;    
+    switch (type) {      
       case "organization":
        this.organizers = value.id;
         break;   
@@ -414,9 +296,10 @@ export class EventaddComponent implements OnInit {
   submitEvent(value:any):void{
     var ref = this;
     console.log("submit add event");    
-    console.log(value);   
-    var start_time = jQuery("#start-Time").val();
-    var end_time = jQuery("#end-Time").val();
+    console.log(value); 
+
+    var start_time = jQuery('#eventstart-time').val();
+    var end_time = jQuery("#eventend-time").val();
     var upload_images = jQuery("#attach_ids").val();
     value.start_time  = start_time;
     value.end_time  = end_time;
@@ -455,145 +338,12 @@ export class EventaddComponent implements OnInit {
         ref.start_timeErr = errors.start_time;
         ref.endDate = errors.end_date;
         ref.end_timeErr = errors.end_time;
-        ref.websiteErr = errors.website;
-        //ref.countryErr = errors.country;
-        //ref.stateErr = errors.state;
-        //ref.cityErr = errors.city;
+        ref.websiteErr = errors.website;       
         ref.organizationErr = errors.organizers;
         ref.locationErr = errors.location;
         ref.contact = errors.contact_info;  
       });
   }
 
-  
-   /*getLatLong(val:any):void{
-   
-    var ref = this;
-    
-    if(val.address == undefined){
-      ref.toastyService.error("Please provide address");
-    }
-    else{ 
-        var country = jQuery("#countryList .ui-select-match-text").text();
-        var state = jQuery("#stateList .ui-select-match-text").text();
-        var city = jQuery("#cityList .ui-select-match-text").text();
-        var address = val.address;
-        
-        var apiAddress = val.address+','+city+','+state+','+country;
-        console.log(apiAddress);
-        ref.geocoder = new google.maps.Geocoder();
-        ref.geocoder.geocode( { 'address': apiAddress}, function(results, status) {
-          console.log(status);
-          if (status == 'OK') { 
-            ref.locationFinder='';
-            ref.venueArr['latitude'] = results[0].geometry.location.lat();
-            ref.venueArr['longitude'] = results[0].geometry.location.lng();                 
-            ref.mymap.triggerResize();      
-            jQuery(".map_div").show();
-          }
-          else{
-            ref.locationFinder = "Can Not Find Location.!";
-          }
-        });
-     }  
-   }
-   
-   submitLocation(value:any):void{
-    var ref = this;
-    
-   jQuery( "#images_div input[type=file]" ).each(function() {
-      console.log(jQuery(this).prop("files"));  
-      var inputValue = jQuery(this); 
-       console.log(inputValue.context);
-       
-       //var b64 = jQuery.base64('encodeURI', this.value);     
-       //console.log(b64); 
-       
-      var image = jQuery(this).val();      
-      if(image != '')
-      {       
-        ref.venue_image.push(image);              
-      }       
-    });
-    console.log(ref.venue_image);
-    jQuery( "#venue_submit" ).prop("disabled",true);
-    jQuery( "#venue_cancel" ).prop("disabled",true);
-    
-    value.images = ref.file_srcs;
-
-     ref.apiService.addVenue(value,function(res){
-       ref.loadingSvc.setValue(false);
-        var toastOptions:ToastOptions = {
-          title: "Location Added!",
-          msg: res.message,
-          showClose: true,
-          timeout: 1000,
-          theme: 'bootstrap',
-          onAdd: (toast:ToastData) => {
-
-          },
-          onRemove: function(toast:ToastData) {
-            ref.router.navigate(['/eventadd']);
-          }
-        };
-        ref.toastyService.success(toastOptions);
-        this.modal.close();
-        ref.router.navigate(['/eventadd']);
-      },function(error){
-        ref.loadingSvc.setValue(false);
-        if(error.status == 401 || error.status == '401' || error.status == 400){
-          localStorage.removeItem('auth_token');        
-          ref.apiService.signinSuccess$.emit(false);
-          ref.router.navigate(['/index']);
-        }
-        ref.toastyService.error(error.json().message);
-        var error = error.json().errors;
-        ref.venueErrors = error;
-        jQuery( "#venue_submit" ).prop("disabled",false);
-        jQuery( "#venue_cancel" ).prop("disabled",false);        
-      });
-  }*  
-
-
- fileChange(input){
-    this.readFiles(input.files);
-  }
-
-  readFile(file, reader, callback){
-    // Set a callback funtion to fire after the file is fully loaded
-    reader.onload = () => {
-      // callback with the results
-      callback(reader.result);
-    }
-
-    // Read the file
-    reader.readAsDataURL(file);
-  }
-
-  readFiles(files, index=0){
-    // Create the file reader
-    let reader = new FileReader();
-
-    // If there is a file
-    if (index in files){
-      // Start reading this file
-      this.readFile(files[index], reader, (result) =>{
-        // After the callback fires do:
-        this.file_srcs.push(result);
-        this.readFiles(files, index+1);// Read the next file;
-      });
-    }else{
-      // When all files are done This forces a change detection
-      this.changeDetectorRef.detectChanges();
-    }
-  }
-
-  removeLocationData(){
-    this.file_srcs = [];  
-    jQuery('.map_div').hide();
-    //this.venueErrors = {};
-  }  */
-
-  
  
 }
