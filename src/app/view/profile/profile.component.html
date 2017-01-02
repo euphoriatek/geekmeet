@@ -30,39 +30,39 @@
                 <div class="right_box">
                     <h2>{{userInfoArr.first_name}} {{userInfoArr.last_name}}</h2>
                     <div class="user_dsb_cf">
-                        <div>
+                        <div *ngIf="userInfoArr.address">
                             <label><i class="fa fa-home"></i> Address :</label>
                             <span><p>{{userInfoArr.address}}</p></span>
                         </div>
-                        <div>
+                        <div *ngIf="userInfoArr.dob">
                             <label><i class="fa fa-calendar"></i> Birth date :</label>
                             <span><p>{{userInfoArr.dob}}</p></span>
                         </div>
-                        <div>
+                        <div *ngIf="userInfoArr.birth_place"> 
                             <label><i class="fa fa-hospital-o"></i> Birth place :</label>
                             <span><p>{{userInfoArr.birth_place}}</p></span>
                         </div>
-                        <div>
+                        <div *ngIf="userInfoArr.gender">
                             <label><i class="fa fa-male"></i> Gender :</label>
                             <span><p>{{userInfoArr.gender}}</p></span>
                         </div>
-                        <div>
+                        <div *ngIf="userInfoArr.city_name">
                             <label><i class="fa fa-building-o"></i> City :</label>
                             <span><p>{{userInfoArr.city_name}}</p></span>
                         </div>
-                        <div>
+                        <div *ngIf="userInfoArr.zip_code">
                             <label><i class="fa fa-codepen"></i> Zip Code :</label>
                             <span><p>{{userInfoArr.zip_code}}</p></span>
                         </div>
-                        <div>
+                        <div *ngIf="userInfoArr.email">
                             <label><i class="fa fa-envelope-o"></i> Email :</label>
                             <span>{{userInfoArr.email}}</span>
                         </div>
-                        <div>
+                        <div *ngIf="userInfoArr.favorite_category">
                             <label><i class="fa fa-phone"></i> Phone :</label>
                             <span>{{userInfoArr.phone}}</span>
                         </div>
-                        <div>
+                        <div *ngIf="userInfoArr.address">
                             <label><i class="fa fa-list"></i> Interest Topic:</label>
                             <span>
                                 <ul *ngFor="let topic of userInfoArr.favorite_category" class="interest-topic" style="display: inline;">
@@ -72,7 +72,7 @@
                         </div>
                         <div *ngIf="userInfoArr.about_me">
                             <label><i class="fa fa-user"></i> About Me :</label>
-                            <span><p>{{userInfoArr.about_me}}</p></span>
+                            <span><p style="text-align: justify;" [innerHTML] = "userInfoArr.about_me"></p></span>
                         </div>
                     </div>
 

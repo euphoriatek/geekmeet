@@ -208,7 +208,7 @@ export class FooterComponent implements OnInit {
 				var cred = JSON.parse(error._body);
 				console.log(JSON.stringify(cred.error));
 				ref.passwordErr = errors.password;
-				ref.usernameErr = errors.username;
+				ref.usernameErr = errors.email;
 				ref.toastyService.error(error.json().message);
 			});
 
