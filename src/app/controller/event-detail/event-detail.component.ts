@@ -103,7 +103,10 @@ export class EventDetailComponent implements OnInit {
       refreg.data['relate_event_data'] = res.data.related_event.data;   
     });
   }
+
+
   gotoPage(id){
+    window.scrollTo(0,0);
     this.router.navigate(['/event_detail/'+id]);   
   }
 

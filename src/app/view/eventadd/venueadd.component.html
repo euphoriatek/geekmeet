@@ -3,7 +3,7 @@
             </a>
            
             <modal #modal> 
-            <modal-header><h4 class="modal-title">Add Location</h4></modal-header>             
+            <modal-header [show-close]="true"><h4 class="modal-title">Add Location</h4></modal-header>             
                     <form name="location-add" id="location-add" #addLocationForm="ngForm" (ngSubmit)="submitLocation(addLocationForm.value);addLocationForm.reset();removeLocationData();">  
                       
                        <div class="form-group col-md-12">

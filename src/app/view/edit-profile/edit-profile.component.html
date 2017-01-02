@@ -80,7 +80,7 @@
                     </div>
                     <div class="form_row clearfix">
                         <label>Country<span class="indicates">*</span></label>
-                        <select class="form-control" name="country" [(ngModel)]="userInfoArr.country" (ngModelChange)="getState($event)">
+                        <select class="chosen-select form-control" name="country" [(ngModel)]="userInfoArr.country" (ngModelChange)="getState($event)">
                             <option *ngFor="let country of countryList" value="{{country.id}}">{{country.name}}</option>
                         </select>
                         <ul class="error" *ngIf="errors['country']!=''" >
@@ -145,7 +145,8 @@
                     <label>About Me</label>
                    <!--  <ckeditor [(ngModel)]="userInfoArr.about_me" debounce="500" [config]="{uiColor: '#99000'}">
                </ckeditor> -->
-               <textarea class="ckeditor form-control" name="about_me" rows="6" [(ngModel)]="userInfoArr.about_me"></textarea>
+               <ckeditor name="about_me" [(ngModel)]="userInfoArr.about_me" debounce="400"></ckeditor>
+               <!-- <textarea class="ckeditor form-control" name="about_me" rows="6" [(ngModel)]="userInfoArr.about_me"></textarea> -->
            </div>
            <div class="form_row ">
             <button class="btn btn-info" type="submit">Update</button>

@@ -55,12 +55,15 @@ export class EditProfileComponent implements OnInit {
     }
     this.userInformation();
     this.getCountryList();
-    this.getCategoryList(); 
+    this.getCategoryList();   
   }
 
   selected(imageResult: ImageResult) {
     this.src = imageResult.dataURL;
   }
+
+
+
 
   getCategoryList(){
     var ref = this;
