@@ -117,17 +117,20 @@
             <h3 class="modal-title" id="lineModalLabel">Sign In</h3>
         </div>
         <div class="modal-body">
-            <form name="popup_login"  #form="ngForm" (ngSubmit)="userSignIn(form.value)">
+            <form name="popup_login"  #form="ngForm" (ngSubmit)="userSignIn(form)">
                 <div class="form_row clearfix">
                     <label>Email <span class="indicates">*</span> </label>
                     <input type="text" (click)="usernameErr =''" name="email" id="user_login" size="20" class="textfield" ngModel>
-                    <span id="user_loginInfo">{{usernameErr}}</span> 
+                    <ul class="error" *ngIf="errors['email']!=''" >
+                            <li *ngFor="let org_err of errors['email']">{{org_err}}</li>    
+                        </ul>  
                 </div>
                 <div class="form_row clearfix">
                     <label> Password <span class="indicates">*</span> </label>
                     <input type="password" (click)="passwordErr =''" name="password" id="user_pass" class="textfield" size="20" ngModel>
-                    <span id="user_passInfo">{{passwordErr}}</span>
-                    <span id="user_passInfo">{{invalidErr}}</span>
+                   <ul class="error" *ngIf="errors['password']!=''" >
+                            <li *ngFor="let org_err of errors['password']">{{org_err}}</li>    
+                        </ul> 
                 </div>
                 <div class="form_row rember clearfix">  
                     <a class="lw_fpw_lnk" data-dismiss="modal" [routerLink]="['/forget-password']" >Forgot your password?</a> 

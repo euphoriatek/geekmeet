@@ -94,7 +94,7 @@
                             <!-- #menu-primary-title -->
                             <div class="menu">
                                 <ul id="menu-primary-items" class="primary_menu clearfix">
-                                    <li class=""><a [routerLink]="['/event']">Events</a>
+                                    <li class=""><a>Events</a>
                                         <ul class="sub-menu">
                                         <li><a (click)="submenuClick('all',-1)">All</a></li>
                                             <li class="" *ngFor = "let submenu of menuArr; let index = index" (click)="submenuClick(submenu.category_name,index)"><a>{{submenu.category_name}}</a></li>

@@ -20,6 +20,7 @@ export class MyOrganizationsComponent implements OnInit {
   getToken:any;
   deleteID:any;
   per_page:any;
+  showData:any;
 
   constructor(private loadingSvc: LoadingAnimateService,private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
     this.toastyConfig.theme = 'bootstrap';
@@ -44,7 +45,13 @@ export class MyOrganizationsComponent implements OnInit {
       ref.organizationArr = res.data.data;
       ref.Total = res.data.total;
       ref.per_page = res.data.per_page;
-      ref.currentPage = res.data.current_page;   			
+      ref.currentPage = res.data.current_page;
+      if(ref.organizationArr == [] || ref.organizationArr == ''){
+        ref.showData = "No Data Found.!"
+      }
+      else{
+        ref.showData = '';
+      }   			
     },function(error){
       ref.loadingSvc.setValue(false);
       if(error.status == 401 || error.status == '401' || error.status == 400){

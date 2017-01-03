@@ -24,6 +24,7 @@ export class MyEventsComponent implements OnInit {
 	sort:any;
 	page:any;
 	per_page:any;
+	showData:any;
 
 
 	constructor(private loadingSvc: LoadingAnimateService,private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
@@ -62,6 +63,12 @@ export class MyEventsComponent implements OnInit {
 			ref.Total = res.data.total;
 			ref.per_page = res.data.per_page;
 			ref.currentPage = res.data.current_page;
+			if(ref.eventArr == [] || ref.eventArr == ''){
+				ref.showData = "No Data Found.!"
+			}
+			else{
+				ref.showData = '';
+			}
 			ref.loadingSvc.setValue(false);   			
 		},function(error){
 			ref.loadingSvc.setValue(false);

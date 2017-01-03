@@ -132,7 +132,7 @@ export class EventDetailComponent implements OnInit {
       };
 
     },function(error){
-
+      ref.toastyService.error(error.json().message);
     });
 
   }
@@ -212,6 +212,7 @@ export class EventDetailComponent implements OnInit {
           refreg.apiService.signinSuccess$.emit(false);
           refreg.router.navigate(['/index']);
         }
+        refreg.toastyService.error(error.json().message);
         var error = error.json().errors;
         refreg.errors = error;
       });
@@ -240,6 +241,7 @@ export class EventDetailComponent implements OnInit {
           refreg.apiService.signinSuccess$.emit(false);
           refreg.router.navigate(['/index']);
         }
+        refreg.toastyService.error(error.json().message);
         var error = error.json().errors;
         if(reply_id!=false){
           refreg.sub_errors[review_id][reply_id] = error;
@@ -271,6 +273,7 @@ export class EventDetailComponent implements OnInit {
           refreg.apiService.signinSuccess$.emit(false);
           refreg.router.navigate(['/index']);
         }
+        refreg.toastyService.error(error.json().message);
         var error = error.json().errors;
         refreg.errors[review_id] = error;
       });
@@ -298,6 +301,7 @@ export class EventDetailComponent implements OnInit {
           refreg.apiService.signinSuccess$.emit(false);
           refreg.router.navigate(['/index']);
         }
+        refreg.toastyService.error(error.json().message);
         var error = error.json().errors;
         refreg.sub_errors[review_id][review_reply_id] = error;
       });
@@ -369,6 +373,7 @@ export class EventDetailComponent implements OnInit {
         ref.apiService.signinSuccess$.emit(false);
         ref.router.navigate(['/index']);
       }
+      ref.toastyService.error(error.json().message);
     });
   }
 
@@ -432,6 +437,7 @@ export class EventDetailComponent implements OnInit {
         refreg.apiService.signinSuccess$.emit(false);
         refreg.router.navigate(['/index']);
       }
+
       var error = error.json().errors;
       refreg.errors = error;
     });
@@ -453,6 +459,7 @@ export class EventDetailComponent implements OnInit {
         refreg.apiService.signinSuccess$.emit(false);
         refreg.router.navigate(['/index']);
       }
+      refreg.toastyService.error(error.json().message);
       var error = error.json().errors;
       refreg.errors = error;
     });
