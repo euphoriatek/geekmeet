@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import { EventListComponent } from '../event/eventlist.component';
@@ -15,6 +15,7 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['../../assets/css/organization/organization.component.css']
 })
 export class OrganizationComponent implements OnInit {
+  @ViewChild(EventListComponent) event: EventListComponent;
 	getToken:any; 
   detailArr:Object = {};
   
@@ -30,6 +31,7 @@ export class OrganizationComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.organizationDetail(params['id']);
+      this.event.searchEventByOrg(params['id']);
     });
 
   }

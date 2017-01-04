@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import { EventListComponent } from '../event/eventlist.component';
@@ -15,7 +15,9 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['../../assets/css/venue/venue.component.css']
 })
 export class VenueComponent implements OnInit {
-	getToken:any; 
+  @ViewChild(EventListComponent) event: EventListComponent;
+
+  getToken:any; 
   detailArr:Object = {};
   imageArr:Object = {};
 
@@ -31,6 +33,7 @@ export class VenueComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.VenueDetails(params['id']);
+      this.event.searchEventByVenue(params['id']);
     });
 
   }
@@ -39,7 +42,7 @@ export class VenueComponent implements OnInit {
     var ref = this;
     ref.loadingSvc.setValue(true);
     ref.apiService.showVenueDetails(value,function(res){ 
-    ref.loadingSvc.setValue(false);    
+      ref.loadingSvc.setValue(false);    
       ref.detailArr = res.data;
       ref.imageArr = res.data.images[0];
     }, function(error){

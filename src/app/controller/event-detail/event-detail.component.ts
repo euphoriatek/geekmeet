@@ -84,8 +84,7 @@ export class EventDetailComponent implements OnInit {
           jQuery('.event_detail_module').removeClass('loading');
         }
       });
-
-    }, 1000);  
+    }, 1500);
   }
 
   getEventDetail(value){
