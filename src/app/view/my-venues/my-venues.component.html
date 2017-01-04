@@ -14,7 +14,7 @@
 				<ng2-toasty [position]="'top-center'" ></ng2-toasty>
 				<div id="content" role="main" class="col-md-12 col-sm-12 columns">
 					<h1 class="loop-title venue_btn">Venue <a class="btn btn-warning pull-right" href="" [routerLink]="['/venues-add']">Add Venue</a></h1>
-					<p>{{showData}}</p>
+					<h4 style="text-align: center;">{{showData}}</h4>
 					<div class="form-group organization_div row"  *ngFor = "let venue of venueArr | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: Total}">
 						<div class="col-md-8">
 							<div class="venue-logo col-sm-6" style="width: 30%;">
@@ -50,7 +50,7 @@
 				</div>					
 			</div>
 
-			<div class="has-text-centered" style="text-align: center;">
+			<div *ngIf="!showData" class="has-text-centered" style="text-align: center;">
 				<pagination-controls  (pageChange)="getVenuePagination($event)" id="server"></pagination-controls>
 			</div>
 

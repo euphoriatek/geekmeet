@@ -179,8 +179,9 @@ export class FooterComponent implements OnInit {
 		}
 
 
-		userSignIn(value:any):void{
+		userSignIn(userData:any):void{
 			var ref = this;
+			var value = userData.value;
 			ref.loadingSvc.setValue(true);
 			this.apiService.userLoginApi(value,function(res){
 				ref.loadingSvc.setValue(false);
@@ -188,6 +189,7 @@ export class FooterComponent implements OnInit {
 				if(res.data.token){
 					var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
 					closeBtn.click();
+					userData.reset();
 					if(ref.router.url=='/'){
 						ref.router.navigate(['/index']);
 					}
@@ -205,10 +207,7 @@ export class FooterComponent implements OnInit {
 					ref.toastyService.error(error.json().message);
 				}
 				var errors = error.json().errors;
-				var cred = JSON.parse(error._body);
-				console.log(JSON.stringify(cred.error));
-				ref.passwordErr = errors.password;
-				ref.usernameErr = errors.email;
+				ref.errors = errors;
 				ref.toastyService.error(error.json().message);
 			});
 
@@ -321,6 +320,9 @@ export class FooterComponent implements OnInit {
 
    submenuClick(menu,index){
    	window.scrollTo(0,0);
+   	var ref= this;
+    var data = ref.apiService.getIndexFunc();
+    data.indexSelection(index);
     this.router.navigate(['/event',menu]);
   }
 
