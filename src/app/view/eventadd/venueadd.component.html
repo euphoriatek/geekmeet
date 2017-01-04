@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-md-7">
                             <ng-select id="countryList" name="countryList" (data)="countryArr"                                                      
-                            [items]="countryArr"
+                            [items]="countryArr"                           
                             (selected)="getState($event)"
                             placeholder="No country selected">
                             </ng-select>
@@ -65,6 +65,7 @@
                             <div class="col-md-7">
                                 <ng-select id="stateList" name="stateList" (data)="stateList"                                                      
                                 [items]="stateList"
+                                [active]="stateList"
                                 (selected)="getCIty($event)"
                                 placeholder="No state selected">
                                </ng-select>
@@ -80,6 +81,7 @@
                         <div class="col-md-7">
                            <ng-select id="cityList" name="cityList" (data)="cityList"                                                      
                             [items]="cityList"
+                            [active]="cityList"
                             (selected)="optionSelected($event,'city')"
                             placeholder="No city selected">
                            </ng-select>
