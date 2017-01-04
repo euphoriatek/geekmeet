@@ -30,6 +30,8 @@ export class EventListComponent implements OnInit{
   showData:any;
   code:any;
   per_page:any;
+  venue:any;
+  organization:any;
 
 
   
@@ -91,7 +93,9 @@ export class EventListComponent implements OnInit{
         "sort":sort,
         "all": "false",
         "page":page,
-        "search":postal_code
+        "search":postal_code,
+        "venue":ref.venue,
+        "organization":ref.organization
       }
       ref.loadingSvc.setValue(true);
       ref.apiService.eventApi(eventArrData,function(res){
@@ -170,6 +174,14 @@ export class EventListComponent implements OnInit{
       this.sort = '';
       this.selectedIndex = -1;
       this.eventDeafault();
+    }
+
+    searchEventByVenue(id){
+      this.venue = id;
+    }
+
+    searchEventByOrg(id){
+      this.organization = id;
     }
 
 

@@ -37,7 +37,7 @@
                 <!-- article start -->
                 <div class="post" *ngFor = "let blog of blogArr  | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: Total}">
                     <div class="listing_img">
-                        <img src="{{blog.thumb}}" alt="image">
+                        <img src="{{blog.thumb}}" alt="image" style="height: 170px;">
                         
                     </div>
                     <div class="entry-header">

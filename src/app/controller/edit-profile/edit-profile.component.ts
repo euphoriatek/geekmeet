@@ -35,10 +35,10 @@ export class EditProfileComponent implements OnInit {
   cityFIrst = false;
   countryFirst = false;
   private selectedDateNormal:string = '';
-
+  // private myDatePickerOptions = {dateFormat: 'dd-mm-yyyy'}; 
   private selectedTextNormal: string = '';
   private border: string = 'none';
-  private myDatePickerNormalOptions = { selectionTxtFontSize: '12px'};
+
   resizeOptions: ResizeOptions = {
     resizeMaxHeight: 128,
     resizeMaxWidth: 128
@@ -55,7 +55,7 @@ export class EditProfileComponent implements OnInit {
     }
     this.userInformation();
     this.getCountryList();
-    this.getCategoryList();   
+    this.getCategoryList(); 
   }
 
   selected(imageResult: ImageResult) {
