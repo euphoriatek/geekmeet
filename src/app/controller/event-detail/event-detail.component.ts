@@ -74,8 +74,8 @@ export class EventDetailComponent implements OnInit {
     
   }
 
-  ngAfterViewInit() {
-    setTimeout(_ => {
+  ngAfterViewInit() {    
+   setTimeout(_ => {
       jQuery(document).find('.flexslider').flexslider({
         animation: "slide",
         smoothHeight: true, 
@@ -84,14 +84,11 @@ export class EventDetailComponent implements OnInit {
           jQuery('.event_detail_module').removeClass('loading');
         }
       });
-
     }, 1500);
-
   }
 
   getEventDetail(value){
     var refreg = this;
-
     refreg.loadingSvc.setValue(true);
     this.apiService.EventDetail(value,function(res){
 
@@ -99,8 +96,11 @@ export class EventDetailComponent implements OnInit {
       if(typeof(refreg.data)=='undefined'){
         refreg.data = {};
       }
+      
       refreg.data['event_data'] = res.data;
-      refreg.data['relate_event_data'] = res.data.related_event.data;   
+      refreg.data['relate_event_data'] = res.data.related_event.data;
+      
+       refreg.flexsliderInit(res.data);   
     });
   }
 
@@ -519,6 +519,35 @@ export class EventDetailComponent implements OnInit {
                 return true;
 
             }
+
+  flexsliderInit(data){  
+
+       jQuery('.flexslider').remove();
+       // re-insert clean mark-up so flexslider can reset itself properly
+       jQuery('.flexslider-container').append('<div id="slider" class="event_image flexslider p-tb-30"><div class="flex-viewport" style=""><ul class="slides" style="width: 1800%;"></ul></div></div>');
+      
+        var imglist ="";
+        for (var i = 0; i <  data.slider_image.length; i++) {
+          console.log(data.slider_image[i]);   
+            imglist += '<li class="flex-active-slide" style="width: 60px; float: left; display: block;">';
+            imglist += '<a href="javascript:void(0)" title="'+ data.slider_image[i].image_title+'">';
+            imglist += '<img src="'+ data.slider_image[i].image_url+'" alt="event-(13)" draggable="false">';
+            imglist += '</a>';
+            imglist += '</li>';
+        }
+    
+      jQuery('.flexslider ul.slides').html(imglist);
+                                
+      jQuery('.flexslider').flexslider({
+        animation: "slide",
+        smoothHeight: true, 
+        animationLoop: false,
+        start: function (slider) {
+          jQuery('.event_detail_module').removeClass('loading');
+        }
+      });
+
+  }          
 
 
 

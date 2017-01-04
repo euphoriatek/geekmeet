@@ -39,7 +39,7 @@
                 <article id="event_27121" class="post" *ngFor = "let events of eventArr | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: total}">
                     <div class="listing_img">
                         <a href="" [routerLink]="['/event_detail',events.event_id]"> 
-                            <img src="{{events.featured_image}}" alt="image" title="event-(13)">
+                            <img src="{{events.featured_image}}" alt="image" title="{{events.event_title}}">
                         </a>
 
                     </div>
