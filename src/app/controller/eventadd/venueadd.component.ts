@@ -244,7 +244,10 @@ export class VenueaddComponent implements OnInit {
     var ref = this;
     ref.file_srcs = [];  
     jQuery( 'input[type="file"]' ).val("");
-    ref.getCountryList(); 
+    ref.countryArr= [];
+    ref.stateList = [];
+    ref.cityList = [];
+    ref.getCountryList();
     
     jQuery('.map_div').hide();
     jQuery( "#venue_submit" ).prop("disabled",false);
