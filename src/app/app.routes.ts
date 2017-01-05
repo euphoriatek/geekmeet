@@ -50,10 +50,10 @@ import { ActivateNowComponent } from './controller/activate-now/activate-now.com
 export const routes: Routes = [
       {path:'header' ,component: HeaderComponent},
       {path:'footer' ,component: FooterComponent},
-      {path:'blog/:category' ,component: BlogComponent,data: [{id: true}]},
+      {path:'blog/:category' ,pathMatch: 'full',component: BlogComponent,data: [{id: true}]},
       {path:'sponsors' ,component: SponsorsComponent},
       {path:'contactus' ,component: ContactusComponent},
-      {path:'index' ,component: IndexComponent},
+      {path:'index' ,pathMatch: 'full',component: IndexComponent},
       {path:'event/:menu' ,component: EventComponent,data:[{menu:true}]},
       {path:'my-events' ,component: MyEventsComponent},
       {path:'profile' ,component: ProfileComponent},
@@ -78,7 +78,8 @@ export const routes: Routes = [
       {path:'event-edit/:id' ,component: EventEditComponent,data: [{id: true}]},
       {path:'search/:id' ,component: SearchComponent,data: [{id: true}]},
       {path:'activate-now/:id' ,component: ActivateNowComponent,data: [{id: true}]},
-      {path:'' ,component: IndexComponent}
+      {path:'' ,pathMatch: 'full',component: IndexComponent},
+      // { path: '#', redirectTo: '' }
 
 ];
 

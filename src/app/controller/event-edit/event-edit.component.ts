@@ -72,7 +72,9 @@ export class EventEditComponent implements OnInit {
 	private endTextNormal: string = '';
 
 	private border: string = 'none';
-	private myDatePickerNormalOptions = { selectionTxtFontSize: '14px'};
+	// private myDatePickerOptions = {
+	// 	dateFormat:'dd-mm-yyyy'
+	// };
 
 	public audienceList:Array<string> = ['Child', 'Youngest', 'Oldest']; 
 	// public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
@@ -128,10 +130,10 @@ export class EventEditComponent implements OnInit {
 			refreg.endDateNormal = res.data.end_date;
 			refreg.startDateNormal = res.data.start_date;
 			if(res.data.image_id!=''){
-			refreg.imagePreview = res.data.images;
-			var Link = res.data.attachment;
-			refreg.imageLink = Link.replace(/\\/g, "");
-			refreg.imageArr.push(res.data.image_id);
+				refreg.imagePreview = res.data.images;
+				var Link = res.data.attachment;
+				refreg.imageLink = Link.replace(/\\/g, "");
+				refreg.imageArr.push(res.data.image_id);
 			}
 			refreg.afterGetData();
 		},function(error){
@@ -209,11 +211,11 @@ export class EventEditComponent implements OnInit {
 		// delete Image
 
 		// jQuery(document).on("click", ".kv-file-remove", function ()   {
-		// 	debugger;
-		// 	jQuery(this).attr("disabled", "disabled");
-		// 	var del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
-		// 	ref.delete_image(del_id);
-		// });
+			// 	debugger;
+			// 	jQuery(this).attr("disabled", "disabled");
+			// 	var del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
+			// 	ref.delete_image(del_id);
+			// });
 
 
 		/*jQuery(document).on("click", ".kv-file-remove", function () {
@@ -273,16 +275,16 @@ export class EventEditComponent implements OnInit {
 
 
 		jQuery("body").find(".file-preview-thumbnails .file-upload-indicator").each(function () {
-    var featured_image = jQuery(this).parents('.file-preview-initial').find('img').attr('featured_image');
-            jQuery(this).attr('data-key', jQuery(this).parent('.file-actions').find(".kv-file-remove").attr("data-key"));
-            if (featured_image == 1){
-    jQuery(this).addClass('yellow');
-            jQuery(this).html('<i class="fa fa-star fa-2"></i>');
-    } else{
-    jQuery(this).removeClass('yellow');
-            jQuery(this).html('<i class="fa fa-star fa-2"></i>');
-    }
-    })
+			var featured_image = jQuery(this).parents('.file-preview-initial').find('img').attr('featured_image');
+			jQuery(this).attr('data-key', jQuery(this).parent('.file-actions').find(".kv-file-remove").attr("data-key"));
+			if (featured_image == 1){
+				jQuery(this).addClass('yellow');
+				jQuery(this).html('<i class="fa fa-star fa-2"></i>');
+			} else{
+				jQuery(this).removeClass('yellow');
+				jQuery(this).html('<i class="fa fa-star fa-2"></i>');
+			}
+		})
 
 	}
 
@@ -476,52 +478,52 @@ export class EventEditComponent implements OnInit {
 				this.startTextNormal = '';
 				this.startDateNormal='';
 			}
-				else{
-					this.endTextNormal = '';
-					this.endDateNormal = '';
-				} 
-				this.border = 'none';
-			}
+			else{
+				this.endTextNormal = '';
+				this.endDateNormal = '';
+			} 
+			this.border = 'none';
 		}
+	}
 
-		timechange(event:any) {
-		}
+	timechange(event:any) {
+	}
 
-		updateEvent(value:any):void{
-			var ref = this;
-			console.log(value);
-			value['event_id']=  ref.selectedData; 
-			var start_time = jQuery("#start-Time").val();
-			var end_time = jQuery("#end-Time").val();
-			var upload_images = jQuery("#attach_ids").val();
-			if(end_time){
-				value.end_time  = end_time;
-			}else{
-				value.end_time = ref.showEventArr['end_time'];
-			}
-			if(start_time){
-				value.start_time  = start_time;
-			}else{
-				value.start_time = ref.showEventArr['start_time'];
-			}
-			value.image_id	= upload_images;
-			ref.loadingSvc.setValue(true);
-			ref.apiService.updateEvent(value,function(res){
-				ref.loadingSvc.setValue(false);
-				ref.toastyService.success(res.message);
-				ref.router.navigate(['/my-events']);
-			},function(error){
-				ref.loadingSvc.setValue(false);
-				if(error.status == 401 || error.status == '401' || error.status == 400){
-					localStorage.removeItem('auth_token');        
-					ref.apiService.signinSuccess$.emit(false);
-					ref.router.navigate(['/index']);
-				}
-				ref.toastyService.error(error.json().message);
-				var error = error.json().errors;
-				ref.errors = error; 
-			});
+	updateEvent(value:any):void{
+		var ref = this;
+		console.log(value);
+		value['event_id']=  ref.selectedData; 
+		var start_time = jQuery("#start-Time").val();
+		var end_time = jQuery("#end-Time").val();
+		var upload_images = jQuery("#attach_ids").val();
+		if(end_time){
+			value.end_time  = end_time;
+		}else{
+			value.end_time = ref.showEventArr['end_time'];
 		}
+		if(start_time){
+			value.start_time  = start_time;
+		}else{
+			value.start_time = ref.showEventArr['start_time'];
+		}
+		value.image_id	= upload_images;
+		ref.loadingSvc.setValue(true);
+		ref.apiService.updateEvent(value,function(res){
+			ref.loadingSvc.setValue(false);
+			ref.toastyService.success(res.message);
+			ref.router.navigate(['/my-events']);
+		},function(error){
+			ref.loadingSvc.setValue(false);
+			if(error.status == 401 || error.status == '401' || error.status == 400){
+				localStorage.removeItem('auth_token');        
+				ref.apiService.signinSuccess$.emit(false);
+				ref.router.navigate(['/index']);
+			}
+			ref.toastyService.error(error.json().message);
+			var error = error.json().errors;
+			ref.errors = error; 
+		});
+	}
 
 
 		/*delete_image(ids){

@@ -43,7 +43,7 @@
                     </div>
                     <div class="form_row clearfix">
                         <label>End Date<span class="indicates">*</span></label>                       
-                        <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event,'end')" [selDate]="endDateNormal"></my-date-picker>
+                        <my-date-picker [options]="myDatePickerEndOptions" (dateChanged)="onDateChanged($event,'end')" [selDate]="endDateNormal"></my-date-picker>
                         <input type="hidden" name="end_date" [(ngModel)]="endDateNormal"> 
                         <span class="errfield">{{endDate}}</span> 
                     </div>

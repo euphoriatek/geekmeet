@@ -129,11 +129,11 @@ import { ActivateNowComponent } from './controller/activate-now/activate-now.com
   RouterModule.forRoot([
     {path:'header' ,component: HeaderComponent},
     {path:'footer' ,component: FooterComponent},
-    {path:'blog' ,component: BlogComponent},
+    {path:'blog' ,pathMatch: 'full',component: BlogComponent},
     {path:'sponsors' ,component: SponsorsComponent},
     {path:'contactus' ,component: ContactusComponent},
     {path:'eventadd' ,component: EventaddComponent},
-    {path:'index' ,component: IndexComponent},
+    {path:'index' ,pathMatch: 'full',component: IndexComponent},
     {path:'event' ,component: EventComponent},
     {path:'profile' ,component: ProfileComponent},
     {path:'groups' ,component: GroupsComponent},
@@ -156,10 +156,12 @@ import { ActivateNowComponent } from './controller/activate-now/activate-now.com
     {path:'my-events' ,component: MyEventsComponent},
     {path:'event-edit' ,component: EventEditComponent},
      {path:'activate-now' ,component: ActivateNowComponent},
-    {path:'' ,component: IndexComponent},
+    {path:'' ,pathMatch: 'full',component: IndexComponent},
     ])
   ],
   providers: [ApiMethodService,LoadingAnimateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+//{useHash: true}

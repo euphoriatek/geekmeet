@@ -35,7 +35,7 @@ export class EditProfileComponent implements OnInit {
   cityFIrst = false;
   countryFirst = false;
   private selectedDateNormal:string = '';
-  // private myDatePickerOptions = {dateFormat: 'dd-mm-yyyy'}; 
+  // private myDatePickerOptions = { dateFormat:'dd/mm/yyyy'}; 
   private selectedTextNormal: string = '';
   private border: string = 'none';
 
