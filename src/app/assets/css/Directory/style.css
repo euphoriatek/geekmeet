@@ -445,7 +445,7 @@
 /*
 ** 4. Slider
 */
-	.widget_supreme_banner_slider .flex-direction-nav a.flex-prev:before,.widget_supreme_banner_slider .flex-direction-nav a.flex-next:before{ content: none;}
+/*	.widget_supreme_banner_slider .flex-direction-nav a.flex-prev:before,.widget_supreme_banner_slider .flex-direction-nav a.flex-next:before{ content: none;}
 	#slider.flexslider .slides > li,
 	#silde_gallery.flexslider .slides > li { display: none; }
 	.flexslider .widget-title { border:none; text-align:center; padding:0 }
@@ -455,7 +455,7 @@
 	.flexslider .slides>li .post_list { margin-bottom:30px }
 	.flexslider .slides>li .post_list:last-child { margin-bottom:0 }
 	#slider .flex-direction-nav{ display: none;}
-	#silde_gallery .flex-direction-nav li a{ font-size: 0;}
+	#silde_gallery .flex-direction-nav li a{ font-size: 0;}*/
 
 /*
 ** 5. Author Page

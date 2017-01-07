@@ -252,8 +252,8 @@ html[xmlns] .slides { display:block }
 .flex-direction-nav { *height:0}
 body .widget .flex-direction-nav li { border:0; padding:0 }
 .flex-direction-nav a { position: relative; display:block; cursor:pointer }
-.flex-direction-nav a:before { content: "\f104"; font-family: fontAwesome; font-size: 20px; left: 0px; position: absolute; right: 0; top: 13px; color: white;}
-.flex-direction-nav a.flex-next:before { content: "\f105"; left: 2px; }
+.flex-direction-nav a:before { content: "\f104"; font-family: fontAwesome; font-size: 20px; left: -5px; position: relative; right: 0; top: 0px; color: white;}
+.flex-direction-nav a.flex-next:before { content: "\f105"; left: 50px; }
 .flex-control-nav { position:absolute }
 .flex-control-nav li { display:inline-block; zoom:1; *display:inline}
 .flex-control-paging li a { display:block; cursor:pointer }
@@ -278,16 +278,16 @@ body .widget .flex-direction-nav li { border:0; padding:0 }
 .home_page_slider .widget { margin:20px 0 }
 .home_page_slider .flexslider ul li { border-bottom:0; padding:0 }
 .home_page_slider .slides li { padding:0 }
-.flex-control-nav { top:10px }
+.flex-control-nav { bottom:0px }
 .flex-control-paging li { margin-right:5px }
-.flex-control-paging li a { width:18px; height:18px; background-color:#fafafa; border:1px solid #e0e0e0; border-radius:40px; font-size:11px; color:#666; font-weight:700; line-height:20px; text-decoration:none; text-align:center }
+.flex-control-paging li a { width:25px; height:25px; background-color:#fafafa; border:1px solid #e0e0e0; border-radius:50px; font-size:14px; color:#666; font-weight:700; line-height:20px; text-decoration:none; text-align:center }
 .flex-control-paging li a.flex-active, .flex-control-paging li a:hover { background:#000; border-color:#000; color:#fff }
 .home_page_slider .flex-direction-nav li { border:0; padding:0 }
-.flex-direction-nav li a { width:36px; height:36px; position:absolute; top:50%; font-size:30px; color:#fff; padding:0!important; margin-top:-16px; text-align:center; z-index: 2; }
+.flex-direction-nav li a { width:100px; height:36px; position:absolute; top:50%; font-size: 15px; color:#fff; padding:0!important; margin-top:-16px; text-align:center; z-index: 2; }
 .flex-direction-nav li a:hover { color:#000 }
 .flex-direction-nav li a i { vertical-align:middle }
 #carousel .flex-direction-nav li a { top:30% }
-.flex-control-nav { left:auto; right:-4px; margin:0 }
+.flex-control-nav { left:auto; margin:0; width: 100%; text-align: center;}
 .sidebar .templatic_slider { width:100%; border:none; box-shadow:none; padding:0; margin-bottom:40px }
 .sidebar .flexslider .slides>li { padding:0 }
 .sidebar .flexslider .slides li h2 { display:none }

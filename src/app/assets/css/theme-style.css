@@ -3010,16 +3010,17 @@ div.flexslider .slides > li img{
 ul.flex-direction-nav {
     position: absolute;
     z-index: 10;
-    right: 20px;
-    bottom: 25px;
-    width: auto;
+    right: 0px;
+    bottom: 60px;
+    width: 100%;
     height: auto;
+    margin-left: 0;
 }
 ul.flex-direction-nav li {
     float: left
 }
 ul.flex-direction-nav a {
-    position: static;
+    position: absolute;
     display: flex;
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid #fff;
