@@ -14,8 +14,12 @@
     </div>
 
     <div id="content" class="contentarea large-9 small-12 columns ">
-        <h1 class="loop-title">Events <a class="btn btn-warning pull-right" href="" [routerLink]="['/eventadd']">Add Event</a></h1>
+        <h1 class="loop-title">Events 
+           <a *ngIf = "!getToken" data-toggle="modal" data-target="#loginModal" class="btn btn-warning pull-right" href="javascript:void(0);">Add Event</a>
 
+            <a *ngIf = "getToken" class="btn btn-warning pull-right" href="" [routerLink]="['/eventadd']" >Add Event</a>
+        </h1>
+           
         <!-- 728x90 ad_space -->
         <div id="templatic_text-1" class="widget templatic_text">
             <div class="widget-wrap widget-inside">		

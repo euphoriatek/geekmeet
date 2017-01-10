@@ -231,10 +231,12 @@ export class IndexComponent implements OnInit {
 	}
 
 
-	search(value){
-	 if(value!=''){
-       this.router.navigate(['/search',value]);
-     }
+	search_index(value){
+     var search = value.search;
+     var ref = this;
+	 if(search!=''){
+     ref.router.navigate(['/search',search]);
+      }
 	}
 
 

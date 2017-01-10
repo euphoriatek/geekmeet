@@ -237,6 +237,7 @@ export class FooterComponent implements OnInit {
 
 		signupClick(){
 			var closesinBtn = <HTMLElement>document.getElementById("loginModal");
+			console.log(closesinBtn)
 			closesinBtn.click();
 		}
 
