@@ -104,7 +104,7 @@
                                     <li class=""><a href="" [routerLink]="['/sponsors']">Sponsors</a></li> -->
                                          <li class=""><a href="javascript:void(0)">Sponsors</a></li>
                                     <!-- <li class=""><a href="" [routerLink]="['/contactus']">Contact Us</a></li> -->
-                                    <li data-toggle="modal" data-target="#loginModal" class="tmpl-login" *ngIf = "!getToken"><a>Sign In</a></li>
+                                    <li data-toggle="modal" data-target="#loginModal" id="signInFormModal" class="tmpl-login" *ngIf = "!getToken"><a>Sign In</a></li>
                                     <!--<li class="tmpl-login"><a href="">Logout</a></li>-->
                                     <li id="signUpFormModal" data-toggle="modal" data-target="#signupModal" class="tmpl-login" *ngIf = "!getToken"><a>Sign Up</a></li>
                                     <li class="tmpl-login" *ngIf = "getToken"><a>My Account</a>

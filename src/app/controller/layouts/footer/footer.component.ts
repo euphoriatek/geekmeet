@@ -239,11 +239,15 @@ export class FooterComponent implements OnInit {
 			var closesinBtn = <HTMLElement>document.getElementById("loginModal");
 			console.log(closesinBtn)
 			closesinBtn.click();
+			jQuery('#closeLoginModal').click();			
+			setTimeout(function(){ jQuery('#signUpFormModal').click(); }, 500);					
 		}
 
 		siginClick(){
 			var closeloginBtn = <HTMLElement>document.getElementById("signupModal");
 			closeloginBtn.click();
+			jQuery('#closeSignupModal').click();			
+			setTimeout(function(){ jQuery('#signInFormModal').click(); }, 500);	
 		}
 
 		closeModal(){
