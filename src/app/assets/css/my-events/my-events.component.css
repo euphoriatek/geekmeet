@@ -16,6 +16,15 @@
     margin-bottom: 25px;
     padding-bottom: 25px;
 }
+.new_icon {
+    color: #999;
+    font-size: 15px;
+    font-weight: normal;
+    height: 20px;
+    margin-left: 2px;
+    text-align: left;
+    width: 15px;
+}
 
 
 

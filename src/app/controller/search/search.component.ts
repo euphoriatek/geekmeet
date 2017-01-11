@@ -60,7 +60,7 @@ export class SearchComponent implements OnInit {
       if(res.data.organization==[]){
       refreg.empty = true;
       }else{
-       refreg.blog =  res.data.blog;  
+       refreg.organization =  res.data.organization;  
       refreg.empty = false;  
      	
       }

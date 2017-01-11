@@ -76,6 +76,7 @@
                                                     <!-- Entry details start -->
                                                     <div class="entry-details">
                                                         <p  *ngIf = "getToken" class="address" itemprop="address">{{events.location}}</p>
+                                                        <p><i class="fa fa-building-o new_icon"></i> {{events.city_name}}, {{events.state_name}},  {{events.country_name}}    </p>
                                                         <p class="event_date">
                                                             <span>
                                                                 <span itemprop="startDate" content="2014-07-08T22:00">{{events.start_date}}</span>
@@ -179,6 +180,10 @@
                                                     <!-- Entry details start -->
                                                     <div class="entry-details">
                                                         <p class="address" itemprop="address" *ngIf = "getToken">{{list_event.location}}</p>
+                                                         <p><i class="fa fa-building-o new_icon"></i>
+                                                        {{list_event.city_name}},                      {{list_event.state_name}},  
+                                                         {{list_event.country_name}}                
+                                                         </p>
                                                         <p class="event_date">
                                                             <span>
                                                                 <span itemprop="startDate" content="2014-07-08T15:30"> {{list_event.start_date}}</span>
@@ -315,7 +320,12 @@
 
                                                     <!-- Entry details start -->
                                                     <div class="entry-details">
+
                                                         <p class="address" itemprop="address" *ngIf = "getToken">{{upcomingevents.location}}</p>
+                                                        <p><i class="fa fa-building-o new_icon"></i>
+                                                        {{upcomingevents.city_name}},                      {{upcomingevents.state_name}},  
+                                                         {{upcomingevents.country_name}}                
+                                                         </p>
                                                         <p class="event_date">
                                                             <span>
                                                                 <span itemprop="startDate" content="2014-07-08T15:30"> {{upcomingevents.start_date}}</span>

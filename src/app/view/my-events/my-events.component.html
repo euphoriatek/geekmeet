@@ -65,6 +65,10 @@
 										<div class="entry-details">
 
 											<p class="address" itemprop="address" *ngIf = "getToken">{{list_event.location}}</p>
+											    <p><i class="fa fa-building-o new_icon"></i>
+                                                        {{list_event.city_name}},                      {{list_event.state_name}},  
+                                                         {{list_event.country_name}}                
+                                                         </p>
 											<p class="event_date">
 												<span>
 													<span itemprop="startDate" content="2014-07-08T15:30"> {{list_event.start_date}}</span>

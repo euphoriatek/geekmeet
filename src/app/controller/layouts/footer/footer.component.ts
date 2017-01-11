@@ -112,7 +112,7 @@ export class FooterComponent implements OnInit {
 							'first_name':this.user.first_name,
 							'image':this.user.picture.data.url,
 							'last_name': this.user.last_name,
-							'token': token
+							'token': this.user.id
 						};
 						console.log(this.fbUserInfo);
 						ref.userSocialLogin(this.fbUserInfo);				
@@ -204,11 +204,16 @@ export class FooterComponent implements OnInit {
 			},function(error){
 				ref.loadingSvc.setValue(false);
 				if(error.status == 401 || error.status == '401' || error.status == 400){
+					
 					ref.toastyService.error(error.json().message);
+					
 				}
+				else{
 				var errors = error.json().errors;
 				ref.errors = errors;
-				ref.toastyService.error(error.json().message);
+				ref.toastyService.error(error.json().message);	
+				}
+				
 			});
 
 		}
@@ -219,7 +224,7 @@ export class FooterComponent implements OnInit {
 			var refreg = this;
 			var value = userData.value;
 			refreg.loadingSvc.setValue(true);
-			this.apiService.userRegistrationApi(value,function(res){
+			this.apiService.userRegistrationApi(value,function(res){ 
 				refreg.loadingSvc.setValue(false);
 				refreg.toastyService.success(res.message);
 				console.log("this is api response"+ JSON.stringify(res));
@@ -270,7 +275,11 @@ export class FooterComponent implements OnInit {
 				closeBtn.click();
 
 			},function(error){
-				console.log(error);
+					ref.loadingSvc.setValue(false);
+			         ref.toastyService.error(error.json().message);
+					
+				
+				
 			});
 		}
 

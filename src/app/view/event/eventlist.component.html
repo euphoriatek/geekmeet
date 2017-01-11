@@ -2,7 +2,7 @@
             <div class="smart_tab">
                 <ul class="tabs">
                     <li [ngClass] = "{'active':(selectedIndex==0)}" class="tab-title " role="presentational"><a (click)="typeOfEvent('past',0)"  role="tab" tabindex="1" aria-selected="false">Past Events</a></li>
-                    <li [ngClass] = "{'active':(selectedIndex==1)}" class="tab-title" role="presentational"><a (click)="typeOfEvent('current',1)" role="tab" tabindex="2" aria-selected="false">Current Events</a></li>
+                    <!-- <li [ngClass] = "{'active':(selectedIndex==1)}" class="tab-title" role="presentational"><a (click)="typeOfEvent('current',1)" role="tab" tabindex="2" aria-selected="false">Current Events</a></li> -->
                     <li [ngClass] = "{'active':(selectedIndex==2)}" class="tab-title" role="presentational"><a (click)="typeOfEvent('upcoming',2)" role="tab" tabindex="3" aria-selected="false">Upcoming Events</a></li>
                 </ul> 
                 <ng2-toasty [position]="'top-center'" ></ng2-toasty>
@@ -70,6 +70,10 @@
                                 <!-- Entry details start -->
                                 <div class="entry-details">
                                     <p  *ngIf = "getToken" class="address" itemprop="address">{{events.location}}</p>
+                                     <p><i class="fa fa-building-o new_icon"></i>
+                                                        {{events.city_name}},                      {{events.state_name}},  
+                                                         {{events.country_name}}                
+                                                         </p>
                                     <p class="event_date">
                                         <span>
                                             <span itemprop="startDate" content="2014-07-08T22:00">{{events.start_date}}</span>
@@ -172,6 +176,10 @@
                                                     <!-- Entry details start -->
                                                     <div class="entry-details">
                                                          <p  *ngIf = "getToken" class="address" itemprop="address">{{events.location}}</p>
+                                                             <p><i class="fa fa-building-o new_icon"></i>
+                                                        {{events.city_name}},                      {{events.state_name}},  
+                                                         {{events.country_name}}                
+                                                         </p>
                                                         <p class="event_date">
                                                             <span>
                                                                 <span itemprop="startDate" content="2014-07-08T15:30"> {{events.start_date}}</span>
