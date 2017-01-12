@@ -4,10 +4,12 @@
         <div class="widget-wrap widget-inside">
             <div class="search_nearby_widget what_fld_search">
                 <!--<div class="title-subtitle">Create an Events Portal easily using this theme.<span> Search through 1500 events</span></div>-->            
-                <form name="searchform_1748020477" method="get" class="searchform_1748020477 allinone" id="searchform" action="#" style="position:relative;">
-                    <input value="" name="s" id="search_near-557435365" class="searchpost placeholder" placeholder="What do you want to do today?" size="100" type="text" #search_text>
+                <form #searchForm="ngForm" (ngSubmit)="search_index(searchForm.value)" id="searchform" class="searchform_1748020477 allinone" style="position:relative;">
+                                           <input type="text" value="" name="search" id="search_near-550" class="searchpost placeholder" placeholder="Looking For ..." size="100" ngModel>
 
-                    <input class="sgo" value="Search" type="submit" (click)="search(search_text.value)">
+                        
+                      
+                        <input class="sgo" value="Search" type="submit">
                 </form>
             </div>
         </div>
@@ -74,6 +76,7 @@
                                                     <!-- Entry details start -->
                                                     <div class="entry-details">
                                                         <p  *ngIf = "getToken" class="address" itemprop="address">{{events.location}}</p>
+                                                        <p><i class="fa fa-building-o new_icon"></i> {{events.city_name}}, {{events.state_name}},  {{events.country_name}}    </p>
                                                         <p class="event_date">
                                                             <span>
                                                                 <span itemprop="startDate" content="2014-07-08T22:00">{{events.start_date}}</span>
@@ -177,6 +180,10 @@
                                                     <!-- Entry details start -->
                                                     <div class="entry-details">
                                                         <p class="address" itemprop="address" *ngIf = "getToken">{{list_event.location}}</p>
+                                                         <p><i class="fa fa-building-o new_icon"></i>
+                                                        {{list_event.city_name}},                      {{list_event.state_name}},  
+                                                         {{list_event.country_name}}                
+                                                         </p>
                                                         <p class="event_date">
                                                             <span>
                                                                 <span itemprop="startDate" content="2014-07-08T15:30"> {{list_event.start_date}}</span>
@@ -313,7 +320,12 @@
 
                                                     <!-- Entry details start -->
                                                     <div class="entry-details">
+
                                                         <p class="address" itemprop="address" *ngIf = "getToken">{{upcomingevents.location}}</p>
+                                                        <p><i class="fa fa-building-o new_icon"></i>
+                                                        {{upcomingevents.city_name}},                      {{upcomingevents.state_name}},  
+                                                         {{upcomingevents.country_name}}                
+                                                         </p>
                                                         <p class="event_date">
                                                             <span>
                                                                 <span itemprop="startDate" content="2014-07-08T15:30"> {{upcomingevents.start_date}}</span>
@@ -415,9 +427,22 @@
                     </div>
                 </div>
             </div>
+            <div id="templatic_text-1" class="widget templatic_text" style="margin-top: 362px;">
+                <div class="widget-wrap widget-inside m-t-20">      
+                    <div class="textwidget text-center"> 
+                        <iframe scrolling="no" width="100%" height="600" src="http://2016.geekmeet.com/banner.php?title=home-300x600"></iframe>                 
+                        <!--<a href="">
+
+
+                            <img src="app/assets/images/ads images/300x600.jpg">
+
+                        </a> -->   
+                    </div>
+                </div>
+            </div>
 
             <!-- Group list -->
-            <div id="templatic_popular_post_technews-3" class="widget widget-twocolumn popular_posts">
+            <!-- <div id="templatic_popular_post_technews-3" class="widget widget-twocolumn popular_posts">
                 <div class="widget-wrap widget-inside">
                     <h3 class="widget-title">Group List</h3>
                     <ul class="listingview clearfix list" id="list_168817222">
@@ -570,10 +595,10 @@
                         </li>
                     </ul>
                 </div>
-            </div>  
+            </div>   -->
 
             <!-- Organization list -->
-            <div id="templatic_popular_post_technews-3" class="widget widget-twocolumn popular_posts">
+           <!--  <div id="templatic_popular_post_technews-3" class="widget widget-twocolumn popular_posts">
                 <div class="widget-wrap widget-inside">
                     <h3 class="widget-title">Organization List</h3>
                     <ul class="listingview clearfix list" id="list_168817222">
@@ -726,11 +751,12 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
 
 
 
         </aside>
+
     </div>
     <!-- .wrap -->
 </section>

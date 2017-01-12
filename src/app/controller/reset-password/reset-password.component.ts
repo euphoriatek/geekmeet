@@ -42,6 +42,7 @@ export class ResetPasswordComponent implements OnInit {
 
   resetPassword(value){
     var ref = this;
+ 
      ref.loadingSvc.setValue(true);
     value.token = this.forgot_token;
     ref.apiService.resetPassword(value,function(res){
@@ -49,7 +50,8 @@ export class ResetPasswordComponent implements OnInit {
       ref.toastyService.success(res.message);
       ref.router.navigate(['/']);
     },function(error){
-      ref.toastyService.error(error.json().message);
+          ref.loadingSvc.setValue(false);
+     
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
         ref.apiService.signinSuccess$.emit(false);

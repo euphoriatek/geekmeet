@@ -41,7 +41,7 @@ export class SearchComponent implements OnInit {
     }
 
     this.apiService.searchData(value,function(res){
-      window.scrollTo(0,0);
+    
       refreg.loadingSvc.setValue(false);
       if(res.data.event==[]){
       refreg.empty = true;
@@ -60,7 +60,7 @@ export class SearchComponent implements OnInit {
       if(res.data.organization==[]){
       refreg.empty = true;
       }else{
-       refreg.blog =  res.data.blog;  
+       refreg.organization =  res.data.organization;  
       refreg.empty = false;  
      	
       }

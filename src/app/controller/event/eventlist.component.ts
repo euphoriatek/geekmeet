@@ -18,15 +18,15 @@ export class EventListComponent implements OnInit{
   eventArr:any;
   selectedmenu:any;
   sortvalData:any;
-  selectedIndex:any = 1;
+  selectedIndex:any = 2;
   gridview=true;
   param_id:any;
   total:any;
   currentPage:any;
   getToken:any;
   category:any ='';
-  type:any = 'current';
-  sort:any ='';
+  type:any = 'upcoming';
+  sort:any ='stdate_low_high';
   showData:any;
   code:any;
   per_page:any;

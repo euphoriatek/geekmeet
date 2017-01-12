@@ -41,7 +41,7 @@
                                         </nav>
                                     </div>
                                 </div>
-                                <div id="directory_search_location-1" class="widget search_key">
+                              <!--   <div id="directory_search_location-1" class="widget search_key">
                                     <div class="widget-wrap widget-inside">
                                         <div class="search_nearby_widget what_fld_search">          
                                             <form name="searchform_662496511" method="get" class="searchform_662496511 allinone" id="searchform" action="" style="position:relative;">
@@ -56,17 +56,18 @@
                                                 <input type="hidden" name="t" value="acebef955d">
                                                 <input type="hidden" name="relation" class="sgo" value="OR">
                                                 <input type="submit" class="sgo" value="Search">
-                                                <!--<ul id="search-result" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all" style="display:none;"></ul>-->
+                                               
                                             </form>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </aside>
                             <!-- #sidebar-header right end -->
                         </div>
                     </div> <!-- large-8 columns -->  
-                    <div class="location_fld_wrapper">
-                        <!-- City name link -->
+                    
+                   <div class="location_fld_wrapper"> 
+                      
                         <div id="loc_city_link" class="toggle_handler primary_location" data-location="location_aslink">
                             <a id="directorytab"  class=""><img src="app/assets/images/flags/us.png" width="18" height="12" alt="New York"> New York<i class="fa fa-angle-down"></i></a>
                         </div>
@@ -100,10 +101,11 @@
                                             <li class="" *ngFor = "let submenu of menuArr; let index = index" (click)="submenuClick(submenu.category_name,index)"><a>{{submenu.category_name}}</a></li>
                                         </ul>
                                     </li>
-                                    <li class=""><a href="" [routerLink]="['/blog']" > Blog</a></li>
-                                    <li class=""><a href="" [routerLink]="['/sponsors']">Sponsors</a></li>
-                                    <li class=""><a href="" [routerLink]="['/contactus']">Contact Us</a></li>
-                                    <li data-toggle="modal" data-target="#loginModal" class="tmpl-login" *ngIf = "!getToken"><a>Sign In</a></li>
+                                    <li class=""><a href="" [routerLink]="['/blog']" > Blog</a></li><!-- 
+                                    <li class=""><a href="" [routerLink]="['/sponsors']">Sponsors</a></li> -->
+                                         <!-- <li class=""><a href="javascript:void(0)">Sponsors</a></li> -->
+                                    <!-- <li class=""><a href="" [routerLink]="['/contactus']">Contact Us</a></li> -->
+                                    <li data-toggle="modal" data-target="#loginModal" id="signInFormModal" class="tmpl-login" *ngIf = "!getToken"><a>Sign In</a></li>
                                     <!--<li class="tmpl-login"><a href="">Logout</a></li>-->
                                     <li id="signUpFormModal" data-toggle="modal" data-target="#signupModal" class="tmpl-login" *ngIf = "!getToken"><a>Sign Up</a></li>
                                     <li class="tmpl-login" *ngIf = "getToken"><a>My Account</a>

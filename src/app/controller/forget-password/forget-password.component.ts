@@ -30,7 +30,7 @@ export class ForgetPasswordComponent implements OnInit {
       refreg.router.navigate(['/index']);
     },function(error){
       refreg.loadingSvc.setValue(false);
-      refreg.toastyService.error(error.json().message);
+    
       var error = error.json().errors;
       refreg.errors = error;
     });

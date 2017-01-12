@@ -77,10 +77,16 @@
                         <div class="social_media widget-wrap widget-inside">
                             <h3 class="widget-title">Social</h3>            
                             <ul class="social_media_list">
-                                <li> <a href="http://facebook.com/" target="_blank">
-                                    <i class="fa fa-facebook"></i>
-                                </a> 
-                            </li>           
+                                 <li> <a href="https://www.facebook.com/GeekMeet/" target="_blank">
+                                    <i class="fa fa-facebook"></i></a> </li>
+                            <li> <a href="https://twitter.com/geekmeet" target="_blank">
+                                    <i class="fa fa-twitter"></i></a> </li>
+                          
+                            <li> <a href="https://www.linkedin.com/company/geekmeet" target="_blank">
+                                    <i class="fa fa-linkedin"></i></a> </li>
+                            <li> <a href="https://plus.google.com/+Geekmeet" target="_blank">
+                                    <i class="fa fa-google-plus"></i></a> </li>
+          
                         </ul>
                     </div>
                 </div>              
@@ -138,7 +144,8 @@
 
                 <div class="form_row " >
                     <button id="login-submit" class="btn btn-info" type="submit" aria-hidden="true"> Sign In</button>
-                    <p class="forgot_link">New User? <a data-toggle="modal" data-target="#signupModal" class="logreg-link" id="tmpl-reg-link" (click)="signupClick()">Sign Up</a></p>
+                    <p class="forgot_link">New User? <!--<a data-toggle="modal" data-target="#signupModal" class="logreg-link" id="tmpl-reg-link" (click)="signupClick()">Sign Up</a>-->
+                        <a class="logreg-link" id="tmpl-reg-link" (click)="signupClick()">Sign Up</a></p>
                 </div> 
 
                 </form>
@@ -224,7 +231,8 @@
                 <button (click)="closeModal()" class="btn btn-info" type="reset" value="Save" name="submit" data-dismiss="modal">Cancel</button>
             </form>
         </div>
-             <p style="margin-left: 15px;">Already have an account? <a data-toggle="modal" data-target="#loginModal" id="tmpl-back-login" class="widgets-link" (click)="siginClick()">Sign in</a></p>  
+             <p style="margin-left: 15px;">Already have an account? <!--<a data-toggle="modal" data-target="#loginModal" id="tmpl-back-login" class="widgets-link" (click)="siginClick()">Sign in</a>-->
+                <a id="tmpl-back-login" class="widgets-link" (click)="siginClick()">Sign in</a></p>  
         </div>
     </div>
 </div>

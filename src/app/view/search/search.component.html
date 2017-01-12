@@ -13,14 +13,34 @@
                             <a href="" [routerLink] = "['/event_detail',events.event_id]" title="{{events.event_title}}" class="link_img" data-rel="">
                               <img src="app/assets/images/event.png" class="icon_img"></a>
                              <div class="post_data">
-                                <h3>
+                                <div class="row">
+                                <div class="col-md-8">
+                                <h3 style="margin-bottom:5px !important;">
                                     <a href="" [routerLink] = "['/event_detail',events.event_id]" title="{{events.event_title}}">{{events.event_title}}</a>
-                                </h3>
-                               
+                               </h3>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="pull-right" *ngIf="events.owner">
+                            <label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/event-edit',events.event_id]">Edit Event</a></label>
+                               </div>    
+
+                                </div></div>
+                                <div class="col-md-12">
+                                <p><i class="fa fa-building-o new_icon"></i> 
+                                                        {{events.city_name}},                      {{events.state_name}},  
+                                                         {{events.country_name}}                
+                                                         </p>
+                                </div>   
+                                  <div class="col-md-12">
+                                <p class="event_date">
+
+                                                            <span>
+                                                                <span itemprop="startDate" content="2014-07-08T15:30"> {{events.start_date}}</span>
+                                                                To <span itemprop="endDate" content="2019-07-08T17:30"> {{events.end_date}}</span>
+                                                            </span>
+                                                        </p>  </div>                       
                             </div>
-                             <div class="pull-right" *ngIf="events.owner">
-						    <label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/event-edit',events.event_id]">Edit Event</a></label>
-					        </div>
+                            
                                
                          
                         </li>
@@ -29,10 +49,21 @@
                               <img src="app/assets/images/blog.png" class="icon_img">
                             </a>
                             <div class="post_data">
+                                <div class="row">
+                                <div class="col-md-12">
                                 <h3>
                                     <a [routerLink] = "['/blog_detail',blogs.blog_id]" title="{{blogs.blog_title}}">{{blogs.blog_title}}</a>
                                 </h3>
-                               
+                                </div>
+                                <div class="col-md-12">
+                                  <div class="byline">Published by 
+                            <span class="author vcard">
+                                <a class="url fn n"  title="Smith">{{blogs.username}}</a>
+                            </span> On 
+                            <abbr class="published" title="{{blog.create_date}}">{{blogs.create_date}}</abbr> 
+                        </div>  
+                                </div>
+                               </div>
                             </div>
                         </li>
 
@@ -41,14 +72,35 @@
                                   <img src="app/assets/images/organization.png" class="icon_img">
                             </a>
                             <div class="post_data">
+                                <div class="row">
+                                <div class="col-md-8">
                                 <h3>
                                     <a href="" [routerLink] = "['/organization',organizations.organization_id]" title="{{organizations.organization_name}}">{{organizations.organization_name}}</a>
                                 </h3>
+                                </div>
+                                 <div class="col-md-4">
+                                   <div class="pull-right ">
+                            <label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/organization-edit',organizations.organization_id]">Edit Organization</a></label>
+                            </div>   
+
+                                 </div>
+                                </div>
+
+                                <div class="col-md-12" *ngIf="organizations.organization_email!=''">
+                                <i class="fa fa-envelope-o new_icon"></i>&nbsp;   
+                                {{organizations.organization_email}}
+                               </div>
+                               <div class="col-md-12" *ngIf="organizations.organization_contact!=''">
+                                <i class="fa fa-phone new_icon"></i>&nbsp;  
+                                {{organizations.organization_contact}}
+                                </div>
+                                <div class="col-md-12" *ngIf="organizations.organization_website!=''">
+                                <i class="fa fa-globe new_icon"></i>&nbsp; 
+                                {{organizations.organization_website}}
+                                </div>
                                 
                             </div>
-                            <div class="pull-right ">
-						    <label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/organization-edit',organizations.organization_id]">Edit Organization</a></label>
-					        </div>	
+                           	
                         </li>
 
                              <li class="clearfix"  *ngFor = "let venues of venue">
@@ -56,14 +108,30 @@
                                 <img src="app/assets/images/map.png" class="icon_img">
                             </a>
                             <div class="post_data">
+                                <div class="row">
+                                <div class="col-md-8">
+    
                                 <h3>
                                     <a href="" [routerLink] = "['/venue',venues.venue_id]" title="{{venues.venue_name}}">{{venues.venue_name}}</a>
                                 </h3>
+                                </div>
+                                  <div class="col-md-4">
+                                   <div class="pull-right ">
+                            <label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/venues-edit',venues.venue_id]">Edit Venue</a></label>
+                            </div>    
+
+                                  </div>
+
+                                </div>
+                                 <div class="col-md-12">
+                                <p><i class="fa fa-building-o new_icon"></i> 
+                                                        {{venues.city}},                      {{venues.state}},  
+                                                         {{venues.country}}                
+                                                         </p>
+                                </div> 
                                 
                             </div>
-                             <div class="pull-right ">
-						    <label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/venues-edit',venues.venue_id]">Edit Venue</a></label>
-					        </div>
+                            
                 
                         </li>
                      
