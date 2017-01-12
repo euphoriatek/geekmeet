@@ -434,7 +434,7 @@ body h6 { font-size:12px; line-height:20px }
 .entry-content h1, .entry-content h2, .entry-content h3, .entry-content h4, .entry-content h5, .entry-content h6 { margin-top:20px }
 p { padding:0 0 15px }
 ol { list-style:decimal outside; margin:0 0 15px 30px }
-ul { list-style:outside; margin:0 0 20px 20px }
+ul { list-style:outside;  }
 dl { margin:6px 0 }
 dl dt { font-weight:700; margin:6px 0 0 }
 dl dd { font-weight:400; margin:0 0 0 40px }

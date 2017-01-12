@@ -7335,7 +7335,7 @@ img,
 }
 .error {
     color: red;
-    margin: 0 0 0 15px !important;
+   
 }
 #loop_listing_archive .post .listing_img .featured_tag,
 #loop_listing_taxonomy .post .listing_img .featured_tag,
@@ -10385,4 +10385,9 @@ table.calendar_widget td.date_n div:hover span.calendar_tooltip {
         width: 100%;
         margin-bottom: 15px;
     }
+}
+
+.error li {
+list-style: none !important;
+
 }
