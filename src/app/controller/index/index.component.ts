@@ -35,6 +35,7 @@ export class IndexComponent implements OnInit {
 	showData:any = '';
 	showUpcomingData:any = '';
 	per_page:any;
+	upcomming_per_page:any;
 
 	constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private location: Location,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
 		this.toastyConfig.theme = 'bootstrap';
@@ -130,8 +131,9 @@ export class IndexComponent implements OnInit {
         else{
           ref.showUpcomingData = '';
         }
-			ref.upcoming_total = res.data.last_page;
-			ref.upcoming_currentPage = res.data.current_page;  		
+			ref.upcoming_total = res.data.total;
+			ref.upcoming_currentPage = res.data.current_page;
+			ref.upcomming_per_page = res.data.per_page;  		
 		},function(error){
 			ref.loadingSvc.setValue(false);
 			ref.toastyService.error(error.json().message);

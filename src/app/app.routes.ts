@@ -48,6 +48,7 @@ import { ActivateNowComponent } from './controller/activate-now/activate-now.com
 
 
 export const routes: Routes = [
+      {path:'',component: IndexComponent,pathMatch: 'full' },
       {path:'header' ,component: HeaderComponent},
       {path:'footer' ,component: FooterComponent},
       {path:'blog/:category' ,pathMatch: 'full',component: BlogComponent,data: [{id: true}]},
@@ -78,7 +79,6 @@ export const routes: Routes = [
       {path:'event-edit/:id' ,component: EventEditComponent,data: [{id: true}]},
       {path:'search/:id' ,component: SearchComponent,data: [{id: true}]},
       {path:'activate-now/:id' ,component: ActivateNowComponent,data: [{id: true}]},
-      {path:'' ,pathMatch: 'full',component: IndexComponent},
       // { path: '#', redirectTo: '' }
 
 ];

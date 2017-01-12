@@ -279,7 +279,7 @@
                                 <section id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  list">
                                    <p>{{showUpcomingData}}</p>
                                     <!-- inside loop div start -->
-                                    <article class="post" *ngFor = "let upcomingevents of upcomingArr">
+                                    <article class="post" *ngFor = "let upcomingevents of upcomingArr  | paginate: { id: 'server',  itemsPerPage: upcomming_per_page, currentPage: upcoming_currentPage, totalItems: upcoming_total}">
                                              <div class="listing_img">
                                             <a href="" [routerLink]="['/event_detail',upcomingevents.event_id]"> 
                                                <img src="{{upcomingevents.featured_image}}" alt="image" title="{{upcomingevents.title}}">
@@ -379,11 +379,14 @@
                                             <!-- Entry End -->
                                         </div>
                                     </article>
-                                <div class="postpagination_776778595 postpagination clearfix" *ngIf="upcoming_all">
+                                     <div class="has-text-centered" style="text-align: center;border-bottom: none;">
+                                        <pagination-controls  (pageChange)="upcomingEventPagination($event)" id="server"></pagination-controls>
+                                    </div>
+                                <!-- <div class="postpagination_776778595 postpagination clearfix" *ngIf="upcoming_all">
                                 <div class="pagination" *ngFor="let object of createRange(upcoming_total)">
                                 <a  class="page-numbers" href="javascript:void(0)" [ngClass]="{'active': object==upcoming_currentPage}" (click)="upcomingEventPagination(object)" > {{object}} </a>
                                 </div>
-                                </div>
+                                </div> -->
                                     <!-- inside loop div start -->
 
                                 </section>

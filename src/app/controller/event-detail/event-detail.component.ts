@@ -525,18 +525,19 @@ export class EventDetailComponent implements OnInit {
        jQuery('.flexslider').remove();
        // re-insert clean mark-up so flexslider can reset itself properly
        jQuery('.flexslider-container').append('<div id="slider" class="event_image flexslider p-tb-30"><div class="flex-viewport" style=""><ul class="slides" style="width: 1800%;"></ul></div></div>');
-      
+       // jQuery('event_image_gallery').append('<div id="silde_gallery" class="silde_gallery flexslider"><div class="flex-viewport" style="overflow: hidden; position: relative;"> <ul class="more_photos slides" style=""></ul></div></div>')
         var imglist ="";
         for (var i = 0; i <  data.slider_image.length; i++) {
           console.log(data.slider_image[i]);   
             imglist += '<li class="flex-active-slide" style="width: 60px; float: left; display: block;">';
             imglist += '<a href="javascript:void(0)" title="'+ data.slider_image[i].image_title+'">';
-            imglist += '<img src="'+ data.slider_image[i].image_url+'" alt="event-(13)" draggable="false">';
+            imglist += '<img src="'+ data.slider_image[i].image_url+'" style="height:500px;" alt="event-(13)" draggable="false">';
             imglist += '</a>';
             imglist += '</li>';
         }
     
       jQuery('.flexslider ul.slides').html(imglist);
+      // jQuery('.event_image_gallery ul.more_photos.slides').html(imglist);
                                 
       jQuery('.flexslider').flexslider({
         animation: "slide",

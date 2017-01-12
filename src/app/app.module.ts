@@ -127,6 +127,7 @@ import { ActivateNowComponent } from './controller/activate-now/activate-now.com
   ModalModule.forRoot(),
   BootstrapModalModule,
   RouterModule.forRoot([
+    {path:'',component: IndexComponent,pathMatch: 'full' },
     {path:'header' ,component: HeaderComponent},
     {path:'footer' ,component: FooterComponent},
     {path:'blog' ,pathMatch: 'full',component: BlogComponent},
@@ -155,8 +156,7 @@ import { ActivateNowComponent } from './controller/activate-now/activate-now.com
     {path:'reset-password' ,component: ResetPasswordComponent},
     {path:'my-events' ,component: MyEventsComponent},
     {path:'event-edit' ,component: EventEditComponent},
-     {path:'activate-now' ,component: ActivateNowComponent},
-    {path:'' ,pathMatch: 'full',component: IndexComponent},
+    {path:'activate-now' ,component: ActivateNowComponent},
     ])
   ],
   providers: [ApiMethodService,LoadingAnimateService],
