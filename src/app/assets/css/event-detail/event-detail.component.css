@@ -22,3 +22,7 @@
     text-align: left;
     width: 15px;
 }
+
+.slides img{
+   height: 500px !important; 
+}
