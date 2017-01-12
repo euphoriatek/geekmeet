@@ -36,7 +36,8 @@
                                             <ul id="menu-submit-event" class="nav-menu">
                                                 <li *ngIf = "getToken" id="menu-item-9371" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9371"><a class="text-white" href=""[routerLink]="['/eventadd']">Submit Event <i class="fa fa-plus"></i></a></li>
                                                  <li *ngIf = "!getToken" id="menu-item-9371" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9371"><a class="text-white" href="" data-toggle="modal" data-target="#loginModal">Submit Event <i class="fa fa-plus"></i></a></li>
-                                                  <!-- <li *ngIf = "getToken" id="menu-item-9371" class="menu-item menu-item-type-post_type menu-item-object-page"><a class="text-white">welcome ! {{user_name}}</a></li> -->
+                                                  <li *ngIf = "getToken" id="menu-item-9371" class="menu-item menu-item-type-post_type menu-item-object-page"><a class="text-white">
+                                                  <img src="{{user_avatar}}" style="height: 30px;width: 30px;border-radius: 15px;"><p style="float: right;margin-left: 5px;padding:2px;">{{user_name}}</p></a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -111,9 +112,9 @@
                                     <li class="tmpl-login" *ngIf = "getToken"><a>My Account</a>
                                         <ul class="sub-menu">
                                             <li class=""><a href="" [routerLink]="['/profile']">Profile</a></li>
-                                            <li class=""><a href="" [routerLink]="['/my-organizations']">My Organization's</a></li>
-                                            <li class=""><a href="" [routerLink]="['/my-venues']">My Venue's</a></li>
-                                            <li class=""><a href="" [routerLink]="['/my-events']">My Event's</a></li>
+                                            <li class=""><a href="" [routerLink]="['/my-organizations']">My Organizations</a></li>
+                                            <!-- <li class=""><a href="" [routerLink]="['/my-venues']">My Venue's</a></li> -->
+                                            <li class=""><a href="" [routerLink]="['/my-events']">My Events</a></li>
                                             <li class=""><a href="" [routerLink]="['/groups']">My Groups</a></li>
                                             <li class=""><a href="" [routerLink]="['/notification-setting']">Notification Settings</a></li> 
                                             <li class=""><a href="" [routerLink]="['/changepassword']">Change Password</a></li>

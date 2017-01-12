@@ -36,7 +36,18 @@ export class ChangepasswordComponent implements OnInit {
     ref.apiService.changePassword(value,function(res){
       ref.loadingSvc.setValue(false);
       ref.toastyService.success(res.message);
-      ref.router.navigate(['/']);
+      if(res){
+        ref.apiService.userLogoutApi(function(res){
+          localStorage.removeItem('auth_token');
+          ref.getToken="";
+          ref.apiService.signinSuccess$.emit(false);
+          ref.router.navigate(['/']);
+        },function(error){
+          ref.toastyService.error(error.json().message);
+        })
+      }
+
+
     },function(error){
       ref.loadingSvc.setValue(false);
       ref.toastyService.error(error.json().message);

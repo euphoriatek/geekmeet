@@ -21,11 +21,13 @@ export class HeaderComponent implements OnInit {
   menuArr:any;
   isUserLoggedIn:any = false;
   user_name:any;
+  user_avatar:any;
 
 
   constructor(private loadingSvc: LoadingAnimateService,private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
     this.toastyConfig.theme = 'bootstrap';
     this.user_name = localStorage.getItem('user_name');
+    this.user_avatar = localStorage.getItem('user_avatar');
     this.getToken = this.apiService.getLoginToken();
     if(this.getToken){
       this.isUserLoggedIn = true;
@@ -34,6 +36,7 @@ export class HeaderComponent implements OnInit {
     }
     apiService.signinSuccess$.subscribe(status => {
       if(status) {
+        this.user_avatar = localStorage.getItem('user_avatar');
          this.user_name = localStorage.getItem('user_name');
         this.getToken = this.apiService.getLoginToken();
         if(this.getToken){
@@ -50,6 +53,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("this is photo"+this.user_avatar);
     this.secondmenuDeafault();
   }
 

@@ -316,6 +316,7 @@ export class ApiMethodService {
 		this.http.get('http://2016.geekmeet.com/admin/v1/profile',options).map(res =>res.json())
 		.subscribe((res) => {
 			localStorage.setItem('user_name', res.data.first_name);
+			localStorage.setItem('user_avatar',res.data.image_url);
 			if(callBack)
 			{
 				callBack(res);
