@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild,Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild,Input,Output,EventEmitter } from '@angular/core';
 import { RouterModule, Router, ActivatedRoute }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
 import { EventListComponent } from './eventlist.component';
@@ -18,6 +18,7 @@ import 'rxjs/add/operator/catch';
 export class EventComponent implements OnInit{
   currntRange:any = 300;
   @ViewChild(EventListComponent) event: EventListComponent;
+  // @Output() onEnterZipCode = new EventEmitter<string>();
   
     constructor(private toastyService:ToastyService,private toastyConfig: ToastyConfig,private router:Router,private route: ActivatedRoute, public apiService:ApiMethodService) { 
     this.toastyConfig.theme = 'bootstrap';
@@ -57,7 +58,7 @@ export class EventComponent implements OnInit{
     ref.currntRange = range;
   }
 
-  searchZipCodeEvent(zipcodeData:any):void{
+  searchZipCodeEvent(zipcodeData){
     var value = zipcodeData.value;
     if(value.code){
       this.event.searchByZipCode(value.code);

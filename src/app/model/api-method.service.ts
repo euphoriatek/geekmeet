@@ -947,6 +947,17 @@ export class ApiMethodService {
 			}
 		},(error) =>failure(error));
 	}
+
+	userSubscription(value, callBack, failure){
+		this.http.post('http://2016.geekmeet.com/admin/v1/add_subscriber',value).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack){
+				callBack(res);
+			}
+		},(error) =>failure(error));
+	}
+
+
   }
 		
 

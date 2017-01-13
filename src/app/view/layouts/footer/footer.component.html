@@ -4,13 +4,13 @@
             <div class="widget-wrap widget-inside">
                 <div class="search_nearby_widget what_fld_search">
                     <form name="searchform_11879" method="get" class="searchform_11879 allinone" id="searchform" action="" style="position:relative;">
-                       
 
-                       
+
+
                         <input type="text" value="" name="s" id="search_near-550" class="searchpost placeholder" placeholder="Looking For ..." size="100" #search_text>
 
                         
-                      
+
                         <input class="sgo" value="Search" type="submit" (click)="search(search_text.value)">
                         
                         <!--<ul id="search-result" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all" style="display:none;"></ul>-->
@@ -34,13 +34,16 @@
                             <p> Subscribe to get latest news from site </p>
                             <span class="newsletter_msg" id="newsletter_msg"> </span>
                             <div class="subscriber_container">
-                                <form action="" method="post" target="popupwindow">
-                                    <input type="text" id="newsletter_name" name="name" value="" class="field placeholder" placeholder="Your Name">
-                                    <input type="text" id="newsletter_email" name="email" value="" class="field placeholder" placeholder="Your Email Address">
-                                    <input type="hidden" value="templatic" name="uri">
-                                    <input type="hidden" value="wamasoftware" name="title">
-                                    <input type="hidden" name="loc" value="en_US">
-                                    <input class="replace" type="submit" name="submit" value="Subscribe">
+                                <form #subscribe="ngForm" (ngSubmit)="subscribeEmail(subscribe)">
+                                    <input type="text" id="newsletter_name" name="subscribe_name" value="" class="field placeholder" placeholder="Your Name" ngModel>
+                                    <ul class="error" *ngIf="suberror['subscribe_name']!=''" >
+                                        <li *ngFor="let org_err of suberror['subscribe_name']">{{org_err}}</li>    
+                                    </ul> 
+                                    <input type="text" id="newsletter_email" name="subscribe_email" value="" class="field placeholder" placeholder="Your Email Address" ngModel>
+                                     <ul class="error" *ngIf="suberror['subscribe_email']!=''" >
+                                        <li *ngFor="let org_err of suberror['subscribe_email']">{{org_err}}</li>    
+                                    </ul> 
+                                    <button class="replace" type="submit"> Subscribe </button>
                                 </form>
                             </div>
                             <!--End mc_embed_signup-->
@@ -50,189 +53,189 @@
                         <div class="widget-wrap widget-inside">
                             <h3 class="widget-title">Blog Categories</h3>
                             <ul class="xoxo categories">
-                               <li class="" *ngFor = "let blog_cat of blogArr; let index = index" (click)="blogCategoryClick(blog_cat.blog_category_name,index)" ><a>{{blog_cat.blog_category_name}}</a></li>
-                            </ul>
-                            <!-- .xoxo .categories -->
-                        </div>
+                             <li class="" *ngFor = "let blog_cat of blogArr; let index = index" (click)="blogCategoryClick(blog_cat.blog_category_name,index)" ><a>{{blog_cat.blog_category_name}}</a></li>
+                         </ul>
+                         <!-- .xoxo .categories -->
+                     </div>
+                 </div>
+                 <div id="hybrid-archives-1" class="widget archives">
+                    <div class="widget-wrap widget-inside">
+                        <h3 class="widget-title">Event Categories</h3>
+                        <li class="" *ngFor = "let submenu of menuArr; let index = index" (click)="submenuClick(submenu.category_name,index)" ><a>{{submenu.category_name}}</a></li>
                     </div>
-                    <div id="hybrid-archives-1" class="widget archives">
-                        <div class="widget-wrap widget-inside">
-                            <h3 class="widget-title">Event Categories</h3>
-                             <li class="" *ngFor = "let submenu of menuArr; let index = index" (click)="submenuClick(submenu.category_name,index)" ><a>{{submenu.category_name}}</a></li>
-                        </div>
-                    </div>
-                    <div id="hybrid-pages-1" class="widget pages">
-                        <div class="widget-wrap widget-inside">
-                            <h3 class="widget-title">Quick Links</h3>
-                            <ul class="xoxo pages">
-                                <li><a href="" [routerLink]="['/']">Home</a></li>
-                                <li><a href="" [routerLink]="['/event']" >Events</a></li>
-                                <li><a href="" [routerLink]="['/blog']">Blog</a></li>
-                                <li><a href="" [routerLink]="['/sponsors']">Sponsors</a></li>
-                                <li><a href="" [routerLink]="['/contactus']">Contact Us</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div id="meta-1" class="widget widget_meta">
-                        <div class="social_media widget-wrap widget-inside">
-                            <h3 class="widget-title">Social</h3>            
-                            <ul class="social_media_list">
-                                 <li> <a href="https://www.facebook.com/GeekMeet/" target="_blank">
-                                    <i class="fa fa-facebook"></i></a> </li>
-                            <li> <a href="https://twitter.com/geekmeet" target="_blank">
-                                    <i class="fa fa-twitter"></i></a> </li>
-                          
-                            <li> <a href="https://www.linkedin.com/company/geekmeet" target="_blank">
-                                    <i class="fa fa-linkedin"></i></a> </li>
-                            <li> <a href="https://plus.google.com/+Geekmeet" target="_blank">
-                                    <i class="fa fa-google-plus"></i></a> </li>
-          
+                </div>
+                <div id="hybrid-pages-1" class="widget pages">
+                    <div class="widget-wrap widget-inside">
+                        <h3 class="widget-title">Quick Links</h3>
+                        <ul class="xoxo pages">
+                            <li><a href="" [routerLink]="['/']">Home</a></li>
+                            <li><a href="" [routerLink]="['/event']" >Events</a></li>
+                            <li><a href="" [routerLink]="['/blog']">Blog</a></li>
+                            <li><a href="" [routerLink]="['/sponsors']">Sponsors</a></li>
+                            <li><a href="" [routerLink]="['/contactus']">Contact Us</a></li>
                         </ul>
                     </div>
-                </div>              
+                </div>
+                <div id="meta-1" class="widget widget_meta">
+                    <div class="social_media widget-wrap widget-inside">
+                        <h3 class="widget-title">Social</h3>            
+                        <ul class="social_media_list">
+                           <li> <a href="https://www.facebook.com/GeekMeet/" target="_blank">
+                            <i class="fa fa-facebook"></i></a> </li>
+                            <li> <a href="https://twitter.com/geekmeet" target="_blank">
+                                <i class="fa fa-twitter"></i></a> </li>
+
+                                <li> <a href="https://www.linkedin.com/company/geekmeet" target="_blank">
+                                    <i class="fa fa-linkedin"></i></a> </li>
+                                    <li> <a href="https://plus.google.com/+Geekmeet" target="_blank">
+                                        <i class="fa fa-google-plus"></i></a> </li>
+
+                                    </ul>
+                                </div>
+                            </div>              
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="footer_bottom clearfix">
+                <div class="footer-wrap clearfix row">
+                    <div class="columns">
+                        <div class="footer-content "> 
+                            <p class="copyright">© 2016 All rights reserved.</p> 
+                            <p class="credit"> <a href="#" alt="" title=""></a></p> 
+                        </div>
+                        <!-- .footer-content -->
+                    </div>
+                </div>
+                <!-- .wrap -->
+            </section>
+        </div>
+
+
+        <a class="exit-off-canvas"></a>
+        <a class="exit-selection"></a>
+
+
+
+        <!-- this is login modal -->
+        <div style="background-color: transparent;"  data-backdrop="static" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"  *ngIf="loginModalHidden">
+          <div class="modal-dialog" style="width: 390px;" >
+            <div class="modal-content">
+                <div class="modal-header" id="sign_in_modal">
+                    <button id="closeLoginModal" type="button" class="close" data-dismiss="modal" (click)="closeModal()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="lineModalLabel">Sign In</h3>
+                </div>
+                <div class="modal-body">
+                    <form name="popup_login"  #form="ngForm" (ngSubmit)="userSignIn(form)">
+                        <div class="form_row clearfix">
+                            <label>Email <span class="indicates">*</span> </label>
+                            <input type="text" (click)="usernameErr =''" name="email" id="user_login" size="20" class="textfield" ngModel>
+                            <ul class="error" *ngIf="errors['email']!=''" >
+                                <li *ngFor="let org_err of errors['email']">{{org_err}}</li>    
+                            </ul>  
+                        </div>
+                        <div class="form_row clearfix">
+                            <label> Password <span class="indicates">*</span> </label>
+                            <input type="password" (click)="passwordErr =''" name="password" id="user_pass" class="textfield" size="20" ngModel>
+                            <ul class="error" *ngIf="errors['password']!=''" >
+                                <li *ngFor="let org_err of errors['password']">{{org_err}}</li>    
+                            </ul> 
+                        </div>
+                        <div class="form_row rember clearfix">  
+                            <a class="lw_fpw_lnk" data-dismiss="modal" [routerLink]="['/forget-password']" >Forgot your password?</a> 
+                        </div>
+
+                        <div class="form_row " >
+                            <button id="login-submit" class="btn btn-info" type="submit" aria-hidden="true"> Sign In</button>
+                            <p class="forgot_link">New User? <!--<a data-toggle="modal" data-target="#signupModal" class="logreg-link" id="tmpl-reg-link" (click)="signupClick()">Sign Up</a>-->
+                                <a class="logreg-link" id="tmpl-reg-link" (click)="signupClick()">Sign Up</a></p>
+                            </div> 
+
+                        </form>
+
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<section class="footer_bottom clearfix">
-    <div class="footer-wrap clearfix row">
-        <div class="columns">
-            <div class="footer-content "> 
-                <p class="copyright">© 2016 All rights reserved.</p> 
-                <p class="credit"> <a href="#" alt="" title=""></a></p> 
+
+
+
+        <!-- this is signup modal -->
+        <div style="background-color: transparent;" data-backdrop="static" class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+          <div class="modal-dialog" style="width: 420px;" id="sign_up_modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button id="closeSignupModal" type="button" class="close" data-dismiss="modal" (click)="closeModal()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="lineModalLabel">Sign Up</h3>
+                </div>
+                <div class="modal-body">
+                    <ul class="social_login social_media_login">
+                        <li>Sign in with</li>
+                        <li><a rel="nofollow" class="facebook" (click)="loginWithFb()"> Facebook</a></li>
+                        <li><a rel="nofollow" class="linkedin" (click)="OnLinkedInFrameworkLoad()"> LinkedIn</a></li>
+                    </ul>
+                    <p class="login_sep">OR</p>
+                    <form name="popup_register" id="popup_register" enctype="multipart/form-data" #regForm="ngForm" (ngSubmit)="userSignUp(regForm)">
+
+                        <div class="form_row clearfix">
+                            <label>First Name <span class="indicates">*</span> </label>
+                            <input name="first_name" type="text" id="user_name" class="textfield" value="" ngModel>
+                            <ul class="error" *ngIf="errors['first_name']!=''" >
+                                <li *ngFor="let org_err of errors['first_name']">{{org_err}}</li>    
+                            </ul> 
+                        </div>
+                        <div class="form_row clearfix">
+                            <label>Last Name <span class="indicates">*</span> </label>
+                            <input name="last_name" type="text" id="user_name" class="textfield" value="" ngModel>
+                            <ul class="error" *ngIf="errors['last_name']!=''" >
+                                <li *ngFor="let org_err of errors['last_name']">{{org_err}}</li>    
+                            </ul> 
+                        </div>
+                        <div class="form_row clearfix">
+                            <label>Username <span class="indicates">*</span> </label>
+                            <input name="username" type="text" id="user_name" class="textfield" value="" ngModel>
+                            <ul class="error" *ngIf="errors['username']!=''" >
+                                <li *ngFor="let org_err of errors['username']">{{org_err}}</li>    
+                            </ul> 
+                        </div>
+                        <div class="form_row clearfix">
+                            <label>Email <span class="indicates">*</span> </label>
+                            <input name="email" type="text" id="user_email" class="textfield" value="" ngModel>
+                            <ul class="error" *ngIf="errors['email']!=''" >
+                                <li *ngFor="let org_err of errors['email']">{{org_err}}</li>    
+                            </ul> 
+                        </div>
+                        <div class="form_row clearfix">
+                            <label> Password <span class="indicates">*</span> </label>
+                            <input type="password" name="password" id="user_pass" class="textfield" value="" ngModel>
+                            <ul class="error" *ngIf="errors['password']!=''" >
+                                <li *ngFor="let org_err of errors['password']">{{org_err}}</li>    
+                            </ul>  
+                        </div>   
+                        <div class="form_row clearfix">
+                            <label> Confirm Password <span class="indicates">*</span> </label>
+                            <input type="password" name="password_confirmation" id="user_cpass" class="textfield" value="" ngModel>
+                            <ul class="error" *ngIf="errors['password_confirmation']!=''" >
+                                <li *ngFor="let org_err of errors['password_confirmation']">{{org_err}}</li>    
+                            </ul>  
+                        </div>  
+                        <div class="form_row clearfix">
+                            <label> Captcha <span class="indicates">*</span> </label>
+                            <recaptcha (resolved)="resolved($event)" siteKey="6Lf4vQwUAAAAAI2XQS2wn-loqlv_HGK9zQJ2Q-MO"></recaptcha>
+                        </div>  
+                        <div class="form_row rember clearfix">
+                            <label>
+                                <input name="rememberme" type="checkbox" id="rememberme" value="forever" class="fl">
+                                Accept<a href="" [routerLink]="['/term-condition']" class="terms" data-dismiss="modal"> Terms & Condition</a>
+                            </label>
+                        </div>
+                        <button class="btn btn-info" type="submit">Sign Up</button>
+                        <button (click)="closeModal()" class="btn btn-info" type="reset" value="Save" name="submit" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+                <p style="margin-left: 15px;">Already have an account? <!--<a data-toggle="modal" data-target="#loginModal" id="tmpl-back-login" class="widgets-link" (click)="siginClick()">Sign in</a>-->
+                    <a id="tmpl-back-login" class="widgets-link" (click)="siginClick()">Sign in</a></p>  
+                </div>
             </div>
-            <!-- .footer-content -->
         </div>
-    </div>
-    <!-- .wrap -->
-</section>
-</div>
-
-
-<a class="exit-off-canvas"></a>
-<a class="exit-selection"></a>
-
-
-
-<!-- this is login modal -->
-<div style="background-color: transparent;"  data-backdrop="static" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"  *ngIf="loginModalHidden">
-  <div class="modal-dialog" style="width: 390px;" >
-    <div class="modal-content">
-        <div class="modal-header" id="sign_in_modal">
-            <button id="closeLoginModal" type="button" class="close" data-dismiss="modal" (click)="closeModal()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h3 class="modal-title" id="lineModalLabel">Sign In</h3>
-        </div>
-        <div class="modal-body">
-            <form name="popup_login"  #form="ngForm" (ngSubmit)="userSignIn(form)">
-                <div class="form_row clearfix">
-                    <label>Email <span class="indicates">*</span> </label>
-                    <input type="text" (click)="usernameErr =''" name="email" id="user_login" size="20" class="textfield" ngModel>
-                    <ul class="error" *ngIf="errors['email']!=''" >
-                            <li *ngFor="let org_err of errors['email']">{{org_err}}</li>    
-                        </ul>  
-                </div>
-                <div class="form_row clearfix">
-                    <label> Password <span class="indicates">*</span> </label>
-                    <input type="password" (click)="passwordErr =''" name="password" id="user_pass" class="textfield" size="20" ngModel>
-                   <ul class="error" *ngIf="errors['password']!=''" >
-                            <li *ngFor="let org_err of errors['password']">{{org_err}}</li>    
-                        </ul> 
-                </div>
-                <div class="form_row rember clearfix">  
-                    <a class="lw_fpw_lnk" data-dismiss="modal" [routerLink]="['/forget-password']" >Forgot your password?</a> 
-                </div>
-
-                <div class="form_row " >
-                    <button id="login-submit" class="btn btn-info" type="submit" aria-hidden="true"> Sign In</button>
-                    <p class="forgot_link">New User? <!--<a data-toggle="modal" data-target="#signupModal" class="logreg-link" id="tmpl-reg-link" (click)="signupClick()">Sign Up</a>-->
-                        <a class="logreg-link" id="tmpl-reg-link" (click)="signupClick()">Sign Up</a></p>
-                </div> 
-
-                </form>
-
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-
-<!-- this is signup modal -->
-<div style="background-color: transparent;" data-backdrop="static" class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="width: 420px;" id="sign_up_modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button id="closeSignupModal" type="button" class="close" data-dismiss="modal" (click)="closeModal()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h3 class="modal-title" id="lineModalLabel">Sign Up</h3>
-        </div>
-        <div class="modal-body">
-            <ul class="social_login social_media_login">
-                <li>Sign in with</li>
-                <li><a rel="nofollow" class="facebook" (click)="loginWithFb()"> Facebook</a></li>
-                <li><a rel="nofollow" class="linkedin" (click)="OnLinkedInFrameworkLoad()"> LinkedIn</a></li>
-            </ul>
-            <p class="login_sep">OR</p>
-            <form name="popup_register" id="popup_register" enctype="multipart/form-data" #regForm="ngForm" (ngSubmit)="userSignUp(regForm)">
-
-                <div class="form_row clearfix">
-                    <label>First Name <span class="indicates">*</span> </label>
-                    <input name="first_name" type="text" id="user_name" class="textfield" value="" ngModel>
-                    <ul class="error" *ngIf="errors['first_name']!=''" >
-                            <li *ngFor="let org_err of errors['first_name']">{{org_err}}</li>    
-                        </ul> 
-                </div>
-                <div class="form_row clearfix">
-                    <label>Last Name <span class="indicates">*</span> </label>
-                    <input name="last_name" type="text" id="user_name" class="textfield" value="" ngModel>
-                    <ul class="error" *ngIf="errors['last_name']!=''" >
-                            <li *ngFor="let org_err of errors['last_name']">{{org_err}}</li>    
-                        </ul> 
-                </div>
-                <div class="form_row clearfix">
-                    <label>Username <span class="indicates">*</span> </label>
-                    <input name="username" type="text" id="user_name" class="textfield" value="" ngModel>
-                    <ul class="error" *ngIf="errors['username']!=''" >
-                            <li *ngFor="let org_err of errors['username']">{{org_err}}</li>    
-                        </ul> 
-                </div>
-                <div class="form_row clearfix">
-                    <label>Email <span class="indicates">*</span> </label>
-                    <input name="email" type="text" id="user_email" class="textfield" value="" ngModel>
-                    <ul class="error" *ngIf="errors['email']!=''" >
-                            <li *ngFor="let org_err of errors['email']">{{org_err}}</li>    
-                        </ul> 
-                </div>
-                <div class="form_row clearfix">
-                    <label> Password <span class="indicates">*</span> </label>
-                    <input type="password" name="password" id="user_pass" class="textfield" value="" ngModel>
-                    <ul class="error" *ngIf="errors['password']!=''" >
-                            <li *ngFor="let org_err of errors['password']">{{org_err}}</li>    
-                        </ul>  
-                </div>   
-                <div class="form_row clearfix">
-                    <label> Confirm Password <span class="indicates">*</span> </label>
-                    <input type="password" name="password_confirmation" id="user_cpass" class="textfield" value="" ngModel>
-                    <ul class="error" *ngIf="errors['password_confirmation']!=''" >
-                            <li *ngFor="let org_err of errors['password_confirmation']">{{org_err}}</li>    
-                        </ul>  
-                </div>  
-                <div class="form_row clearfix">
-                    <label> Captcha <span class="indicates">*</span> </label>
-                    <recaptcha (resolved)="resolved($event)" siteKey="6Lf4vQwUAAAAAI2XQS2wn-loqlv_HGK9zQJ2Q-MO"></recaptcha>
-                </div>  
-                <div class="form_row rember clearfix">
-                    <label>
-                        <input name="rememberme" type="checkbox" id="rememberme" value="forever" class="fl">
-                        Accept<a href="" [routerLink]="['/term-condition']" class="terms" data-dismiss="modal"> Terms & Condition</a>
-                    </label>
-                </div>
-                <button class="btn btn-info" type="submit">Sign Up</button>
-                <button (click)="closeModal()" class="btn btn-info" type="reset" value="Save" name="submit" data-dismiss="modal">Cancel</button>
-            </form>
-        </div>
-             <p style="margin-left: 15px;">Already have an account? <!--<a data-toggle="modal" data-target="#loginModal" id="tmpl-back-login" class="widgets-link" (click)="siginClick()">Sign in</a>-->
-                <a id="tmpl-back-login" class="widgets-link" (click)="siginClick()">Sign in</a></p>  
-        </div>
-    </div>
-</div>

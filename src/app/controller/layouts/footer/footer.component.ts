@@ -46,11 +46,14 @@ export class FooterComponent implements OnInit {
 	last_name:any;
 	param_id:any;
 	linkedInData:any;
+	subemail:any;
+	subname:any
 
 	menuArr:any;
 	blogArr:any;
 
 	errors:Object = {};
+	suberror:Object = {};
 
 
 	constructor(private router: Router,
@@ -351,6 +354,23 @@ export class FooterComponent implements OnInit {
     blogCategoryClick(menu,index){
     console.log(menu);	
     this.router.navigate(['/blog',menu]);
+  }
+
+  subscribeEmail(details:any):void{
+  	var ref = this;
+  	var value = details.value;
+  	ref.loadingSvc.setValue(true);
+  	ref.apiService.userSubscription(value,function(res){
+  	ref.toastyService.success(res.message);
+  	ref.loadingSvc.setValue(false);
+  	details.reset();
+  	},function(error){
+  		ref.loadingSvc.setValue(false);
+  	ref.toastyService.error(error.json().message);
+  	var errors = error.json().errors;
+  	ref.suberror = errors;
+  	})
+
   }
 
 

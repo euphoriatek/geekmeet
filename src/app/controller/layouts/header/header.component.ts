@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { LoadingAnimateService } from 'ng2-loading-animate';
-
+declare var jQuery: any;
 
 
 @Component({
@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   isUserLoggedIn:any = false;
   user_name:any;
   user_avatar:any;
+  countryArr:Array<Object> = [];
 
 
   constructor(private loadingSvc: LoadingAnimateService,private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
@@ -53,8 +54,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("this is photo"+this.user_avatar);
     this.secondmenuDeafault();
+    this.getCountryList();
   }
 
   goToBlog(){
@@ -105,5 +106,25 @@ export class HeaderComponent implements OnInit {
     var data = ref.apiService.getIndexFunc();
     data.indexSelection(index);
     this.router.navigate(['/event',menu]);
+  }
+
+
+  getCountryList(){
+    var ref = this;
+    ref.apiService.countryList(function(res){ 
+      var countryData = [];
+      jQuery.each( res.data , function( key, value ) {   
+      var valueid =  value.id.toString();    
+      var  item = {id:valueid, text:value.name};       
+      countryData.push(item);   
+      });
+     ref.countryArr = jQuery.makeArray( countryData );
+    }, function(err){
+      console.log(err);
+    });
+  }
+
+  changeCountry(countryId){
+    console.log("this is country id"+JSON.stringify(countryId));
   }
 }

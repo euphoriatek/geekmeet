@@ -168,11 +168,12 @@ export class EventListComponent implements OnInit{
 
 
     searchByZipCode(code){
+      console.log("ye bhi mila");
       this.currentPage = 1;
       this.code = code;
       this.type = '';
       this.sort = '';
-      this.selectedIndex = -1;
+      this.selectedIndex = -1;  
       this.eventDeafault();
     }
 
