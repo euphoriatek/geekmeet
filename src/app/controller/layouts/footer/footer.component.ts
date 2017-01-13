@@ -48,7 +48,7 @@ export class FooterComponent implements OnInit {
 	linkedInData:any;
 	subemail:any;
 	subname:any
-
+	reset_password:any
 	menuArr:any;
 	blogArr:any;
 
@@ -207,8 +207,9 @@ export class FooterComponent implements OnInit {
 			},function(error){
 				ref.loadingSvc.setValue(false);
 				if(error.status == 401 || error.status == '401' || error.status == 400){
-					
-					ref.toastyService.error(error.json().message);
+					var pwderror = error.json().message;
+					ref.reset_password = pwderror;
+					// ref.toastyService.error(error.json().message);
 					
 				}
 				else{

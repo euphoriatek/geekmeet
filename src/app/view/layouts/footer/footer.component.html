@@ -139,7 +139,11 @@
                             <input type="password" (click)="passwordErr =''" name="password" id="user_pass" class="textfield" size="20" ngModel>
                             <ul class="error" *ngIf="errors['password']!=''" >
                                 <li *ngFor="let org_err of errors['password']">{{org_err}}</li>    
-                            </ul> 
+                            </ul>
+
+                            <ul class="error" *ngIf="reset_password" >
+                                <li>{{reset_password}}<a data-dismiss="modal" [routerLink]="['/forget-password']"> Reset your password</a></li>    
+                            </ul>  
                         </div>
                         <div class="form_row rember clearfix">  
                             <a class="lw_fpw_lnk" data-dismiss="modal" [routerLink]="['/forget-password']" >Forgot your password?</a> 
