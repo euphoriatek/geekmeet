@@ -142,7 +142,7 @@
                             </ul>
 
                             <ul class="error" *ngIf="reset_password" >
-                                <li>{{reset_password}}<a data-dismiss="modal" [routerLink]="['/forget-password']"> Reset your password</a></li>    
+                                <li>{{reset_password}}<a (click)="gotoResetPwd()" data-dismiss="modal"> Reset your password</a></li>    
                             </ul>  
                         </div>
                         <div class="form_row rember clearfix">  

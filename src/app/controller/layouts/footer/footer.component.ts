@@ -213,9 +213,9 @@ export class FooterComponent implements OnInit {
 					
 				}
 				else{
-				var errors = error.json().errors;
-				ref.errors = errors;
-				ref.toastyService.error(error.json().message);	
+					var errors = error.json().errors;
+					ref.errors = errors;
+					ref.toastyService.error(error.json().message);	
 				}
 				
 			});
@@ -248,20 +248,31 @@ export class FooterComponent implements OnInit {
 			var closesinBtn = <HTMLElement>document.getElementById("loginModal");
 			console.log(closesinBtn)
 			closesinBtn.click();
-			jQuery('#closeLoginModal').click();			
+			jQuery('#closeLoginModal').click();	
+			this.reset_password=null;		
 			setTimeout(function(){ jQuery('#signUpFormModal').click(); }, 500);					
 		}
 
 		siginClick(){
 			var closeloginBtn = <HTMLElement>document.getElementById("signupModal");
 			closeloginBtn.click();
-			jQuery('#closeSignupModal').click();			
+			jQuery('#closeSignupModal').click();
+			this.reset_password=null;			
 			setTimeout(function(){ jQuery('#signInFormModal').click(); }, 500);	
 		}
 
 		closeModal(){
 			jQuery('form').find('input[type=text], input[type=password], input[type=number], input[type=email], textarea').val('');
 			this.errors = {};
+			this.reset_password=null;
+		}
+
+		gotoResetPwd(){
+			var closesinBtn = <HTMLElement>document.getElementById("loginModal");
+			console.log(closesinBtn);
+			jQuery('#closeLoginModal').click();
+			this.reset_password=null;
+			this.router.navigate(['/forget-password']);
 		}
 
 
@@ -272,108 +283,108 @@ export class FooterComponent implements OnInit {
 				// ref.toastyService.success(res.message);
 				ref.loadingSvc.setValue(false);
 				if(res.data.token){
-				ref.router.navigate(['/index']);
-				ref.apiService.signinSuccess$.emit(true);
+					ref.router.navigate(['/index']);
+					ref.apiService.signinSuccess$.emit(true);
 				}
 				var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
 				closeBtn.click();
 
 			},function(error){
-					ref.loadingSvc.setValue(false);
-			         ref.toastyService.error(error.json().message);
-					
+				ref.loadingSvc.setValue(false);
+				ref.toastyService.error(error.json().message);
+
 				
 				
 			});
 		}
 
 		// userSocialLogin(fbUserInfo){
-		// 	var ref = this;
-		// 	ref.loadingSvc.setValue(true);
-		// 	ref.apiService.socialLogin(fbUserInfo,function(res){
-		// 		ref.toastyService.success(res.message);
-		// 		ref.loadingSvc.setValue(false);
-		// 		if(res.data.token){
-		// 			var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
-		// 			closeBtn.click();
-		// 			ref.apiService.userProfile(function(res){
-		// 				ref.apiService.signinSuccess$.emit(true);						
-		// 			}, function(error){
-		// 				ref.loadingSvc.setValue(false);
-		// 			});
-		// 			if(ref.router.url=='/'){
-		// 				ref.router.navigate(['/index']);
-		// 			}
-		// 			else{
-		// 				ref.router.navigate(['/']);
-		// 			}
-					
-		// 		}
-		// 	},function(error){
-		// 		console.log(error);
-		// 	});
-		// }
+			// 	var ref = this;
+			// 	ref.loadingSvc.setValue(true);
+			// 	ref.apiService.socialLogin(fbUserInfo,function(res){
+				// 		ref.toastyService.success(res.message);
+				// 		ref.loadingSvc.setValue(false);
+				// 		if(res.data.token){
+					// 			var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
+					// 			closeBtn.click();
+					// 			ref.apiService.userProfile(function(res){
+						// 				ref.apiService.signinSuccess$.emit(true);						
+						// 			}, function(error){
+							// 				ref.loadingSvc.setValue(false);
+							// 			});
+							// 			if(ref.router.url=='/'){
+								// 				ref.router.navigate(['/index']);
+								// 			}
+								// 			else{
+									// 				ref.router.navigate(['/']);
+									// 			}
+
+									// 		}
+									// 	},function(error){
+										// 		console.log(error);
+										// 	});
+										// }
 
 
 
 
-		search(value){
+										search(value){
 
-	 if(value!=''){		
-     this.router.navigate(['/search',value]);
-     }
-	}
-
-
-		
+											if(value!=''){		
+												this.router.navigate(['/search',value]);
+											}
+										}
 
 
 
-	 secondmenuDeafault(){
-    var ref = this;
-    this.apiService.SecondMenuApi(function(res){
-      ref.menuArr = res.data;
-    });
-  }
-
-   submenuClick(menu,index){
-   	window.scrollTo(0,0);
-   	var ref= this;
-    var data = ref.apiService.getIndexFunc();
-    data.indexSelection(index);
-    this.router.navigate(['/event',menu]);
-  }
-
-
-	blogCategory(){
-    var ref = this;
-    this.apiService.BlogCategoryApi(function(res){
-      ref.blogArr = res.data;
-    });
-  }
-
-    blogCategoryClick(menu,index){
-    console.log(menu);	
-    this.router.navigate(['/blog',menu]);
-  }
-
-  subscribeEmail(details:any):void{
-  	var ref = this;
-  	var value = details.value;
-  	ref.loadingSvc.setValue(true);
-  	ref.apiService.userSubscription(value,function(res){
-  	ref.toastyService.success(res.message);
-  	ref.loadingSvc.setValue(false);
-  	details.reset();
-  	},function(error){
-  		ref.loadingSvc.setValue(false);
-  	ref.toastyService.error(error.json().message);
-  	var errors = error.json().errors;
-  	ref.suberror = errors;
-  	})
-
-  }
 
 
 
-	}
+										secondmenuDeafault(){
+											var ref = this;
+											this.apiService.SecondMenuApi(function(res){
+												ref.menuArr = res.data;
+											});
+										}
+
+										submenuClick(menu,index){
+											window.scrollTo(0,0);
+											var ref= this;
+											var data = ref.apiService.getIndexFunc();
+											data.indexSelection(index);
+											this.router.navigate(['/event',menu]);
+										}
+
+
+										blogCategory(){
+											var ref = this;
+											this.apiService.BlogCategoryApi(function(res){
+												ref.blogArr = res.data;
+											});
+										}
+
+										blogCategoryClick(menu,index){
+											console.log(menu);	
+											this.router.navigate(['/blog',menu]);
+										}
+
+										subscribeEmail(details:any):void{
+											var ref = this;
+											var value = details.value;
+											ref.loadingSvc.setValue(true);
+											ref.apiService.userSubscription(value,function(res){
+												ref.toastyService.success(res.message);
+												ref.loadingSvc.setValue(false);
+												details.reset();
+											},function(error){
+												ref.loadingSvc.setValue(false);
+												ref.toastyService.error(error.json().message);
+												var errors = error.json().errors;
+												ref.suberror = errors;
+											})
+
+										}
+
+
+
+									}
