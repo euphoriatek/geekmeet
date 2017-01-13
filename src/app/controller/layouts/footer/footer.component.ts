@@ -209,12 +209,14 @@ export class FooterComponent implements OnInit {
 				if(error.status == 401 || error.status == '401' || error.status == 400){
 					var pwderror = error.json().message;
 					ref.reset_password = pwderror;
+					ref.errors = {};
 					// ref.toastyService.error(error.json().message);
 					
 				}
 				else{
 					var errors = error.json().errors;
 					ref.errors = errors;
+					this.reset_password=null;
 					ref.toastyService.error(error.json().message);	
 				}
 				
@@ -272,6 +274,7 @@ export class FooterComponent implements OnInit {
 			console.log(closesinBtn);
 			jQuery('#closeLoginModal').click();
 			this.reset_password=null;
+			this.errors = {};
 			this.router.navigate(['/forget-password']);
 		}
 
