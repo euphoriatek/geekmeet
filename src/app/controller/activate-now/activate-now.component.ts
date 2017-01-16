@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-activate-now',
-   templateUrl: '../../view/activate-now/activate-now.component.html',
+  templateUrl: '../../view/activate-now/activate-now.component.html',
   styleUrls: ['../../assets/css/activate-now/activate-now.component.css']
 })
 export class ActivateNowComponent implements OnInit {
@@ -17,8 +17,8 @@ export class ActivateNowComponent implements OnInit {
   constructor(private loadingSvc: LoadingAnimateService,private router: Router,private route: ActivatedRoute,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { }
 
   ngOnInit() {
-  		this.route.params.subscribe(params => {
-			this.user_id = params['id'];
+    this.route.params.subscribe(params => {
+      this.user_id = params['id'];
     });
 
     this.activateNow(this.user_id);
@@ -28,11 +28,13 @@ export class ActivateNowComponent implements OnInit {
   	var ref = this;
   	ref.loadingSvc.setValue(true);
     ref.apiService.activateNow(id,function(res){ 
-         ref.loadingSvc.setValue(false);    
-		 ref.toastyService.success(res.message);
-         ref.router.navigate(['/index']);
-			
-		}, function(error){
+      ref.loadingSvc.setValue(false);  
+      ref.toastyService.success(res.message);
+      var functionRef = ref.apiService.getFooterRef();
+      functionRef.openLoginFormForNewUser();
+      ref.router.navigate(['/index']);
+
+    }, function(error){
       ref.toastyService.error(error.json().message);
       ref.router.navigate(['/index']);
     });

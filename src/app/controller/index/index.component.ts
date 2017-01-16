@@ -1,6 +1,6 @@
 import { Component, OnInit ,ChangeDetectionStrategy} from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
-import { RouterModule, Router }   from '@angular/router';
+import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import {Location} from '@angular/common';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
@@ -36,6 +36,7 @@ export class IndexComponent implements OnInit {
 	showUpcomingData:any = '';
 	per_page:any;
 	upcomming_per_page:any;
+	country_id:any;
 
 	constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private location: Location,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
 		this.toastyConfig.theme = 'bootstrap';
@@ -49,6 +50,8 @@ export class IndexComponent implements OnInit {
 		if(typeof data!= 'undefined'){
 			data.indexSelection(-1);
 		}
+		var ref = this;
+		this.apiService.setHeaderRef(ref);
 	}
 
 
@@ -60,18 +63,19 @@ export class IndexComponent implements OnInit {
 			'category': ref.category,
 			'sort':ref.sort,
 			'all':ref.all,
-			'page':ref.page
+			'page':ref.page,
+			'city_id':ref.country_id
 		}
 		ref.loadingSvc.setValue(true);
 		this.apiService.popularEventApi(value,function(res){
 			ref.loadingSvc.setValue(false);
 			ref.popularArr = res.data.data;	
-			   if(ref.popularArr == [] || ref.popularArr == ''){
-          ref.showData = "No Data Found.!"
-        }
-        else{
-          ref.showData = '';
-        }
+			if(ref.popularArr == [] || ref.popularArr == ''){
+				ref.showData = "No Data Found.!"
+			}
+			else{
+				ref.showData = '';
+			}
 			ref.Total = res.data.total;
 			ref.per_page = res.data.per_page;
 			ref.currentPage = res.data.current_page;  
@@ -119,18 +123,19 @@ export class IndexComponent implements OnInit {
 			'category': ref.category,
 			'sort':ref.sort,
 			'all':ref.upcoming_all,
-			'page':ref.upcoming_page
+			'page':ref.upcoming_page,
+			'city_id':ref.country_id
 		}
 		ref.loadingSvc.setValue(true);
 		this.apiService.upcomingEventApi(value,function(res){
 			ref.loadingSvc.setValue(false);
 			ref.upcomingArr = res.data.data;
-				   if(ref.upcomingArr == [] || ref.upcomingArr == ''){
-          ref.showUpcomingData = "No Data Found.!"
-        }
-        else{
-          ref.showUpcomingData = '';
-        }
+			if(ref.upcomingArr == [] || ref.upcomingArr == ''){
+				ref.showUpcomingData = "No Data Found.!"
+			}
+			else{
+				ref.showUpcomingData = '';
+			}
 			ref.upcoming_total = res.data.total;
 			ref.upcoming_currentPage = res.data.current_page;
 			ref.upcomming_per_page = res.data.per_page;  		
@@ -234,11 +239,20 @@ export class IndexComponent implements OnInit {
 
 
 	search_index(value){
-     var search = value.search;
-     var ref = this;
-	 if(search!=''){
-     ref.router.navigate(['/search',search]);
-      }
+		var search = value.search;
+		var ref = this;
+		if(search!=''){
+			ref.router.navigate(['/search',search]);
+		}
+	}
+
+	searchByCity(ID){
+		this.country_id = ID;
+		if(this.country_id==0 || this.country_id == '0'){
+			this.country_id='';
+		}
+		this.popularEvent();
+		this.upcomingEvent();
 	}
 
 

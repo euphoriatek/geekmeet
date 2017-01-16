@@ -12,6 +12,8 @@ export class ApiMethodService {
 	loginToken:any;
 	getIndex:any;
 	getTokenValue:any;
+	getRef:any;
+	footerref:any;
 	private storage: any;
 	private loggedIn = false;
 	public signinSuccess$: EventEmitter<boolean>;
@@ -37,6 +39,24 @@ export class ApiMethodService {
 		return this.getIndex;
 
 	}
+
+	setHeaderRef(headerRef){
+		this.getRef = headerRef;
+	}
+
+	getHeaderRef(){
+		return this.getRef;
+	}
+
+	setFooterRef(ref){
+		this.footerref = ref;
+	}
+
+	getFooterRef(){
+		return this.footerref;
+	}
+
+
 
 
 	//this is user login api
@@ -945,11 +965,20 @@ export class ApiMethodService {
 			if(callBack){
 				callBack(res);
 			}
-		},(error) =>failure(error));
+		},(error) =>failure(error),);
 	}
 
 	userSubscription(value, callBack, failure){
 		this.http.post('http://2016.geekmeet.com/admin/v1/add_subscriber',value).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack){
+				callBack(res);
+			}
+		},(error) =>failure(error));
+	}
+
+	getSelectedCity(value, callBack, failure){
+		this.http.post('http://2016.geekmeet.com/admin/v1/auto_city',value).map(res=>res.json())
 		.subscribe((res)=>{
 			if(callBack){
 				callBack(res);

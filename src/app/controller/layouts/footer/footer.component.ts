@@ -140,6 +140,13 @@ export class FooterComponent implements OnInit {
 			document.body.appendChild(script);
 			this.secondmenuDeafault();
 			this.blogCategory();
+			var footerref = this;
+			this.apiService.setFooterRef(footerref);			
+		}
+
+
+		openLoginFormForNewUser(){
+			setTimeout(function(){ jQuery('#signInFormModal').click(); }, 500);
 		}
 		OnLinkedInFrameworkLoad(){
 			var ref = this;
@@ -232,8 +239,17 @@ export class FooterComponent implements OnInit {
 			refreg.loadingSvc.setValue(true);
 			this.apiService.userRegistrationApi(value,function(res){ 
 				refreg.loadingSvc.setValue(false);
-				refreg.toastyService.success(res.message);
-				console.log("this is api response"+ JSON.stringify(res));
+				var toastOptions:ToastOptions = {
+					title: "Registration.!",
+					msg: res.message,
+					showClose: true,
+					timeout: 30000,
+					theme: 'bootstrap',
+					onAdd: (toast:ToastData) => {
+
+					}
+				};
+				refreg.toastyService.success(toastOptions);
 				refreg.router.navigate(['/index']);
 				var closeBtn = <HTMLElement>document.getElementById("closeSignupModal");
 				closeBtn.click();

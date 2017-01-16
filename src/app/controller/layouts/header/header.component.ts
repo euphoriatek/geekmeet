@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiMethodService } from '../../../model/api-method.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { IndexComponent } from '../../index/index.component';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { LoadingAnimateService } from 'ng2-loading-animate';
@@ -17,13 +18,14 @@ declare var jQuery: any;
   ]
 })
 export class HeaderComponent implements OnInit {
+  // @ViewChild('IndexComponent') myindex: IndexComponent;
   getToken:any;
   menuArr:any;
   isUserLoggedIn:any = false;
   user_name:any;
   user_avatar:any;
   countryArr:Array<Object> = [];
-
+ 
 
   constructor(private loadingSvc: LoadingAnimateService,private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
     this.toastyConfig.theme = 'bootstrap';
@@ -56,7 +58,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.secondmenuDeafault();
     this.getCountryList();
-  }
+    }
 
   goToBlog(){
     this.router.navigate(['/blog']);
@@ -111,20 +113,23 @@ export class HeaderComponent implements OnInit {
 
   getCountryList(){
     var ref = this;
-    ref.apiService.countryList(function(res){ 
+    var data = {'search':""};
+    ref.apiService.getSelectedCity(data,function(res){ 
       var countryData = [];
       jQuery.each( res.data , function( key, value ) {   
       var valueid =  value.id.toString();    
       var  item = {id:valueid, text:value.name};       
-      countryData.push(item);   
+      countryData.push(item); 
       });
-     ref.countryArr = jQuery.makeArray( countryData );
+      countryData.unshift({id:'0', text:'No city selected'}); 
+      ref.countryArr = jQuery.makeArray( countryData );
     }, function(err){
       console.log(err);
     });
   }
 
   changeCountry(countryId){
-    console.log("this is country id"+JSON.stringify(countryId));
+  var indexRef = this.apiService.getHeaderRef();  
+    indexRef.searchByCity(countryId.id);
   }
 }

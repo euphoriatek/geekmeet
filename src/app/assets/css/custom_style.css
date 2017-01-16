@@ -550,7 +550,20 @@ a.lw_fpw_lnk{
 #server ul li {
     border: none !important;
 }
-
+.location_fld_wrapper  ng-select .btn-default{
+    background-image:none!important;
+    background-color: #003A70!important;
+    border: none!important;
+    text-shadow: none!important;
+    color: #ffffff!important;
+    -webkit-box-shadow:none!important
+    box-shadow:none!important;
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0.15)!important;
+}
+.location_fld_wrapper .text-muted {
+    opacity: 1!important;
+    color:#ffffff!important;
+}
 @media screen and (max-width:767px) {
     .organization-logo {
         display: inline-block;

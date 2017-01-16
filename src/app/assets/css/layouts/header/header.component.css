@@ -1,0 +1,10 @@
+.btn-default{
+	background-image: linear-gradient(to bottom, #fff 0px, #003A70 100%)!important;
+	border: none!important;
+}
+
+ng-select .btn-default{
+	background-image:none!important;
+	background-color: #f00000!important;
+	border: none!important;
+}

@@ -40,7 +40,7 @@
                                 </div>    
                                 <!-- widget_loop_taxonomy_wrap START -->
                                 <section id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  grid" *ngIf="view_type=='chronological'">
-                                 <p>{{showData}}</p>
+                                 <h4 style="text-align: center;">{{showData}}</h4>
                                     <!-- inside loop div start -->
                                     <article id="event_27121" class="post large-4 medium-4 small-6 xsmall-12 columns post" *ngFor = "let events of popularArr">
                                              <div class="listing_img" (click)="goToEventDetail(events.event_id)">
@@ -143,7 +143,7 @@
 
 
                                 <section id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  list" *ngIf="view_type=='list'">
-                                   <p>{{showData}}</p>
+                                   <h4 style="text-align: center;">{{showUpcomingData}}</h4>
                                     <!-- inside loop div start -->
                                     <article class="post" *ngFor = "let list_event of popularArr  | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: Total}">
                                              <div class="listing_img">
@@ -246,7 +246,7 @@
                                         </div>
                                     </article>
                                     <!-- inside loop div start -->
-                                 <div class="has-text-centered" style="text-align: center;border-bottom: none;">
+                                 <div *ngIf="!showData"  class="has-text-centered" style="text-align: center;border-bottom: none;">
                                         <pagination-controls  (pageChange)="eventPagination($event)" id="server"></pagination-controls>
                                     </div>
                                 </section>
@@ -284,7 +284,7 @@
                                 </div>    
                                 <!-- widget_loop_taxonomy_wrap START -->
                                 <section id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  list">
-                                   <p>{{showUpcomingData}}</p>
+                                   <h4 style="text-align: center;">{{showUpcomingData}}</h4>
                                     <!-- inside loop div start -->
                                     <article class="post" *ngFor = "let upcomingevents of upcomingArr  | paginate: { id: 'server',  itemsPerPage: upcomming_per_page, currentPage: upcoming_currentPage, totalItems: upcoming_total}">
                                              <div class="listing_img">
@@ -391,7 +391,7 @@
                                             <!-- Entry End -->
                                         </div>
                                     </article>
-                                     <div class="has-text-centered" style="text-align: center;border-bottom: none;">
+                                     <div *ngIf="!showData"  class="has-text-centered" style="text-align: center;border-bottom: none;">
                                         <pagination-controls  (pageChange)="upcomingEventPagination($event)" id="server"></pagination-controls>
                                     </div>
                                 <!-- <div class="postpagination_776778595 postpagination clearfix" *ngIf="upcoming_all">
