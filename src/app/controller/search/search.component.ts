@@ -19,16 +19,14 @@ export class SearchComponent implements OnInit {
    organization:Object;
    venue:Object;
    empty:any;
+   showData:any;
 
   constructor(private loadingSvc: LoadingAnimateService,private toastyService:ToastyService, private toastyConfig: ToastyConfig,private route: ActivatedRoute,private apiService: ApiMethodService,private router: Router) { }
 
   ngOnInit() {
   	this.route.params.subscribe(params => {
-
-
       this.text = params['id'];
-      this.search(this.text);
-      
+      this.search(this.text);      
     });
   }
 
@@ -43,34 +41,46 @@ export class SearchComponent implements OnInit {
     this.apiService.searchData(value,function(res){
     
       refreg.loadingSvc.setValue(false);
-      if(res.data.event==[]){
-      refreg.empty = true;
-      }else{
-      refreg.event = res.data.event;  
-      refreg.empty = false;	
+      if(res.data.event.length<1 && res.data.blog.length<1 && res.data.organization.length<1 && res.data.venue.length<1){
+        refreg.empty = true;
+      }
+      else{
+        refreg.empty = false;
+        refreg.event = res.data.event;
+        refreg.blog =  res.data.blog;
+        refreg.organization =  res.data.organization;
+        refreg.venue =  res.data.venue;  
       }
 
-      if(res.data.blog==[]){
-      refreg.blog =  true;
-      }else{
-      refreg.blog =  res.data.blog;  
-      refreg.empty = false;	
-      }
+      // if(res.data.event.length<1){
+      // refreg.empty = true;
+      // }else{
+      // refreg.event = res.data.event;  
+      // refreg.empty = false;	
+      // }
 
-      if(res.data.organization==[]){
-      refreg.empty = true;
-      }else{
-       refreg.organization =  res.data.organization;  
-      refreg.empty = false;  
+      // if(res.data.blog.length<1){
+      // refreg.blog =  true;
+      // }else{
+      // refreg.blog =  res.data.blog;  
+      // refreg.empty = false;	
+      // }
+
+      // if(res.data.organization.length<1){
+      // refreg.empty = true;
+      // }else{
+      //  refreg.organization =  res.data.organization;  
+      // refreg.empty = false;  
      	
-      }
+      // }
 
-      if(res.data.venue==[]){
-       refreg.empty = true;  
-      }else{
-      refreg.venue =  res.data.venue;  
-      refreg.empty = false;	
-      }
+      // if(res.data.venue.length<1){
+      //  refreg.empty = true;  
+      // }else{
+      // refreg.venue =  res.data.venue;  
+      // refreg.empty = false;	
+      // }
+      
    
     },function(error){
        refreg.loadingSvc.setValue(false);
