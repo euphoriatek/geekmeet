@@ -95,7 +95,8 @@ export class EventListComponent implements OnInit{
         "page":page,
         "search":postal_code,
         "venue":ref.venue,
-        "organization":ref.organization
+        "organization":ref.organization,
+        'city_id':localStorage.getItem('city_for_event')
       }
       ref.loadingSvc.setValue(true);
       ref.apiService.eventApi(eventArrData,function(res){
