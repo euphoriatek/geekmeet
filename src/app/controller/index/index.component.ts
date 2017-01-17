@@ -64,7 +64,7 @@ export class IndexComponent implements OnInit {
 			'sort':ref.sort,
 			'all':ref.all,
 			'page':ref.page,
-			'city_id':ref.country_id
+			'city_id':localStorage.getItem('city_for_event')
 		}
 		ref.loadingSvc.setValue(true);
 		this.apiService.popularEventApi(value,function(res){
@@ -124,7 +124,7 @@ export class IndexComponent implements OnInit {
 			'sort':ref.sort,
 			'all':ref.upcoming_all,
 			'page':ref.upcoming_page,
-			'city_id':ref.country_id
+			'city_id':localStorage.getItem('city_for_event')
 		}
 		ref.loadingSvc.setValue(true);
 		this.apiService.upcomingEventApi(value,function(res){
@@ -247,12 +247,15 @@ export class IndexComponent implements OnInit {
 	}
 
 	searchByCity(ID){
-		this.country_id = ID;
+		localStorage.setItem('city_for_event', ID);
+		this.country_id = localStorage.getItem('city_for_event');
 		if(this.country_id==0 || this.country_id == '0'){
 			this.country_id='';
+			localStorage.removeItem('city_for_event');
 		}
 		this.popularEvent();
 		this.upcomingEvent();
+		this.router.navigate(['/index']);
 	}
 
 

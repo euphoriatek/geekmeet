@@ -19,7 +19,7 @@ export class BlogComponent implements OnInit {
   category:any='';
   page:any = 1;
   empty_data:any =false;
-
+  showCityDropdown:any=false;
 	constructor(private loadingSvc: LoadingAnimateService,private router:Router,private route: ActivatedRoute, public apiService:ApiMethodService) { }
 
   ngOnInit() {

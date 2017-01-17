@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
   user_name:any;
   user_avatar:any;
   countryArr:Array<Object> = [];
+
  
 
   constructor(private loadingSvc: LoadingAnimateService,private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
@@ -51,11 +52,10 @@ export class HeaderComponent implements OnInit {
       }
     });
 
-
-    
   }
 
   ngOnInit() {
+    console.log("this is header");
     this.secondmenuDeafault();
     this.getCountryList();
     }
