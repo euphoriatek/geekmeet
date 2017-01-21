@@ -38,6 +38,8 @@ export class EventEditComponent implements OnInit {
 	cityList:Array<Object> = [];
 	categoryList:any;
 	organizationList:Array<Object> = [];
+	organizersData:Array<Object> = [];
+	organizer_id;
 	venueList:Array<Object> = [];
 	keywordList:Array<string> = [];
 	country: string;
@@ -102,28 +104,26 @@ export class EventEditComponent implements OnInit {
 		this.route.params.subscribe(params => {
 			this.selectedData = params['id'];
 			this.event_id = params['id'];
-			this.getEventDetail(params['id']); 
-			this.getVenueList();
 			this.getOrganizationList();
+			this.getEventDetail(params['id']); 
+			this.getVenueList();			
 			this.getCategoryList();
 		});
 
 	}
 
+	
 	getEventDetail(value){
 		var refreg = this;
 		refreg.loadingSvc.setValue(true);
 		this.apiService.eventEdit(value,function(res){
 			window.scrollTo(0,0);
 			refreg.loadingSvc.setValue(false);
-			refreg.countryId = res.data.country;
-			// refreg.getCountryList();
-			// refreg.stateId = res.data.state;
-			// refreg.cityId = res.data.city;
+			refreg.countryId = res.data.country;			
 			refreg.organizers = res.data.organizers;
-			refreg.defaultVenue = [res.data.venue_name];
-			refreg.showEventArr = res.data;
-			// refreg.city = res.data.city;
+			refreg.defaultVenue = [res.data.venue_name];	
+			refreg.organizer_id = [res.data.organizers];	
+			refreg.showEventArr = res.data;			
 			refreg.location = res.data.venue_id;
 			refreg.keyword = res.data.category_id.join(',');
 			refreg.audience = res.data.audience.join(',');
@@ -208,52 +208,7 @@ export class EventEditComponent implements OnInit {
 			$image.fileinput("upload");
 		});
 
-		// delete Image
-
-		// jQuery(document).on("click", ".kv-file-remove", function ()   {
-			// 	debugger;
-			// 	jQuery(this).attr("disabled", "disabled");
-			// 	var del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
-			// 	ref.delete_image(del_id);
-			// });
-
-
-		/*jQuery(document).on("click", ".kv-file-remove", function () {
-             var delete_id = jQuery(this).attr('data-key');
-            if (typeof delete_id != 'undefined') {
-            var del_id = delete_id;
-           }
-          else
-       {
-        del_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
-        }
-         ref.delete_image(del_id);
-    });
-
-
-
-		jQuery(document).on("click", ".file-upload-indicator", function ()   {
-			if (jQuery(this).hasClass('yellow')){
-				var status = 0;
-			} else{
-				var status = 1;
-			}
-
-			var featured_id = jQuery(this).parents(".file-preview-frame").attr("response_id");
-			var res = ref.featured_image(featured_id, status);
-			if (res){
-				jQuery(this).addClass('yellow');
-			} else{
-				jQuery(this).removeClass('yellow')
-			}
-		});*/
-
-		// delete Image on load
-
-		/*var pre_ids = jQuery("#pre_ids").val();
-		if (pre_ids != '') {
-			ref.delete_image(pre_ids);
-		}*/
+		
 
 		jQuery('body').find("#cancel").click(function () {
 			var url = jQuery(this).attr('data-href');
@@ -297,14 +252,18 @@ export class EventEditComponent implements OnInit {
 				this.router.navigate(['/']);
 			} 
 
+			ref.organizersData = res.data;
+
 			jQuery.each( res.data , function( key, value ) {   
 				var valueid =  value.organization_id.toString();
-				if(valueid === ref.organizers){
+				/*if(valueid === ref.organizers){
 					ref.defaultOrg = [value.organization_name]
-				}    
+				}*/    				
 				var  item = {id:valueid, text:value.organization_name};       
-				ref.organizationList.push(item);   
+				ref.organizationList.push(item); 
 			});
+
+			ref.setOrganization();
 
 			ref.organizationList = jQuery.makeArray( ref.organizationList );
 
@@ -326,6 +285,8 @@ export class EventEditComponent implements OnInit {
 		}, function(err){
 			console.log(err);
 		});    
+
+		ref.setOrganization();
 	} 
 
 	getCategoryList(){
@@ -340,7 +301,9 @@ export class EventEditComponent implements OnInit {
 
 		}, function(err){
 			console.log(err);
-		});    
+		});
+
+		ref.setOrganization();    
 	} 
 
 	getCountryList(){
@@ -361,6 +324,17 @@ export class EventEditComponent implements OnInit {
 		}, function(err){
 			console.log(err);
 		});
+	}
+
+	setOrganization(){
+		var ref =this; 
+		jQuery.each( ref.organizersData , function( key, value ) {   
+				var valueid =  value.organization_id.toString();  				
+				if(valueid === ref.organizer_id.toString()){
+					ref.defaultOrg = [value.organization_name]
+				}    
+			});
+		console.log("here");
 	}
 
 	public getState(value:any):void {    

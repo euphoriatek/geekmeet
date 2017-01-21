@@ -68,9 +68,6 @@ export class VenueaddComponent implements OnInit {
   getCountryList(){
     var ref = this;
     ref.apiService.countryList(function(res){
-
-      //jQuery('#stateList .ui-select-match-text').html('');
-      //ref.state = null;
       
       var countryData = [];
      
@@ -166,10 +163,15 @@ export class VenueaddComponent implements OnInit {
    }
    
    submitLocation(value:any):void{
-    var ref = this;       
-    console.log(ref.venue_image);
+    var ref = this;           
     jQuery( "#venue_submit" ).prop("disabled",true);
     jQuery( "#venue_cancel" ).prop("disabled",true);
+
+    var currentUrl = window.location.href;       
+    if (currentUrl.indexOf("event-edit") > -1) { 
+      var str = currentUrl.split("event-edit/"); 
+      value.event_id = parseInt(str[1]);
+    }
     
     value.images = ref.file_srcs;
 
@@ -189,8 +191,9 @@ export class VenueaddComponent implements OnInit {
           }
         };
         ref.toastyService.success(toastOptions);
-        this.modal.close();
-        ref.router.navigate(['/eventadd']);
+        //this.modal.close();
+        window.location.href=currentUrl;
+        //ref.router.navigate(['/eventadd']);
       },function(error){
         ref.loadingSvc.setValue(false);
         if(error.status == 401 || error.status == '401' || error.status == 400){

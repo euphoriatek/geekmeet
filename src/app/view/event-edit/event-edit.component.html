@@ -68,48 +68,7 @@
                 </div>
 
                 <div class="event-edit-form large-6 small-12 columns">
-                    <!-- <div class="form_row clearfix">
-                        <label>Country<span class="indicates">*</span></label>                        
-                      
-                         <ng-select name="countryList" (data)="countryArr"                                                      
-                            [items]="countryArr"
-                            (selected)="getState($event)"
-                            [active]="defaultCountry"
-                            placeholder="No country selected">
-                        </ng-select>
-                        <input type="hidden" id="country" name="country" [(ngModel)]="country">    
-                        <ul class="error" *ngIf="errors['country']!=''" >
-                                <li *ngFor="let org_err of errors['country']">{{org_err}}</li>    
-                            </ul> 
-                    </div>
-                    <div class="form_row clearfix">
-                        <label>State<span class="indicates">*</span></label>                        
-                       
-                        <ng-select name="stateList" (data)="stateList"                                                      
-                            [items]="stateList"
-                            [active]="defaultState"
-                            (selected)="getCIty($event)"
-                            placeholder="No state selected">
-                        </ng-select>
-                        <input type="hidden" id="state" name="state" [(ngModel)]="state"> 
-                         <ul class="error" *ngIf="errors['state']!=''" >
-                                <li *ngFor="let org_err of errors['state']">{{org_err}}</li>    
-                            </ul> 
-                    </div>
-                    <div class="form_row clearfix">
-                        <label>City<span class="indicates">*</span></label>                        
-                       
-                        <ng-select name="cityList" (data)="cityList"                                                      
-                            [items]="cityList"
-                            [active]="defaultCity"
-                            (selected)="optionSelected($event,'city')"
-                            placeholder="No city selected">
-                        </ng-select>
-                        <input type="hidden" id="city" name="city" [(ngModel)]="city"> 
-                        <ul class="error" *ngIf="errors['city']!=''" >
-                                <li *ngFor="let org_err of errors['city']">{{org_err}}</li>    
-                            </ul> 
-                    </div> -->
+                    
                     <div class="form_row clearfix">
                         <label>Organization<span class="indicates">*</span></label>
                         
@@ -174,11 +133,7 @@
                            <input type="hidden" id="keyword" name="keyword" [(ngModel)]="keyword">
                         </div>
                     </div>
-                    <!--<div class="form_row clearfix">
-                        <label>Upload Images</label>
-                        <input type="file" name="event-images" id="event-images" value="" class="form-control textfield"> 
-                        <input id="event-images" name="event-images[]" type="file" class="file" data-preview-file-type="text" multiple>
-                    </div>-->
+                    
                 </div>
                 <div class="col-sm-12">
                     <div class="form_row clearfix">
@@ -202,150 +157,6 @@
             </form>
         </div>
         <!-- #content --> 
-
-        <!-- <modal #modal> 
-            <modal-header><h4 class="modal-title">Add Location</h4></modal-header>             
-                    <form name="location-add" id="location-add" #addLocationForm="ngForm" (ngSubmit)="submitLocation(addLocationForm.value)">  
-                      
-                       <div class="form-group col-md-12">
-                            <div class="col-md-3 col-md-offset-1">
-                                <label class="control-label">Name *</label>
-                            </div>
-                            <div class="col-md-7">
-                                <input type="text" [(ngModel)]="venue_name" name="venue_name" class="form-control" id='venue_name'>
-                                 <span class="errfield">{{venue_nameErr}}</span>                              
-                            </div>
-                        </div>
-
-                        <div class="form-group col-md-12">
-                            <div class="col-md-3 col-md-offset-1">
-                                <label for="message-text" class="control-label">Description</label>
-                            </div>
-                            <div class="col-md-7">
-                                <textarea class="form-control" [(ngModel)]="venue_description" name="venue_description" id='venue_description'></textarea>
-                                 <span class="errfield">{{venue_descriptionErr}}</span> 
-                            </div>
-                        </div>                    
-
-                      <div id="images_div">
-                            <div class="form-group col-md-12">
-                                <div class="col-md-3 col-md-offset-1">
-                                    <label for="message-text" class="control-label">Image</label>
-                                </div>
-                                <div class="col-md-5">
-                                    <input type="file" name="venue_image[]" class="form-control">
-                                    <ul class="parsley-errors-list"></ul>
-                                </div>
-                                <div class="col-md-2 col-sm-1 col-xs-2">
-                                    <button class="btn btn-success btn-xs btn-square" id="add_more" type="button"><span aria-hidden="true" class="fa fa-plus">Add More</span>
-                                    </button></div>
-
-                            </div>
-                       </div>                    
-
-                    <div class="form-group col-md-12">
-                        <div class="col-md-3 col-md-offset-1">
-                            <label class="control-label">Country *</label>
-                        </div>
-                        <div class="col-md-7">
-                            <ng-select id="countryList" name="countryList" (data)="countryArr"                                                      
-                            [items]="countryArr"
-                            (selected)="getState($event)"
-                            placeholder="No country selected">
-                            </ng-select>
-                            <input type="hidden" id="country" name="country" [(ngModel)]="country">    
-                            <span class="errfield">{{countryErr}}</span>
-                        </div>
-                    </div>
-                    
-                     <div class="form-group col-md-12">
-                            <div class="col-md-3 col-md-offset-1">
-                                <label class="control-label">State *</label>
-                            </div>
-                            <div class="col-md-7">
-                                <ng-select id="stateList" name="stateList" (data)="stateList"                                                      
-                                [items]="stateList"
-                                (selected)="getCIty($event)"
-                                placeholder="No state selected">
-                               </ng-select>
-                               <input type="hidden" id="state" name="state" [(ngModel)]="state"> 
-                               <span class="errfield">{{stateErr}}</span>   
-                            </div>
-                    </div>
-
-                    <div class="form-group col-md-12">
-                        <div class="col-md-3 col-md-offset-1">
-                            <label for="message-text" class="control-label">City *</label>
-                        </div>
-                        <div class="col-md-7">
-                           <ng-select id="cityList" name="cityList" (data)="cityList"                                                      
-                            [items]="cityList"
-                            (selected)="optionSelected($event,'city')"
-                            placeholder="No city selected">
-                           </ng-select>
-                           <input type="hidden" id="city" name="city" [(ngModel)]="city"> 
-                           <span class="errfield">{{cityErr}}</span>
-                        </div>
-                    </div>
-                    
-                       <div class="form_row clearfix">
-                            <div class="col-md-3 col-md-offset-1">
-                                <label for="message-text" class="control-label">Address *</label>
-                            </div>
-                            <div class="col-md-6">
-                                <textarea class="form-control" [(ngModel)]="address" name="address" id='address'>address</textarea>
-                                <span class="errfield">{{addressErr}}</span>
-                            </div>
-                            <button class="btn btn-success  btn-xs btn-square active add_map" (click)="getLatLong(addLocationForm.value);" type="button">
-                                <span aria-hidden="true" class="fa fa-location-arrow"></span>
-                            </button>
-                        </div>
-                        
-                        <div class="form-group col-md-12">
-                            <div class="col-md-3 col-md-offset-1">
-                                <label class="control-label">Latitude *</label>
-                            </div>
-                            <div class="col-md-7">
-                                <input type="text" [(ngModel)]="venueArr.latitude" name="latitude" class="form-control" id='latitude'>
-                                <span class="errfield">{{latitudeErr}}</span>
-                            </div>
-                        </div>
-                     
-                         <div class="form-group col-md-12">
-                            <div class="col-md-3 col-md-offset-1">
-                                <label class="control-label">Longitude*</label>
-                            </div>
-                            <div class="col-md-7">
-                                <input type="text" [(ngModel)]="venueArr.longitude" name="longitude" class="form-control" id='longitude'>
-                                <span class="errfield">{{longitudeErr}}</span>
-                            </div>
-                        </div>      
-                               
-                        <span style="color: red;font-size: 13px;">{{locationFinder}}</span>
-                        <div class="form-group col-md-12 map_div" style="display:none">
-                            <div class="col-md-3 col-md-offset-1">
-                                <label for="message-text" class="control-label">Map</label>
-                            </div>
-                            <div class="col-md-7">                           
-                            <sebm-google-map [latitude]="venueArr.latitude" [longitude]="venueArr.longitude">
-                                <sebm-google-map-marker [latitude]="venueArr.latitude" [longitude]="venueArr.longitude"></sebm-google-map-marker>
-                            </sebm-google-map>
-                            </div>
-                        </div>
-
-                        <div class="clearfix"></div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button> -->
-                            <!--<button type="button" class="btn btn-primary" (click)="modal.close()">Save</button>-->  
-                           <!--  <button class="btn btn-info" type="submit" value="Save" name="venue_submit">Save</button>  
-                        </div>
-                  
-                    </form>                       
-                    
-                </modal> -->
-
-
-                <!-- end modal-->
 
         <!--single post type sidebar -->
         <div id="sidebar-primary" class="sidebar large-3 small-12 columns">
