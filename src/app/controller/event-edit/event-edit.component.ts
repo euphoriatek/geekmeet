@@ -109,7 +109,6 @@ export class EventEditComponent implements OnInit {
 			this.getVenueList();			
 			this.getCategoryList();
 		});
-
 	}
 
 	
@@ -262,10 +261,10 @@ export class EventEditComponent implements OnInit {
 				var  item = {id:valueid, text:value.organization_name};       
 				ref.organizationList.push(item); 
 			});
+			
+			ref.organizationList = jQuery.makeArray( ref.organizationList );
 
 			ref.setOrganization();
-
-			ref.organizationList = jQuery.makeArray( ref.organizationList );
 
 		}, function(err){
 			console.log(err);      
@@ -282,11 +281,11 @@ export class EventEditComponent implements OnInit {
 			});
 
 			ref.venueList = jQuery.makeArray( ref.venueList );
+
+			ref.setOrganization();
 		}, function(err){
 			console.log(err);
-		});    
-
-		ref.setOrganization();
+		});  		
 	} 
 
 	getCategoryList(){
@@ -299,11 +298,11 @@ export class EventEditComponent implements OnInit {
 				ref.keywordList.push(arr[i].category_name);
 			}
 
+			ref.setOrganization();
+
 		}, function(err){
 			console.log(err);
-		});
-
-		ref.setOrganization();    
+		});  
 	} 
 
 	getCountryList(){
