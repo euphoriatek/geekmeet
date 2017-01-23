@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild,Input,Output,EventEmitter }
 import { RouterModule, Router, ActivatedRoute }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
 import { EventListComponent } from './eventlist.component';
-import { NouisliderModule } from 'ng2-nouislider';
+//import { NouisliderModule } from 'ng2-nouislider';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 
 declare var jQuery: any;

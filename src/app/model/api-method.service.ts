@@ -846,6 +846,20 @@ export class ApiMethodService {
 		}, (error) => failure(error));
 	}
 
+	eventAttendanceDelete(value,callBack,failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.get('http://2016.geekmeet.com/admin/v1/delete_event_attendance/'+value,options).map(res =>res.json())
+
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+
+		}, (error) => failure(error));
+	}
+
 	eventEdit(value,callBack,failure){
 		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		let options = new RequestOptions({ headers: headers });

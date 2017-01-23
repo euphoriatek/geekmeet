@@ -15,7 +15,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {ToastyModule} from 'ng2-toasty';
 import { AgmCoreModule } from 'angular2-google-maps/core';
-import { NouisliderModule } from 'ng2-nouislider';
+//import { NouisliderModule } from 'ng2-nouislider';
 import { LoadingAnimateModule, LoadingAnimateService } from 'ng2-loading-animate';
 import {Ng2PaginationModule} from 'ng2-pagination';
 
@@ -110,7 +110,7 @@ import { ActivateNowComponent } from './controller/activate-now/activate-now.com
   FormsModule,    
   routing,
   HttpModule,
-  NouisliderModule,
+  //NouisliderModule,
   RatingModule,
   SelectModule,
   MyDatePickerModule,

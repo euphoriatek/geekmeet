@@ -117,7 +117,7 @@ export class MyEventsComponent implements OnInit {
 	deleteOrg(){
 		var ref = this;
 		ref.loadingSvc.setValue(true);
-		this.apiService.eventDelete(this.deleteID,function(res){
+		this.apiService.eventAttendanceDelete(this.deleteID,function(res){
 			ref.loadingSvc.setValue(false);
 			ref.toastyService.success(res.message);
 			ref.eventList('','',ref.sort,ref.currentPage);       
