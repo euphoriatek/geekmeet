@@ -246,7 +246,8 @@ export class FooterComponent implements OnInit {
 					timeout: 30000,
 					theme: 'bootstrap',
 					onAdd: (toast:ToastData) => {
-
+					},
+					onRemove: function(toast:ToastData){	
 					}
 				};
 				refreg.toastyService.success(toastOptions);
