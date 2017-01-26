@@ -257,7 +257,7 @@ export class EventEditComponent implements OnInit {
 				var valueid =  value.organization_id.toString();
 				/*if(valueid === ref.organizers){
 					ref.defaultOrg = [value.organization_name]
-				}*/    				
+				}*/				
 				var  item = {id:valueid, text:value.organization_name};       
 				ref.organizationList.push(item); 
 			});
@@ -327,12 +327,17 @@ export class EventEditComponent implements OnInit {
 
 	setOrganization(){
 		var ref =this; 
-		jQuery.each( ref.organizersData , function( key, value ) {   
-				var valueid =  value.organization_id.toString();  				
-				if(valueid === ref.organizer_id.toString()){
-					ref.defaultOrg = [value.organization_name]
-				}    
+		if (ref.organizersData.length > 0)
+		{
+		   jQuery.each( ref.organizersData , function( key, value ) {  				
+				var valueid =  value.organization_id.toString();  	
+               if (ref.organizer_id != 'undefined'){
+					if(valueid === ref.organizer_id.toString()){
+						ref.defaultOrg = [value.organization_name]
+					} 	
+				}		 
 			});
+		}
 		console.log("here");
 	}
 
