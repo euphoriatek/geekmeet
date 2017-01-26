@@ -121,7 +121,7 @@ export class HeaderComponent implements OnInit {
       var  item = {id:valueid, text:value.name};       
       countryData.push(item); 
       });
-      countryData.unshift({id:'0', text:'No city selected'}); 
+      countryData.unshift({id:'0', text:'Global Events'}); 
       ref.countryArr = jQuery.makeArray( countryData );
     }, function(err){
       console.log(err);
