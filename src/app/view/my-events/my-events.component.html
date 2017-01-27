@@ -40,7 +40,7 @@
 										<!-- Entry title start -->
 										<div class="entry-title" >
 											<div style="float: right;">
-												<label class="org_btn"><a class="btn btn-xs primary" href="" [routerLink] = "['/event-edit',list_event.event_id]">Edit Event</a></label>
+												<label class="org_btn"><a *ngIf="list_event.my_event" class="btn btn-xs primary" href="" [routerLink] = "['/event-edit',list_event.event_id]">Edit Event</a></label>
 												<label class="org_btn"><a class="btn btn-xs primary" href="javascript:void(0)" (click)="modal_id.open('sm');setDeleteID(list_event.event_id);">Delete</a></label>
 											</div>
 											<div class="event-title">       
