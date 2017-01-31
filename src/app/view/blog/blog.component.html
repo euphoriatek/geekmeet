@@ -42,7 +42,11 @@
                         <h2 class="entry-title">
                             <a itemprop="url"  [routerLink]="['/blog_detail',blog.blog_id]"  title="" rel="bookmark">{{blog.blog_title}}</a>
                         </h2>
-                        <div class="byline">Published by 
+                        <div class="byline"> 
+                            <!--<span class="author vcard">Author
+                                <a class="url fn n"  title="Smith">{{blog.author}}</a>
+                            </span>-->
+                            Published by 
                             <span class="author vcard">
                                 <a class="url fn n"  title="Smith">{{blog.username}}</a>
                             </span> On 

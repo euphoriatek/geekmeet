@@ -3208,7 +3208,8 @@ body.woocommerce-page .quantity .plus:hover {
     margin: 0;
 }
 .footer_widget_wrap > div:not(:first-child) {
-    width: 13.7%;
+    /*width: 13.7%;*/
+    width: 22%;
 }
 body.tevolution-event-manager .sidebar .search_nearby_widget #searchform input[type="text"] {
     font-size: 16px;

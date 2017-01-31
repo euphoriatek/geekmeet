@@ -1177,7 +1177,7 @@ body.taxonomy-post_format-audio .format-audio .byline { display:none }
 #footer .footer_bottom a { font-size:13px; color:#fff }
 #footer .footer_bottom a:hover { color:#6fade6 }
 .footer_widget_wrap { margin-left:-3% }
-.footer_widget_wrap .widget { display:inline-block; *display:inline; zoom:1; vertical-align:top; clear:none; width:30%; margin:40px 0 40px 3% }
+.footer_widget_wrap .widget { display:inline-block; *display:inline; zoom:1; vertical-align:top; clear:none; width:22%; margin:40px 0 40px 3% }
 .footer_widget_wrap .widget .widget, .footer_widget_wrap .widget .wpcf7-form, .sidebar .widget .widget { width:100% }
 .footer-content { float:left }
 #footer .copyright, #footer .credit { display:block; line-height:20px; font-size:13px; text-align:left; padding:8px 0 }
