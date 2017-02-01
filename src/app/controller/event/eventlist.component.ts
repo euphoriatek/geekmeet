@@ -29,6 +29,7 @@ export class EventListComponent implements OnInit{
   sort:any ='stdate_low_high';
   showData:any;
   code:any;
+  mile:any;
   per_page:any;
   venue:any;
   organization:any;
@@ -87,6 +88,7 @@ export class EventListComponent implements OnInit{
       var sort = this.sort;
       var page = this.currentPage;
       var postal_code = this.code;
+      var miles = this.mile;
       var current_city_id = localStorage.getItem('city_for_event');
       var eventArrData = {
         "category": category,
@@ -95,6 +97,7 @@ export class EventListComponent implements OnInit{
         "all": "false",
         "page":page,
         "search":postal_code,
+        "mile":miles,
         "venue":ref.venue,
         "organization":ref.organization,
         "city_id":current_city_id
@@ -131,6 +134,7 @@ export class EventListComponent implements OnInit{
         this.category = category;
       }
       this.code='';
+      this.mile='';
       this.eventDeafault();  
     }
 
@@ -144,6 +148,7 @@ export class EventListComponent implements OnInit{
       this.selectedIndex = index;
       this.type = type;
       this.code='';
+      this.mile='';
       this.eventDeafault();
     }
 
@@ -169,9 +174,10 @@ export class EventListComponent implements OnInit{
     }
 
 
-    searchByZipCode(code){
+    searchByZipCode(code,mile){
       this.currentPage = 1;
       this.code = code;
+      this.mile = mile;
       this.type = '';
       this.sort = '';
       this.selectedIndex = -1;  

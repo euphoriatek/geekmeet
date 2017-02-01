@@ -61,7 +61,7 @@ export class EventComponent implements OnInit{
   searchZipCodeEvent(zipcodeData){
     var value = zipcodeData.value;
     if(value.code){
-      this.event.searchByZipCode(value.code);
+      this.event.searchByZipCode(value.code,value.mile);
       zipcodeData.reset();
       this.showHeader = ""
     }
