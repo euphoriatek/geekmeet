@@ -87,6 +87,7 @@ export class EventListComponent implements OnInit{
       var sort = this.sort;
       var page = this.currentPage;
       var postal_code = this.code;
+      var current_city_id = localStorage.getItem('city_for_event');
       var eventArrData = {
         "category": category,
         "type":type,
@@ -96,7 +97,7 @@ export class EventListComponent implements OnInit{
         "search":postal_code,
         "venue":ref.venue,
         "organization":ref.organization,
-        'city_id':localStorage.getItem('city_for_event')
+        "city_id":current_city_id
       }
       ref.loadingSvc.setValue(true);
       ref.apiService.eventApi(eventArrData,function(res){
@@ -169,7 +170,6 @@ export class EventListComponent implements OnInit{
 
 
     searchByZipCode(code){
-      console.log("ye bhi mila");
       this.currentPage = 1;
       this.code = code;
       this.type = '';
