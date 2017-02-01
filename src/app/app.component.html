@@ -1,4 +1,4 @@
 <app-header></app-header>
-<body onunload = "javascript:window.localStorage.clear()">
+<body onunload = "javascript:window.localStorage.removeItem('city_for_event')">
 <router-outlet (activate)="onActivate($event, outlet)" #outlet></router-outlet>
 <app-footer ></app-footer>
