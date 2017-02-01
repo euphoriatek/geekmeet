@@ -13,4 +13,9 @@ export class AppComponent {
     outlet.scrollTop = 0;
     window.scrollTo(0, 0);
   }
+
+//   window.onbeforeunload = function() {
+//   localStorage.removeItem('city_for_event');
+//   return '';
+// };
 }
