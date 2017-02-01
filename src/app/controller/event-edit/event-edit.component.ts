@@ -246,7 +246,7 @@ export class EventEditComponent implements OnInit {
 	getOrganizationList(){
 		var ref = this;
 		ref.apiService.organizationNames(function(res){  
-			if(res.message == 'token_expired'){
+			if(res.message == 'For security purposes, you have been automatically logged out.'){
 				localStorage.removeItem('auth_token');
 				this.router.navigate(['/']);
 			} 
