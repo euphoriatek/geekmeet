@@ -59,7 +59,7 @@
                                                             {{events.start_date}}           <span></span>
                                                         </span>
                                                         <h2 class="entry-title">
-                                                            <a itemprop="url" href="" [routerLink]="['/event_detail',events.event_id]" title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a>
+                                                            <a itemprop="url" href="" [routerLink]="['/event-detail',events.event_id]" title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a>
                                                         </h2>
                                                         <div class="listing_rating">
                                                             <div class="directory_rating_row">
@@ -147,7 +147,7 @@
                                     <!-- inside loop div start -->
                                     <article class="post" *ngFor = "let list_event of popularArr  | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: Total}">
                                              <div class="listing_img">
-                                            <a href="" [routerLink]="['/event_detail',list_event.event_id]"> 
+                                            <a href="" [routerLink]="['/event-detail',list_event.event_id]"> 
                                                <img src="{{list_event.featured_image}}" alt="image" title="{{list_event.title}}">
                                             </a>
                                         </div>
@@ -164,7 +164,7 @@
                                                         </span>
                                                         <h2 class="entry-title">
 
-                                                            <a itemprop="url" href="" [routerLink]="['/event_detail',list_event.event_id]" title="{{list_event.event_title}}" rel="bookmark">{{list_event.event_title}}</a></h2>
+                                                            <a itemprop="url" href="" [routerLink]="['/event-detail',list_event.event_id]" title="{{list_event.event_title}}" rel="bookmark">{{list_event.event_title}}</a></h2>
 
                                                         <div class="listing_rating">
                                                             <div class="directory_rating_row">
@@ -288,7 +288,7 @@
                                     <!-- inside loop div start -->
                                     <article class="post" *ngFor = "let upcomingevents of upcomingArr  | paginate: { id: 'server',  itemsPerPage: upcomming_per_page, currentPage: upcoming_currentPage, totalItems: upcoming_total}">
                                              <div class="listing_img">
-                                            <a href="" [routerLink]="['/event_detail',upcomingevents.event_id]"> 
+                                            <a href="" [routerLink]="['/event-detail',upcomingevents.event_id]"> 
                                                <img src="{{upcomingevents.featured_image}}" alt="image" title="{{upcomingevents.title}}">
                                             </a>
                                         </div>
@@ -305,7 +305,7 @@
                                                         </span>
                                                         <h2 class="entry-title">
 
-                                                            <a itemprop="url" href="" [routerLink]="['/event_detail',upcomingevents.event_id]" title="{{upcomingevents.event_title}}" rel="bookmark">{{upcomingevents.event_title}}</a></h2>
+                                                            <a itemprop="url" href="" [routerLink]="['/event-detail',upcomingevents.event_id]" title="{{upcomingevents.event_title}}" rel="bookmark">{{upcomingevents.event_title}}</a></h2>
 
                                                         <div class="listing_rating">
                                                             <div class="directory_rating_row">
@@ -350,7 +350,7 @@
                                                 <!--Start Post Content -->
                                                 <div class="entry-summary" itemprop="description">
                                                     <p [innerHTML]="upcomingevents.event_description"></p>
-                                                    <a *ngIf="upcomingevents.read_more==1" [routerLink]="['/event_detail',upcomingevents.event_id]" >Read More</a>
+                                                    <a *ngIf="upcomingevents.read_more==1" [routerLink]="['/event-detail',upcomingevents.event_id]" >Read More</a>
 
                                                 </div>                                                                        <!-- End Post Content -->
                                                 <div class="rev_pin">

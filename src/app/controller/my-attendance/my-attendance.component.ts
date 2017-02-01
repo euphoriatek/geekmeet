@@ -1,5 +1,3 @@
-
-
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule, Router }   from '@angular/router';
 import { ApiMethodService } from '../../model/api-method.service';
@@ -57,6 +55,7 @@ export class MyAttendanceComponent implements OnInit {
 			"sort":ref.sort,
 			"all": "true",
 			"page":ref.page,
+			"option":"attendance",
 			"my-event":"true"
 		}
 		this.apiService.eventApi(eventArrData,function(res){

@@ -55,6 +55,7 @@ export class MyEventsComponent implements OnInit {
 			"sort":ref.sort,
 			"all": "true",
 			"page":ref.page,
+			"option":"event",
 			"my-event":"true"
 		}
 		this.apiService.eventApi(eventArrData,function(res){

@@ -189,7 +189,7 @@ export class IndexComponent implements OnInit {
 
 
 	goToEventDetail(id){
-		this.router.navigate(['/event_detail',id]);
+		this.router.navigate(['/event-detail',id]);
 	}
 
 

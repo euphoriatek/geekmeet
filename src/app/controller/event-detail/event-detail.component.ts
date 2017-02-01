@@ -107,7 +107,7 @@ export class EventDetailComponent implements OnInit {
 
   gotoPage(id){
     window.scrollTo(0,0);
-    this.router.navigate(['/event_detail/'+id]);   
+    this.router.navigate(['/event-detail/'+id]);   
   }
 
   popularEvent(){
