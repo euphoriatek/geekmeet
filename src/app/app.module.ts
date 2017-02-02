@@ -137,7 +137,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     {path:'blog' ,pathMatch: 'full',component: BlogComponent},
     {path:'sponsors' ,component: SponsorsComponent},
     {path:'contactus' ,component: ContactusComponent},
-    {path:'eventadd' ,component: EventaddComponent},
+    {path:'eventadd' ,pathMatch: 'full',component: EventaddComponent},
     {path:'index' ,pathMatch: 'full',component: IndexComponent},
     {path:'event' ,component: EventComponent},
     {path:'profile' ,component: ProfileComponent},

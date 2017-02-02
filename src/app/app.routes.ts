@@ -81,7 +81,7 @@ export const routes: Routes = [
       {path:'activate-now/:id' ,component: ActivateNowComponent,data: [{id: true}]},
       {path:'my-attendance' ,component: MyAttendanceComponent},
       {path:'404' ,component: NotFoundComponent},
-      {path: '**', redirectTo: '/404'}
+      // {path: '**', redirectTo: '/404'}
       // { path: '#', redirectTo: '' }
 
 ];
