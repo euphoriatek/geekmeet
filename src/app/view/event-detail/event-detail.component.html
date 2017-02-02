@@ -247,11 +247,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="how_to_reg frontend_reg_desc ">
+     <!--                <div class="how_to_reg frontend_reg_desc ">
                         <h2>How to Register</h2>
                         <p>Search events through google also by interest area and location. Registration fee is $100</p>
-                    </div>
-                    <div class="listing_custom_field event_custom_field">
+                    </div> -->
+                    <div  *ngIf="data.event_data.contact_info" class="listing_custom_field event_custom_field">
                         <h2 class="custom_field_headding">Contact Information</h2>                                                            
                         <p class="">
                             <label>Phone:&nbsp;</label>                                                                                                                                            

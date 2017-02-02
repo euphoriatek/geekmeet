@@ -58,6 +58,7 @@ import { EventEditComponent } from './controller/event-edit/event-edit.component
 import { SearchComponent } from './controller/search/search.component';
 import { ActivateNowComponent } from './controller/activate-now/activate-now.component';
 import { MyAttendanceComponent } from './controller/my-attendance/my-attendance.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 
@@ -104,6 +105,7 @@ import { MyAttendanceComponent } from './controller/my-attendance/my-attendance.
   ActivateNowComponent,
   VenueaddComponent,
   MyAttendanceComponent,
+  NotFoundComponent,
 
 
   ],
@@ -160,6 +162,8 @@ import { MyAttendanceComponent } from './controller/my-attendance/my-attendance.
     {path:'event-edit' ,component: EventEditComponent},
     {path:'activate-now' ,component: ActivateNowComponent},
     {path:'my-attendance' ,component: MyAttendanceComponent},
+    {path:'404' ,component: NotFoundComponent},
+    {path: '**', redirectTo: '/404'}
     ])
   ],
   providers: [ApiMethodService,LoadingAnimateService],

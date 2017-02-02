@@ -32,7 +32,7 @@ import { EventEditComponent } from './controller/event-edit/event-edit.component
 import { SearchComponent } from './controller/search/search.component';
 import { ActivateNowComponent } from './controller/activate-now/activate-now.component';
 import { MyAttendanceComponent } from './controller/my-attendance/my-attendance.component';
-
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 
@@ -80,6 +80,8 @@ export const routes: Routes = [
       {path:'search/:id' ,component: SearchComponent,data: [{id: true}]},
       {path:'activate-now/:id' ,component: ActivateNowComponent,data: [{id: true}]},
       {path:'my-attendance' ,component: MyAttendanceComponent},
+      {path:'404' ,component: NotFoundComponent},
+      {path: '**', redirectTo: '/404'}
       // { path: '#', redirectTo: '' }
 
 ];
