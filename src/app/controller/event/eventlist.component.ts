@@ -180,7 +180,7 @@ export class EventListComponent implements OnInit{
     searchByZipCode(code,mile){
       this.currentPage = 1;
       this.code = code;
-      this.searchByText='Search Event by "'+code+'" with mile range '+mile;
+      this.searchByText='Results for zipcode "'+code+'" within'+mile+'miles';
       this.mile = mile;
       this.type = '';
       this.sort = '';
