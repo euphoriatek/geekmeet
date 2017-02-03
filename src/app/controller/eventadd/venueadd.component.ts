@@ -62,6 +62,9 @@ export class VenueaddComponent implements OnInit {
 
   ngOnInit() {    
     this.getCountryList();    
+      jQuery(document).on('blur', '#address', function () {
+      jQuery('.add_map').click();     
+     });
   }
   
  

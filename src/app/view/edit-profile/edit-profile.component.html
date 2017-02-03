@@ -46,14 +46,14 @@
                         </ul>  
                     </div>
                     <div class="form_row clearfix">
-                        <label>Address <span class="indicates">*</span></label>
+                        <label>Address <span class="indicates"></span></label>
                         <textarea class="textfield" name="address" [(ngModel)]="userInfoArr.address" style="height: 100px"></textarea>
                         <ul class="error" *ngIf="errors['address']!=''" >
                             <li *ngFor="let org_err of errors['address']">{{org_err}}</li>    
                         </ul>  
                     </div>
                     <div class="form_row clearfix">
-                        <label>Birth date<span class="indicates">*</span></label>
+                        <label>Birth date<span class="indicates"></span></label>
                         <my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [selDate]="selectedDateNormal"></my-date-picker>
                         <ul class="error" *ngIf="errors['dob']!=''" >
                             <li *ngFor="let org_err of errors['dob']">{{org_err}}</li>    
@@ -61,14 +61,14 @@
                         <input type="hidden" name="dob" [(ngModel)]="selectedDateNormal">
                     </div>
                     <div class="form_row clearfix">
-                        <label>Birth place<span class="indicates">*</span></label>
+                        <label>Birth place<span class="indicates"></span></label>
                         <input type="text" name="birth_place" id="" [(ngModel)]="userInfoArr.birth_place" class="textfield">
                         <ul class="error" *ngIf="errors['birth_place']!=''" >
                             <li *ngFor="let org_err of errors['birth_place']">{{org_err}}</li>    
                         </ul>  
                     </div>
                     <div class="form_row clearfix">
-                        <label>Gender <span class="indicates">*</span></label>
+                        <label>Gender <span class="indicates"></span></label>
                         <div class="col-sm-12">
                             <label class=""><input type="radio" value="male" name="gender" [(ngModel)]="userInfoArr.gender"  [checked]="'male'==userInfoArr.gender">Male </label>
                             <label><input type="radio" value="female" [(ngModel)]="userInfoArr.gender" name="gender" [(ngModel)]="gender" [checked]="'female'==userInfoArr.gender" />Female </label>
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                     <div class="form_row clearfix">
-                        <label>Country<span class="indicates">*</span></label>
+                        <label>Country<span class="indicates"></span></label>
                         <select class="chosen-select form-control" name="country" [(ngModel)]="userInfoArr.country" (ngModelChange)="getState($event)">
                             <option *ngFor="let country of countryList" value="{{country.id}}">{{country.name}}</option>
                         </select>
@@ -88,7 +88,7 @@
                     </div>
 
                     <div class="form_row clearfix">
-                        <label>State<span class="indicates">*</span></label>
+                        <label>State<span class="indicates"></span></label>
                         <select class="form-control" name="state" [(ngModel)]="userInfoArr.state" (ngModelChange)="getCIty($event)">
                             <option selected="selected" value="-1" disabled="disabled">--Select State--</option>
                             <option *ngFor="let state of stateListArr" value="{{state.state_id}}" >{{state.name}}</option>
@@ -108,7 +108,7 @@
                             </ul> 
                     </div>
                     <div class="form_row clearfix">
-                        <label>Zip Code<span class="indicates">*</span></label>
+                        <label>Zip Code<span class="indicates"></span></label>
                         <input type="text" name="zip_code" id="" [(ngModel)]="userInfoArr.zip_code" class="form-control textfield" >
                         <ul class="error" *ngIf="errors['zip_code']!=''" >
                                 <li *ngFor="let org_err of errors['zip_code']">{{org_err}}</li>    
