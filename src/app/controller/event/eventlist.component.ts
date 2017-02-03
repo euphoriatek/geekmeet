@@ -33,6 +33,7 @@ export class EventListComponent implements OnInit{
   per_page:any;
   venue:any;
   organization:any;
+  searchByText:any;
 
 
   
@@ -135,6 +136,7 @@ export class EventListComponent implements OnInit{
       }
       this.code='';
       this.mile='';
+      this.searchByText='';
       this.eventDeafault();  
     }
 
@@ -149,6 +151,7 @@ export class EventListComponent implements OnInit{
       this.type = type;
       this.code='';
       this.mile='';
+      this.searchByText='';
       this.eventDeafault();
     }
 
@@ -177,6 +180,7 @@ export class EventListComponent implements OnInit{
     searchByZipCode(code,mile){
       this.currentPage = 1;
       this.code = code;
+      this.searchByText='Search Event by "'+code+'" with mile range '+mile;
       this.mile = mile;
       this.type = '';
       this.sort = '';

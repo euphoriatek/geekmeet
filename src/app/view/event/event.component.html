@@ -237,7 +237,7 @@
                             <div class="search_range">
                                 <input type="text" name="code" id="range_address" value="" class="range_address location placeholder ui-autocomplete-input" placeholder="Enter your Postal Code" autocomplete="off" ngModel>
                                 <label>Mile range: </label><label>{{currntRange}}</label>
-                                <input style="width: 85%;float: left;" id="slider1" type="range" min="0" max="500" step="100" name="mile" (ngModelChange)="outputUpdate($event)" ngModel/>
+                                <input style="width: 85%;float: left;" id="slider1" type="range" min="0" max="500" step="100" name="mile" (ngModelChange)="outputUpdate($event)" [(ngModel)]="currntRange"/>
                                  <button type="submit" class="btn btn-default btn-sm btn-square active pull-right add_button"><span class="glyphicon glyphicon-search" area-hidden="true"></span> </button>
                                 <!--   <input type="text" name="radius" id="radius_range" value="500" style="border:0; font-weight:bold;" readonly="readonly"> -->
                                 <!--  <nouislider name="someRange" [connect]="true" [min]="0" [max]="15" [(ngModel)]="someRange"></nouislider> -->

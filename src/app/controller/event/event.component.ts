@@ -16,7 +16,7 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['../../assets/css/event/event.component.css']  
 })
 export class EventComponent implements OnInit{
-  currntRange:any = 300;
+  currntRange:any = 500;
   @ViewChild(EventListComponent) event: EventListComponent;
   // @Output() onEnterZipCode = new EventEmitter<string>();
   
@@ -62,8 +62,8 @@ export class EventComponent implements OnInit{
     var value = zipcodeData.value;
     if(value.code){
       this.event.searchByZipCode(value.code,value.mile);
-      zipcodeData.reset();
-      this.showHeader = ""
+      // zipcodeData.reset();
+      this.showHeader = '';
     }
     else{
       this.toastyService.error("Please Provoide Zipcode.!");
