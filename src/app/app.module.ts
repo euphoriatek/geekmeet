@@ -145,7 +145,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     {path:'organization' ,component: OrganizationComponent},
     {path:'changepassword' ,component: ChangepasswordComponent},
     {path:'notification-setting' ,component: NotificationSettingComponent},
-    {path:'edit-profile' ,component: EditProfileComponent},
+    {path:'edit-profile' ,pathMatch: 'full',component: EditProfileComponent},
     {path:'organization-add' ,component: OrganizationAddComponent},
     {path:'term-condition' ,component: TermConditionComponent},
     {path:'event-detail' ,component: EventDetailComponent},

@@ -101,7 +101,6 @@ export class OrganizationEditComponent implements OnInit {
 
   editOrganization(value:any):void{
     var refreg = this;
-    console.log("this is update of user profile");
     value['image'] = refreg.src;
     console.log(value);
     this.apiService.editOrganization(value,function(res){
