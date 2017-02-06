@@ -200,26 +200,30 @@ export class EventDetailComponent implements OnInit {
     if(!(this.getToken)){
       this.getReview(this.selectedData);
     }else{
-      var value = addComment.value;
-      value.event_id = this.event_id;
-      var refreg = this;
-      refreg.loadingSvc.setValue(true);
-      refreg.apiService.addReview(value,function(res){
-        refreg.loadingSvc.setValue(false);
-        refreg.getReview(refreg.event_id);
-        addComment.reset();
+      if(addComment.value.event_review==''){
+        this.toastyService.error('Please add review.!');
+      }else{
+        var value = addComment.value;
+        value.event_id = this.event_id;
+        var refreg = this;
+        refreg.loadingSvc.setValue(true);
+        refreg.apiService.addReview(value,function(res){
+          refreg.loadingSvc.setValue(false);
+          refreg.getReview(refreg.event_id);
+          addComment.reset();
 
-      },function(error){
-        refreg.loadingSvc.setValue(false);
-        if(error.status == 401 || error.status == '401' || error.status == 400){
-          localStorage.removeItem('auth_token');        
-          refreg.apiService.signinSuccess$.emit(false);
-          refreg.router.navigate(['/index']);
-        }
-        refreg.toastyService.error(error.json().message);
-        var error = error.json().errors;
-        refreg.errors = error;
-      });
+        },function(error){
+          refreg.loadingSvc.setValue(false);
+          if(error.status == 401 || error.status == '401' || error.status == 400){
+            localStorage.removeItem('auth_token');        
+            refreg.apiService.signinSuccess$.emit(false);
+            refreg.router.navigate(['/index']);
+          }
+          refreg.toastyService.error(error.json().message);
+          var error = error.json().errors;
+          refreg.errors = error;
+        });
+      }
 
 
     }

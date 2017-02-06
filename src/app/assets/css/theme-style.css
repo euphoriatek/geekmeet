@@ -15,7 +15,7 @@ body {
     word-wrap: break-word;
 }
 
-.ng2-pagination a {
+.has-text-centered .ng2-pagination a {
     float: none !important;
     position: static !important;
     width: auto !important;
