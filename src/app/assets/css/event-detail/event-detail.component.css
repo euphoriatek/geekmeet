@@ -26,3 +26,11 @@
 .slides img{
    height: 500px !important; 
 }
+.ng2-pagination a {
+    float: none !important;
+    position: static !important;
+    width: auto !important;
+}
+.ng2-pagination span{
+    width: auto !important;
+}

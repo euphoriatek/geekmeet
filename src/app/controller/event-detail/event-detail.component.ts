@@ -37,6 +37,9 @@ export class EventDetailComponent implements OnInit {
   page:any=1;
   showData:any;
   form:any;
+  Total:any;
+  currentPage:any;
+  per_page:any;
   private promise: Promise<string>;
 
   
@@ -75,7 +78,7 @@ export class EventDetailComponent implements OnInit {
   }
 
   ngAfterViewInit() {    
-   setTimeout(_ => {
+    setTimeout(_ => {
       jQuery(document).find('.flexslider').flexslider({
         animation: "slide",
         smoothHeight: true, 
@@ -100,7 +103,7 @@ export class EventDetailComponent implements OnInit {
       refreg.data['event_data'] = res.data;
       refreg.data['relate_event_data'] = res.data.related_event.data;
       
-       refreg.flexsliderInit(res.data);   
+      refreg.flexsliderInit(res.data);   
     });
   }
 
@@ -124,11 +127,12 @@ export class EventDetailComponent implements OnInit {
         ref.data = {};
         ref.showData = "No Data Found.!"
       }
+      ref.Total = res.data.total;
+      ref.per_page = res.data.per_page;
+      ref.currentPage = res.data.current_page;
       
       ref.data['popular_event'] = {
-        popularArr : res.data.data,
-        popularTotal : res.data.last_page,
-        currentPage : res.data.current_page,     
+        popularArr : res.data.data    
       };
 
     },function(error){
@@ -452,7 +456,7 @@ export class EventDetailComponent implements OnInit {
     var refreg = this;
     refreg.apiService.addAttendence(value,function(res){
       console.log(refreg.event_id);  
-       refreg.getEventDetail(refreg.event_id);   
+      refreg.getEventDetail(refreg.event_id);   
     },function(error){
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
@@ -467,86 +471,86 @@ export class EventDetailComponent implements OnInit {
   }
 
   addCalender(event_id) {  
-      var refreg = this;
-        refreg.loadingSvc.setValue(true); 
-      refreg.apiService.addCalender(event_id,function(res){
-     refreg.toastyService.success(res.message);   
-       refreg.loadingSvc.setValue(false); 
+    var refreg = this;
+    refreg.loadingSvc.setValue(true); 
+    refreg.apiService.addCalender(event_id,function(res){
+      refreg.toastyService.success(res.message);   
+      refreg.loadingSvc.setValue(false); 
     },function(error){
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
         refreg.apiService.signinSuccess$.emit(false);
         refreg.router.navigate(['/index']);
       }
-       refreg.toastyService.error(error.json().message);
-        refreg.loadingSvc.setValue(false); 
+      refreg.toastyService.error(error.json().message);
+      refreg.loadingSvc.setValue(false); 
     });
   }
 
   print(event_id){
-     var refreg = this;
-        refreg.loadingSvc.setValue(true); 
-        refreg.apiService.printApi(event_id,function(res){
-       refreg.Popup(res.data);   
-       refreg.loadingSvc.setValue(false); 
-      },function(error){
+    var refreg = this;
+    refreg.loadingSvc.setValue(true); 
+    refreg.apiService.printApi(event_id,function(res){
+      refreg.Popup(res.data);   
+      refreg.loadingSvc.setValue(false); 
+    },function(error){
       if(error.status == 401 || error.status == '401' || error.status == 400){
         localStorage.removeItem('auth_token');        
         refreg.apiService.signinSuccess$.emit(false);
         refreg.router.navigate(['/index']);
       }
-       refreg.toastyService.error(error.json().message);
-        refreg.loadingSvc.setValue(false); 
+      refreg.toastyService.error(error.json().message);
+      refreg.loadingSvc.setValue(false); 
     });
- 
+
 
   }
 
 
-     Popup(data)
-            {
-              
-                var mywindow = window.open('', 'PRINT', 'height=400,width=600');
-                mywindow.document.write(data);
-                mywindow.document.close(); // necessary for IE >= 10
-                mywindow.focus(); // necessary for IE >= 10
-                setTimeout(function() {
-                    mywindow.print();
-                    mywindow.close();
-//        window.close();
-                }, 1000);
+  Popup(data)
+  {
 
-                return true;
+    var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+    mywindow.document.write(data);
+    mywindow.document.close(); // necessary for IE >= 10
+    mywindow.focus(); // necessary for IE >= 10
+    setTimeout(function() {
+      mywindow.print();
+      mywindow.close();
+      //        window.close();
+    }, 1000);
 
-            }
+    return true;
+
+  }
 
   flexsliderInit(data){  
 
-       jQuery('.flexslider').remove();
-       // re-insert clean mark-up so flexslider can reset itself properly
-       jQuery('.flexslider-container').append('<div id="slider" class="event_image flexslider p-tb-30"><div class="flex-viewport" style=""><ul class="slides" style="width: 1800%;"></ul></div></div>');
-       // jQuery('event_image_gallery').append('<div id="silde_gallery" class="silde_gallery flexslider"><div class="flex-viewport" style="overflow: hidden; position: relative;"> <ul class="more_photos slides" style=""></ul></div></div>')
-        var imglist ="";
-        for (var i = 0; i <  data.slider_image.length; i++) {
-          console.log(data.slider_image[i]);   
-            imglist += '<li class="flex-active-slide" style="width: 60px; float: left; display: block;">';
-            imglist += '<a href="javascript:void(0)" title="'+ data.slider_image[i].image_title+'">';
-            imglist += '<img src="'+ data.slider_image[i].image_url+'" style="height:500px;" alt="event-(13)" draggable="false">';
-            imglist += '</a>';
-            imglist += '</li>';
-        }
+    jQuery('.flexslider').remove();
+    // re-insert clean mark-up so flexslider can reset itself properly
+    jQuery('.flexslider-container').append('<div id="slider" class="event_image flexslider p-tb-30"><div class="flex-viewport" style=""><ul class="slides" style="width: 1800%;"></ul></div></div>');
+    // jQuery('event_image_gallery').append('<div id="silde_gallery" class="silde_gallery flexslider"><div class="flex-viewport" style="overflow: hidden; position: relative;"> <ul class="more_photos slides" style=""></ul></div></div>')
+    var imglist ="";
+    for (var i = 0; i <  data.slider_image.length; i++) {
+      console.log(data.slider_image[i]);   
+      imglist += '<li class="flex-active-slide" style="width: 60px; float: left; display: block;">';
+      imglist += '<a href="javascript:void(0)" title="'+ data.slider_image[i].image_title+'">';
+      imglist += '<img src="'+ data.slider_image[i].image_url+'" style="height:500px;" alt="event-(13)" draggable="false">';
+      imglist += '</a>';
+      imglist += '</li>';
+    }
     
-      jQuery('.flexslider ul.slides').html(imglist);
-      // jQuery('.event_image_gallery ul.more_photos.slides').html(imglist);
-                                
-      jQuery('.flexslider').flexslider({
-        animation: "slide",
-        smoothHeight: true, 
-        animationLoop: false,
-        start: function (slider) {
-          jQuery('.event_detail_module').removeClass('loading');
-        }
-      });
+    jQuery('.flexslider ul.slides').html(imglist);
+    // jQuery('.event_image_gallery ul.more_photos.slides').html(imglist);
+
+    jQuery('.flexslider').flexslider({
+      animation: "slide",
+      smoothHeight: true, 
+      animationLoop: false,
+      start: function (slider) {
+        jQuery('.event_detail_module').removeClass('loading');
+      }
+    });
 
   }          
 

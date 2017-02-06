@@ -679,7 +679,7 @@
                 <h3 class="widget-title">Popular Events</h3>
                 <p>{{showData}}</p>
                 <ul class="listingview clearfix list" id="list_776778595">
-                    <li class="clearfix" *ngFor = "let popular_event of data.popular_event.popularArr">
+                    <li class="clearfix" *ngFor = "let popular_event of data.popular_event.popularArr  | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: Total}">
                         <a title="{{popular_event.event_title}}" class="link_img" data-rel="">
                             <img src="{{ popular_event.featured_image }}" alt="{{popular_event.event_title}}" class="Thumbnail thumbnail popular_post-thumbnail " width="60" height="60" style="height: 50px!important"></a>
 
@@ -688,10 +688,14 @@
 
                         </ul>
 
-                        <div class="postpagination_776778595 postpagination clearfix">
+                        <!-- <div class="postpagination_776778595 postpagination clearfix">
                             <div class="pagination" *ngFor="let object of createRange(data.popular_event.popularTotal)">
                                 <a href="javascript:void(0)" [ngClass]="{'active': object==data.popular_event.currentPage}" (click)="getEventPagination(object)" > {{object}} </a>
                             </div>
+                        </div> -->
+
+                        <div class="has-text-centered">
+                            <pagination-controls  (pageChange)="getEventPagination($event)" id="server"></pagination-controls>
                         </div>
 
 
