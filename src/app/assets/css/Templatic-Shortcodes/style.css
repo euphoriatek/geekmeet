@@ -115,6 +115,20 @@ h1, h2, h3, h4, h5, h6 {
 	line-height: 0;
 	visibility: hidden;
 }
+
+#server-popular .ng2-pagination a {
+    float: none !important;
+    position: static !important;
+    width: auto !important;
+    margin: 0 !important;
+    display: inline !important;
+}
+#server-popular .widget-twocolumn ul > li > a, .widget-twocolumn ul > li > span{
+  margin-top: 0px!important;
+}
+#server-popular .ng2-pagination span{
+    width: auto !important;
+}
 /*----- Download, Alert, Note and Info Box -----*/
 
 #content p.download {

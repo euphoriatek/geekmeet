@@ -110,7 +110,7 @@
                         </div>
                     </div>    
                     <div class="form_row clearfix">
-                        <label>Contact Info<span class="indicates">*</span></label>
+                        <label>Contact Info</label>
                         <input type="tel" [(ngModel)]="showEventArr.contact_info"  name="contact_info" value="" class="form-control textfield">
                         <ul class="error" *ngIf="errors['contact_info']!=''" >
                                 <li *ngFor="let org_err of errors['contact_info']">{{org_err}}</li>    

@@ -201,7 +201,7 @@ export class EventDetailComponent implements OnInit {
       this.getReview(this.selectedData);
     }else{
       if(addComment.value.event_review==''){
-        this.toastyService.error('Please add review.!');
+        this.toastyService.error('Please Provide Comment and Rating.!');
       }else{
         var value = addComment.value;
         value.event_id = this.event_id;

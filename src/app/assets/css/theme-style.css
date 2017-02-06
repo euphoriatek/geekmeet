@@ -15,16 +15,16 @@ body {
     word-wrap: break-word;
 }
 
-.has-text-centered .ng2-pagination a {
+/*.has-text-centered .ng2-pagination a {
     float: none !important;
     position: static !important;
     width: auto !important;
     margin: 0 !important;
     display: inline !important;
 }
-.ng2-pagination span{
+.has-text-centered .ng2-pagination span{
     width: auto !important;
-}
+}*/
 
 .entry-content li {
     margin-bottom: 20px;
