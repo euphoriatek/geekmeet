@@ -2713,7 +2713,7 @@ body #content .add_to_my_calendar .addtocalendar {
     margin: 0 0 10px;
 }
 .widget-twocolumn ul > li > div {
-    line-height: 1.4em;
+    line-height: 1.0em;
 }
 .recent_comments li a.title {
     margin-bottom: 6px;
