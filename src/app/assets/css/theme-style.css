@@ -1433,7 +1433,7 @@ table.calendar_widget td.date_n div span.calendar_tooltip {
     display: block;
 }
 .list .entry h2.entry-title {
-    max-width: 90%;
+    max-width: 75%;
 }
 .list .entry .property-wrapper h2.entry-title{
     display: inline-block;

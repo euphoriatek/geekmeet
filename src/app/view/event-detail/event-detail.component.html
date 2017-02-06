@@ -680,7 +680,7 @@
                 <p>{{showData}}</p>
                 <ul class="listingview clearfix list" id="list_776778595">
                     <li class="clearfix" *ngFor = "let popular_event of data.popular_event.popularArr">
-                        <a href="" title="{{popular_event.event_title}}" class="link_img" data-rel="">
+                        <a title="{{popular_event.event_title}}" class="link_img" data-rel="">
                             <img src="{{ popular_event.featured_image }}" alt="{{popular_event.event_title}}" class="Thumbnail thumbnail popular_post-thumbnail " width="60" height="60" style="height: 50px!important"></a>
 
                             <div class="post_data"><h3><a (click)="gotoPage(popular_event.event_id)" title="{{popular_event.event_title}}">{{popular_event.event_title}}</a></h3><p><span class="views"> <a>{{popular_event.comment_count}} Comments</a></span><span class="date">2 years ago</span></p></div></li>
