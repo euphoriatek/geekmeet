@@ -52,7 +52,7 @@
                         <div class="widget-wrap widget-inside">
                             <h3 class="widget-title">Blog Categories</h3>
                             <ul class="xoxo categories">
-                             <li class="" *ngFor = "let blog_cat of blogArr; let index = index" (click)="blogCategoryClick(blog_cat.blog_category_name,index)" ><a>{{blog_cat.blog_category_name}}</a></li>
+                             <li class="" *ngFor = "let blog_cat of blogArr; let index = index" (click)="blogCategoryClick(blog_cat.blog_category_name,index)" ><a [routerLink]="['/blog',blog_cat.blog_category_name]">{{blog_cat.blog_category_name}}</a></li>
                          </ul>
                          <!-- .xoxo .categories -->
                      </div>
@@ -60,7 +60,7 @@
                  <div id="hybrid-archives-1" class="widget archives">
                     <div class="widget-wrap widget-inside">
                         <h3 class="widget-title">Event Categories</h3>
-                        <li class="" *ngFor = "let submenu of menuArr; let index = index" (click)="submenuClick(submenu.category_name,index)" ><a>{{submenu.category_name}}</a></li>
+                        <li class="" *ngFor = "let submenu of menuArr; let index = index" (click)="submenuClick(submenu.category_name,index)" ><a [routerLink]="['/event',submenu.category_name]">{{submenu.category_name}}</a></li>
                     </div>
                 </div>
                 <div id="hybrid-pages-1" class="widget pages">
@@ -142,6 +142,9 @@
 
                             <ul class="error" *ngIf="reset_password" >
                                 <li>{{reset_password}}<a (click)="gotoResetPwd()" data-dismiss="modal"> Reset your password</a></li>    
+                            </ul> 
+                            <ul class="error" *ngIf="cnfrmEmailActivation" >
+                                <li [innerHTML]="cnfrmEmailActivation"></li>    
                             </ul>  
                         </div>
                         <div class="form_row rember clearfix">  

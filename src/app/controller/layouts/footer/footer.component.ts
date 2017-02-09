@@ -51,6 +51,7 @@ export class FooterComponent implements OnInit {
 	reset_password:any
 	menuArr:any;
 	blogArr:any;
+	cnfrmEmailActivation:any;
 
 	errors:Object = {};
 	suberror:Object = {};
@@ -152,7 +153,7 @@ export class FooterComponent implements OnInit {
 			var ref = this;
 			var callbackFunction = function(){
 				IN.API.Raw("/people/~").result(result => onSuccess(result));
-			}
+			} 
 			var callbackScope = function(error){
 				console.log(error);
 			}
@@ -215,15 +216,23 @@ export class FooterComponent implements OnInit {
 				ref.loadingSvc.setValue(false);
 				if(error.status == 401 || error.status == '401' || error.status == 400){
 					var pwderror = error.json().message;
-					ref.reset_password = pwderror;
-					ref.errors = {};
+					if(error.json().error=='activation'){
+						ref.reset_password=null;
+						ref.cnfrmEmailActivation = error.json().message;
+					}
+					else{
+						ref.cnfrmEmailActivation = null;
+						ref.reset_password = pwderror;
+						ref.errors = {};
+					}
 					// ref.toastyService.error(error.json().message);
 					
 				}
 				else{
+					ref.cnfrmEmailActivation = null;
 					var errors = error.json().errors;
 					ref.errors = errors;
-					this.reset_password=null;
+					ref.reset_password=null;
 					ref.toastyService.error(error.json().message);	
 				}
 				
@@ -369,10 +378,11 @@ export class FooterComponent implements OnInit {
 
 										submenuClick(menu,index){
 											window.scrollTo(0,0);
+											var newMenu = menu.split(" ").join("-");
 											var ref= this;
 											var data = ref.apiService.getIndexFunc();
 											data.indexSelection(index);
-											this.router.navigate(['/event',menu]);
+											this.router.navigate(['/event',newMenu]);
 										}
 
 
@@ -384,7 +394,7 @@ export class FooterComponent implements OnInit {
 										}
 
 										blogCategoryClick(menu,index){
-											console.log(menu);	
+											// console.log(menu);	
 											this.router.navigate(['/blog',menu]);
 										}
 

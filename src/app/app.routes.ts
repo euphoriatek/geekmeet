@@ -78,7 +78,7 @@ export const routes: Routes = [
       {path:'reset-password/:id' ,component: ResetPasswordComponent,data: [{id: true}]},
       {path:'event-edit/:id' ,component: EventEditComponent,data: [{id: true}]},
       {path:'search/:id' ,component: SearchComponent,data: [{id: true}]},
-      {path:'activate-now/:id' ,component: ActivateNowComponent,data: [{id: true}]},
+      {path:'activate-now/:id/:token' ,component: ActivateNowComponent,data: [{id: true, token: true}]},
       {path:'my-attendance' ,component: MyAttendanceComponent},
       {path:'404' ,component: NotFoundComponent},
       // {path: '**', redirectTo: '/404'}

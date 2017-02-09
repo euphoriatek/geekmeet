@@ -4,7 +4,7 @@ import { RouterModule, Router }   from '@angular/router';
 import { MyDatePickerModule } from 'mydatepicker';
 import {SelectModule} from 'ng2-select/ng2-select';
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
-import {CKEditorModule} from 'ng2-ckeditor';
+// import {CKEditorModule} from 'ng2-ckeditor';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
 

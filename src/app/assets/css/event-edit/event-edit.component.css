@@ -8,7 +8,7 @@
 	font-weight: normal;
 }
 .modal{
-	position: sticky;
+	/*position: sticky;*/
 }
 .glyphicon.glyphicon-menu-hamburger{
 	display: none;

@@ -14,20 +14,22 @@ import 'rxjs/add/operator/catch';
 })
 export class ActivateNowComponent implements OnInit {
   user_id:any;
+  token:any;
   constructor(private loadingSvc: LoadingAnimateService,private router: Router,private route: ActivatedRoute,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.user_id = params['id'];
+      this.token = params['token'];
     });
 
-    this.activateNow(this.user_id);
+    this.activateNow(this.user_id,this.token);
   }
 
-  activateNow(id){
+  activateNow(id,token){
   	var ref = this;
   	ref.loadingSvc.setValue(true);
-    ref.apiService.activateNow(id,function(res){ 
+    ref.apiService.activateNow(id,token,function(res){ 
       ref.loadingSvc.setValue(false);  
       ref.toastyService.success(res.message);
       var functionRef = ref.apiService.getFooterRef();

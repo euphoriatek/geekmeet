@@ -55,7 +55,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("this is header");
     this.secondmenuDeafault();
     this.getCountryList();
     }
@@ -105,9 +104,10 @@ export class HeaderComponent implements OnInit {
 
   submenuClick(menu,index){
     var ref= this;
+    var newMenu = menu.split(" ").join("-");
     var data = ref.apiService.getIndexFunc();
     data.indexSelection(index);
-    this.router.navigate(['/event',menu]);
+    this.router.navigate(['/event',newMenu]);
   }
 
 
