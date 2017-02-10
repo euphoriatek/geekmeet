@@ -19,3 +19,12 @@
 //             "ng2-ckeditor": "node_modules/ng2-ckeditor/lib/CKEditor.js"
 //         }
 //     });
+var map = {
+    ...
+    'ng2-typeahead':              'node_modules/ng2-typeahead',                             
+  };
+  ...
+  var packages = {
+    ...
+    'ng2-typeahead':              { main: 'ng2-typeahead.js', defaultExtension: 'js' }
+  };

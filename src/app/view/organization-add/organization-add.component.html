@@ -1,24 +1,27 @@
-<!-- <app-header></app-header> -->
 
-<section id="main" class="clearfix">
-    <div class="wrap row">
+<a (click)="modal.open();" class="btn btn-success  btn-sm btn-square active pull-right add_button" style="line-height: 1.6;">
+                <span area-hidden="true" class="glyphicon glyphicon-plus"></span>
+            </a>
+<!-- <section id="main" class="clearfix">
+    <div class="wrap row"> -->
 
-        <div class="breadcrumb breadcrumbs columns">
+       <!--  <div class="breadcrumb breadcrumbs columns">
             <div class="breadcrumb-trail">
                 <span class="trail-begin">
                     <a [routerLink]="['/']" title="GeekMeet" rel="home" class="trail-begin">Home</a>
                     </span><span class="sep">»</span><a [routerLink]="['/my-organizations']" title="Organizations" class="trail-begin">Organization List</a> <span class="sep">»</span> <span>Organization Add</span>
             </div>
         </div>
-        <ng2-toasty [position]="'top-center'" ></ng2-toasty>
+        <ng2-toasty [position]="'top-center'" ></ng2-toasty> -->
         <!-- start content part-->
-        <div id="content" role="main" class="large-9 small-12 columns" jstcache="0">
-            <div class="event-add">
+        <!-- <div id="content" role="main" class="large-9 small-12 columns" jstcache="0"> -->
+           <!--  <div class="event-add">
                 <h3>Organization Add</h3>
-            </div>
-
-            <form #addOrganizationForm="ngForm" (ngSubmit)="addOrganization(addOrganizationForm.value)">
-                <div class="event-edit-form large-9 small-12 columns">
+            </div> -->
+             <modal #modal> 
+            <modal-header [show-close]="true"><h4 class="modal-title">Add Organization</h4></modal-header>  
+            <form #addOrganizationForm="ngForm" (ngSubmit)="addOrganization(addOrganizationForm);">
+                <div class="event-edit-form large-9 small-12 columns" style="background-color: #fff;width: 100%;">
                     <div class="form_row clearfix">
                         <label>Business Logo</label>
                         <div class="col-sm-10 -m-rl-15">
@@ -91,18 +94,19 @@
                     </div>
 
                     <div class="form_row ">
-                        <button class="btn btn-info" type="submit" value="Save" name="submit">Save</button>
-                        <a class="btn btn-info"  [routerLink] = "['/my-organizations']">Cancel</a>	
+                        <button class="btn btn-info" type="submit" id="oranization-save" value="Save" name="submit">Save</button>
+                        <a class="btn btn-info" data-dismiss="modal"  (click)="addOrganizationForm.reset();removeOrganizationData();modal.dismiss();"  id="oranization-cancel">Cancel</a>	
                     </div>
                 </div>
             </form>
-        </div>
+             </modal>  
+        <!-- /div> -->
         <!-- #content --> 
 
         <!--single post type sidebar -->
-        <div id="sidebar-primary" class="sidebar large-3 small-12 columns">
+        <!-- <div id="sidebar-primary" class="sidebar large-3 small-12 columns"> -->
             <!-- 300x600 ad_space -->
-            <div id="templatic_text-1" class="widget templatic_text">
+            <!-- <div id="templatic_text-1" class="widget templatic_text">
                 <div class="widget-wrap widget-inside">		
                     <div class="textwidget text-center">	
                         <a href="">
@@ -110,10 +114,10 @@
                         </a>	
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 300x250 ad_space -->
-            <div id="templatic_text-1" class="widget templatic_text">
+            <!-- <div id="templatic_text-1" class="widget templatic_text">
                 <div class="widget-wrap widget-inside">		
                     <div class="textwidget text-center">	
                         <a href="">
@@ -122,11 +126,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!--end single post type sidebar --> 
         <!-- end  content part-->
-    </div>
+    <!-- </div> -->
     <!-- .wrap -->
-</section>
-
-<!-- <app-footer></app-footer> -->
+<!-- </section> -->

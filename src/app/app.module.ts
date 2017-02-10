@@ -18,8 +18,8 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 //import { NouisliderModule } from 'ng2-nouislider';
 import { LoadingAnimateModule, LoadingAnimateService } from 'ng2-loading-animate';
 import {Ng2PaginationModule} from 'ng2-pagination';
-
-
+// import { Ng2CompleterModule } from "ng2-completer";
+import { Typeahead } from 'ng2-typeahead';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './controller/layouts/header/header.component';
@@ -70,6 +70,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 @NgModule({
   declarations: [
   AppComponent,
+  Typeahead,
   HeaderComponent,
   FooterComponent,
   IndexComponent,

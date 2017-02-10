@@ -3,12 +3,12 @@ import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import { MyDatePickerModule } from 'mydatepicker';
 import {SelectModule} from 'ng2-select/ng2-select';
-import {CKEditorModule} from 'ng2-ckeditor';
+// import {CKEditorModule} from 'ng2-ckeditor';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
 import { VenueaddComponent } from './venueadd.component';
-
-
+import { OrganizationAddComponent } from '../organization-add/organization-add.component';
+import { Typeahead } from 'ng2-typeahead';
 declare var jQuery: any;
 declare const google: any;
 
@@ -50,7 +50,7 @@ export class EventaddComponent implements OnInit {
   endDate:any;
   end_timeErr:any;
   websiteErr:any;
-  
+  visibilityDropDown:any= false;
   organizationErr:any;
   locationErr:any;
   contact:any;  
@@ -181,6 +181,8 @@ export class EventaddComponent implements OnInit {
 
   }
 
+
+
   
   getOrganizationList(){
     var ref = this;
@@ -240,7 +242,6 @@ export class EventaddComponent implements OnInit {
   }
 
   public optionSelected(value:any,type:any):void { 
-
     switch (type) {      
       case "organization":
       this.organizers = value.id;
@@ -272,7 +273,11 @@ export class EventaddComponent implements OnInit {
 
   }
 
-
+  selectClick(){
+    debugger;
+    console.log('working');
+    this.visibilityDropDown = true;
+  }
   onDateChanged(event:any, type) {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
     if(event.formatted !== '') {
@@ -306,8 +311,7 @@ export class EventaddComponent implements OnInit {
   }
 
   submitEvent(value:any):void{
-    var ref = this;
-    console.log("submit add event");    
+    var ref = this;   
     console.log(value); 
 
     var start_time = jQuery('#eventstart-time').val();

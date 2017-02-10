@@ -42,7 +42,6 @@ export class SecondMenuComponent implements OnInit {
 	getEventByCategory(value, index){
 		var ref= this;
 		var newIndex = value.split(" ").join("-");
-		console.log("this is new index "+newIndex);
 		SecondMenuComponent.selectedIndex = index;
 		if(ref.router.url!="/"){
 			if(ref.router.url=='/index'){

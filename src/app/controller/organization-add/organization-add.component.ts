@@ -9,7 +9,7 @@ import {SelectModule} from 'ng2-select/ng2-select';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-
+declare var jQuery: any;
 @Component({
   selector: 'app-organization-add',
   templateUrl: '../../view/organization-add/organization-add.component.html',
@@ -70,16 +70,20 @@ export class OrganizationAddComponent implements OnInit {
     });
   }
 
-  addOrganization(value:any):void{
+  addOrganization(organizationData:any):void{
     var refreg = this;
+    var value = organizationData.value;
+    refreg.errors={};
+    // jQuery( "#oranization-save" ).prop("disabled",true);
+    // jQuery( "#oranization-cancel" ).prop("disabled",true);
     refreg.loadingSvc.setValue(true);
-    console.log("this is update of user profile");
-    console.log(value);
     value['image'] = refreg.src;
     this.apiService.addOrganization(value,function(res){
       refreg.loadingSvc.setValue(false);
       refreg.toastyService.success(res.message);
-      refreg.router.navigate(['/my-organizations']);
+      jQuery('form').find('input[type=text], input[type=password], input[type=number], input[type=email], textarea').val('');
+      var closeBtn = <HTMLElement>document.getElementById("oranization-cancel");
+          closeBtn.click();
     },function(error){
       refreg.loadingSvc.setValue(false);
       refreg.toastyService.error(error.json().message);
@@ -90,9 +94,26 @@ export class OrganizationAddComponent implements OnInit {
       }
       var error = error.json().errors;
       refreg.errors = error;
-
+      // jQuery( "#oranization-save" ).prop("disabled",true);
+      // jQuery( "#oranization-cancel" ).prop("disabled",true);
 
     });
   }
+
+  // removeOrganizationData(){
+  //   var ref = this;
+
+  //   jQuery( 'input[type="file"]' ).val("");
+  //   ref.countryList= [];
+  //   ref.stateList = [];
+  //   ref.cityList = [];
+  //   ref.getCountryList();
+    
+  //   jQuery('.map_div').hide();
+  //   jQuery( "#venue_submit" ).prop("disabled",false);
+  //   jQuery( "#venue_cancel" ).prop("disabled",false);
+  //   //ref.router.navigate(['/eventadd']);   
+  //   //this.venueErrors = {};
+  // } 
 
 }

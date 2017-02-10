@@ -7,22 +7,22 @@
             <div class="breadcrumb-trail">
                 <span class="trail-begin">
                     <a [routerLink]="['/']" title="GeekMeet" rel="home" class="trail-begin">Home</a></span> <span class="sep">»</span> <span>Event Add</span>
-            </div>
-        </div>
-
-        <!-- start content part-->
-        <div id="content" role="main" class="large-9 small-12 columns" jstcache="0">
-            <div class="event-add">
-                <h3>Event Add</h3>
+                </div>
             </div>
 
-            <form name="event-add" id="event-add" #addEventForm="ngForm" (ngSubmit)="submitEvent(addEventForm.value)">    
-                <div class="event-edit-form large-6 small-12 columns">
-                    <div class="form_row clearfix">
-                        <label>Event Title<span class="indicates">*</span></label>
-                        <input type="text" [(ngModel)]="event_title" id="event-title" name="event_title" value="" class="form-control textfield" > 
-                        <span class="errfield">{{title}}</span>  
-                    </div>
+            <!-- start content part-->
+            <div id="content" role="main" class="large-9 small-12 columns" jstcache="0">
+                <div class="event-add">
+                    <h3>Event Add</h3>
+                </div>
+
+                <form name="event-add" id="event-add" #addEventForm="ngForm" (ngSubmit)="submitEvent(addEventForm.value)">    
+                    <div class="event-edit-form large-6 small-12 columns">
+                        <div class="form_row clearfix">
+                            <label>Event Title<span class="indicates">*</span></label>
+                            <input type="text" [(ngModel)]="event_title" id="event-title" name="event_title" value="" class="form-control textfield" > 
+                            <span class="errfield">{{title}}</span>  
+                        </div>
                     <!--<div class="form_row clearfix">
                         <label>Event Description<span class="indicates">*</span></label>
                         <textarea [(ngModel)]="event_description" name="event_description" id="event-description" value="" rows="5" cols="6" class="textfield" style="height: 194px;" > </textarea>
@@ -61,114 +61,131 @@
                 </div>
 
                 <div class="event-edit-form large-6 small-12 columns">                     
-                   
-                    <div class="form_row clearfix" style="width: 385px">
-                        <label>Organization<span class="indicates">*</span></label>
-                        
-                         <ng-select name="organizationList" (data)="organizationList"                                                       
-                            [items]="organizationList"
-                            (selected)="optionSelected($event,'organization')"
-                            placeholder="No organization selected">
-                        </ng-select>
-                        <input type="hidden" id="organization" name="organizers" [(ngModel)]="organizers">  
-                        <span class="errfield">{{organizationErr}}</span>                   
-                    </div>
+
                     <div class="form_row clearfix">
-                        <label>Location<span class="indicates">*</span></label>
-                        
-                        <div style="width: 350px; float: left;">
-                            <ng-select name="locationList" (data)="venueList"                                                       
-                                [items]="venueList"
-                                (selected)="optionSelected($event,'location')"
-                                placeholder="No location selected">
-                            </ng-select>
-                            <input type="hidden" id="location" name="location" [(ngModel)]="location">       
-                            <span class="errfield">{{locationErr}}</span>  
-                        </div>   
+                        <label>Organization<span class="indicates">*</span></label>
+                        <div style="width: 350px;float: left;">
+                         <!-- <ng-select name="organizationList" (data)="organizationList"                                                    
+                         [items]="organizationList"
+                         (selected)="optionSelected($event,'organization')"
+                         placeholder="No organization selected">
+                     </ng-select> -->
+                     <typeahead
+                     [list]="organizationList"
+                     [searchProperty]="'text'"
+                     [displayProperty]="'text'"
+                     (suggestionSelected)="optionSelected($event,'organization')"
+                     placeholder="No organization selected">
+                 </typeahead>
+                 <input type="hidden" id="organization" name="organizers" [(ngModel)]="organizers">  
+                 <span class="errfield">{{organizationErr}}</span>  
+             </div> 
+             <app-organization-add></app-organization-add>               
+         </div>
+
+         <div class="form_row clearfix">
+            <label>Location<span class="indicates">*</span></label>
+
+            <div style="width: 350px; float: left;">
+                <!-- <ng-select name="locationList" (data)="venueList"                                                       
+                [items]="venueList"
+                (selected)="optionSelected($event,'location')"
+                placeholder="No location selected">
+            </ng-select> -->
+            <typeahead
+                     [list]="venueList"
+                     [searchProperty]="'text'"
+                     [displayProperty]="'text'"
+                     (suggestionSelected)="optionSelected($event,'location')"
+                     placeholder="No location selected">
+                 </typeahead>
+            <input type="hidden" id="location" name="location" [(ngModel)]="location">       
+            <span class="errfield">{{locationErr}}</span>  
+        </div>   
                         <!--<a (click)="modal.open();" class="btn btn-success  btn-sm btn-square active pull-right add_button" style="line-height: 1.6;">
                             <span area-hidden="true" class="glyphicon glyphicon-plus"></span>
-                         </a>--> 
-                         <app-venueadd></app-venueadd>          
+                        </a>--> 
+                        <app-venueadd></app-venueadd>          
                     </div>
-                   
+
                     <div class="form_row clearfix" style="width: 385px">
                         <label>Intended Audience:</label>
                         <div class="">                                            
                             <ng-select (data)="optionSelected($event,'audience')"
                             [multiple]="true"                            
                             [items]="audienceList">                            
-                            </ng-select>
-                           <input type="hidden" id="audience" name="audience" [(ngModel)]="audience">
-                        </div>
-                    </div>    
-                    <div class="form_row clearfix">
-                        <label>Contact Info</label>
-                        <input type="tel" [(ngModel)]="contact_info" id="contactinfo"  name="contact_info" value="" class="form-control textfield">
-                        <span class="errfield">{{contact}}</span>                          
+                        </ng-select>
+                        <input type="hidden" id="audience" name="audience" [(ngModel)]="audience">
                     </div>
-                    <div class="form_row clearfix">
-                        <label>Event Purpose</label>
-                        <input type="text" [(ngModel)]="purpose" id="purpose" name="purpose" value="" class="form-control textfield">
-                    </div>
-                    <div class="form_row clearfix" style="width: 385px">
-                        <label>Event Keywords</label>
-                        <div class="">
-                                         
-                            <ng-select (data)="optionSelected($event,'keyword')"
-                            [multiple]="true"                            
-                            [items]="keywordList">                            
-                            </ng-select>
-                           <input type="hidden" id="keyword" name="keyword" [(ngModel)]="keyword">
-                        </div>
-                    </div>                  
+                </div>    
+                <div class="form_row clearfix">
+                    <label>Contact Info</label>
+                    <input type="tel" [(ngModel)]="contact_info" id="contactinfo"  name="contact_info" value="" class="form-control textfield">
+                    <span class="errfield">{{contact}}</span>                          
                 </div>
-                <div class="col-sm-12">
-                     <div class="form_row clearfix">
-                        <label>Event Description<span class="indicates">*</span></label>
-                        <ckeditor name="event_description" [(ngModel)]="event_description" debounce="400"></ckeditor>
-                        <span class="errfield">{{description}}</span> 
-                    </div>
-
-                    <div class="form_row clearfix">
-                        <label>Upload Images</label>                        
-                        <input id="eventImages" (ngModelChange)="uploadImages($event)" name="images" [(ngModel)]="eventImages" type="file" multiple>
-                         <input type="hidden" id="attach_ids" name="image_id"> 
-                         <input type="hidden" id="pre_ids"> 
-                    </div>
-                    <div class="form_row ">                         
-                        <button class="btn btn-info" type="submit" value="Save" name="submit">Save</button>                          
-                        <button class="btn btn-info" type="reset" value="Cancel" name="reset">Cancel</button>
-                    </div>                    
+                <div class="form_row clearfix">
+                    <label>Event Purpose</label>
+                    <input type="text" [(ngModel)]="purpose" id="purpose" name="purpose" value="" class="form-control textfield">
                 </div>
-            </form>            
+                <div class="form_row clearfix" style="width: 385px">
+                    <label>Event Keywords</label>
+                    <div class="">
 
+                        <ng-select (data)="optionSelected($event,'keyword')"
+                        [multiple]="true"                            
+                        [items]="keywordList">                            
+                    </ng-select>
+                    <input type="hidden" id="keyword" name="keyword" [(ngModel)]="keyword">
+                </div>
+            </div>                  
         </div>
-        <!-- #content --> 
-
-        <!--single post type sidebar -->
-        <div id="sidebar-primary" class="sidebar large-3 small-12 columns">
-            <!-- 300x600 ad_space -->
-             <div id="templatic_text-1" class="widget templatic_text">
-                <div class="widget-wrap widget-inside">     
-                    <div class="textwidget text-center">    
-                       <iframe scrolling="no" width="100%" height="600" src="http://2016.geekmeet.com/banner.php?title=event-300x600"></iframe>     
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 300x150 ad_space -->
-               <div id="templatic_text-1" class="widget templatic_text">
-                <div class="widget-wrap widget-inside">     
-                    <div class="textwidget text-center">    
-                         <iframe scrolling="no" width="100%" height="300" src="http://2016.geekmeet.com/banner.php?title=event-300x250"></iframe>        
-                    </div>
-                </div>
-            </div>
+        <div class="col-sm-12">
+           <div class="form_row clearfix">
+            <label>Event Description<span class="indicates">*</span></label>
+            <ckeditor name="event_description" [(ngModel)]="event_description" debounce="400"></ckeditor>
+            <span class="errfield">{{description}}</span> 
         </div>
-        <!--end single post type sidebar --> 
-        <!-- end  content part-->
+
+        <div class="form_row clearfix">
+            <label>Upload Images</label>                        
+            <input id="eventImages" (ngModelChange)="uploadImages($event)" name="images" [(ngModel)]="eventImages" type="file" multiple>
+            <input type="hidden" id="attach_ids" name="image_id"> 
+            <input type="hidden" id="pre_ids"> 
+        </div>
+        <div class="form_row ">                         
+            <button class="btn btn-info" type="submit" value="Save" name="submit">Save</button>                          
+            <button class="btn btn-info" type="reset" value="Cancel" name="reset">Cancel</button>
+        </div>                    
     </div>
-    <!-- .wrap -->
+</form>            
+
+</div>
+<!-- #content --> 
+
+<!--single post type sidebar -->
+<div id="sidebar-primary" class="sidebar large-3 small-12 columns">
+    <!-- 300x600 ad_space -->
+    <div id="templatic_text-1" class="widget templatic_text">
+        <div class="widget-wrap widget-inside">     
+            <div class="textwidget text-center">    
+             <iframe scrolling="no" width="100%" height="600" src="http://2016.geekmeet.com/banner.php?title=event-300x600"></iframe>     
+         </div>
+     </div>
+ </div>
+
+ <!-- 300x150 ad_space -->
+ <div id="templatic_text-1" class="widget templatic_text">
+    <div class="widget-wrap widget-inside">     
+        <div class="textwidget text-center">    
+           <iframe scrolling="no" width="100%" height="300" src="http://2016.geekmeet.com/banner.php?title=event-300x250"></iframe>        
+       </div>
+   </div>
+</div>
+</div>
+<!--end single post type sidebar --> 
+<!-- end  content part-->
+</div>
+<!-- .wrap -->
 </section>
 
 <!-- <app-footer></app-footer> -->
