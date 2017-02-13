@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule, Router }   from '@angular/router';
-
+// import { MetaService } from 'ng2-meta';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +8,7 @@ import { RouterModule, Router }   from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+	// constructor(private metaService: MetaService) {}
   title = 'app works!';
   onActivate(e, outlet){
     outlet.scrollTop = 0;

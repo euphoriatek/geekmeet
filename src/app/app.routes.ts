@@ -49,7 +49,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 
 export const routes: Routes = [
-      {path:'',component: IndexComponent,pathMatch: 'full' },
+      {path:'',component: IndexComponent,pathMatch: 'full'},
       {path:'header' ,component: HeaderComponent},
       {path:'footer' ,component: FooterComponent},
       {path:'blog/:category' ,pathMatch: 'full',component: BlogComponent,data: [{id: true}]},

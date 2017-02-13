@@ -71,10 +71,10 @@
                          placeholder="No organization selected">
                      </ng-select> -->
                      <typeahead
-                     [list]="organizationList"
+                     [list]="organiuzationArr"
                      [searchProperty]="'text'"
                      [displayProperty]="'text'"
-                     (suggestionSelected)="optionSelected($event,'organization')"
+                     (suggestionSelected)="orgSelected($event)"
                      placeholder="No organization selected">
                  </typeahead>
                  <input type="hidden" id="organization" name="organizers" [(ngModel)]="organizers">  
@@ -93,10 +93,11 @@
                 placeholder="No location selected">
             </ng-select> -->
             <typeahead
+            
                      [list]="venueList"
                      [searchProperty]="'text'"
                      [displayProperty]="'text'"
-                     (suggestionSelected)="optionSelected($event,'location')"
+                     (suggestionSelected)="venueSelected($event)"
                      placeholder="No location selected">
                  </typeahead>
             <input type="hidden" id="location" name="location" [(ngModel)]="location">       

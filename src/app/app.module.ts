@@ -59,7 +59,7 @@ import { SearchComponent } from './controller/search/search.component';
 import { ActivateNowComponent } from './controller/activate-now/activate-now.component';
 import { MyAttendanceComponent } from './controller/my-attendance/my-attendance.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-
+import { MetaModule } from 'ng2-meta';
 
 
 
@@ -123,6 +123,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
   CKEditorModule,
   Ng2Bs3ModalModule,
   Ng2PaginationModule,
+  MetaModule.forRoot(),
   LoadingAnimateModule.forRoot(),
   AgmCoreModule.forRoot({
     apiKey: 'AIzaSyD-BvDe_7N5-LpgFlXgfkv44Gdez1qL7-w'

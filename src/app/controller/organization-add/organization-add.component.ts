@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
+import { EventaddComponent } from '../eventadd/eventadd.component';
 
 import {SelectModule} from 'ng2-select/ng2-select';
 

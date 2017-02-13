@@ -54,7 +54,7 @@ export class EventaddComponent implements OnInit {
   organizationErr:any;
   locationErr:any;
   contact:any;  
-
+  organiuzationArr:any;
   geocoder:any;
   errors:Object = {};  
   center:Object = {
@@ -199,6 +199,7 @@ export class EventaddComponent implements OnInit {
       });
 
       ref.organizationList = jQuery.makeArray( ref.organizationList );
+      ref.organiuzationArr = ref.organizationList;
       
     }, function(err){
       console.log(err);      
@@ -241,6 +242,24 @@ export class EventaddComponent implements OnInit {
     console.log(value);
   }
 
+  public orgSelected(value) {
+    if(value){
+    this.organizers = value.id;
+    }else{
+      this.organizers='';
+      return;
+    }
+  }
+
+  public venueSelected(value) {
+    if(value){
+    this.location = value.id;
+    }else{
+      this.location='';
+      return;
+    }
+  }
+
   public optionSelected(value:any,type:any):void { 
     switch (type) {      
       case "organization":
@@ -273,11 +292,6 @@ export class EventaddComponent implements OnInit {
 
   }
 
-  selectClick(){
-    debugger;
-    console.log('working');
-    this.visibilityDropDown = true;
-  }
   onDateChanged(event:any, type) {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
     if(event.formatted !== '') {

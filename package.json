@@ -37,6 +37,7 @@
     "ng2-dropdown": "0.0.15",
     "ng2-file-upload": "^1.1.4-2",
     "ng2-loading-animate": "0.0.16",
+    "ng2-meta": "^2.0.3",
     "ng2-notifications": "^0.3.0",
     "ng2-notify": "^1.4.0",
     "ng2-nouislider": "^1.4.1",
