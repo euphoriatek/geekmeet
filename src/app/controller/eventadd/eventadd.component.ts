@@ -102,6 +102,8 @@ export class EventaddComponent implements OnInit {
     this.getVenueList();
     this.getOrganizationList();
     this.getCategoryList();
+    var eventAddIndex = this;
+    this.apiService.setEventAdd(eventAddIndex);
   }
 
 

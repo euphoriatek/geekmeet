@@ -84,7 +84,9 @@ export class OrganizationAddComponent implements OnInit {
       refreg.toastyService.success(res.message);
       jQuery('form').find('input[type=text], input[type=password], input[type=number], input[type=email], textarea').val('');
       var closeBtn = <HTMLElement>document.getElementById("oranization-cancel");
-          closeBtn.click();
+      closeBtn.click();
+      var index = refreg.apiService.getEventAdd();
+      index.getOrganizationList();
     },function(error){
       refreg.loadingSvc.setValue(false);
       refreg.toastyService.error(error.json().message);
@@ -102,19 +104,19 @@ export class OrganizationAddComponent implements OnInit {
   }
 
   // removeOrganizationData(){
-  //   var ref = this;
+    //   var ref = this;
 
-  //   jQuery( 'input[type="file"]' ).val("");
-  //   ref.countryList= [];
-  //   ref.stateList = [];
-  //   ref.cityList = [];
-  //   ref.getCountryList();
+    //   jQuery( 'input[type="file"]' ).val("");
+    //   ref.countryList= [];
+    //   ref.stateList = [];
+    //   ref.cityList = [];
+    //   ref.getCountryList();
     
-  //   jQuery('.map_div').hide();
-  //   jQuery( "#venue_submit" ).prop("disabled",false);
-  //   jQuery( "#venue_cancel" ).prop("disabled",false);
-  //   //ref.router.navigate(['/eventadd']);   
-  //   //this.venueErrors = {};
-  // } 
+    //   jQuery('.map_div').hide();
+    //   jQuery( "#venue_submit" ).prop("disabled",false);
+    //   jQuery( "#venue_cancel" ).prop("disabled",false);
+    //   //ref.router.navigate(['/eventadd']);   
+    //   //this.venueErrors = {};
+    // } 
 
-}
+  }

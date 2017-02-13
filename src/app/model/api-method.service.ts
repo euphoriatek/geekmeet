@@ -13,6 +13,7 @@ export class ApiMethodService {
 	getIndex:any;
 	getTokenValue:any;
 	getRef:any;
+	getEventAddIndex:any;
 	footerref:any;
 	private storage: any;
 	private loggedIn = false;
@@ -54,6 +55,12 @@ export class ApiMethodService {
 
 	getFooterRef(){
 		return this.footerref;
+	}
+	setEventAdd(index){
+		this.getEventAddIndex = index;
+	}
+	getEventAdd(){
+		return this.getEventAddIndex;
 	}
 
 
