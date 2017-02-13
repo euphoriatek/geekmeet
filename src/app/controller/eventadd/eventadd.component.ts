@@ -240,12 +240,12 @@ export class EventaddComponent implements OnInit {
 
   
   uploadImages(value:any){
-    console.log('here');
     console.log(value);
   }
 
   public orgSelected(value) {
-    if(value){
+    console.log("this is value og organaization"+JSON.stringify(value));
+    if(value.id){
     this.organizers = value.id;
     }else{
       this.organizers='';

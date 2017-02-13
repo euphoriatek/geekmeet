@@ -1,6 +1,7 @@
-import { Component, OnInit,Output, ViewContainerRef, EventEmitter, NgZone, ViewChild } from '@angular/core';
+import { Component, OnInit,Output, ViewContainerRef,Sanitizer, EventEmitter, NgZone, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RouterModule, Router }   from '@angular/router';
+import {DomSanitizer} from '@angular/platform-browser';
 import { ApiMethodService } from '../../../model/api-method.service';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
@@ -51,6 +52,7 @@ export class FooterComponent implements OnInit {
 	reset_password:any
 	menuArr:any;
 	blogArr:any;
+	userIdForActivation:any;
 	cnfrmEmailActivation:any;
 
 	errors:Object = {};
@@ -58,6 +60,7 @@ export class FooterComponent implements OnInit {
 
 
 	constructor(private router: Router,
+		public sanitizer: DomSanitizer,
 		public apiService:ApiMethodService,
 		overlay: Overlay,
 		vcRef: ViewContainerRef,
@@ -219,6 +222,8 @@ export class FooterComponent implements OnInit {
 					if(error.json().error=='activation'){
 						ref.reset_password=null;
 						ref.cnfrmEmailActivation = error.json().message;
+						ref.userIdForActivation = error.json().user_id;
+						// ref.cnfrmEmailActivation= ref.sanitizer.bypassSecurityTrustHtml(error.json().message);
 					}
 					else{
 						ref.cnfrmEmailActivation = null;
@@ -238,6 +243,35 @@ export class FooterComponent implements OnInit {
 				
 			});
 
+		}
+
+		resendEmail(){
+			var ref = this;
+			ref.cnfrmEmailActivation = null;
+			ref.loadingSvc.setValue(true);
+			var id = this.userIdForActivation;
+			ref.apiService.resend_email(id,function(res){
+				var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
+					closeBtn.click();
+				var toastOptions:ToastOptions = {
+					title: "Resend Activation Email.!",
+					msg: res.message,
+					showClose: true,
+					timeout: 30000,
+					theme: 'bootstrap',
+					onAdd: (toast:ToastData) => {
+					},
+					onRemove: function(toast:ToastData){	
+					}
+				};
+				ref.toastyService.success(toastOptions);
+				ref.loadingSvc.setValue(false);
+				console.log(res);
+			},function(error){
+				ref.toastyService.error(error.json().message);
+				ref.loadingSvc.setValue(false);
+				console.log(error);
+			})	
 		}
 
 

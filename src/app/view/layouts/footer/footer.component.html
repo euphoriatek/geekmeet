@@ -142,9 +142,11 @@
 
                             <ul class="error" *ngIf="reset_password" >
                                 <li>{{reset_password}}<a (click)="gotoResetPwd()" data-dismiss="modal"> Reset your password</a></li>    
-                            </ul> 
+                            </ul><br> 
                             <ul class="error" *ngIf="cnfrmEmailActivation" >
-                                <li [innerHTML]="cnfrmEmailActivation"></li>    
+                                <li [innerHTML]="cnfrmEmailActivation"></li>
+                                <br><button class="logreg-link" id="tmpl-reg-link" style="color: #fff;" (click)="resendEmail()">Resend</button>
+                                <!-- <a (click)="resendEmail()">Click Here</a>     -->
                             </ul>  
                         </div>
                         <div class="form_row rember clearfix">  

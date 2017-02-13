@@ -1,6 +1,6 @@
 <!-- <app-header></app-header> -->
 
-<section id="main" class="clearfix">
+<section id="main" class="clearfix" itemscope>
     <div class="wrap row">
 
         <div class="breadcrumb breadcrumbs columns">
@@ -11,14 +11,14 @@
                 <span class="sep">»</span> 
                 <a [routerLink]="['/blog']" title="News">Blog</a>
                 <span class="sep">»</span>
-                <span class="trail-end">{{blogDetail.blog_title}}</span>
+                <span class="trail-end" itemprop="title">{{blogDetail.blog_title}}</span>
             </div>
         </div>
 
         <section id="content" class="large-9 small-12 columns">
             <div class="hfeed">
                 <div class="post">
-                    <h1 class="post-title entry-title">{{blogDetail.blog_title}}</h1>
+                    <h1 itemprop="title" class="post-title entry-title">{{blogDetail.blog_title}}</h1>
                     <div class="byline">Published by 
                         <span class="author vcard">
                             <b>{{blogDetail.username}}</b>
@@ -31,7 +31,7 @@
                         <div class="entry-thumbnail">
                             <img src="{{blogDetail.thumb}}" alt="" style="width: 100%;">
                         </div>
-                        <p [innerHTML]="blogDetail.blog_content"></p>
+                        <p itemprop="description" [innerHTML]="blogDetail.blog_content"></p>
                        
                     </section>
                     <!-- .entry-content -->
@@ -50,7 +50,7 @@
                             Previous
                         </span>
                     </a>
-                     <a *ngIf="next!=null" [routerLink]="['/blog-detail',next]" >
+                     <a itemprop="url" *ngIf="next!=null" [routerLink]="['/blog-detail',next]" >
                         <span class="next" >
                           Next
                               <span class="meta-nav">&rarr;</span>

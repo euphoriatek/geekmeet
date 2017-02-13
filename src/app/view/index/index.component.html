@@ -1,5 +1,5 @@
 <!-- <app-header></app-header> -->
-<div itemscope class="home_page_banner container-wrap-bg clear clearfix clearfix map_full_width" style="float: left;width: 100%;margin: 0;height: 500px;z-index: 1;">
+<div itemtype="http://2016.geekmeet.com/" class="home_page_banner container-wrap-bg clear clearfix clearfix map_full_width" style="float: left;width: 100%;margin: 0;height: 500px;z-index: 1;">
     <div id="directory_search_location-2" class="widget search_key">
         <div class="widget-wrap widget-inside">
             <div class="search_nearby_widget what_fld_search">
@@ -19,7 +19,7 @@
     <!-- <?php include './second_menu.php'; ?> -->
 <app-second-menu (onMenuChange)="onchange($event)"></app-second-menu>
 
-<section id="main" class="clearfix">
+<section itemscope id="main" class="clearfix">
     <div class="wrap row">
         <section id="content" class="large-9 small-12 columns">
             <div class="hfeed">
@@ -40,7 +40,7 @@
                                 </div>    
                                 <!-- widget_loop_taxonomy_wrap START -->
                                 <section id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  grid" *ngIf="view_type=='chronological'">
-                                 <h4 style="text-align: center;">{{showData}}</h4>
+                                 <h4 style="text-align: center;" itemtype="showData">{{showData}}</h4>
                                     <!-- inside loop div start -->
                                     <article id="event_27121" class="post large-4 medium-4 small-6 xsmall-12 columns post" *ngFor = "let events of popularArr">
                                              <div class="listing_img" (click)="goToEventDetail(events.event_id)">
@@ -58,7 +58,7 @@
                                                         <span class="date">
                                                             {{events.start_date}}           <span></span>
                                                         </span>
-                                                        <h2 class="entry-title">
+                                                        <h2 class="entry-title" itemprop="title">
                                                             <a itemprop="url" href="" [routerLink]="['/event-detail',events.event_id]" title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a>
                                                         </h2>
                                                         <div class="listing_rating">

@@ -1007,6 +1007,15 @@ export class ApiMethodService {
 		},(error) =>failure(error));
 	}
 
+	resend_email(value,callBack,failure){
+		this.http.get('http://2016.geekmeet.com/admin/v1/resend_mail/'+value).map(res=>res.json())
+		.subscribe((res)=>{
+			if(callBack){
+				callBack(res);
+			}
+		},(error) =>failure(error));
+	}
+
 
   }
 		
