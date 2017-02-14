@@ -5,7 +5,6 @@ import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
 import { EventaddComponent } from '../eventadd/eventadd.component';
-import { ModalComponent } from 'angular2-modal';
 import {SelectModule} from 'ng2-select/ng2-select';
 
 import 'rxjs/add/operator/map';
@@ -27,8 +26,6 @@ export class OrganizationAddComponent implements OnInit {
     resizeMaxHeight: 128,
     resizeMaxWidth: 128
   };
-
-  @ViewChild('modal')modal:ModalComponent<string>;
 
   constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { 
     this.toastyConfig.theme = 'bootstrap';
