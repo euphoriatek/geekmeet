@@ -41,7 +41,7 @@
 										<div class="entry-title" >
 											<div style="float: right;">
 												<label class="org_btn"><a *ngIf="list_event.my_event" class="btn btn-xs primary" href="" [routerLink] = "['/event-edit',list_event.event_id]">Edit Event</a></label>
-												<label class="org_btn"><a class="btn btn-xs primary" href="javascript:void(0)" (click)="modal_id.open('sm');setDeleteID(list_event.event_id);">Delete</a></label>
+												<label class="org_btn"><a class="btn btn-xs primary" data-toggle="modal" data-target="#modal_id" href="javascript:void(0)" (click)="setDeleteID(list_event.event_id);">Delete</a></label>
 											</div>
 											<div class="event-title">       
 												<h2 class="entry-title">
@@ -157,7 +157,7 @@
 
 					</div></div>
 				</section>
-				<modal #modal_id>
+				<!-- <modal #modal_id>
 					<modal-header [show-close]="true">
 						<h4 class="modal-title">Are you sure!</h4>
 					</modal-header>
@@ -166,4 +166,21 @@
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 						<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteOrg()">Ok</button>
 					</modal-footer>
-				</modal>
+				</modal> -->
+
+				<div style="background-color: transparent;"  data-backdrop="static" class="modal fade" id="modal_id" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+				<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header" id="sign_in_modal">
+								<button id="closeLoginModal" type="button" class="close" data-dismiss="modal" (click)="closeModal()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+								<h4 class="modal-title" id="lineModalLabel">Are you sure want to delete this Event!</h4>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+								<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteOrg()">Ok</button>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
