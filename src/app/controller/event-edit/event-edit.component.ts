@@ -134,7 +134,7 @@ export class EventEditComponent implements OnInit {
 				refreg.imageLink = Link.replace(/\\/g, "");
 				refreg.imageArr.push(res.data.image_id);
 			}
-			refreg.afterGetData();
+			// refreg.afterGetData();
 		},function(error){
 			refreg.loadingSvc.setValue(false);
 			refreg.toastyService.error(error.json().message);
@@ -147,7 +147,8 @@ export class EventEditComponent implements OnInit {
 	}
 
 
-	afterGetData() {
+	ngAfterViewInit() {
+		jQuery(document).ready(function () {
 		var ref= this;
 
 		jQuery('#eventstart-time, #eventend-time').timepicker({
@@ -238,7 +239,9 @@ export class EventEditComponent implements OnInit {
 				jQuery(this).removeClass('yellow');
 				jQuery(this).html('<i class="fa fa-star fa-2"></i>');
 			}
-		})
+		});
+
+		});
 
 	}
 

@@ -1,6 +1,6 @@
 <!-- <app-header></app-header> -->
 
-<section id="main" class="clearfix">
+<section id="main" class="clearfix" itemscope>
     <div class="wrap row">
         <div class="breadcrumb breadcrumbs columns">
             <div class="breadcrumb-trail">
@@ -28,7 +28,7 @@
 
                 <!-- Author photo on right side start -->
                 <div class="right_box">
-                    <h2>{{userInfoArr.first_name}} {{userInfoArr.last_name}}</h2>
+                    <h2 itemprop="name">{{userInfoArr.first_name}} {{userInfoArr.last_name}}</h2>
                     <div class="user_dsb_cf">
                         <div *ngIf="userInfoArr.address">
                             <label><i class="fa fa-home"></i> Address :</label>
@@ -72,7 +72,7 @@
                         </div>
                         <div *ngIf="userInfoArr.about_me">
                             <label><i class="fa fa-user"></i> About Me :</label>
-                            <span><p style="text-align: justify;" [innerHTML] = "userInfoArr.about_me"></p></span>
+                            <span itemprop="description"><p style="text-align: justify;" [innerHTML] = "userInfoArr.about_me"></p></span>
                         </div>
                     </div>
 

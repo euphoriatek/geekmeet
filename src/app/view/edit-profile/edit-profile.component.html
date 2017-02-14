@@ -1,6 +1,6 @@
 <!-- <app-header></app-header> -->
 
-<section id="main" class="clearfix">
+<section id="main" class="clearfix" itemscope>
     <div class="wrap row">
         <div class="breadcrumb breadcrumbs columns">
             <div class="breadcrumb-trail">
@@ -10,7 +10,7 @@
                 <span class="sep">»</span> 
                 <span class="trail-end"> <a [routerLink]="['/profile']">Profile</a></span>
                 <span class="sep">»</span> 
-                <span class="trail-end">Edit Profile</span>
+                <span class="trail-end" itemprop="title">Edit Profile</span>
             </div>
         </div>
         <!-- <button id="notification" (click)="addToast()"></button> -->
@@ -31,21 +31,21 @@
                             [resizeOptions]="resizeOptions">
                         </div>
                     </div>
-                    <div class="form_row clearfix">
+                    <div class="form_row clearfix" itemprop="name">
                         <label>First Name <span class="indicates">*</span></label>
                         <input type="text" name="first_name" id="" [(ngModel)]="userInfoArr.first_name" class="form-control textfield" >
                         <ul class="error" *ngIf="errors['first_name']!=''" >
                             <li *ngFor="let org_err of errors['first_name']">{{org_err}}</li>    
                         </ul>   
                     </div>
-                    <div class="form_row clearfix">
+                    <div class="form_row clearfix" itemprop="name">
                         <label>Last Name <span class="indicates">*</span></label>
                         <input type="text" name="last_name" id="" [(ngModel)]="userInfoArr.last_name" class="form-control textfield" >
                         <ul class="error" *ngIf="errors['last_name']!=''" >
                             <li *ngFor="let org_err of errors['last_name']">{{org_err}}</li>    
                         </ul>  
                     </div>
-                    <div class="form_row clearfix">
+                    <div class="form_row clearfix" itemprop="address">
                         <label>Address <span class="indicates"></span></label>
                         <textarea class="textfield" name="address" [(ngModel)]="userInfoArr.address" style="height: 100px"></textarea>
                         <ul class="error" *ngIf="errors['address']!=''" >
@@ -140,7 +140,7 @@
                         </ng-select>
                     </div>
                 </div>
-                <div class="form_row clearfix">
+                <div class="form_row clearfix" itemprop="description">
                     <label>About Me</label>
                    <!--  <ckeditor [(ngModel)]="userInfoArr.about_me" debounce="500" [config]="{uiColor: '#99000'}">
                </ckeditor> -->

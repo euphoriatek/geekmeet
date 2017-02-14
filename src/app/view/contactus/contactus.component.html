@@ -1,6 +1,6 @@
 <!-- <app-header></app-header> -->
 
-<section id="main" class="clearfix">
+<section id="main" class="clearfix" itemscope>
     <div class="wrap row">
         <div class="breadcrumb breadcrumbs columns">
             <div class="breadcrumb-trail">
@@ -8,7 +8,7 @@
                     <a [routerLink]="['/']" title="wamasoftware" rel="home" class="trail-begin">Home</a>
                 </span> 
                 <span class="sep">»</span> 
-                <span class="trail-end">Contact Us</span>
+                <span itemprop="name" class="trail-end">Contact Us</span>
             </div>
         </div>
 
@@ -16,7 +16,7 @@
             <div class="hfeed">
                 <div id="post-165" class="hentry page publish post-1 odd author-admin  post ">
                     <h1 class="loop-title">Contact Us</h1>
-                    <div class="loop-description">
+                    <div itemprop="description" class="loop-description">
                         <p>Looking for more information about upcoming events, gatherings, or other social news? Maybe you have your own event planned and want to get the word out. Or you know of a potential job opening that a fellow Geekmeeter could benefit from. We’re always looking for ways to make our site more useful for our users, and your input helps. Fill out the contact information below and we’ll get back to you as soon as possible.</p>
                     </div>
                     <!-- .entry-content -->
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="cont_wid_area clearfix">
-                    <h3 class="widget-title">Contact Us</h3>
+                    <h3 itemprop="title" class="widget-title">Contact Us</h3>
                     <div id="supreme_contact_widget-1" class="widget contact_us">
                         <div class="widget-wrap widget-inside">			
                             <div class="widget contact_widget" id="contact_widget">
