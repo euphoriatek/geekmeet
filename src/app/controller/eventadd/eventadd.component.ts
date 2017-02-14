@@ -108,7 +108,7 @@ export class EventaddComponent implements OnInit {
 
 
   ngAfterViewInit() {
-
+    jQuery(document).ready(function () {
     jQuery('#eventstart-time, #eventend-time').timepicker({
       showSeconds: true
     });
@@ -180,6 +180,7 @@ export class EventaddComponent implements OnInit {
         window.location.href = '/event'; }
       });
 
+  });
 
   }
 
@@ -245,7 +246,7 @@ export class EventaddComponent implements OnInit {
 
   public orgSelected(value) {
     console.log("this is value og organaization"+JSON.stringify(value));
-    if(value.id){
+    if(value){
     this.organizers = value.id;
     }else{
       this.organizers='';

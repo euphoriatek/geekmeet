@@ -1,6 +1,6 @@
 <!-- <app-header></app-header> -->
 <app-second-menu></app-second-menu>
-<section id="main" class="clearfix event_detail_module">
+<section id="main" class="clearfix event_detail_module" itemscope>
     <div class="wrap row">
         <div class="breadcrumb breadcrumbs columns">
             <div class="breadcrumb-trail">
@@ -20,7 +20,7 @@
                     <!--start post type title -->
                     <header class="entry-header clearfix">
                         <div class="entry-header-title">
-                            <h1 class="entry-title ">{{data.event_data.event_title}}</h1>
+                            <h1 itemprop="title" class="entry-title ">{{data.event_data.event_title}}</h1>
                             <div class="event_rating">
                                 <div class="event_rating_row"> <span><a href="javascript:void(0)">{{data.review.review_count}}  Reviews</a></span> 
                                 <div style="float:right"> 
@@ -73,11 +73,11 @@
                         <div class="entry-header-custom-wrap p-tb-30" id="event_td">
                                 <p class="date">
                                 <label>Start Date:</label>
-                                <span id="frontend_date_st_date" class="event_custom frontend_st_date">{{data.event_data.start_date}}</span></p>
+                                <span itemprop="startDate" id="frontend_date_st_date" class="event_custom frontend_st_date">{{data.event_data.start_date}}</span></p>
 
                                 <p class="date">
                                     <label>End Date:</label>
-                                    <span id="frontend_date_end_date" class="frontend_end_date frontend_datepicker event_custom">{{data.event_data.end_date}}</span>
+                                    <span itemprop="endDate" id="frontend_date_end_date" class="frontend_end_date frontend_datepicker event_custom">{{data.event_data.end_date}}</span>
                                 </p>
                                 <span *ngIf = "getToken">
                                 <p class="hosted">
@@ -96,7 +96,7 @@
                                 <span *ngIf = "getToken">
                                 <p class="address">
                                     <label>Event Location:</label>
-                                    <span id="frontend_address" class="event_custom frontend_address">{{data.event_data.location}}</span>
+                                    <span itemprop="locatioin" id="frontend_address" class="event_custom frontend_address">{{data.event_data.location}}</span>
                                 </p>
                                 </span>
                                 <p class="website" *ngIf="data.event_data.website!=''">

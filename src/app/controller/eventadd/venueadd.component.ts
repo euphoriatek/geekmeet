@@ -177,7 +177,7 @@ export class VenueaddComponent implements OnInit {
     }
     
     value.images = ref.file_srcs;
-
+    ref.loadingSvc.setValue(true);
      ref.apiService.addVenue(value,function(res){
        ref.loadingSvc.setValue(false);
         var toastOptions:ToastOptions = {
@@ -215,6 +215,10 @@ export class VenueaddComponent implements OnInit {
 
  fileChange(input){
     this.readFiles(input.files);
+  }
+
+  closeModal(){
+    this.venueErrors = {};
   }
 
   readFile(file, reader, callback){

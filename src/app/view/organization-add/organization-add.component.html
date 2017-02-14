@@ -1,5 +1,5 @@
 
-<a (click)="modal.open();" class="btn btn-success  btn-sm btn-square active pull-right add_button" style="line-height: 1.6;">
+<a data-toggle="modal" data-target="#organizationModal" class="btn btn-success  btn-sm btn-square active pull-right add_button" style="line-height: 1.6;">
                 <span area-hidden="true" class="glyphicon glyphicon-plus"></span>
             </a>
 <!-- <section id="main" class="clearfix">
@@ -18,10 +18,100 @@
            <!--  <div class="event-add">
                 <h3>Organization Add</h3>
             </div> -->
-             <modal #modal> 
+             <!-- <modal #modal> 
             <modal-header [show-close]="true"><h4 class="modal-title">Add Organization</h4></modal-header>  
             <form #addOrganizationForm="ngForm" (ngSubmit)="addOrganization(addOrganizationForm);">
                 <div class="event-edit-form large-9 small-12 columns" style="background-color: #fff;width: 100%;">
+                    <div class="form_row clearfix">
+                        <label>Business Logo</label>
+                        <div class="col-sm-10 -m-rl-15"> -->
+                            <!-- <input type="file" name="image" value="" ngModel class="form-control textfield">  -->
+            <!--                 <input type="file" image-upload
+                            (imageSelected)="selected($event)"
+                            [resizeOptions]="resizeOptions">
+                        </div>
+                       
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Name<span class="indicates">*</span></label>
+                        <input type="text" name="organization_name" ngModel id="" value="" class="form-control textfield"> 
+                        <ul class="error" *ngIf="errors['organization_name']!=''" >
+                        <li *ngFor="let org_err of errors['organization_name']" >
+                          {{org_err}}  
+
+                        </li>    
+
+                        </ul>                    
+                        </div>
+                    <div class="form_row clearfix">
+                        <label>About the Organization<span class="indicates">*</span></label>
+                        <ckeditor name="organization_description" [(ngModel)]="organization_description" debounce="400"></ckeditor>
+                         <ul class="error" *ngIf="errors['organization_description']!=''" >
+                        <li *ngFor="let org_err of errors['organization_description']" >
+                          {{org_err}}  
+
+                        </li>    
+
+                        </ul>  
+                    </div>
+                      <div class="form_row clearfix">
+                        <label>Country</label>
+                        <select class="form-control" name="country" ngModel (ngModelChange)="getState($event)">
+                            <option *ngFor="let country of countryList" value="{{country.id}}" >{{country.name}}</option>
+                        </select>
+                        <span id="user_loginInfo">{{country}}</span> 
+                    </div>
+
+                    <div class="form_row clearfix">
+                        <label>State</label>
+                        <select class="form-control" name="state" ngModel (ngModelChange)="getCIty($event)">
+                            <option *ngFor="let state of stateList" value="{{state.state_id}}" >{{state.name}}</option>
+                        </select>
+                        <span id="user_loginInfo">{{state}}</span> 
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>City</label>
+                        <select class="form-control" name="city" ngModel >
+                            <option *ngFor="let city of cityList" value="{{city.city_id}}">{{city.name}}</option>
+                        </select>
+                        <span id="user_loginInfo">{{city}}</span> 
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Street Address</label>
+                        <textarea class="form-control" name="organization_location" ngModel></textarea>
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Email</label>
+                        <input type="text" name="organization_email" value="" class="form-control textfield" ngModel>
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Website</label>
+                        <input type="text" name="organization_website" value="" class="form-control textfield" ngModel> 
+                    </div>
+                    <div class="form_row clearfix">
+                        <label>Phone</label>
+                        <input type="text" name="organization_contact" value="" class="form-control textfield" ngModel> 
+                    </div>
+
+                    <div class="form_row ">
+                        <button class="btn btn-info" type="submit" id="oranization-save" value="Save" name="submit">Save</button>
+                        <a class="btn btn-info" data-dismiss="modal"  (click)="addOrganizationForm.reset();removeOrganizationData();modal.dismiss();"  id="oranization-cancel">Cancel</a>	
+                    </div>
+                </div>
+            </form>
+             </modal>  --> 
+
+             <div style="background-color: transparent;"  data-backdrop="static" class="modal fade" id="organizationModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+          <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" id="sign_in_modal">
+                    <button id="closeOrgModal" type="button" class="close" data-dismiss="modal" (click)="closeModal()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="lineModalLabel">Organization Add</h3>
+                </div>
+                <div class="modal-body">
+                   
+                <form #addOrganizationForm="ngForm" (ngSubmit)="addOrganization(addOrganizationForm);">
+                <div  style="background-color: #fff;width: 100%;">
                     <div class="form_row clearfix">
                         <label>Business Logo</label>
                         <div class="col-sm-10 -m-rl-15">
@@ -95,11 +185,15 @@
 
                     <div class="form_row ">
                         <button class="btn btn-info" type="submit" id="oranization-save" value="Save" name="submit">Save</button>
-                        <a class="btn btn-info" data-dismiss="modal"  (click)="addOrganizationForm.reset();removeOrganizationData();modal.dismiss();"  id="oranization-cancel">Cancel</a>	
+                        <a class="btn btn-info" data-dismiss="modal"  (click)="addOrganizationForm.reset();removeOrganizationData();" (click)="closeModal()" data-dismiss="modal" id="oranization-cancel">Cancel</a>   
                     </div>
                 </div>
             </form>
-             </modal>  
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <!-- /div> -->
         <!-- #content --> 
 

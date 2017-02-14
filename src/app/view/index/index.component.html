@@ -40,7 +40,7 @@
                                 </div>    
                                 <!-- widget_loop_taxonomy_wrap START -->
                                 <section id="loop_listing_taxonomy" class="widget_loop_taxonomy_wrap  grid" *ngIf="view_type=='chronological'">
-                                 <h4 style="text-align: center;" itemtype="showData">{{showData}}</h4>
+                                 <h4 style="text-align: center;" itemtype="title">{{showData}}</h4>
                                     <!-- inside loop div start -->
                                     <article id="event_27121" class="post large-4 medium-4 small-6 xsmall-12 columns post" *ngFor = "let events of popularArr">
                                              <div class="listing_img" (click)="goToEventDetail(events.event_id)">

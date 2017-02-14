@@ -1,11 +1,11 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit,ViewChild} from '@angular/core';
 import { ApiMethodService } from '../../model/api-method.service';
 import { RouterModule, Router }   from '@angular/router';
 import { ImageResult, ResizeOptions } from 'ng2-imageupload';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
 import { EventaddComponent } from '../eventadd/eventadd.component';
-
+import { ModalComponent } from 'angular2-modal';
 import {SelectModule} from 'ng2-select/ng2-select';
 
 import 'rxjs/add/operator/map';
@@ -28,6 +28,8 @@ export class OrganizationAddComponent implements OnInit {
     resizeMaxWidth: 128
   };
 
+  @ViewChild('modal')modal:ModalComponent<string>;
+
   constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private toastyService:ToastyService,private toastyConfig: ToastyConfig) { 
     this.toastyConfig.theme = 'bootstrap';
   }
@@ -40,6 +42,7 @@ export class OrganizationAddComponent implements OnInit {
     this.getCountryList();  
   }
 
+
   selected(imageResult: ImageResult) {
     this.src = imageResult.dataURL;
   }
@@ -51,6 +54,11 @@ export class OrganizationAddComponent implements OnInit {
     }, function(err){
       console.log(err);
     });
+  }
+
+
+  closeModal(){
+    this.errors = {};
   }
 
   getState(id){
@@ -83,7 +91,7 @@ export class OrganizationAddComponent implements OnInit {
       refreg.loadingSvc.setValue(false);
       refreg.toastyService.success(res.message);
       jQuery('form').find('input[type=text], input[type=password], input[type=number], input[type=email], textarea').val('');
-      var closeBtn = <HTMLElement>document.getElementById("oranization-cancel");
+      var closeBtn = <HTMLElement>document.getElementById("closeOrgModal");
       closeBtn.click();
       var index = refreg.apiService.getEventAdd();
       index.getOrganizationList();
