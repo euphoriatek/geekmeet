@@ -37,7 +37,7 @@
             <h4 style="text-align: center;">{{showData}}</h4>
                 <article id="event_27121" class="post" *ngFor = "let events of eventArr | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: total}">
                     <div class="listing_img">
-                        <a href="" [routerLink]="['/event-detail',events.event_id]"> 
+                        <a (click)="goToEventDetail(events.event_id,events.event_title)" > 
                             <img src="{{events.featured_image}}" alt="image" title="{{events.event_title}}">
                         </a>
 
@@ -52,7 +52,7 @@
                                         {{events.start_date}}			<span></span>
                                     </span>
                                     <h2 class="entry-title">
-                                        <a itemprop="url" href="" [routerLink]="['/event-detail',events.event_id]" title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a>
+                                        <a itemprop="url" (click)="goToEventDetail(events.event_id,events.event_title)"  title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a>
                                     </h2>
                                     <div class="listing_rating">
                                         <div class="directory_rating_row">
@@ -141,7 +141,7 @@
                                     <!-- inside loop div start -->
                                          <article class="post" *ngFor = "let events of eventArr | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: total}">
                                         <div class="listing_img">
-                                            <a [routerLink]="['/event-detail',events.event_id]"> 
+                                            <a (click)="goToEventDetail(events.event_id,events.event_title)" > 
                                             <img src="{{events.featured_image}}" alt="image" title="{{events.event_title}}">
                                            </a>
                                         </div>
@@ -158,7 +158,7 @@
                                                         </span>
                                                         <h2 class="entry-title">
                                                             
-                                                             <a itemprop="url" [routerLink]="['/event-detail',events.event_id]" title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a></h2>
+                                                             <a itemprop="url" (click)="goToEventDetail(events.event_id,events.event_title)"  title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a></h2>
 
                                                        <div class="listing_rating">
                                         <div class="directory_rating_row">
@@ -202,7 +202,7 @@
                                                 <!--Start Post Content -->
                                                 <div class="entry-summary" itemprop="description">
                                                 <p [innerHTML]="events.event_description"></p>
-                                                <a *ngIf="events.readmore==1" [routerLink]="['/event-detail',events.event_id]" >Read More</a>
+                                                <a *ngIf="events.readmore==1" (click)="goToEventDetail(events.event_id,events.event_title)"  >Read More</a>
                                                
                                                 </div>                                                                        <!-- End Post Content -->
                                                 <div class="rev_pin">

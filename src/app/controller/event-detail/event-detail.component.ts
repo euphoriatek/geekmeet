@@ -64,12 +64,13 @@ export class EventDetailComponent implements OnInit {
       this.data['popular_event']={};
       this.data['event_data']={};
       this.data['review']={};
-
-      this.selectedData = params['id'];
-      this.event_id = params['id'];
-      this.getEventDetail(params['id']);
+      this.selectedData = this.apiService.getEventDetailId();
+      this.event_id = this.apiService.getEventDetailId();
+      // this.selectedData = params['id'];
+      // this.event_id = params['id'];
+      this.getEventDetail(this.event_id);
       this.popularEvent();
-      this.getReview(params['id']);
+      this.getReview(this.event_id);
       this.userInformation();
       this.addEventVisit(this.selectedData);
     });
@@ -108,9 +109,11 @@ export class EventDetailComponent implements OnInit {
   }
 
 
-  gotoPage(id){
+  gotoPage(id,title){
     window.scrollTo(0,0);
-    this.router.navigate(['/event-detail/'+id]);   
+    this.apiService.setEventDetailId(id);
+    var newIndex = this.apiService.getUrlString(title);
+    this.router.navigate(['/event-detail',newIndex]);
   }
 
   popularEvent(){

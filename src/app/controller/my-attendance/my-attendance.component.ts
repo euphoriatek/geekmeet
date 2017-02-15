@@ -93,6 +93,12 @@ export class MyAttendanceComponent implements OnInit {
 		return links;
 	}
 
+	goToEventDetail(id,title){
+		this.apiService.setEventDetailId(id);
+		var newIndex = this.apiService.getUrlString(title);
+		this.router.navigate(['/event-detail',newIndex]);
+	}
+
 	getEventPagination(page){
 		this.page = page;
 		this.eventList('','',this.sort,page);

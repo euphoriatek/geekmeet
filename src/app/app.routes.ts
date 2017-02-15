@@ -67,7 +67,7 @@ export const routes: Routes = [
       {path:'organization-add' ,component: OrganizationAddComponent},
       {path:'term-condition' ,component: TermConditionComponent},
       {path:'event-detail/:id' ,component: EventDetailComponent,data: [{id: true}]},
-      {path:'blog-detail/:id' ,component: BlogDetailComponent,data: [{id: true}]},
+      {path:'blog-detail/:id' , component: BlogDetailComponent,data: [{id: true}]},
       {path:'my-organizations' ,component: MyOrganizationsComponent},
       {path:'organization-edit/:id' ,component: OrganizationEditComponent,data: [{id: true}]},
       {path:'my-venues' ,component: MyVenuesComponent},

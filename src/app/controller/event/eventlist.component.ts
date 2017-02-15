@@ -128,6 +128,12 @@ export class EventListComponent implements OnInit{
       });
     }
 
+    goToEventDetail(id,title){
+    this.apiService.setEventDetailId(id);
+    var newIndex = this.apiService.getUrlString(title);
+    this.router.navigate(['/event-detail',newIndex]);
+  }
+
     onSubMenuchange(category,type){
       if(category=='all'){
         this.category ='';

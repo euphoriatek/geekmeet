@@ -98,6 +98,12 @@ export class MyEventsComponent implements OnInit {
 		this.eventList('','',this.sort,page);
 	}
 
+	goToEventDetail(id,title){
+		this.apiService.setEventDetailId(id);
+		var newIndex = this.apiService.getUrlString(title);
+		this.router.navigate(['/event-detail',newIndex]);
+	}
+
 
 
 	setDeleteID(id){

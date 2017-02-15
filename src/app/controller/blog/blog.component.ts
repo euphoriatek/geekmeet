@@ -65,6 +65,12 @@ export class BlogComponent implements OnInit {
     
 	}
 
+  goToBlogDetail(id,title){
+    this.apiService.setBlogDetailId(id);
+    var newIndex = this.apiService.getUrlString(title);
+    this.router.navigate(['/blog-detail',newIndex]);
+  }
+
 	 createRange(number){
     var links = [];
     for(var i = 1; i <= number; i++){

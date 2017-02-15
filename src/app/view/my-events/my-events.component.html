@@ -29,7 +29,7 @@
 							<!-- inside loop div start -->
 							<article class="post" *ngFor = "let list_event of eventArr | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: Total}">
 								<div class="listing_img" style="width: 30%;margin-right: 0%;">
-									<a href="" [routerLink]="['/event-detail',list_event.event_id]"> 
+									<a (click)="goToEventDetail(list_event.event_id,list_event.event_title)"> 
 										<img src="{{list_event.featured_image}}" alt="image" title="{{list_event.title}}" style="width: 80%;">
 									</a>
 								</div>
@@ -46,7 +46,7 @@
 											<div class="event-title">       
 												<h2 class="entry-title">
 
-													<a itemprop="url" href="" [routerLink]="['/event-detail',list_event.event_id]" title="{{list_event.event_title}}" rel="bookmark">{{list_event.event_title}}</a></h2>
+													<a itemprop="url" (click)="goToEventDetail(list_event.event_id,list_event.event_title)" title="{{list_event.event_title}}" rel="bookmark">{{list_event.event_title}}</a></h2>
 
 												<!-- <div class="listing_rating">
 													<div class="directory_rating_row">

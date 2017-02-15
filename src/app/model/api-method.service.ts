@@ -63,6 +63,27 @@ export class ApiMethodService {
 		return this.getEventAddIndex;
 	}
 
+	setEventDetailId(id){
+		localStorage.setItem('eventDetailID', id);
+	}
+	getEventDetailId(){
+		return localStorage.getItem('eventDetailID');
+	}
+
+	getUrlString(string){
+		var newOne = string.replace(/^\s*|\s*$|[^\w\s]/gi, '');
+		var newIndex = newOne.replace(/ +/g, '-');
+		return newIndex;
+	}
+
+	setBlogDetailId(id){
+		localStorage.setItem('blogDetailID', id);
+	}
+
+	getBlogDetailId(){
+		return localStorage.getItem('blogDetailID');
+	}
+
 
 
 
