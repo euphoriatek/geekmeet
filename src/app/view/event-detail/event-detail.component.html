@@ -1,5 +1,5 @@
 <!-- <app-header></app-header> -->
-<app-second-menu></app-second-menu>
+<app-second-menu (onMenuChange)="onSubMenuchange($event)"></app-second-menu>
 <section id="main" class="clearfix event_detail_module" itemscope>
     <div class="wrap row">
         <div class="breadcrumb breadcrumbs columns">
@@ -148,12 +148,12 @@
 
                                  
                             <li *ngIf = "!getToken"  id="tmplfavorite_27121" class="fav_27121 fav">
-                            <a href="javascript:void(0);" data-toggle="modal" data-target="#loginModal" title="Add to favorites" class="addtofav"><i class="fa fa-heart-o"></i>Add to favorites</a>
+                            <a data-toggle="modal" data-target="#loginModal" title="Add to favorites" class="addtofav"><i class="fa fa-heart-o"></i>Add to favorites</a>
                             </li>
                             <li *ngIf = "getToken">
-                            <a  *ngIf = "data.event_data.favorite==0" href="javascript:void(0);" (click)="addFavorite(data.event_data.event_id,1)" title="Add to favorites" class="addtofav"><i class="fa fa-heart-o"></i>Add to favorites</a>
+                            <a  *ngIf = "data.event_data.favorite==0" (click)="addFavorite(data.event_data.event_id,1)" title="Add to favorites" class="addtofav"><i class="fa fa-heart-o"></i>Add to favorites</a>
                              
-                            <a *ngIf = "data.event_data.favorite==1" href="javascript:void(0);" (click)="addFavorite(data.event_data.event_id,0)" title="Remove From favorites" class="addtofav"><i class="fa fa-heart-o"></i>Remove from favorites</a>
+                            <a *ngIf = "data.event_data.favorite==1" (click)="addFavorite(data.event_data.event_id,0)" title="Remove From favorites" class="addtofav"><i class="fa fa-heart-o"></i>Remove from favorites</a>
                             </li>
                         <li class="print">
 

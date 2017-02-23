@@ -204,12 +204,14 @@ export class FooterComponent implements OnInit {
 					var closeBtn = <HTMLElement>document.getElementById("closeLoginModal");
 					closeBtn.click();
 					userData.reset();
-					if(ref.router.url=='/'){
-						ref.router.navigate(['/index']);
-					}
-					else{
-						ref.router.navigate(['/']);
-					}
+					var currentUrl:any = ref.router.url;
+					ref.router.navigate([currentUrl]);
+					// if(ref.router.url=='/'){
+					// 	ref.router.navigate(['/index']);
+					// }
+					// else{
+					// 	ref.router.navigate(['/']);
+					// }
 					ref.apiService.userProfile(function(res){
 						ref.apiService.signinSuccess$.emit(true);
 					}, function(error){
@@ -411,8 +413,10 @@ export class FooterComponent implements OnInit {
 										}
 
 										submenuClick(menu,index){
+											localStorage.setItem('secondMenuIndex', index);
 											window.scrollTo(0,0);
-											var newMenu = menu.split(" ").join("-");
+											var urlString = menu.split(" ").join("-");
+											var newMenu = urlString.toLowerCase();
 											var ref= this;
 											var data = ref.apiService.getIndexFunc();
 											data.indexSelection(index);

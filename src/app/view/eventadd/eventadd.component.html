@@ -63,7 +63,7 @@
                 <div class="event-edit-form large-6 small-12 columns">                     
 
                     <div class="form_row clearfix">
-                        <label>Organization<span class="indicates">*</span></label>
+                        <label>Organization</label>
                         <div style="width: 350px;float: left;">
                          <!-- <ng-select name="organizationList" (data)="organizationList"                                                    
                          [items]="organizationList"
@@ -84,7 +84,7 @@
          </div>
 
          <div class="form_row clearfix">
-            <label>Location<span class="indicates">*</span></label>
+            <label>Venue<span class="indicates">*</span></label>
 
             <div style="width: 350px; float: left;">
                 <!-- <ng-select name="locationList" (data)="venueList"                                                       
@@ -124,21 +124,34 @@
                     <input type="tel" [(ngModel)]="contact_info" id="contactinfo"  name="contact_info" value="" class="form-control textfield">
                     <span class="errfield">{{contact}}</span>                          
                 </div>
-                <div class="form_row clearfix">
+                <!-- <div class="form_row clearfix">
                     <label>Event Purpose</label>
                     <input type="text" [(ngModel)]="purpose" id="purpose" name="purpose" value="" class="form-control textfield">
-                </div>
+                </div> -->
                 <div class="form_row clearfix" style="width: 385px">
                     <label>Event Keywords</label>
                     <div class="">
 
-                        <ng-select (data)="optionSelected($event,'keyword')"
+                        <ng-select (typed)="typed($event)" (keyup.enter)="myFunction();" (data)="optionSelected($event,'keyword')"
                         [multiple]="true"                            
-                        [items]="keywordList">                            
+                        [items]="keywordList" id="category-select">                            
                     </ng-select>
                     <input type="hidden" id="keyword" name="keyword" [(ngModel)]="keyword">
                 </div>
-            </div>                  
+            </div>
+
+            <div class="form_row clearfix" style="width: 385px">
+                    <label>Event Category</label>
+                    <div class="">
+                        <ng-select (data)="optionSelected($event,'category')"
+                        [multiple]="true"                            
+                        [items]="categoryArrList" id="category-select">                            
+                    </ng-select>
+                    <input type="hidden" id="category" name="category" [(ngModel)]="category">
+                </div>
+            </div> 
+
+
         </div>
         <div class="col-sm-12">
            <div class="form_row clearfix">
@@ -155,7 +168,7 @@
         </div>
         <div class="form_row ">                         
             <button class="btn btn-info" type="submit" value="Save" name="submit">Save</button>                          
-            <a class="btn btn-info" value="Cancel" name="reset">Cancel</a>
+            <a class="btn btn-info" value="Cancel" name="reset" [routerLink]="['/']">Cancel</a>
         </div>                    
     </div>
 </form>            

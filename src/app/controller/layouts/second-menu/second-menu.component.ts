@@ -22,6 +22,10 @@ export class SecondMenuComponent implements OnInit {
 		this.secondmenuDeafault();
 		var testData = this;
 		this.apiService.testFunction(testData);
+		var menuSelection = localStorage.getItem('secondMenuIndex');
+		if(menuSelection!=undefined && menuSelection!=''){
+			SecondMenuComponent.selectedIndex = parseInt(menuSelection);
+		}
 
 	}
 	returnIndex(){
@@ -36,12 +40,15 @@ export class SecondMenuComponent implements OnInit {
 
 	public indexSelection(index){
 		SecondMenuComponent.selectedIndex = index;
+		localStorage.setItem('secondMenuIndex', index);
 	}
 
 
 	getEventByCategory(value, index){
+		localStorage.setItem('secondMenuIndex', index);
 		var ref= this;
-		var newIndex = value.split(" ").join("-");
+		var urlString = value.split(" ").join("-");
+		var newIndex = urlString.toLowerCase();
 		SecondMenuComponent.selectedIndex = index;
 		if(ref.router.url!="/"){
 			if(ref.router.url=='/index'){

@@ -45,14 +45,14 @@
                          
                         </li>
                         <li class="clearfix"  *ngFor = "let blogs of blog">
-                            <a  href="" [routerLink] = "['/blog-detail',blogs.blog_id]" title="{{blogs.blog_title}}" class="link_img" data-rel="">
+                            <a  (click)="goToBlogDetail(blogs.blog_id,blogs.blog_title)"  title="{{blogs.blog_title}}" class="link_img" data-rel="">
                               <img src="app/assets/images/blog.png" class="icon_img">
                             </a>
                             <div class="post_data">
                                 <div class="row">
                                 <div class="col-md-12">
                                 <h3>
-                                    <a [routerLink] = "['/blog-detail',blogs.blog_id]" title="{{blogs.blog_title}}">{{blogs.blog_title}}</a>
+                                    <a (click)="goToBlogDetail(blogs.blog_id,blogs.blog_title)"  title="{{blogs.blog_title}}">{{blogs.blog_title}}</a>
                                 </h3>
                                 </div>
                                 <div class="col-md-12">

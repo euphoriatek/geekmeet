@@ -20,7 +20,7 @@ import { LoadingAnimateModule, LoadingAnimateService } from 'ng2-loading-animate
 import {Ng2PaginationModule} from 'ng2-pagination';
 // import { Ng2CompleterModule } from "ng2-completer";
 import { Typeahead } from 'ng2-typeahead';
-
+import { MetaModule } from 'ng2-meta';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './controller/layouts/header/header.component';
 import { routing } from './app.routes';
@@ -123,6 +123,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
   Ng2Bs3ModalModule,
   Ng2PaginationModule,
   LoadingAnimateModule.forRoot(),
+  MetaModule.forRoot(),
   AgmCoreModule.forRoot({
     apiKey: 'AIzaSyD-BvDe_7N5-LpgFlXgfkv44Gdez1qL7-w'
   }),

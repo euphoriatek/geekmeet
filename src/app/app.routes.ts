@@ -47,23 +47,22 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 
 
-
 export const routes: Routes = [
-      {path:'',component: IndexComponent,pathMatch: 'full'},
+      {path:'',component: IndexComponent,pathMatch: 'full',data: {meta: {title: 'Geekmeet',description: 'To help technologists succeed as thinkers, strategists, communicators and leaders of the future.'}}},
       {path:'header' ,component: HeaderComponent},
       {path:'footer' ,component: FooterComponent},
-      {path:'blog/:category' ,pathMatch: 'full',component: BlogComponent,data: [{id: true}]},
+      {path:'blog/:category' ,component: BlogComponent,data: [{category: true}]},
       {path:'sponsors' ,component: SponsorsComponent},
       {path:'contactus' ,component: ContactusComponent},
-      {path:'index' ,pathMatch: 'full',component: IndexComponent},
-      {path:'event/:menu' ,component: EventComponent,data:[{menu:true}]},
-      {path:'my-events' ,component: MyEventsComponent},
-      {path:'profile' ,component: ProfileComponent},
+      {path:'index' ,pathMatch: 'full',component: IndexComponent,data: {meta: {title: 'Geekmeet',description: 'To help technologists succeed as thinkers, strategists, communicators and leaders of the future.'}}},
+      {path:'event/:menu' ,component: EventComponent,data:{meta: {title: 'Events | Geekmeet',description: 'Global Event Details',menu:true}}},
+      {path:'my-events' ,component: MyEventsComponent,data:{meta: {title: 'My Events | Geekmeet',description: 'User Created Event informations'}}},
+      {path:'profile' ,component: ProfileComponent,data: {meta: {title: 'User Profile',description: 'Description of the User Information'}}},
       {path:'groups' ,component: GroupsComponent},
       {path:'organization/:id' ,component: OrganizationComponent,data: [{id: true}]},
       {path:'changepassword' ,component: ChangepasswordComponent},
       {path:'notification-setting' ,component: NotificationSettingComponent},
-      {path:'edit-profile' ,component: EditProfileComponent},
+      {path:'edit-profile' ,component: EditProfileComponent,data:{meta:{title:'User Prifile Edit | Geekmeet'}}},
       {path:'organization-add' ,component: OrganizationAddComponent},
       {path:'term-condition' ,component: TermConditionComponent},
       {path:'event-detail/:id' ,component: EventDetailComponent,data: [{id: true}]},
@@ -79,7 +78,7 @@ export const routes: Routes = [
       {path:'event-edit/:id' ,component: EventEditComponent,data: [{id: true}]},
       {path:'search/:id' ,component: SearchComponent,data: [{id: true}]},
       {path:'activate-now/:id/:token' ,component: ActivateNowComponent,data: [{id: true, token: true}]},
-      {path:'my-attendance' ,component: MyAttendanceComponent},
+      {path:'my-attendance' ,component: MyAttendanceComponent,data:{meta: {title: 'My Attendance | Geekmeet',description: 'User Attempt Event informations'}}},
       {path:'404' ,component: NotFoundComponent},
       // {path: '**', redirectTo: '/404'}
       // { path: '#', redirectTo: '' }

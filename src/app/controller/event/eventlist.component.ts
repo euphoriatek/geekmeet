@@ -46,12 +46,24 @@ export class EventListComponent implements OnInit{
       //   this.eventDeafault('','current','',1);
       // }
       this.getToken = this.apiService.getLoginToken();
+      if(!this.getToken){        
+      this.apiService.signinSuccess$.subscribe(status => {
+      this.getToken = this.apiService.getLoginToken();
       this.selectedmenu = this.route.snapshot.params['menu'];
       this.route.params.subscribe((param) => {
         this.param_id = param['menu'];
         this.category = param['menu'];
         this.onSubMenuchange(param['menu'],'current');
       })
+      });
+    } 
+      this.selectedmenu = this.route.snapshot.params['menu'];
+      this.route.params.subscribe((param) => {
+        this.param_id = param['menu'];
+        this.category = param['menu'];
+        this.onSubMenuchange(param['menu'],'current');
+      })
+    
     }
 
     ngAfterViewInit() {

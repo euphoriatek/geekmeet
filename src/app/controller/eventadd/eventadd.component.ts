@@ -29,11 +29,11 @@ export class EventaddComponent implements OnInit {
   userInfoArr:Object = {};
   topic:any;
   value:any;
-  
-  categoryList:any;
+  keywordList:any;
+  categoryArrList:any;
   organizationList:Array<Object> = [];
   venueList:Array<Object> = [];
-  keywordList:Array<string> = [];
+  categoryList:Array<string> = [];
   
   location: string;
   organizers:string;
@@ -42,7 +42,7 @@ export class EventaddComponent implements OnInit {
   start_time:string;
   end_time:string;
   imageArr:Array<string> = []; 
-
+  category:any;
   title:any;
   description:any;
   startDate:any;
@@ -56,6 +56,8 @@ export class EventaddComponent implements OnInit {
   contact:any;  
   organiuzationArr:any;
   geocoder:any;
+  newCategory:any;
+  addCategory:any={};
   errors:Object = {};  
   center:Object = {
     latitude:51.678418,
@@ -102,6 +104,7 @@ export class EventaddComponent implements OnInit {
     this.getVenueList();
     this.getOrganizationList();
     this.getCategoryList();
+    this.getKeywordList();
     var eventAddIndex = this;
     this.apiService.setEventAdd(eventAddIndex);
   }
@@ -227,17 +230,32 @@ export class EventaddComponent implements OnInit {
   getCategoryList(){
     var ref = this;
     ref.apiService.categoryList(function(res){
-      ref.keywordList = res.data;
+      ref.categoryArrList = res.data;
       var arr = jQuery.makeArray( res.data );
 
       for (var i = 0; i < arr.length; i++) {    
-        ref.keywordList.push(arr[i].category_name);
+        ref.categoryArrList.push(arr[i].category_name);
       }
 
     }, function(err){
       console.log(err);
     });    
   } 
+
+  getKeywordList(){
+    var ref = this;
+    ref.apiService.keywordList(function(res){
+      ref.keywordList = res.data;
+      var arr = jQuery.makeArray( res.data );
+
+      for (var i = 0; i < arr.length; i++) {    
+        ref.keywordList.push(arr[i].event_keyword_name);
+      }
+
+    }, function(err){
+      console.log(err);
+    });    
+  }
 
   
   uploadImages(value:any){
@@ -290,10 +308,50 @@ export class EventaddComponent implements OnInit {
         listdata = listdata.replace(/(^,)|(,$)/g, "");
         this.keyword = listdata;
       }
+      break;
+      case "category":
+      {
+        var listdata = '';
+        jQuery.each( value, function( key, data ) {          
+          listdata =listdata+","+data.id;
+        });
+        listdata = listdata.replace(/(^,)|(,$)/g, "");
+        this.category = listdata;
+      }
       break;    
     }
 
   }
+
+  typed(value:any){
+    if(value){    
+    if(value.length>1){
+    this.addCategory={'keyword_title':value};
+    }
+    else{
+      this.addCategory={};
+    }
+    }
+  }
+
+
+  myFunction(){
+    var ref = this;
+    if(ref.addCategory.keyword_title){    
+    ref.loadingSvc.setValue(true);
+    ref.apiService.addNewKeyword(ref.addCategory,function(res){
+      ref.keyword='';
+      ref.addCategory={};
+      ref.newCategory;
+      jQuery('body').find(".ui-select-search").val('');
+      ref.loadingSvc.setValue(false);
+      ref.getKeywordList();
+    },function(error){
+      ref.loadingSvc.setValue(false);
+    });
+    }
+  }
+
 
   onDateChanged(event:any, type) {
     console.log('onDateChanged(): ', event.date, ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);

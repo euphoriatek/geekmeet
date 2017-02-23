@@ -18,7 +18,8 @@ declare var jQuery: any;
   ]
 })
 export class HeaderComponent implements OnInit {
-  // @ViewChild('IndexComponent') myindex: IndexComponent;
+  // @Output() myindex = new EventEmitter();
+  // @ViewChild(IndexComponent) IndexComponent: IndexComponent
   getToken:any;
   menuArr:any;
   isUserLoggedIn:any = false;
@@ -26,7 +27,7 @@ export class HeaderComponent implements OnInit {
   user_avatar:any;
   countryArr:Array<Object> = [];
 
- 
+
 
   constructor(private loadingSvc: LoadingAnimateService,private router: Router, public apiService:ApiMethodService,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
     this.toastyConfig.theme = 'bootstrap';
@@ -41,7 +42,7 @@ export class HeaderComponent implements OnInit {
     apiService.signinSuccess$.subscribe(status => {
       if(status) {
         this.user_avatar = localStorage.getItem('user_avatar');
-         this.user_name = localStorage.getItem('user_name');
+        this.user_name = localStorage.getItem('user_name');
         this.getToken = this.apiService.getLoginToken();
         if(this.getToken){
           this.isUserLoggedIn = true;
@@ -57,7 +58,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.secondmenuDeafault();
     this.getCountryList();
-    }
+  }
 
   goToBlog(){
     this.router.navigate(['/blog']);
@@ -104,10 +105,14 @@ export class HeaderComponent implements OnInit {
 
   submenuClick(menu,index){
     var ref= this;
-    var newMenu = menu.split(" ").join("-");
+    var urlString = menu.split(" ").join("-");
+    var newIndex = urlString.toLowerCase();
     var data = ref.apiService.getIndexFunc();
-    data.indexSelection(index);
-    this.router.navigate(['/event',newMenu]);
+    if(data!=undefined){
+      data.indexSelection(index);
+    }
+
+    this.router.navigate(['/event',newIndex]);
   }
 
 
@@ -117,9 +122,9 @@ export class HeaderComponent implements OnInit {
     ref.apiService.getSelectedCity(data,function(res){ 
       var countryData = [];
       jQuery.each( res.data , function( key, value ) {   
-      var valueid =  value.id.toString();    
-      var  item = {id:valueid, text:value.name};       
-      countryData.push(item); 
+        var valueid =  value.id.toString();    
+        var  item = {id:valueid, text:value.name};       
+        countryData.push(item); 
       });
       countryData.unshift({id:'0', text:'Global Events'}); 
       ref.countryArr = jQuery.makeArray( countryData );
@@ -129,7 +134,16 @@ export class HeaderComponent implements OnInit {
   }
 
   changeCountry(countryId){
-  var indexRef = this.apiService.getHeaderRef();  
-    indexRef.searchByCity(countryId.id);
+    debugger;
+    this.router.navigate(['/index']);
+    this.apiService.mySubject.next(countryId);
+    // var ref = this;
+    // var indexRef = this.apiService.getHeaderRef();
+    // if(indexRef!=undefined){  
+    // indexRef.searchByCity(countryId.id);
+    // }else{
+
+    // }  
+    // this.myindex.emit(countryId);
   }
 }

@@ -350,7 +350,7 @@
                                                 <!--Start Post Content -->
                                                 <div class="entry-summary" itemprop="description">
                                                     <p [innerHTML]="upcomingevents.event_description"></p>
-                                                    <a *ngIf="upcomingevents.read_more==1" [routerLink]="['/event-detail',upcomingevents.event_id]" >Read More</a>
+                                                    <a *ngIf="upcomingevents.read_more==1" (click)="goToEventDetail(upcomingevents.event_id,upcomingevents.event_title)" >Read More</a>
 
                                                 </div>                                                                        <!-- End Post Content -->
                                                 <div class="rev_pin">
