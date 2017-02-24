@@ -1,6 +1,6 @@
 <!-- <app-header></app-header> -->
 <app-second-menu></app-second-menu>
-<section id="main" class="clearfix event_detail_module" itemscope>
+<section id="main" class="clearfix event_detail_module">
     <div class="wrap row">
         <div class="breadcrumb breadcrumbs columns">
             <div class="breadcrumb-trail">
@@ -14,13 +14,13 @@
           
 
             <!-- start content part-->
-            <div id="content" role="main" class="large-9 small-12 columns">
+            <div id="content" role="main" class="large-9 small-12 columns"  itemscope itemtype="http://schema.org/Event">
                 <div id="post-27121" class="post-27121 event type-event status-publish hentry ecategory-concerts ecategory-events ecategory-musical ecategory-parties ecategory-performing-arts ecategory-workshops  post ">
 
                     <!--start post type title -->
                     <header class="entry-header clearfix">
                         <div class="entry-header-title">
-                            <h1 itemprop="title" class="entry-title ">{{data.event_data.event_title}}</h1>
+                            <h1 itemprop="name" class="entry-title ">{{data.event_data.event_title}}</h1>
                             <div class="event_rating">
                                 <div class="event_rating_row"> <span><a href="javascript:void(0)">{{data.review.review_count}}  Reviews</a></span> 
                                 <div style="float:right"> 
@@ -41,7 +41,7 @@
                                     <ul class="slides" style="width: 1800%;">
                                     <li class="flex-active-slide" style="width: 60px; float: left; display: block;" *ngFor = "let silder_image of data.event_data.slider_image">
                                             <a href="javascript:void(0)" title="{{silder_image.image_title}}">        
-                                                <img src="{{silder_image.image_url}}" alt="event-(13)" draggable="false">
+                                                <img itemprop="image" src="{{silder_image.image_url}}" alt="event-(13)" draggable="false">
                                             </a>
                                         </li>
                                 </ul>
@@ -82,16 +82,16 @@
                                 <span *ngIf = "getToken">
                                 <p class="hosted">
                                     <label>Hosted By:</label>
-                                    <span class="event_custom">{{data.event_data.organizer}}</span>
+                                    <span itemprop="organizer" class="event_custom">{{data.event_data.organizer}}</span>
                                 </p>
                                 </span>
                                 <p class="audience">
                                     <label>Intended Audience:</label>
-                                    <span class="event_custom">{{data.event_data.audience}} </span>
+                                    <span itemprop="attendee" class="event_custom">{{data.event_data.audience}} </span>
                                 </p>
                                 <p class="time">
                                     <label>Time:</label>
-                                    <span class="event_custom">{{data.event_data.start_time}} To {{data.event_data.end_time}}</span>
+                                    <span itemprop="DateTime" class="event_custom">{{data.event_data.start_time}} To {{data.event_data.end_time}}</span>
                                 </p>
                                 <span *ngIf = "getToken">
                                 <p class="address">
@@ -101,12 +101,12 @@
                                 </span>
                                 <p class="website" *ngIf="data.event_data.website!=''">
                                     <label>Website: </label>
-                                    <span class="event_custom"><a target="_blank" id="website" class="frontend_website " href="{{data.event_data.website}}">{{data.event_data.website}}</a></span>
+                                    <span itemprop="sameAs" class="event_custom"><a target="_blank" id="website" class="frontend_website " href="{{data.event_data.website}}">{{data.event_data.website}}</a></span>
                                 </p>
                                 <span *ngIf = "getToken">
                                 <p class="phone" *ngIf="data.event_data.contact_info!=''">
                                     <label>Contact Info: </label>
-                                    <span id="phone" class="listing_custom frontend_phone">{{data.event_data.contact_info}}</span>
+                                    <span itemprop="telephone" id="phone" class="listing_custom frontend_phone">{{data.event_data.contact_info}}</span>
                                 </p></span>
                                 <!--<p class="fees">
                                     <label>Ticket Info: </label>
@@ -205,7 +205,7 @@
                         </div>
                     </section><!-- end .entry-content -->
                     <div *ngIf="data.event_data.org_name!=null">
-                        <div class="event-organizer" >
+                        <div class="event-organizer" itemscope itemtype="http://schema.org/Organization">
                             <h2>Organizers</h2>
 
                             <div class="event-organizer-left">
@@ -215,27 +215,27 @@
                             <div class="event-organizer-right">
                                 <p class="org_name ">
                                     <label>Name:</label>
-                                    <span class="label_data frontend_organizer_name">{{data.event_data.org_name}}</span>
+                                    <span itemprop="name" class="label_data frontend_organizer_name">{{data.event_data.org_name}}</span>
                                 </p>
                                 <p class="address" *ngIf="data.event_data.organization_location!=''">
                                     <label>Address:</label>
-                                    <span class="label_data frontend_organizer_address">{{data.event_data.organization_location}}</span>
+                                    <span itemprop="address" class="label_data frontend_organizer_address">{{data.event_data.organization_location}}</span>
                                 </p>
                                 
                                 <p class="phone" *ngIf="data.event_data.organization_contact!=''">
                                     <label>Mobile:</label>
-                                    <span class="label_data frontend_organizer_mobile">{{data.event_data.organization_contact}}</span>
+                                    <span itemprop="telephone" class="label_data frontend_organizer_mobile">{{data.event_data.organization_contact}}</span>
                                 </p>
                                 <!--googleon: all-->
                                 <p class="email" *ngIf="data.event_data.organization_email!=''">
                                     <label>Email:</label>
-                                    <span class="label_data frontend_organizer_email">{{data.event_data.organization_email}}</span>
+                                    <span itemprop="email" class="label_data frontend_organizer_email">{{data.event_data.organization_email}}</span>
                                 </p>
 
                                 <p class="website" *ngIf="data.event_data.organization_website!=''">
                                     <label>Website:</label>
                                     <span class="label_data frontend_organizer_website">
-                                        <a target="_blank" href="{{data.event_data.organization_website}}">{{data.event_data.organization_website}}</a>
+                                        <a itemprop="sameAs" target="_blank" href="{{data.event_data.organization_website}}">{{data.event_data.organization_website}}</a>
                                     </span>
                                 </p>
                             </div>
@@ -243,7 +243,7 @@
                         <div class="abput-event-organizer ">
                             <h2>About the organizers</h2>
                             <div class="frontend_organizer_desc ">
-                                <p [innerHTML]="data.event_data.organization_description"></p>             
+                                <p itemprop="description" [innerHTML]="data.event_data.organization_description"></p>             
                             </div>
                         </div>
                     </div>
@@ -255,7 +255,7 @@
                         <h2 class="custom_field_headding">Contact Information</h2>                                                            
                         <p class="">
                             <label>Phone:&nbsp;</label>                                                                                                                                            
-                            <span>
+                            <span itemprop="telephone">
                                 {{data.event_data.contact_info}}                                                                          
                             </span>
                         </p>
