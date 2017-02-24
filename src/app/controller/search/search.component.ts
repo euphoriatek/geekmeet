@@ -36,6 +36,12 @@ export class SearchComponent implements OnInit {
     this.router.navigate(['/event-detail',newIndex]);
   }
 
+  goToBlogDetail(id,title){
+    this.apiService.setBlogDetailId(id);
+    var newIndex = this.apiService.getUrlString(title);
+    this.router.navigate(['/blog-detail',newIndex]);
+  }
+
 
     search(text){
     var refreg = this;

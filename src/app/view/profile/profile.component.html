@@ -58,11 +58,11 @@
                             <label><i class="fa fa-envelope-o"></i> Email :</label>
                             <span>{{userInfoArr.email}}</span>
                         </div>
-                        <div *ngIf="userInfoArr.favorite_category">
+                        <div *ngIf="userInfoArr.phone">
                             <label><i class="fa fa-phone"></i> Phone :</label>
                             <span>{{userInfoArr.phone}}</span>
                         </div>
-                        <div *ngIf="userInfoArr.address">
+                        <div *ngIf="userInfoArr.favorite_category">
                             <label><i class="fa fa-list"></i> Interest Topic:</label>
                             <span>
                                 <ul *ngFor="let topic of userInfoArr.favorite_category" class="interest-topic" style="display: inline;">

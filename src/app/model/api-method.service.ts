@@ -2,13 +2,15 @@ import { Injectable , EventEmitter } from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 // import {localStorage} from 'localStorage';
-
+import {BehaviorSubject} from 'rxjs/BehaviorSubject'; 
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class ApiMethodService {
+	public mySubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+	
 	loginToken:any;
 	getIndex:any;
 	getTokenValue:any;
@@ -73,7 +75,7 @@ export class ApiMethodService {
 	getUrlString(string){
 		var newOne = string.replace(/^\s*|\s*$|[^\w\s]/gi, '');
 		var newIndex = newOne.replace(/ +/g, '-');
-		return newIndex;
+		return newIndex.toLowerCase();
 	}
 
 	setBlogDetailId(id){
@@ -501,6 +503,18 @@ export class ApiMethodService {
 			}
 		}, (error) => failure(error));
 	} 
+
+	keywordList(callBack,failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.get('http://2016.geekmeet.com/admin/v1/keyword_list',options).map(res =>res.json())
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
+	} 
 	
 	// edit organization
 	editOrganization(value,callBack,failure){
@@ -815,7 +829,7 @@ export class ApiMethodService {
 	// forgot password
 	
 	
-  	forgotPassword(value, callBack, failure){
+	forgotPassword(value, callBack, failure){
 		this.http.post('http://2016.geekmeet.com/admin/v1/forgot_password',value).map(res=>res.json())
 		.subscribe((res)=>{
 			if(callBack){
@@ -827,18 +841,18 @@ export class ApiMethodService {
 	// Check forgot token
 
 	checkForgotToken(value,callBack,failure){
-      this.http.get('http://2016.geekmeet.com/admin/v1/checkForgotToken/'+value).map(res =>res.json())
+		this.http.get('http://2016.geekmeet.com/admin/v1/checkForgotToken/'+value).map(res =>res.json())
 		.subscribe((res) => {
 			if(callBack)
 			{
 				callBack(res);
 			}
 		},(error) =>failure(error));
-     }
+	}
 
-     // Reset Password
+	// Reset Password
 
-     //change Password
+	//change Password
 
 	resetPassword(value, callBack, failure){
 		this.http.post('http://2016.geekmeet.com/admin/v1/reset_password',value).map(res=>res.json())
@@ -918,7 +932,7 @@ export class ApiMethodService {
 	}
 
 
-		//send to friend
+	//send to friend
 
 	sendToFriend(value, callBack, failure){
 		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
@@ -935,50 +949,50 @@ export class ApiMethodService {
 
 	//
 
-		addAttendence(value,callBack,failure){
+	addAttendence(value,callBack,failure){
 		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		let options = new RequestOptions({ headers: headers });
-			this.http.post('http://2016.geekmeet.com/admin/v1/add_attendance',value,options).map(res =>res.json())
-			.subscribe((res) => {
-				if(callBack)
-				{
-					callBack(res);
-				}
-			}, (error) => failure(error));
+		this.http.post('http://2016.geekmeet.com/admin/v1/add_attendance',value,options).map(res =>res.json())
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
 		
 	}
 
 
-		addCalender(value,callBack,failure){
+	addCalender(value,callBack,failure){
 		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		let options = new RequestOptions({ headers: headers });
-			this.http.get('http://2016.geekmeet.com/admin/v1/addCalender/'+value,options).map(res =>res.json())
-			.subscribe((res) => {
-				if(callBack)
-				{
-					callBack(res);
-				}
-			}, (error) => failure(error));
+		this.http.get('http://2016.geekmeet.com/admin/v1/addCalender/'+value,options).map(res =>res.json())
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
 		
 	}
 
 
-		printApi(value,callBack,failure){
+	printApi(value,callBack,failure){
 		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		let options = new RequestOptions({ headers: headers });
-			this.http.get('http://2016.geekmeet.com/admin/v1/print/'+value,options).map(res =>res.json())
-			.subscribe((res) => {
-				if(callBack)
-				{
-					callBack(res);
-				}
-			}, (error) => failure(error));
+		this.http.get('http://2016.geekmeet.com/admin/v1/print/'+value,options).map(res =>res.json())
+		.subscribe((res) => {
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
 		
 	}
 
 	searchData(value,callBack,failure){
 
-        let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
 		if(localStorage.getItem('auth_token')!=null){
 			let options = new RequestOptions({ headers: headers });	
 			this.http.post('http://2016.geekmeet.com/admin/v1/search_for_user',value,options).map(res=>res.json())
@@ -1037,9 +1051,23 @@ export class ApiMethodService {
 		},(error) =>failure(error));
 	}
 
+	addNewKeyword(category,callBack, failure){
+		let headers = new Headers({ 'Auth': "Bearer "+ localStorage.getItem('auth_token')});
+		let options = new RequestOptions({ headers: headers });
+		this.http.post('http://2016.geekmeet.com/admin/v1/add_event_keywords',category,options).map(res=>res.json())
+		.subscribe((res)=>{
 
-  }
-		
+			if(callBack)
+			{
+				callBack(res);
+			}
+		}, (error) => failure(error));
+
+	}
+
+
+}
+
 
 
 

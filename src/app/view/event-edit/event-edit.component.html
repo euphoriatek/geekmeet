@@ -70,7 +70,7 @@
                     
                     <div class="form_row clearfix">
                         <label>Organization<span class="indicates">*</span></label>
-                        
+                        <div style="width: 350px;float: left;">
                          <ng-select name="organizationList" (data)="organizationList"                                                       
                             [items]="organizationList"
                             [active]="defaultOrg"
@@ -80,7 +80,9 @@
                         <input type="hidden" id="organization" name="organizers" [(ngModel)]="organizers">  
                          <ul class="error" *ngIf="errors['organizers']!=''" >
                                 <li *ngFor="let org_err of errors['organizers']">{{org_err}}</li>    
-                            </ul>                   
+                            </ul>  
+                            </div>  
+                            <app-organization-add></app-organization-add>                
                     </div>
                     <div class="form_row clearfix" itemprop="location">
                         <label>Location<span class="indicates">*</span></label>
@@ -122,16 +124,29 @@
                     </div>
                     <div class="form_row clearfix">
                         <label>Event Keywords</label>
-                        <div class="">
-                                         
-                            <ng-select (data)="optionSelected($event,'keyword')"
+                        <div class="">                                
+                            <ng-select (typed)="typed($event)"
+                            (keyup.enter)="myFunction();" 
+                            (data)="optionSelected($event,'keyword')"
                             [multiple]="true"
-                            [active]="showEventArr.category_id"                            
+                            [active]="showEventArr.keyword_id"                            
                             [items]="keywordList">                            
                             </ng-select>
                            <input type="hidden" id="keyword" name="keyword" [(ngModel)]="keyword">
                         </div>
                     </div>
+
+                    <div class="form_row clearfix" style="width: 385px">
+                        <label>Event Category</label>
+                        <div class="">
+                            <ng-select (data)="optionSelected($event,'category')"
+                            [multiple]="true"
+                            [active]="showEventArr.category_id"                            
+                            [items]="categoryArrList" id="category-select">                            
+                        </ng-select>
+                        <input type="hidden" id="category" name="category" [(ngModel)]="category">
+                    </div>
+                </div> 
                     
                 </div>
                 <div class="col-sm-12">

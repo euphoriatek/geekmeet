@@ -40,7 +40,7 @@ export class EventDetailComponent implements OnInit {
   Total:any;
   currentPage:any;
   per_page:any;
-  private promise: Promise<string>;
+  // private promise: Promise<string>;
 
   
   private clientID = '417186839635-gpfuh48dia4jh670s7d22sbc8pl918g5.apps.googleusercontent.com'  
@@ -52,7 +52,20 @@ export class EventDetailComponent implements OnInit {
 
   constructor(private loadingSvc: LoadingAnimateService,private toastyService:ToastyService, private toastyConfig: ToastyConfig,private route: ActivatedRoute,private apiService: ApiMethodService,private router: Router) {
     this.toastyConfig.theme = 'bootstrap';
+    apiService.signinSuccess$.subscribe(status => {
+      if(status) {
+        this.getToken = this.apiService.getLoginToken();
+        if(this.getToken){
+          this.isUserLoggedIn = true;
+        }
+        this.event_id = this.apiService.getEventDetailId();
+        this.getEventDetail(this.event_id);
+        this.getReview(this.event_id);
+        this.userInformation();
+      }
+    });
   }
+
 
 
   ngOnInit() {
@@ -66,8 +79,6 @@ export class EventDetailComponent implements OnInit {
       this.data['review']={};
       this.selectedData = this.apiService.getEventDetailId();
       this.event_id = this.apiService.getEventDetailId();
-      // this.selectedData = params['id'];
-      // this.event_id = params['id'];
       this.getEventDetail(this.event_id);
       this.popularEvent();
       this.getReview(this.event_id);
@@ -95,15 +106,13 @@ export class EventDetailComponent implements OnInit {
     var refreg = this;
     refreg.loadingSvc.setValue(true);
     this.apiService.EventDetail(value,function(res){
-
-      refreg.loadingSvc.setValue(false);
       if(typeof(refreg.data)=='undefined'){
         refreg.data = {};
       }
       
       refreg.data['event_data'] = res.data;
       refreg.data['relate_event_data'] = res.data.related_event.data;
-      
+      refreg.loadingSvc.setValue(false);
       refreg.flexsliderInit(res.data);   
     });
   }
@@ -147,7 +156,9 @@ export class EventDetailComponent implements OnInit {
 
   getReview(value){
     var ref = this;
+    ref.loadingSvc.setValue(true);
     this.apiService.getReview(value,function(res){
+      ref.loadingSvc.setValue(false);
       if(typeof(ref.data)=='undefined'){
         ref.data = {};
       }
@@ -481,7 +492,14 @@ export class EventDetailComponent implements OnInit {
     var refreg = this;
     refreg.loadingSvc.setValue(true); 
     refreg.apiService.addCalender(event_id,function(res){
-      refreg.toastyService.success(res.message);   
+      var toastOptions:ToastOptions = {
+        title: "Successfully Sent Email.!",
+        msg: res.message,
+        showClose: true,
+        timeout: 5000,
+        theme: 'bootstrap'
+      };
+      refreg.toastyService.success(toastOptions);   
       refreg.loadingSvc.setValue(false); 
     },function(error){
       if(error.status == 401 || error.status == '401' || error.status == 400){

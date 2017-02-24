@@ -42,7 +42,7 @@ export class EventComponent implements OnInit{
   someRange:any;
   showHeader:any;
    getToken:any;
-  ngOnInit() {   
+  ngOnInit() {
     this.getToken = this.apiService.getLoginToken();
     jQuery.getScript('//www.ads4mysite.com/adserver/www/delivery/asyncjs.php');
     this.route.params.subscribe((param) => {

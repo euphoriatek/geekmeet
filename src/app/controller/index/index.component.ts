@@ -4,6 +4,7 @@ import { RouterModule, Router,ActivatedRoute }   from '@angular/router';
 import {Location} from '@angular/common';
 import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'ng2-toasty';
 import { LoadingAnimateService } from 'ng2-loading-animate';
+import { MetaService } from 'ng2-meta';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 declare var jQuery:any;
@@ -38,20 +39,33 @@ export class IndexComponent implements OnInit {
 	upcomming_per_page:any;
 	country_id:any;
 
-	constructor(private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private location: Location,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
+	constructor(public metaService: MetaService,private loadingSvc: LoadingAnimateService,private router: Router,public apiService:ApiMethodService,private location: Location,public toastyService:ToastyService,private toastyConfig: ToastyConfig) {
 		this.toastyConfig.theme = 'bootstrap';
+				var ref = this;
+		this.apiService.mySubject.subscribe(
+             value => {
+             	if(value['id'])
+             	ref.searchByCity(value['id']);
+             }
+        );
 	}
 
 	ngOnInit() {
 		this.getToken = this.apiService.getLoginToken();
+      if(!this.getToken){  
+		this.apiService.signinSuccess$.subscribe(status => {
+			window.scrollTo(0,0);
+		this.getToken = this.apiService.getLoginToken();
+		this.getPopularGridView();
+		this.latestUpcomingEvents();
+		});
+	}
 		this.getPopularGridView();
 		this.latestUpcomingEvents();
 		var data = this.apiService.getIndexFunc();
 		if(typeof data!= 'undefined'){
 			data.indexSelection(-1);
-		}
-		var ref = this;
-		this.apiService.setHeaderRef(ref);
+		}		
 	}
 
 
@@ -257,7 +271,6 @@ export class IndexComponent implements OnInit {
 		}
 		this.popularEvent();
 		this.upcomingEvent();
-		this.router.navigate(['/index']);
 	}
 
 
