@@ -28,7 +28,7 @@
                     </div>			
 
                     <section class="entry-content">
-                        <div class="entry-thumbnail">
+                        <div class="entry-thumbnail" *ngIf="blogDetail.title!='no-image-available.jpg'">
                             <img src="{{blogDetail.thumb}}" alt="" style="width: 100%;">
                         </div>
                         <p itemprop="description" [innerHTML]="blogDetail.blog_content"></p>

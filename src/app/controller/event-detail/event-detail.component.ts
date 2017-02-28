@@ -40,6 +40,7 @@ export class EventDetailComponent implements OnInit {
   Total:any;
   currentPage:any;
   per_page:any;
+  no_image:any;
   // private promise: Promise<string>;
 
   
@@ -113,7 +114,16 @@ export class EventDetailComponent implements OnInit {
       refreg.data['event_data'] = res.data;
       refreg.data['relate_event_data'] = res.data.related_event.data;
       refreg.loadingSvc.setValue(false);
-      refreg.flexsliderInit(res.data);   
+      refreg.flexsliderInit(res.data); 
+
+        refreg.no_image = false;
+        if(res.data.slider_image.length == 1)
+        {   
+            jQuery.each( res.data.slider_image, function( key, value ) {
+            if(value.image_title=='no-image-available.jpg')
+            refreg.no_image = true;
+          });      
+        }
     });
   }
 
