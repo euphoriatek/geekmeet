@@ -15,7 +15,7 @@
         </div>
     </div>     
 </div>
-<body style="height: 100%;">
+<!-- <body style="height: 100%;"> -->
     <!-- <?php include './second_menu.php'; ?> -->
 <app-second-menu (onMenuChange)="onchange($event)"></app-second-menu>
 
@@ -59,7 +59,7 @@
                                                             {{events.start_date}}           <span></span>
                                                         </span>
                                                         <h2 class="entry-title" itemprop="title">
-                                                            <a itemprop="url" (click)="goToEventDetail(events.event_id,events.event_title)" title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a>
+                                                            <a itemprop="name" (click)="goToEventDetail(events.event_id,events.event_title)" title="{{events.event_title}}" getCurrentOrderArr>{{events.event_title}}</a>
                                                         </h2>
                                                         <div class="listing_rating">
                                                             <div class="directory_rating_row">
@@ -75,7 +75,7 @@
 
                                                     <!-- Entry details start -->
                                                     <div class="entry-details">
-                                                        <p  *ngIf = "getToken" class="address" itemprop="address">{{events.location}}</p>
+                                                        <p  *ngIf = "getToken" class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">{{events.location}}</p>
                                                         <p><i class="fa fa-building-o new_icon"></i> {{events.city_name}}, {{events.state_name}},  {{events.country_name}}    </p>
                                                         <p class="event_date">
                                                             <span>
@@ -164,7 +164,7 @@
                                                         </span>
                                                         <h2 class="entry-title">
 
-                                                            <a itemprop="url" (click)="goToEventDetail(list_event.event_id,list_event.event_title)" title="{{list_event.event_title}}" rel="bookmark">{{list_event.event_title}}</a></h2>
+                                                            <a itemprop="name" (click)="goToEventDetail(list_event.event_id,list_event.event_title)" title="{{list_event.event_title}}" getCurrentOrderArr>{{list_event.event_title}}</a></h2>
 
                                                         <div class="listing_rating">
                                                             <div class="directory_rating_row">
@@ -179,7 +179,7 @@
 
                                                     <!-- Entry details start -->
                                                     <div class="entry-details">
-                                                        <p class="address" itemprop="address" *ngIf = "getToken">{{list_event.location}}</p>
+                                                        <p class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" *ngIf = "getToken">{{list_event.location}}</p>
                                                          <p><i class="fa fa-building-o new_icon"></i>
                                                         {{list_event.city_name}},                      {{list_event.state_name}},  
                                                          {{list_event.country_name}}                
@@ -305,7 +305,7 @@
                                                         </span>
                                                         <h2 class="entry-title">
 
-                                                            <a itemprop="url" (click)="goToEventDetail(upcomingevents.event_id,upcomingevents.event_title)" title="{{upcomingevents.event_title}}" rel="bookmark">{{upcomingevents.event_title}}</a></h2>
+                                                            <a itemprop="name" (click)="goToEventDetail(upcomingevents.event_id,upcomingevents.event_title)" title="{{upcomingevents.event_title}}" getCurrentOrderArr>{{upcomingevents.event_title}}</a></h2>
 
                                                         <div class="listing_rating">
                                                             <div class="directory_rating_row">
@@ -321,7 +321,7 @@
                                                     <!-- Entry details start -->
                                                     <div class="entry-details">
 
-                                                        <p class="address" itemprop="address" *ngIf = "getToken">{{upcomingevents.location}}</p>
+                                                        <p class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" *ngIf = "getToken">{{upcomingevents.location}}</p>
                                                         <p><i class="fa fa-building-o new_icon"></i>
                                                         {{upcomingevents.city_name}},                      {{upcomingevents.state_name}},  
                                                          {{upcomingevents.country_name}}                

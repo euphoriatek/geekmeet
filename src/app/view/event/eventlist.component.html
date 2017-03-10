@@ -36,12 +36,18 @@
             <section *ngIf="gridview" id="loop_event_taxonomy" class="search_result_listing grid" style="display: block;">
             <h4 style="text-align: center;">{{showData}}</h4>
                 <article id="event_27121" class="post" *ngFor = "let events of eventArr | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: total}">
-                    <div class="listing_img">
+                    <div class="listing_img" *ngIf="events.title==isNoImage">
                         <a (click)="goToEventDetail(events.event_id,events.event_title)" > 
                             <img src="{{events.featured_image}}" alt="image" title="{{events.event_title}}">
                         </a>
-
                     </div>
+
+                    <div class="listing_img" *ngIf="events.title!=isNoImage" itemprop="image">
+                        <a (click)="goToEventDetail(events.event_id,events.event_title)" > 
+                            <img src="{{events.featured_image}}" alt="{{events.event_title}}" title="{{events.event_title}}">
+                        </a>
+                    </div>
+
                     <!-- Entry Start -->
                     <div class="entry">
                         <div class="event-wrapper"> 
@@ -52,7 +58,7 @@
                                         {{events.start_date}}			<span></span>
                                     </span>
                                     <h2 class="entry-title">
-                                        <a itemprop="url" (click)="goToEventDetail(events.event_id,events.event_title)"  title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a>
+                                        <a itemprop="name" (click)="goToEventDetail(events.event_id,events.event_title)"  title="{{events.event_title}}" getCurrentOrderArr>{{events.event_title}}</a>
                                     </h2>
                                     <div class="listing_rating">
                                         <div class="directory_rating_row">
@@ -68,7 +74,7 @@
 
                                 <!-- Entry details start -->
                                 <div class="entry-details">
-                                    <p  *ngIf = "getToken" class="address" itemprop="address">{{events.location}}</p>
+                                    <p  *ngIf = "getToken" class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">{{events.location}}</p>
                                      <p><i class="fa fa-building-o new_icon"></i>
                                                         {{events.city_name}},                      {{events.state_name}},  
                                                          {{events.country_name}}                
@@ -158,7 +164,7 @@
                                                         </span>
                                                         <h2 class="entry-title">
                                                             
-                                                             <a itemprop="url" (click)="goToEventDetail(events.event_id,events.event_title)"  title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a></h2>
+                                                             <a itemprop="name" (click)="goToEventDetail(events.event_id,events.event_title)"  title="{{events.event_title}}" getCurrentOrderArr>{{events.event_title}}</a></h2>
 
                                                        <div class="listing_rating">
                                         <div class="directory_rating_row">
@@ -174,7 +180,7 @@
 
                                                     <!-- Entry details start -->
                                                     <div class="entry-details">
-                                                         <p  *ngIf = "getToken" class="address" itemprop="address">{{events.location}}</p>
+                                                         <p  *ngIf = "getToken" class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">{{events.location}}</p>
                                                              <p><i class="fa fa-building-o new_icon"></i>
                                                         {{events.city_name}},                      {{events.state_name}},  
                                                          {{events.country_name}}                

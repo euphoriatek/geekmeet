@@ -56,7 +56,7 @@
                                 <li *ngFor="let org_err of errors['end_time']">{{org_err}}</li>    
                             </ul>  
                     </div>
-                    <div class="form_row clearfix" itemprop="url">
+                    <div class="form_row clearfix" itemprop="name">
                         <label>Website<span class="indicates">*</span></label>
                         <input type="url" [(ngModel)]="showEventArr.website" name="website" id="website" value="" class="form-control textfield" > 
                         <ul class="error" *ngIf="errors['website']!=''" >
@@ -85,7 +85,7 @@
                             <app-organization-add></app-organization-add>                
                     </div>
                     <div class="form_row clearfix" itemprop="location">
-                        <label>Location<span class="indicates">*</span></label>
+                        <label>Venue<span class="indicates">*</span></label>
                         <div style="width: 350px; float: left;">
                         <ng-select name="locationList" (data)="location"                                                       
                             [items]="venueList"

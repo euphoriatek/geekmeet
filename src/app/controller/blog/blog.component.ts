@@ -20,9 +20,11 @@ export class BlogComponent implements OnInit {
   page:any = 1;
   empty_data:any =false;
   showCityDropdown:any=false;
+  isNoImage:any;
 	constructor(private loadingSvc: LoadingAnimateService,private router:Router,private route: ActivatedRoute, public apiService:ApiMethodService) { }
 
   ngOnInit() {
+    this.isNoImage = 'no-image-available.jpg';
   
     this.route.params.subscribe((param) => {
   

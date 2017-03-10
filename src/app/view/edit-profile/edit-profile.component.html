@@ -45,7 +45,7 @@
                             <li *ngFor="let org_err of errors['last_name']">{{org_err}}</li>    
                         </ul>  
                     </div>
-                    <div class="form_row clearfix" itemprop="address">
+                    <div class="form_row clearfix" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
                         <label>Address <span class="indicates"></span></label>
                         <textarea class="textfield" name="address" [(ngModel)]="userInfoArr.address" style="height: 100px"></textarea>
                         <ul class="error" *ngIf="errors['address']!=''" >

@@ -8,7 +8,7 @@
                     <a [routerLink]="['/']" title="home" rel="home" class="trail-begin">Home</a>
                 </span> 
                 <span class="sep">»</span> <span class="trail-end">
-                <a [routerLink]="['/event']" itemprop="url" title="Events"> Events</a>
+                <a [routerLink]="['/event']" itemprop="name" title="Events"> Events</a>
             </span><span class="sep">»</span> <span class="trail-end">{{showHeader}}</span>
         </div>
     </div>
@@ -88,7 +88,7 @@
                                         {{events.start_date}}			<span></span>
                                     </span>
                                     <h2 class="entry-title">
-                                        <a itemprop="url" href="" [routerLink]="['/event_detail',events.event_id]" title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a>
+                                        <a itemprop="name" href="" [routerLink]="['/event_detail',events.event_id]" title="{{events.event_title}}" getCurrentOrderArr>{{events.event_title}}</a>
                                     </h2>
                                     <div class="listing_rating">
                                         <div class="directory_rating_row">
@@ -163,7 +163,7 @@
                                                         </span>
                                                         <h2 class="entry-title">
                                                             
-                                                             <a itemprop="url" [routerLink]="['/event_detail']" title="{{events.event_title}}" rel="bookmark">{{events.event_title}}</a></h2>
+                                                             <a itemprop="name" [routerLink]="['/event_detail']" title="{{events.event_title}}" getCurrentOrderArr>{{events.event_title}}</a></h2>
 
                                                         <div class="listing_rating">
                                                             <div class="directory_rating_row"><span class="single_rating"> <i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i><i class="rating-on"></i> </span></div>

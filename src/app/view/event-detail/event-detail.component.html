@@ -22,8 +22,23 @@
                         <div class="entry-header-title">
                             <h1 itemprop="name" class="entry-title ">{{data.event_data.event_title}}</h1>
                             <div class="event_rating">
-                                <div class="event_rating_row"> <span><a href="javascript:void(0)">{{data.review.review_count}}  Reviews</a></span> 
-                                <div style="float:right"> 
+                                <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" class="event_rating_row"> <span><a href="javascript:void(0)">{{data.review.review_count}}  Reviews</a></span> 
+                                <div style="float:right" *ngIf="data.event_data.rating==1">
+                                 <meta itemprop="worstRating" content = "1"> 
+                                 <rating [(ngModel)]="data.event_data.rating"
+                                 [readonly]="true" [float]="true">
+                                 </rating>
+                                 </div>
+
+                                 <div style="float:right" *ngIf="data.event_data.rating==3">
+                                 <meta itemprop="ratingValue" content = "3"> 
+                                 <rating [(ngModel)]="data.event_data.rating"
+                                 [readonly]="true" [float]="true">
+                                 </rating>
+                                 </div>
+
+                                 <div style="float:right" *ngIf="data.event_data.rating==5">
+                                 <meta itemprop="bestRating" content = "5"> 
                                  <rating [(ngModel)]="data.event_data.rating"
                                  [readonly]="true" [float]="true">
                                  </rating>
@@ -41,7 +56,7 @@
                                     <ul class="slides" style="width: 1800%;">
                                     <li class="flex-active-slide" style="width: 60px; float: left; display: block;" *ngFor = "let silder_image of data.event_data.slider_image">
                                             <a href="javascript:void(0)" title="{{silder_image.image_title}}">        
-                                                <img itemprop="image" src="{{silder_image.image_url}}" alt="event-(13)" draggable="false">
+                                                <img itemprop="image" src="{{silder_image.image_url}}" alt="{{data.event_data.event_title}}" draggable="false">
                                             </a>
                                         </li>
                                 </ul>
@@ -219,7 +234,7 @@
                                 </p>
                                 <p class="address" *ngIf="data.event_data.organization_location!=''">
                                     <label>Address:</label>
-                                    <span itemprop="address" class="label_data frontend_organizer_address">{{data.event_data.organization_location}}</span>
+                                    <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" class="label_data frontend_organizer_address">{{data.event_data.organization_location}}</span>
                                 </p>
                                 
                                 <p class="phone" *ngIf="data.event_data.organization_contact!=''">
@@ -610,7 +625,7 @@
                         <!--start post type title -->
                         <div class="event-wrapper">
                             <div class="event-title">
-                                <h2 class="entry-title"><a itemprop="url" (click)="gotoPage(related_events.event_id,related_events.event_title)" title="{{related_events.event_title}}">{{related_events.event_title}}</a></h2>
+                                <h2 class="entry-title"><a itemprop="name" (click)="gotoPage(related_events.event_id,related_events.event_title)" title="{{related_events.event_title}}">{{related_events.event_title}}</a></h2>
                                <div class="listing_rating">
                                                             <div class="directory_rating_row">
                                                                 <span class="single_rating"> 

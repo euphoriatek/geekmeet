@@ -34,11 +34,13 @@ export class EventListComponent implements OnInit{
   venue:any;
   organization:any;
   searchByText:any;
+  isNoImage:any;
 
 
   
   constructor(private loadingSvc: LoadingAnimateService,private router:Router,private route: ActivatedRoute,private toastyConfig: ToastyConfig, public apiService:ApiMethodService,private toastyService:ToastyService) { 
     this.toastyConfig.theme = 'bootstrap';
+    this.isNoImage = 'default.jpg';
   }
 
   ngOnInit() {

@@ -1,11 +1,11 @@
 <!-- <app-header></app-header> -->
-<section id="main" class="clearfix" itemscope>
+<section id="main" class="clearfix" itemscope itemtype="http://schema.org/BlogPosting">
     <div class="wrap row">
 
         <div class="breadcrumb breadcrumbs columns">
             <div class="breadcrumb-trail">
                 <span class="trail-begin">
-                    <a itemprop="url" [routerLink]="['/']" title="GeekMeet" rel="home" class="trail-begin">Home</a></span> <span class="sep">»</span> 
+                    <a itemprop="name" [routerLink]="['/']" title="GeekMeet" rel="home" class="trail-begin">Home</a></span> <span class="sep">»</span> 
                 <span>Blog</span>
                 <span class="sep">»</span> 
                 <span *ngIf="category!=''">{{category}}</span>
@@ -34,27 +34,32 @@
 
                 <!-- article start -->
                 <div class="post" *ngFor = "let blog of blogArr  | paginate: { id: 'server',  itemsPerPage: per_page, currentPage: currentPage, totalItems: Total}">
-                    <div class="listing_img">
+                    <div class="listing_img" itemprop="image" *ngIf = "blog.title!=isNoImage">
+                        <img src="{{blog.thumb}}" itemprop="image" alt="{{blog.blog_title}}" style="height: 170px;">
+                    </div>
+                    <div class="listing_img"  *ngIf = "blog.title==isNoImage">
                         <img src="{{blog.thumb}}" alt="image" style="height: 170px;">
-                        
                     </div>
                     <div class="entry-header">
-                        <h2 class="entry-title">
-                            <a itemprop="url" (click)="goToBlogDetail(blog.blog_id,blog.blog_title)"   title="" rel="bookmark">{{blog.blog_title}}</a>
+                        <h2 class="entry-title" itemprop="about">
+                            <a itemprop="name" (click)="goToBlogDetail(blog.blog_id,blog.blog_title)"   title="">{{blog.blog_title}}</a>
                         </h2>
                         <div class="byline"> 
                             <!--<span class="author vcard">Author
-                                <a class="url fn n"  title="Smith">{{blog.author}}</a>
+                                <a class="url fn n"  >{{blog.author}}</a><abbr class="published">{{blog.create_date}}</abbr> 
                             </span>-->
                             Published by 
-                            <span class="author vcard">
-                                <a class="url fn n"  title="Smith">{{blog.username}}</a>
+                            <span class="author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                                <a itemprop="name" class="url fn n"  >{{blog.author}}</a>
                             </span> On 
-                            <abbr class="published" title="{{blog.create_date}}">{{blog.create_date}}</abbr> 
+                            <span class="author vcard" itemprop="dateCreated" content="2016-10-31">
+                                <a itemprop="name" class="url fn n"  >{{blog.create_date}}</a>
+                            </span>
+                            
                           
                         </div>			
                         <p class="entry-summary" [innerHTML]="blog.blog_content"></p>
-                        <a itemprop="url" *ngIf="blog.read_more==1" (click)="goToBlogDetail(blog.blog_id,blog.blog_title)" >Read More</a> 				  
+                        <a itemprop="name" *ngIf="blog.read_more==1" (click)="goToBlogDetail(blog.blog_id,blog.blog_title)" >Read More</a> 				  
                         
                         <!-- .entry-summary -->
 
