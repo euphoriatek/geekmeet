@@ -79,8 +79,8 @@
                                                         <p><i class="fa fa-building-o new_icon"></i> {{events.city_name}}, {{events.state_name}},  {{events.country_name}}    </p>
                                                         <p class="event_date">
                                                             <span>
-                                                                <span itemprop="startDate" content="2014-07-08T22:00">{{events.start_date}}</span>
-                                                                To <span itemprop="endDate" content="2019-07-08T23:30">{{events.end_date}}</span>
+                                                                <span itemprop="startDate">{{events.start_date}}</span>
+                                                                To <span itemprop="endDate">{{events.end_date}}</span>
                                                             </span>
                                                         </p>
                                                         <p class="time">
@@ -186,14 +186,14 @@
                                                          </p>
                                                         <p class="event_date">
                                                             <span>
-                                                                <span itemprop="startDate" content="2014-07-08T15:30"> {{list_event.start_date}}</span>
-                                                                To <span itemprop="endDate" content="2019-07-08T17:30"> {{list_event.end_date}}</span>
+                                                                <span itemprop="startDate"> {{list_event.start_date}}</span>
+                                                                To <span itemprop="endDate"> {{list_event.end_date}}</span>
                                                             </span>
                                                         </p>
                                                         <p class="time">
                                                             <span>
-                                                                <span itemprop="startDate" content="2014-07-08T22:00">{{list_event.start_time}}</span>
-                                                                To <span itemprop="endDate" content="2019-07-08T23:30">{{list_event.end_time}}</span>
+                                                                <span itemprop="startDate">{{list_event.start_time}}</span>
+                                                                To <span itemprop="endDate">{{list_event.end_time}}</span>
                                                             </span>
                                                         </p>
                                                         <span *ngIf = "getToken">
@@ -328,14 +328,14 @@
                                                          </p>
                                                         <p class="event_date">
                                                             <span>
-                                                                <span itemprop="startDate" content="2014-07-08T15:30"> {{upcomingevents.start_date}}</span>
-                                                                To <span itemprop="endDate" content="2019-07-08T17:30"> {{upcomingevents.end_date}}</span>
+                                                                <span itemprop="startDate"> {{upcomingevents.start_date}}</span>
+                                                                To <span itemprop="endDate"> {{upcomingevents.end_date}}</span>
                                                             </span>
                                                         </p>
                                                         <p class="time">
                                                             <span>
-                                                                <span itemprop="startDate" content="2014-07-08T22:00">{{upcomingevents.start_time}}</span>
-                                                                To <span itemprop="endDate" content="2019-07-08T23:30">{{upcomingevents.end_time}}</span>
+                                                                <span itemprop="startDate" >{{upcomingevents.start_time}}</span>
+                                                                To <span itemprop="endDate">{{upcomingevents.end_time}}</span>
                                                             </span>
                                                         </p>
                                                         <span *ngIf = "getToken">
